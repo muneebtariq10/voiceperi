@@ -22,6 +22,6 @@ jobs:
             cd ~/voiceperi
             git pull origin main
             cd backend
-            pnpm install --frozen-lockfile
+            pnpm install --no-frozen-lockfile
             pnpm build
             pm2 startOrRestart ecosystem.config.js --update-env
