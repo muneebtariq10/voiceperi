@@ -25,8 +25,14 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'https://dev.voiceperi.com',
+    ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+  ];
+
   app.enableCors({
-    origin: ['http://localhost:5173', 'https://dev.voiceperi.com'],
+    origin: allowedOrigins,
     methods: 'GET,POST,PUT,DELETE,PATCH',
     credentials: true,
   });
