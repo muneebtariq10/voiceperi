@@ -44,9 +44,10 @@ import { SqlController } from './sql/sql.controller';
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_NAME'),
           entities: [join(__dirname, 'entities', '*.{ts,js}')],
-          synchronize: true,     // Enable in development only
+          synchronize: true,
           logging: true,
           logger: 'advanced-console',
+          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
         };
       },
     }),
