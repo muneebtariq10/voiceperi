@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import "./App.css";
 import Dashboard from "./dashboard/Dashboard";
 import Home from "./pages/Home";
@@ -30,42 +31,25 @@ import Unauthorized from "./components/unauthorized";
 import UserRoute from "./components/userRoutes";
 import PromptEditor from "./components/PromptEditor";
 function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const tokenFromURL = urlParams.get("token");
-  const isImpersonatingURL = urlParams.get("impersonating") === "true";
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromURL = urlParams.get("token");
+    const isImpersonatingURL = urlParams.get("impersonating") === "true";
 
-  if (
-    tokenFromURL &&
-    isImpersonatingURL &&
-    !sessionStorage.getItem("authToken")
-  ) {
-    sessionStorage.setItem("authToken", tokenFromURL);
-
-    if (isImpersonatingURL) {
+    if (tokenFromURL && isImpersonatingURL && !sessionStorage.getItem("authToken")) {
+      sessionStorage.setItem("authToken", tokenFromURL);
       sessionStorage.setItem("isImpersonating", "true");
+      urlParams.delete("token");
+      const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams}` : ""}`;
+      window.history.replaceState({}, "", newUrl);
+      window.location.reload(); // Force reload to ensure Router picks up the new state
+    } else if (tokenFromURL && !isImpersonatingURL) {
+      localStorage.setItem("authToken", tokenFromURL);
+      const newUrl = `${window.location.pathname}`;
+      window.history.replaceState({}, "", newUrl);
+      // Removed window.location.reload() to prevent login loop and rely on React Router
     }
-    urlParams.delete("token");
-    const newUrl = `${window.location.pathname}${
-      urlParams.toString() ? `?${urlParams}` : ""
-    }`;
-    window.history.replaceState({}, "", newUrl);
-  } else if (tokenFromURL && !isImpersonatingURL) {
-    console.log(
-      "Setting auth token from URL",
-      tokenFromURL,
-      window.location.pathname
-    );
-
-    localStorage.setItem("authToken", tokenFromURL);
-    console.log(
-      "Setting auth token in localStorage",
-      localStorage.getItem("authToken")
-    );
-
-    // urlParams.delete("token");
-    const newUrl = `${window.location.pathname}`;
-    window.history.replaceState({}, "", newUrl);
-  }
+  }, []);
   // if (isImpersonatingURL) {
   //   sessionStorage.setItem("isImpersonating", "true");
   // } else {

@@ -74,12 +74,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "/dashboard/callHistory",
         icon: PhoneCall,
       },
+      /* Temporarily hiding Integrations
       {
         title: "Integrations",
         url: "/dashboard/integrations",
         icon: LayoutDashboard,
         show: user?.role === "user",
       },
+      */
 
       ...(user?.role === "admin"
         ? [
@@ -95,12 +97,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               icon: Logs,
               show: true,
             },
+            /* Temporarily hiding Plans
             {
               title: "Plans",
               url: "/dashboard/plans",
               icon: SwatchBook,
               show: true,
             },
+            */
             {
               title: "Prompt",
               url: "/dashboard/prompt",

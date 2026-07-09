@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -88,11 +87,13 @@ export class AuthController {
   async forgotPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
     const { email } = forgetPasswordDto;
     const user = await this.userRepository.findOne({ where: { email } });
-    if (!user) {
-      throw new UnauthorizedException('User not found');
+    
+    if (user) {
+      await this.mailService.sendResetPasswordEmail(email);
     }
-    await this.mailService.sendResetPasswordEmail(email);
-    return { message: 'Reset password email sent successfully.' };
+    
+    // Always return success to prevent email enumeration
+    return { message: 'If an account with that email exists, we sent a password reset link.' };
   }
 
   @Public()

@@ -158,8 +158,9 @@ export const Step1 = ({
           >
             <SelectTrigger
               className={`w-full  ${errors.language ? "border-red-500" : ""}`}
+              disabled={!languages || languages.length === 0}
             >
-              <SelectValue placeholder="Language" />
+              <SelectValue placeholder={!languages || languages.length === 0 ? "Loading languages..." : "Language"} />
             </SelectTrigger>
             <SelectContent>
               {languages?.map((language) => {
@@ -209,8 +210,9 @@ export const Step1 = ({
                   className={`w-full  ${
                     errors.voice_tone ? "border-red-500" : ""
                   }`}
+                  disabled={!step1Data?.language}
                 >
-                  <SelectValue placeholder="Voice & Tone" />
+                  <SelectValue placeholder={!step1Data?.language ? "Select a language first" : "Voice & Tone"} />
                 </SelectTrigger>
                 <SelectContent>
                   {voices

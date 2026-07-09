@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnApplicationBootstrap } from '@nestjs/common';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
 import { HttpService } from '@nestjs/axios';
@@ -35,7 +35,7 @@ export interface PlaceDetailsResult {
   [key: string]: any;
 }
 @Injectable()
-export class AgentsService {
+export class AgentsService implements OnApplicationBootstrap {
   constructor(
     @InjectRepository(Agent) private agentRepo: Repository<Agent>,
     @InjectRepository(Language) private languageRepo: Repository<Language>,
@@ -44,7 +44,26 @@ export class AgentsService {
     private readonly businessInfosService: BusinessinfosService,
     private readonly usersService: UsersService,
     private readonly httpService: HttpService,
-  ) {}
+  ) { }
+
+  async onApplicationBootstrap() {
+    console.log('Checking languages table for initial seed...');
+    const languageCount = await this.languageRepo.count();
+    if (languageCount === 0) {
+      console.log('Languages table is empty. Seeding data...');
+      const languagesToSeed = [
+        { code: 'en', name: 'English', locale: 'en-US', direction: 'ltr' as const, status: true },
+        { code: 'es', name: 'Spanish', locale: 'es-ES', direction: 'ltr' as const, status: true },
+      ];
+      for (const lang of languagesToSeed) {
+        const newLang = this.languageRepo.create(lang);
+        await this.languageRepo.save(newLang);
+      }
+      console.log('Language seeding complete.');
+    } else {
+      console.log(`Languages table already contains ${languageCount} entries.`);
+    }
+  }
 
   // private async createRetellAgent(
   //   createAgentDto: CreateAgentDto,
@@ -336,20 +355,20 @@ export class AgentsService {
 
     const questionSection = questions.length
       ? questions
-          .map(
-            (q, i) =>
-              `- Politely ask question ${i + 1}: ${q}, if incomplete or unclear, ask again.`,
-          )
-          .join('\n') + '\n\n'
+        .map(
+          (q, i) =>
+            `- Politely ask question ${i + 1}: ${q}, if incomplete or unclear, ask again.`,
+        )
+        .join('\n') + '\n\n'
       : '';
 
     const postCallFields = questions.length
       ? questions
-          .map(
-            (_, i) =>
-              `- \`custom_var_${i + 1}\`: Captured response of question ${i + 1}`,
-          )
-          .join('\n')
+        .map(
+          (_, i) =>
+            `- \`custom_var_${i + 1}\`: Captured response of question ${i + 1}`,
+        )
+        .join('\n')
       : '';
 
     const vars: Record<string, string> = {
@@ -365,8 +384,8 @@ export class AgentsService {
         ? formattedServices.length === 1
           ? formattedServices[0]
           : formattedServices.slice(0, -1).join(', ') +
-            ' and ' +
-            formattedServices.slice(-1)
+          ' and ' +
+          formattedServices.slice(-1)
         : '',
 
       question_section: questionSection,
@@ -397,19 +416,63 @@ export class AgentsService {
       variables,
     );
 
+    const user = await this.usersService.findOneById(createAgentDto.user_id.toString());
+    const tools: any[] = [
+      {
+        type: 'end_call',
+        name: 'end_call',
+        description: 'End the call with the user.',
+      },
+    ];
+
+    if (createAgentDto.phone_numbers && createAgentDto.phone_numbers.length > 0) {
+      tools.push({
+        type: 'transfer_call',
+        name: 'transfer_call',
+        description: 'Transfer the call to a human agent.',
+        transfer_destination: {
+          type: "predefined",
+          number: createAgentDto.phone_numbers[0],
+          ignore_e164_validation: true
+        },
+        transfer_option: {
+          type: "cold_transfer"
+        }
+      });
+    } else if (businessInfo.phone) {
+      tools.push({
+        type: 'transfer_call',
+        name: 'transfer_call',
+        description: 'Transfer the call to a human agent.',
+        transfer_destination: {
+          type: "predefined",
+          number: businessInfo.phone,
+          ignore_e164_validation: true
+        },
+        transfer_option: {
+          type: "cold_transfer"
+        }
+      });
+    }
+
+    if (user && user.cal_key && user.event_id) {
+      tools.push({
+        type: 'book_appointment_cal',
+        name: 'book_appointment',
+        description: 'Book an appointment for the user',
+        cal_api_key: user.cal_key,
+        event_type_id: parseInt(user.event_id, 10),
+        timezone: businessInfo.timezone || 'America/New_York'
+      });
+    }
+
     const llmResponse = await firstValueFrom(
       this.httpService.post(
         `${process.env.RETELL_AI_API_URL}create-retell-llm`,
         {
           model: 'gpt-4o-mini',
           general_prompt: prompt,
-          general_tools: [
-            {
-              type: 'end_call',
-              name: 'end_call',
-              description: 'End the call with the user.',
-            },
-          ],
+          general_tools: tools,
         },
         {
           headers: {
@@ -444,7 +507,7 @@ export class AgentsService {
         payload,
         {
           headers: {
-            Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+            Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
           },
         },
       ),
@@ -715,13 +778,64 @@ export class AgentsService {
 
     console.log('📄 Final Prompt Being Sent:\n', prompt);
 
+    const user = await this.usersService.findOne(user_id.toString());
+    const tools: any[] = [
+      {
+        type: 'end_call',
+        name: 'end_call',
+        description: 'End the call with the user.',
+      },
+    ];
+
+    if (agent.phone_numbers && agent.phone_numbers.length > 0) {
+      tools.push({
+        type: 'transfer_call',
+        name: 'transfer_call',
+        description: 'Transfer the call to a human agent.',
+        transfer_destination: {
+          type: "predefined",
+          number: agent.phone_numbers[0],
+          ignore_e164_validation: true
+        },
+        transfer_option: {
+          type: "cold_transfer"
+        }
+      });
+    } else if (businessInfo.phone) {
+      tools.push({
+        type: 'transfer_call',
+        name: 'transfer_call',
+        description: 'Transfer the call to a human agent.',
+        transfer_destination: {
+          type: "predefined",
+          number: businessInfo.phone,
+          ignore_e164_validation: true
+        },
+        transfer_option: {
+          type: "cold_transfer"
+        }
+      });
+    }
+
+    if (user && user.cal_key && user.event_id) {
+      tools.push({
+        type: 'book_appointment_cal',
+        name: 'book_appointment',
+        description: 'Book an appointment for the user',
+        cal_api_key: user.cal_key,
+        event_type_id: parseInt(user.event_id, 10),
+        timezone: businessInfo.timezone || 'America/New_York'
+      });
+    }
+
     // 🚀 Step 5: Send PATCH request to update LLM
     const body: Record<string, any> = {
       general_prompt: prompt,
+      general_tools: tools,
     };
 
     if (agent.message) {
-      body.message = agent.message;
+      body.begin_message = agent.message;
     }
 
     const updateRes = await firstValueFrom(
@@ -781,7 +895,7 @@ export class AgentsService {
         foundLanguage?.code || 'en',
       );
 
-      await this.businessInfosService.update(businessInfo.id, {}, businessData);
+      await this.businessInfosService.update(businessInfo.id, {}, businessData || undefined);
       console.log('📦 Business services:', businessInfo.services);
 
       if (!foundLanguage)
@@ -816,6 +930,11 @@ export class AgentsService {
       payload.hangup_if_call_detected = updateAgentDto.hangup_if_call_detected;
     if (updateAgentDto.block_800_number !== undefined)
       payload.block_800_number = updateAgentDto.block_800_number;
+
+    if (process.env.RETELL_WEBHOOK_URL) {
+      payload.webhook_url = process.env.RETELL_WEBHOOK_URL;
+    }
+
     payload.post_call_analysis_data = [
       // {
       //   type: 'string',
@@ -911,12 +1030,102 @@ export class AgentsService {
     return `This action removes a #${id} agent`;
   }
 
+  async createWebCall(agent_id: string) {
+    const agent = await this.agentRepo.findOne({
+      where: { id: agent_id },
+    });
+
+    if (!agent || !agent.retell_agent) {
+      throw new NotFoundException(`Agent not found or has no Retell ID`);
+    }
+
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(
+          `${process.env.RETELL_AI_API_URL}v2/create-web-call`,
+          { agent_id: agent.retell_agent },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+            },
+          }
+        )
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error creating web call:', error?.response?.data || error.message);
+      throw new Error('Failed to create web call token');
+    }
+  }
+
+  async purchaseNumber(agent_id: string) {
+    const agent = await this.agentRepo.findOne({
+      where: { id: agent_id },
+    });
+
+    if (!agent || !agent.retell_agent) {
+      throw new NotFoundException(`Agent not found or has no Retell ID`);
+    }
+
+    try {
+      // First, fetch the current user's profile to get area code preference if any
+      // but for now, we'll let Retell pick a random available number or default to US
+      const response = await firstValueFrom(
+        this.httpService.post(
+          `${process.env.RETELL_AI_API_URL}create-phone-number`,
+          { inbound_agent_id: agent.retell_agent },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+            },
+          }
+        )
+      );
+
+      const phoneNumber = response.data.phone_number;
+      if (phoneNumber) {
+        agent.phone_numbers = [phoneNumber];
+        await this.agentRepo.save(agent);
+        return { success: true, phone_number: phoneNumber };
+      }
+
+      throw new Error('Failed to parse phone number from response');
+    } catch (error) {
+      console.error('Error purchasing phone number:', error?.response?.data || error.message);
+      throw new Error(error?.response?.data?.message || 'Failed to purchase phone number. Please check your Retell AI account billing balance.');
+    }
+  }
+
   voices(): Observable<any> {
+    if (!process.env.RETELL_API_KEY) {
+      // Fallback: return the specific ElevenLabs voices used by the frontend
+      const fallbackVoices = [
+        { voice_id: '11labs-Andrew', voice_name: 'Andrew', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Young', preview_audio_url: '' },
+        { voice_id: '11labs-Steve', voice_name: 'Steve', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Middle-aged', preview_audio_url: '' },
+        { voice_id: '11labs-Paul', voice_name: 'Paul', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Middle-aged', preview_audio_url: '' },
+        { voice_id: '11labs-Chloe', voice_name: 'Chloe', provider: 'elevenlabs', accent: 'American', gender: 'female', age: 'Young', preview_audio_url: '' },
+        { voice_id: '11labs-Marissa', voice_name: 'Marissa', provider: 'elevenlabs', accent: 'American', gender: 'female', age: 'Young', preview_audio_url: '' },
+        { voice_id: '11labs-Zuri', voice_name: 'Zuri', provider: 'elevenlabs', accent: 'American', gender: 'female', age: 'Young', preview_audio_url: '' },
+        { voice_id: '11labs-Gilfoy', voice_name: 'Gilfoy', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Middle-aged', preview_audio_url: '' },
+        { voice_id: '11labs-Brian', voice_name: 'Brian', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Middle-aged', preview_audio_url: '' },
+        { voice_id: '11labs-Santiago', voice_name: 'Santiago', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Young', preview_audio_url: '' },
+        { voice_id: '11labs-Susan', voice_name: 'Susan', provider: 'elevenlabs', accent: 'American', gender: 'female', age: 'Middle-aged', preview_audio_url: '' },
+        { voice_id: '11labs-Evie', voice_name: 'Evie', provider: 'elevenlabs', accent: 'American', gender: 'female', age: 'Young', preview_audio_url: '' },
+        { voice_id: '11labs-Paola', voice_name: 'Paola', provider: 'elevenlabs', accent: 'American', gender: 'female', age: 'Young', preview_audio_url: '' },
+      ];
+      return new Observable((subscriber) => {
+        subscriber.next(fallbackVoices);
+        subscriber.complete();
+      });
+    }
+
     return this.httpService
       .get(`${process.env.RETELL_AI_API_URL}list-voices`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+          Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
         },
       })
       .pipe(map((response) => response.data));

@@ -56,7 +56,7 @@ const Integrations = () => {
         console.error("Failed to decode token:", error);
       }
     }
-  }, []);
+  }, [API_URL, token]);
 
   console.log("userInfo", userInfo);
 

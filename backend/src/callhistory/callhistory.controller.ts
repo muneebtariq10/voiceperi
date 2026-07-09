@@ -15,7 +15,6 @@ export class CallHistoryController {
     private readonly agentsService: AgentsService,
   ) {}
 
-  @Public()
   @Get('/refresh')
   async getCallHistory() {
     const response = await this.callHistoryService.historyAndSave();
@@ -28,7 +27,6 @@ export class CallHistoryController {
     return response;
   }
 
-  @Public()
   @Get('/business')
   async getCallSummary(
     @Query('userId') userId: string,
@@ -37,7 +35,6 @@ export class CallHistoryController {
     return await this.callHistoryService.getAllStats(userId, date);
   }
 
-  @Public()
   @Get()
   async getAllCallHistory(@Query('id') userId?: string) {
     console.log(userId, 'here is user id ');

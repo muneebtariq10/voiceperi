@@ -1,6 +1,6 @@
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { AlertCircle, CircleX } from "lucide-react";
+import { AlertCircle, CircleX, Phone, PhoneForwarded, Copy, Check, Info } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import TooltipWrapper from "./TooltipWrapper";
 import AudioPlayer1 from "./audio1";
-// import AudioProgressBar from "./audioProgressBar";
+import { RetellWebClient } from "retell-client-js-sdk";
 // import { Card, CardContent } from "./ui/card";
 interface VoiceAgentSettingsProps {
   languages: any;
@@ -56,13 +56,18 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
   const [blockedNumbers, setBlockedNumbers] = useState<string[]>([]);
   const [blockedInput, setBlockedInput] = useState<string>("");
   const [block800Numbers, setBlock800Numbers] = useState<boolean>(false);
+  const [copiedNumber, setCopiedNumber] = useState<boolean>(false);
+  const [showForwardingGuide, setShowForwardingGuide] = useState<boolean>(false);
   // const [elevenlabsVoices, setElevenlabsVoices] = useState<any[]>([]);
   const [hangupSalesCalls, setHangupSalesCalls] = useState<boolean>(false);
   //const [selectedVoiceId, setSelectedVoiceId] = useState<string | null>(null);
   //const [audioUrl1, setAudioUrl1] = useState<string>("");
   // const [audioUrl2, setAudioUrl2] = useState<string>("");
   console.log("selectedLanguage", selectedLanguage);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isCalling, setIsCalling] = useState<boolean>(false);
+  const [purchasingNumber, setPurchasingNumber] = useState<boolean>(false);
+  const [retellClient, setRetellClient] = useState<RetellWebClient | null>(null);
   console.log("info", businessInfovoice);
   const navigate = useNavigate();
   const handleAddItem = (
@@ -305,18 +310,37 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         block_800_number: block800Numbers,
         hangup_if_call_detected: hangupSalesCalls,
       };
-      const res = await fetch(`${API_URL}api/agents/${userInfo?.sub}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      let res;
+      if (!agent || !agent.id) {
+        res = await fetch(`${API_URL}api/agents`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ ...payload, user_id: userInfo?.sub }),
+        });
+      } else {
+        res = await fetch(`${API_URL}api/agents/${userInfo?.sub}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(payload),
+        });
+      }
 
       if (!res.ok) {
         toast.error("Failed to update voice and language settings");
         throw new Error("Failed to update settings");
       }
+      
+      if (!agent || !agent.id) {
+        const newAgent = await res.json();
+        setAgent(newAgent);
+      }
+      
       await handleUpdateLlm(e);
       toast.success("Settings updated successfully!");
       setLoading(false);
@@ -333,11 +357,95 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     const parts = locale.split("-");
     return parts[1]?.toLowerCase() || "us"; // fallback to 'us' if not found
   }
+  const handleToggleCall = async () => {
+    if (isCalling) {
+      retellClient?.stopCall();
+      setIsCalling(false);
+      return;
+    }
+
+    if (!agent || !agent.id) {
+      toast.error("Please save your agent first before testing!");
+      return;
+    }
+
+    try {
+      toast.loading("Starting call...", { id: "call" });
+      const response = await fetch(`${API_URL}api/agents/web-call/${agent.id}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!response.ok) throw new Error("Failed to get call token");
+      
+      const data = await response.json();
+      await retellClient?.startCall({
+        accessToken: data.access_token
+      });
+      toast.dismiss("call");
+    } catch (e) {
+      toast.dismiss("call");
+      toast.error("Could not start call. Ensure microphone permissions.");
+      console.error(e);
+    }
+  };
+
+  const handlePurchaseNumber = async () => {
+    if (!agent || !agent.id) {
+      toast.error("Please save your agent first");
+      return;
+    }
+    setPurchasingNumber(true);
+    try {
+      const res = await fetch(`${API_URL}api/agents/purchase-number/${agent.id}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to purchase number");
+      setPhoneNumbers([data.phone_number]);
+      toast.success("Phone number purchased successfully!");
+    } catch (e: any) {
+      toast.error(e.message || "Failed to purchase phone number");
+    } finally {
+      setPurchasingNumber(false);
+    }
+  };
+
+  useEffect(() => {
+    const client = new RetellWebClient();
+    setRetellClient(client);
+
+    client.on("call_started", () => {
+      setIsCalling(true);
+      toast.success("Call started");
+    });
+    client.on("call_ended", () => {
+      setIsCalling(false);
+      toast.success("Call ended");
+    });
+    client.on("error", (error) => {
+      setIsCalling(false);
+      toast.error("Call error: " + error);
+    });
+
+    return () => {
+      client.off("call_started");
+      client.off("call_ended");
+      client.off("error");
+    };
+  }, []);
+
   console.log("selectedvoice", selectedVoice);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res3 = await fetch(`${API_URL}api/agents/${userInfo?.sub}`);
+        const res3 = await fetch(`${API_URL}api/agents/${userInfo?.sub}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res3.ok) {
+          setAgent(null);
+          return;
+        }
         const json3 = await res3.json();
         setAgent(json3);
         setAgentName(json3.agent_name || "");
@@ -348,8 +456,8 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         setNotes(json3.notes || []);
         setBlock800Numbers(json3.block_800_number || false);
         setHangupSalesCalls(json3.hangup_if_call_detected || false);
-        setSelectedLanguage(json3.language.id || null);
-        setLanguageCode(json3.language.code || null);
+        setSelectedLanguage(json3.language?.id || json3.language_id || null);
+        setLanguageCode(json3.language?.code || null);
         setSelectedVoice(json3.voice_id || null);
         const userVoiceId = json3.voice_id;
         const matchingVoice = (voices || []).find(
@@ -432,7 +540,6 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </SelectTrigger>
 
             <SelectContent>
-              {/* Show selected language first */}
               {selectedLanguageObj && (
                 <SelectItem
                   key={selectedLanguageObj.id}
@@ -593,95 +700,118 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               />
             </div>
           </div>
-          {/* <div className="flex gap-1 w-full flex-1">
-            <Card className="p-0 rounded-[21.65px]  w-[210px]">
-              <CardContent className=" items-center justify-center p-2 w-full ">
-                <div className="flex items-center px-2 py-1 justify-between">
-                  <AudioProgressBar audioRef={audioRef1 as React.RefObject<HTMLAudioElement>} />
-                  <Button
-                    disabled={!audioUrl1}
-                    onClick={togglePlay1}
-                    className="w-10 h-10 p-0 cursor-pointer rounded-full bg-default-purple hover:bg-[#5a2be0] text-white flex items-center justify-center"
-                  >
-                    {loading ? (
-                      <div role="status">
-                        <svg
-                          aria-hidden="true"
-                          className="w-[28px] h-[28px] text-gray-600 animate-spin fill-[#fff]"
-                          viewBox="0 0 100 101"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="currentColor"
-                          />
-                          <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentFill"
-                          />
-                        </svg>
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      playing1 ? <Pause size={20} /> : <Play size={20} />
-                    )
-                    }
-                  </Button>
-
-                  <audio
-                    ref={audioRef1}
-                    src={audioUrl1 || ""}
-                    onEnded={() => setPlaying1(false)}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="p-0 rounded-[21.65px] w-[210px]">
-              <CardContent className=" items-center justify-center p-2 w-full ">
-                <div className="flex items-center px-2 py-1 justify-between">
-                  <AudioProgressBar audioRef={audioRef2 as React.RefObject<HTMLAudioElement>} />
-                  <Button
-                    disabled={!audioUrl2}
-                    onClick={togglePlay2}
-                    className="w-10 h-10 p-0 cursor-pointer rounded-full bg-default-purple hover:bg-[#5a2be0] text-white flex items-center justify-center"
-                  >
-                    {loading ? (
-                      <div role="status">
-                        <svg
-                          aria-hidden="true"
-                          className="w-[28px] h-[28px] text-gray-600 animate-spin fill-[#fff]"
-                          viewBox="0 0 100 101"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="currentColor"
-                          />
-                          <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentFill"
-                          />
-                        </svg>
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      playing2 ? <Pause size={20} /> : <Play size={20} />
-                    )
-                    }
-                  </Button>
-
-                  <audio
-                    ref={audioRef2}
-                    src={audioUrl2 || ""}
-                    onEnded={() => setPlaying2(false)}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div> */}
         </div>
+
+        <div className="flex flex-col h-full items-start w-full md:col-span-2">
+          <label className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]">
+            <Phone className="w-5 h-5 text-[#5222FF]" />
+            Inbound Phone Number
+            <TooltipWrapper tooltipText="Get an AI phone number, then forward your business line to it so customers call your existing number and the AI answers.">
+              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
+            </TooltipWrapper>
+          </label>
+          <div className="flex flex-col items-start gap-4 w-full">
+            {phoneNumbers && phoneNumbers.length > 0 ? (
+              <div className="flex flex-col gap-4 w-full">
+                {/* Purchased number display */}
+                <div className="flex items-center gap-3 bg-gradient-to-r from-[#f0ebff] to-[#e8f4f8] border border-[#d4c5ff] rounded-xl px-5 py-4 w-full">
+                  <PhoneForwarded className="w-5 h-5 text-[#5222FF] flex-shrink-0" />
+                  <div className="flex flex-col flex-1">
+                    <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">AI Agent Number</span>
+                    <span className="font-mono font-bold text-lg text-gray-900 tracking-wide">
+                      {phoneNumbers[0]}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(phoneNumbers[0]);
+                      setCopiedNumber(true);
+                      toast.success("Number copied!");
+                      setTimeout(() => setCopiedNumber(false), 2000);
+                    }}
+                    className="flex items-center gap-1 text-sm text-[#5222FF] hover:text-[#3b11cc] transition-colors bg-white px-3 py-1.5 rounded-lg border border-[#d4c5ff] hover:border-[#5222FF]"
+                  >
+                    {copiedNumber ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copiedNumber ? "Copied" : "Copy"}
+                  </button>
+                </div>
+
+                {/* Call forwarding instructions */}
+                <div className="bg-white border border-gray-200 rounded-xl w-full overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setShowForwardingGuide(!showForwardingGuide)}
+                    className="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Info className="w-4 h-4 text-[#5222FF]" />
+                      <span className="font-semibold text-sm text-gray-800">How to connect your business number</span>
+                    </div>
+                    <span className={`text-gray-400 transition-transform duration-200 ${showForwardingGuide ? 'rotate-180' : ''}`}>▾</span>
+                  </button>
+
+                  {showForwardingGuide && (
+                    <div className="px-5 pb-4 border-t border-gray-100">
+                      <p className="text-sm text-gray-600 mt-3 mb-3">
+                        Set up <strong>call forwarding</strong> on your business phone so incoming calls are automatically routed to your AI agent:
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3">
+                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">1</span>
+                          <div>
+                            <p className="text-sm font-medium text-gray-800">Open your phone's dialer</p>
+                            <p className="text-xs text-gray-500">On the business phone that customers already call</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">2</span>
+                          <div>
+                            <p className="text-sm font-medium text-gray-800">Dial the forwarding code</p>
+                            <p className="text-xs text-gray-500">
+                              Type <code className="bg-gray-100 px-1.5 py-0.5 rounded text-[#5222FF] font-mono font-bold">*72{phoneNumbers[0]}</code> and press Call
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">3</span>
+                          <div>
+                            <p className="text-sm font-medium text-gray-800">Wait for confirmation</p>
+                            <p className="text-xs text-gray-500">You'll hear a tone or message confirming forwarding is active</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                        <p className="text-xs text-amber-800">
+                          <strong>💡 Note:</strong> The code <code className="font-mono">*72</code> works for most US carriers. For other regions, check your carrier's call forwarding instructions. To disable forwarding later, dial <code className="font-mono">*73</code>.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3 w-full">
+                <div className="flex items-center gap-4 bg-gray-50 border border-dashed border-gray-300 rounded-xl px-5 py-6 w-full justify-center">
+                  <div className="flex flex-col items-center gap-2 text-center">
+                    <Phone className="w-8 h-8 text-gray-400" />
+                    <span className="text-gray-500 text-sm">No AI phone number assigned yet</span>
+                    <p className="text-xs text-gray-400 max-w-sm">Get a phone number for your AI agent, then forward your business line to it.</p>
+                    <Button 
+                      type="button" 
+                      onClick={handlePurchaseNumber}
+                      disabled={purchasingNumber}
+                      className="bg-[#5222FF] text-white hover:bg-[#3822ff] mt-2"
+                    >
+                      {purchasingNumber ? "Setting up..." : "Get AI Phone Number"}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
         <div className="flex flex-col h-full items-start w-full">
           <label
             htmlFor="blockedNumbersInput"
@@ -936,6 +1066,17 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         >
           Cancel
         </button>
+        <Button
+          type="button"
+          onClick={handleToggleCall}
+          className={`w-[175px] h-[50px] rounded-[8px] border-[1px] text-[white] cursor-pointer mr-4 transition-colors ${
+            isCalling
+              ? "border-[#ef4444] bg-[#ef4444] hover:bg-[#dc2626] animate-pulse"
+              : "border-[#10b981] bg-[#10b981] hover:bg-[#059669]"
+          }`}
+        >
+          {isCalling ? "End Call" : "Test Agent"}
+        </Button>
         <Button
           disabled={loading}
           type="button"

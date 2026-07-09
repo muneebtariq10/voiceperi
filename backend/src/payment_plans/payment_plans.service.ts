@@ -24,11 +24,13 @@ export class PaymentPlanService {
     private readonly paymentPlanPricing: Repository<PaymentPlanPricing>,
   ) {
     if (!process.env.STRIPE_SECRET_KEY) {
-      throw new Error('STRIPE_SECRET_KEY is not defined.');
+      console.warn('⚠️ STRIPE_SECRET_KEY is not defined. Payment plans will not work.');
     }
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: process.env.STRIPE_API_VERSION as any,
-    });
+    this.stripe = process.env.STRIPE_SECRET_KEY
+      ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+          apiVersion: process.env.STRIPE_API_VERSION as any,
+        })
+      : (null as any);
   }
 
   async create(createPaymentPlanDto: CreatePaymentPlanDto): Promise<PaymentPlan> {

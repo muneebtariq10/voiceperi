@@ -7,36 +7,36 @@ import { CreateEventDto } from './dto/create-event.dto';
 
 @Controller('integration')
 export class IntegrationController {
-    constructor(
-        private readonly integrationService: IntegrationService,
-        private readonly httpService: HttpService) { }
+  constructor(
+    private readonly integrationService: IntegrationService,
+    private readonly httpService: HttpService,
+  ) {}
 
-    @Public()
-    @Get()
-    async getEvents(@Query('key') key: string) {
-        const url = `https://api.cal.com/v2/event-types`;
-        const response = await firstValueFrom(
-            this.httpService.get(url, {
-                headers: {
-                    Authorization: `Bearer ${key}`,
-                },
-            }),
-        );
-        return response.data;
-    }
+  @Public()
+  @Get()
+  async getEvents(@Query('key') key: string) {
+    const url = `https://api.cal.com/v2/event-types`;
+    const response = await firstValueFrom(
+      this.httpService.get(url, {
+        headers: {
+          Authorization: `Bearer ${key}`,
+        },
+      }),
+    );
+    return response.data;
+  }
 
-    @Post()
-    async saveEvent(
-        @Body() createEventDto: CreateEventDto,
-        @Query('user-id') userId: string,
-    ) {
-        const { event_id, cal_key, title } = createEventDto;
-        return await this.integrationService.saveEvent(
-            userId,
-            event_id,
-            cal_key,
-            title,
-        );
-    }
-
+  @Post()
+  async saveEvent(
+    @Body() createEventDto: CreateEventDto,
+    @Query('user-id') userId: string,
+  ) {
+    const { event_id, cal_key, title } = createEventDto;
+    return await this.integrationService.saveEvent(
+      userId,
+      event_id,
+      cal_key,
+      title,
+    );
+  }
 }

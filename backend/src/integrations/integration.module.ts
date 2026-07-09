@@ -8,11 +8,8 @@ import { User } from 'src/entities/user';
 import { Agent } from 'src/entities/agent';
 
 @Module({
-  imports: [
-    HttpModule,
-    TypeOrmModule.forFeature([User, Agent])
-  ],
+  imports: [HttpModule, TypeOrmModule.forFeature([User, Agent])],
   controllers: [IntegrationController],
   providers: [IntegrationService],
 })
-export class IntegrationModule { }
+export class IntegrationModule {}

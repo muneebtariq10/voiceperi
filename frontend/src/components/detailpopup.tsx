@@ -17,6 +17,10 @@ type PopupProps = {
     transcription: { role: string; content: string; duration: string; }[];
     summary?: string;
     recording_url?: string;
+    from_number?: string;
+    to_number?: string;
+    direction?: string;
+    call_type?: string;
   };
 };
 
@@ -36,6 +40,12 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, selectedRow }) =>
         <div className="flex flex-col items-start py-6 w-full gap-y-5">
           <p className="text-sm text-default-gray">Duration: {selectedRow.duration}</p>
           <p className="text-sm text-default-gray">Cost: {selectedRow.cost}</p>
+          {selectedRow.direction && <p className="text-sm text-default-gray capitalize">Direction: {selectedRow.direction}</p>}
+          {(selectedRow.from_number || selectedRow.to_number) && (
+            <p className="text-sm text-default-gray">
+              Phone Number: {selectedRow.direction === "inbound" ? selectedRow.from_number : selectedRow.to_number}
+            </p>
+          )}
           <div className="flex items-center gap-x-4">
             <audio controls className="w-[340px] h-[40px]">
               <source src={selectedRow.recording_url} type="audio/mp3" />

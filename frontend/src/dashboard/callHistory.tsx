@@ -17,6 +17,10 @@ type Data = {
   transcription: { role: string; content: string; duration: string }[];
   summary?: string;
   recording_url?: string;
+  from_number?: string;
+  to_number?: string;
+  direction?: string;
+  call_type?: string;
 };
 interface DecodedToken {
   firstname?: string;
@@ -53,9 +57,20 @@ const CallHistory = () => {
       const id = user?.role == "user" ? `?id=${userInfo?.sub}` : "";
 
       try {
-        //const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/call-history/${userInfo?.sub}`);
+        const token = sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
+        
+        // Silently refresh call data from Retell API first
+        try {
+          await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/call-history/refresh`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+        } catch (e) {
+          console.error("Failed to sync latest calls:", e);
+        }
+
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}api/call-history${id}`
+          `${import.meta.env.VITE_API_BASE_URL}api/call-history${id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const apiData = response.data;
         console.log("response", response.data);
@@ -79,6 +94,10 @@ const CallHistory = () => {
               userEmail?: string;
               userFirstName?: string;
               userLastName?: string;
+              from_number?: string;
+              to_number?: string;
+              direction?: string;
+              call_type?: string;
             },
             index: number
           ) => {
@@ -110,6 +129,10 @@ const CallHistory = () => {
               userEmail: item.userEmail,
               userFirstName: item.userFirstName,
               userLastName: item.userLastName,
+              from_number: item.from_number,
+              to_number: item.to_number,
+              direction: item.direction,
+              call_type: item.call_type,
             };
           }
         );
@@ -123,7 +146,7 @@ const CallHistory = () => {
     if (userInfo?.sub) {
       fetchData();
     }
-  }, [userInfo?.sub]);
+  }, [userInfo?.sub, user?.role]);
   return (
     <div className="w-full">
       <DataTable callHistoryData={callHistoryData} userRole={user?.role} />

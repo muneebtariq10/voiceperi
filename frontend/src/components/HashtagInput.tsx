@@ -33,7 +33,7 @@ export default function HashtagTextarea({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.key === "Enter" || e.key === " ") && inputValue.trim()) {
       const words = inputValue.split(" ");
-      let newTags = [...tags];
+      const newTags = [...tags];
       if (newTags.length >= 5) {
         toast.error("You can only add up to 5 services.");
         return;

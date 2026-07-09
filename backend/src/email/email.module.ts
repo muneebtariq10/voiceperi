@@ -5,24 +5,29 @@ import { Module } from '@nestjs/common';
 import { MailService } from './email.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
 
     TypeOrmModule.forFeature([User]),
-    MailerModule.forRoot({
-      transport: {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: 'hamza.anees.432@gmail.com',
-          pass: 'vmxq zaly emzs aeds',
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        transport: {
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
+          auth: {
+            user: configService.get<string>('SMTP_USER'),
+            pass: configService.get<string>('SMTP_PASS'),
+          },
         },
-      },
-      defaults: {
-        from: '"Voice Peri" <no-reply@voiceperi.com>',
-      },
+        defaults: {
+          from: '"Voice Peri" <no-reply@voiceperi.com>',
+        },
+      }),
     }),
   ],
   providers: [MailService],

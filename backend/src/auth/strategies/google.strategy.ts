@@ -6,7 +6,10 @@ import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(private configService: ConfigService, private authService: AuthService) {
+  constructor(
+    private configService: ConfigService,
+    private authService: AuthService,
+  ) {
     super({
       clientID: configService.get<string>('GOOGLE_CLIENT_ID') as string,
       clientSecret: configService.get<string>('GOOGLE_SECRET') as string,
@@ -14,21 +17,28 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       scope: ['email', 'profile'],
     });
   }
-  async validate(accessToken: string, refreshToken: string, profile: any, done: VerifyCallback): Promise<any> {
+  async validate(
+    accessToken: string,
+    refreshToken: string,
+    profile: any,
+    done: VerifyCallback,
+  ): Promise<any> {
     console.log('Google profile:', profile);
     const email = profile.emails?.[0]?.value;
 
     if (!email) {
-        return done(new UnauthorizedException('No email found in Google profile'), false);
+      return done(
+        new UnauthorizedException('No email found in Google profile'),
+        false,
+      );
     }
 
     try {
-        const { user, isNew } = await this.authService.validateGoogleUser(profile);
-        done(null, { ...user, isNew });
+      const { user, isNew } =
+        await this.authService.validateGoogleUser(profile);
+      done(null, { ...user, isNew });
     } catch (err) {
-        done(err, false);
+      done(err, false);
     }
-}
-
- 
+  }
 }

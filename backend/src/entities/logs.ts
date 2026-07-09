@@ -5,10 +5,10 @@ export class Log {
   @PrimaryColumn({ type: 'uuid' })
   log_id: string;
 
-  @Column({ type: 'bigint' }) 
+  @Column({ type: 'bigint' })
   start_timestamp: number;
 
-  @Column({ type: 'bigint' }) 
+  @Column({ type: 'bigint' })
   end_timestamp: number;
 
   @Column()
@@ -19,7 +19,6 @@ export class Log {
 
   @Column()
   error_message: string;
-
 
   @CreateDateColumn()
   createdAt: Date;

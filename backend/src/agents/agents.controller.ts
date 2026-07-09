@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -70,7 +69,6 @@ export class AgentsController {
     return this.agentsService.languages();
   }
 
-  @Public()
   @Post()
   create(@Body() createAgentDto: CreateAgentDto) {
     return this.agentsService.create(createAgentDto);
@@ -80,13 +78,11 @@ export class AgentsController {
   findAll() {
     return this.agentsService.findAll();
   }
-  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.agentsService.findOne(id);
   }
 
-  @Public()
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAgentDto: UpdateAgentDto) {
     return this.agentsService.update(id, updateAgentDto);
@@ -100,6 +96,16 @@ export class AgentsController {
   @Put('update-llm/:user_id')
   updateLLM(@Param('user_id') id: string) {
     return this.agentsService.updateLlm(id);
+  }
+
+  @Post('web-call/:id')
+  createWebCall(@Param('id') id: string) {
+    return this.agentsService.createWebCall(id);
+  }
+
+  @Post('purchase-number/:id')
+  purchaseNumber(@Param('id') id: string) {
+    return this.agentsService.purchaseNumber(id);
   }
 
   @Public()

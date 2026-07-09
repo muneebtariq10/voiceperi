@@ -46,5 +46,28 @@ export class MailService {
       `,
     });
   }
-
+  async sendFeedbackEmail(userEmail: string, userName: string, message: string): Promise<void> {
+    const adminEmail = process.env.SMTP_USER || 'ebbadurrehman538@gmail.com'; // fallback if not set
+    await this.mailerService.sendMail({
+      to: 'ebbadurrehman538@gmail.com', // Admin email
+      replyTo: userEmail,
+      subject: `New Feedback from ${userName || userEmail}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>New Feedback Submitted</title>
+          </head>
+          <body>
+            <h2>New Feedback Received</h2>
+            <p><strong>From:</strong> ${userName || 'User'} (${userEmail})</p>
+            <p><strong>Message:</strong></p>
+            <blockquote style="background: #f9f9f9; border-left: 5px solid #ccc; padding: 10px;">
+              ${message}
+            </blockquote>
+          </body>
+        </html>
+      `,
+    });
+  }
 }

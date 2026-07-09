@@ -8,12 +8,13 @@ import { AgentsModule } from 'src/agents/agents.module';
 import { Agent } from 'src/entities/agent';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BusinessInformation, Agent]),
+  imports: [
+    TypeOrmModule.forFeature([BusinessInformation, Agent]),
     HttpModule,
-  forwardRef(() => AgentsModule),
+    forwardRef(() => AgentsModule),
   ],
   controllers: [BusinessinfosController],
   providers: [BusinessinfosService],
-  exports: [TypeOrmModule, BusinessinfosService]
+  exports: [TypeOrmModule, BusinessinfosService],
 })
-export class BusinessinfosModule { }
+export class BusinessinfosModule {}

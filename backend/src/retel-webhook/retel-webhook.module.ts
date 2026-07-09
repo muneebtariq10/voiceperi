@@ -7,11 +7,13 @@ import { AgentsModule } from '../agents/agents.module'; // ✅ Import this
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Agent } from '../entities/agent'; // adjust path
 import { BusinessInformation } from 'src/entities/business_information';
+import { CallHistoryModule } from '../callhistory/callhistory.module';
 @Module({
   imports: [
     AgentsModule,
     BusinessInformation, // ✅ Import the module that provides AgentsService
     MailerModule,
+    CallHistoryModule,
     TypeOrmModule.forFeature([Agent]),
     TypeOrmModule.forFeature([BusinessInformation]),
   ],

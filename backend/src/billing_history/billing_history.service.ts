@@ -14,11 +14,13 @@ export class BillingHistoryService {
     private billingRepo: Repository<BillingHistory>,
   ) {
     if (!process.env.STRIPE_SECRET_KEY) {
-      throw new Error('STRIPE_SECRET_KEY is not defined');
+      console.warn('⚠️ STRIPE_SECRET_KEY is not defined. Billing history will not work.');
     }
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: process.env.STRIPE_API_VERSION as any,
-    });
+    this.stripe = process.env.STRIPE_SECRET_KEY
+      ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+          apiVersion: process.env.STRIPE_API_VERSION as any,
+        })
+      : (null as any);
   }
   async handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
     try {
