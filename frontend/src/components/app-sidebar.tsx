@@ -342,7 +342,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
 
         {/* Payment Card at Bottom */}
-        {/* user?.role == "user" && (
+        {false && user?.role == "user" && (
           <div className="mt-[100px]">
             <Card className="w-full bg-gradient-to-r !from-[#F3F0FF] !to-[#FFFFFF] p-4 !rounded-1 shadow-md border flex flex-col gap-[8px]">
               <CardContent className="flex flex-col gap-y-2 items-start justify-start p-0">
@@ -370,7 +370,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </CardFooter>
             </Card>
           </div>
-        ) */}
+        )}
       </SidebarContent>
 
       {/* <SidebarFooter>
