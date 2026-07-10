@@ -615,7 +615,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                   <SelectValue placeholder="Select Voice" />
                 </SelectTrigger>
                 <SelectContent>
-                  {voices
+                  {(voices || [])
                     .sort((a: any, b: any) =>
                       a.voice_id === selectedVoice
                         ? -1
