@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { 
   HelpCircle, 
-  BookOpen, 
   MessageCircle, 
-  Phone, 
   Bot, 
   Settings, 
   ChevronDown, 
-  ExternalLink, 
   Search, 
   Sparkles, 
-  Shield, 
-  CreditCard,
+  Shield,
   PhoneForwarded,
   Globe,
   Mic,

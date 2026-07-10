@@ -13,7 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import axios from 'axios';
-import { AppUser } from '@/AppContext';
+// import { AppUser } from '@/AppContext';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -65,7 +65,7 @@ const Feedback = () => {
   const [rating, setRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { user } = AppUser();
+  // const { user } = AppUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

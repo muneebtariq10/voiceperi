@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/sidebar";
 import logo from "../assets/logo1.png";
 import { Link, NavLink } from "react-router-dom";
-import { LayoutDashboard, PhoneCall, SwatchBook, Logs } from "lucide-react";
+import { PhoneCall, Logs } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
