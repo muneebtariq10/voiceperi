@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 
 export class UpdatePaymentPlanPricingDto {

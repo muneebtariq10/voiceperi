@@ -38,6 +38,10 @@ type Data = {
   userEmail?: string;
   userFirstName?: string;
   userLastName?: string;
+  from_number?: string;
+  to_number?: string;
+  direction?: string;
+  call_type?: string;
 };
 
 const getColumns = (userRole?: string): ColumnDef<Data>[] => {
@@ -58,6 +62,32 @@ const getColumns = (userRole?: string): ColumnDef<Data>[] => {
       cell: ({ row }) => (
         <div className="text-lg font-medium">{row.getValue("time")}</div>
       ),
+    },
+    {
+      id: "phoneNumber",
+      header: ({ column }) => renderHeader("Phone Number", column),
+      cell: ({ row }) => {
+        const direction = row.original.direction;
+        const phone = direction === "inbound" ? row.original.from_number : row.original.to_number;
+        return (
+          <div className="text-lg font-medium text-gray-700">{phone || "-"}</div>
+        );
+      },
+    },
+    {
+      accessorKey: "direction",
+      header: ({ column }) => renderHeader("Direction", column),
+      cell: ({ row }) => {
+        const dir = row.getValue<string>("direction");
+        if (!dir) return <div className="text-lg font-medium">-</div>;
+        return (
+          <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
+            dir === 'inbound' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'
+          }`}>
+            {dir}
+          </span>
+        );
+      },
     },
     {
       accessorKey: "duration",

@@ -103,7 +103,7 @@ function Users() {
     if (userInfo?.sub) {
       fetchData();
     }
-  }, [userInfo?.sub]);
+  }, [userInfo?.sub, token]);
 
   return (
     <div className="w-full">

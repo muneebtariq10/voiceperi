@@ -17,10 +17,10 @@ import { UsageModule } from 'src/UsedMinutes/usedminutes.module';
     TypeOrmModule.forFeature([Language, Agent]),
     forwardRef(() => UsersModule),
     forwardRef(() => BusinessinfosModule),
-    UsageModule
+    UsageModule,
   ],
   controllers: [AgentsController],
   providers: [AgentsService],
   exports: [AgentsService],
 })
-export class AgentsModule { }
+export class AgentsModule {}

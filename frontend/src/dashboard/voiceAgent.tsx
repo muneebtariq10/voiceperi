@@ -104,7 +104,7 @@ const VoiceAgent: React.FC = () => {
         console.error("Failed to decode token:", error);
       }
     }
-  }, []);
+  }, [token]);
 
   const convertTo24Hour = (time: string): string => {
     if (/^\d{1,2}:\d{2}$/.test(time)) {
@@ -131,11 +131,19 @@ const VoiceAgent: React.FC = () => {
       try {
         const res1 = await fetch(`${API_URL}api/agents/languages`);
         const res2 = await fetch(`${API_URL}api/agents/voices`);
-        const res3 = await fetch(`${API_URL}api/agents/${userInfo?.sub}`);
-        const json3 = await res3.json();
-        setagentInfo(json3);
+        const res3 = await fetch(`${API_URL}api/agents/${userInfo?.sub}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res3.ok) {
+          const json3 = await res3.json();
+          setagentInfo(json3);
+        } else {
+          setagentInfo(null);
+        }
         const infoRes = await fetch(
-          `${API_URL}api/businessinfos/${userInfo?.sub}`
+          `${API_URL}api/businessinfos/${userInfo?.sub}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }
         );
 
         const languagesData = (await res1.json()).filter(
@@ -250,7 +258,7 @@ const VoiceAgent: React.FC = () => {
     if (userInfo?.sub) {
       fetchData();
     }
-  }, [userInfo?.sub]);
+  }, [userInfo?.sub, API_URL]);
 
   const toggleHours = (day: string, checked: boolean) => {
     setBusinessHours((prev) => ({
@@ -328,24 +336,41 @@ const VoiceAgent: React.FC = () => {
     };
 
     try {
-      const res = await fetch(
-        `${API_URL}api/businessinfos/${businessInfo2.id}`,
-        {
-          method: "PATCH",
+      let res;
+      if (businessInfo2 && businessInfo2.id) {
+        res = await fetch(
+          `${API_URL}api/businessinfos/${businessInfo2.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(payload),
+          }
+        );
+      } else {
+        res = await fetch(`${API_URL}api/businessinfos`, {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(payload),
-        }
-      );
+          body: JSON.stringify({ ...payload, user_id: userInfo?.sub }),
+        });
+      }
 
       if (!res.ok) throw new Error("Failed to update business info");
-      await handleUpdateLlm(e);
+      try {
+        await handleUpdateLlm(e);
+      } catch (llmError) {
+        console.log("LLM Update skipped or failed (likely no agent exists yet)");
+      }
       setLoading(false);
       toast.success("Business info updated successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast("Something went wrong while saving.");
+      toast.error("Something went wrong while saving.");
       setLoading(false);
     }
   };

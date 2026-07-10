@@ -18,5 +18,6 @@ import { LogModule } from '../logs_call_history/logs.module';
   ],
   controllers: [CallHistoryController],
   providers: [CallHistoryService],
+  exports: [CallHistoryService],
 })
 export class CallHistoryModule {}

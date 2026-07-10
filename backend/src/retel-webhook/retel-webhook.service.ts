@@ -1,20 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { AgentsService } from '../agents/agents.service';
+import { CallHistoryService } from '../callhistory/callhistory.service';
 import { Repository } from 'typeorm';
 import { Agent } from '../entities/agent'; // adjust the path
 import { InjectRepository } from '@nestjs/typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
 import { BusinessInformation } from 'src/entities/business_information';
 import { Console } from 'console';
+import * as twilio from 'twilio';
 @Injectable()
 export class RetelWebhookService {
+  private twilioClient: twilio.Twilio | null = null;
+
   constructor(
     private mailerService: MailerService,
     @InjectRepository(Agent)
     private readonly agentRepository: Repository<Agent>,
     @InjectRepository(BusinessInformation)
     private readonly businessRepository: Repository<BusinessInformation>,
-  ) {}
+    private readonly callHistoryService: CallHistoryService,
+  ) {
+    if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+      this.twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    }
+  }
   async getAgentByRetelId(agentId: string) {
     return this.agentRepository.findOne({
       where: { retell_agent: agentId },
@@ -159,20 +168,36 @@ export class RetelWebhookService {
     //   `;
     // Collected Data:
     // ${transcript}
-    await this.mailerService.sendMail({
-      to: 'ahmedali.nexvistech@gmail.com', // Convert string to array and trim spaces
-      subject: `Call summary from 
-      ${callerInfo.callerEmail}`,
-      text: `${emailContent}\n\nFull Payload:\n${JSON.stringify(payload, null, 2)}`,
-    });
     await Promise.all(
       allEmails.map((email) =>
         this.mailerService.sendMail({
           to: email,
           subject: `Call summary from ${callerInfo.callerEmail}`,
           text: `${emailContent}`,
-        }),
+        }).catch(err => console.error('Failed to send email', err)),
       ),
     );
+
+    const phoneNumbers = agent?.phone_numbers || [];
+    if (this.twilioClient && process.env.TWILIO_WHATSAPP_NUMBER) {
+      await Promise.all(
+        phoneNumbers.map((number) => {
+          const formattedNumber = number.startsWith('+') ? number : '+' + number.replace(/\D/g, '');
+          return this.twilioClient!.messages.create({
+            from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
+            to: `whatsapp:${formattedNumber}`,
+            body: emailContent,
+          }).catch(err => console.error('Failed to send WhatsApp message', err));
+        })
+      );
+    }
+
+    // After processing the webhook and sending notifications, sync the call history
+    try {
+      await this.callHistoryService.historyAndSave();
+      console.log('Successfully synced call history via webhook.');
+    } catch (err) {
+      console.error('Failed to sync call history via webhook:', err);
+    }
   }
 }

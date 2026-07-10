@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 // billing-history.controller.ts
 import { Controller, Get, Param } from '@nestjs/common';
 import { BillingHistoryService } from './billing_history.service';

@@ -71,16 +71,28 @@ export function BarChartInteractive() {
     const fetchData = async () => {
       const params = new URLSearchParams();
       if (user?.role !== "admin" && user?.id) {
-        params.append("id", user?.id);
+        params.append("userId", user?.id);
       }
       const apiDate = formatDateForApi(date);
       params.append("date", apiDate);
 
+      const token = sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
+      
+      try {
+        await fetch(`${API_URL}api/call-history/refresh`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }); // Silently sync newest calls
+      } catch (e) {
+        console.error("Failed to refresh calls:", e);
+      }
+
       try {
         const response = await fetch(
-          `${API_URL}api/call-history/business?${params.toString()}`
+          `${API_URL}api/call-history/business?${params.toString()}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await response.json();
+        console.log("BARCHART DATA:", data);
 
         const hourlyStats: HourlyStats = data.hourlyStats || {};
         const transformed = Object.entries(hourlyStats).map(

@@ -66,16 +66,18 @@ export class BusinessinfosService {
   }
 
   async getBusinessInfo(query: string, language: string, user_id?: string) {
-    const placeId = await this.findPlaceIdFromText(query);
-
-    if (!placeId) {
-      throw new NotFoundException('Place ID could not be found.');
+    let placeDetails: PlaceDetailsResult | null = null;
+    try {
+      const placeId = await this.findPlaceIdFromText(query);
+      if (placeId) {
+        placeDetails = await this.getBusinessDetailsByPlaceId(
+          placeId,
+          language || 'en',
+        );
+      }
+    } catch (error) {
+      this.logger.warn(`Failed to fetch place details for query: ${query}`);
     }
-
-    const placeDetails = await this.getBusinessDetailsByPlaceId(
-      placeId,
-      language || 'en',
-    );
 
     if (!user_id) {
       // If no user_id, return the place details only (no DB save)
@@ -87,27 +89,54 @@ export class BusinessinfosService {
       timezone: 'America/Detroit',
     };
 
+    if (!placeDetails) {
+        // Fallback dummy place details if not found on Google Maps
+        placeDetails = {
+            name: query,
+            website: query,
+            formatted_address: '',
+            international_phone_number: '',
+            types: [],
+            opening_hours: { weekday_text: [] },
+            editorial_summary: { overview: '' }
+        };
+    }
+
     return await this.create(createBusinessinfoDto, placeDetails);
   }
+  
   async getNewBusinessInfo(query: string, user_id: string) {
-    const placeId = await this.findPlaceIdFromText(query);
+    let placeDetails: PlaceDetailsResult | null = null;
+    try {
+      const placeId = await this.findPlaceIdFromText(query);
+      if (placeId) {
+        const agentInfo = await this.agentRepo.findOne({
+          where: { user: { id: user_id } },
+          relations: ['language', 'user'],
+        });
 
-    if (!placeId) {
-      throw new NotFoundException('Place ID could not be found.');
+        placeDetails = await this.getBusinessDetailsByPlaceId(
+          placeId,
+          agentInfo?.language?.code || 'en',
+        );
+      }
+    } catch (error) {
+      this.logger.warn(`Failed to fetch new place details for query: ${query}`);
     }
-    const agentInfo = await this.agentRepo.findOne({
-      where: { user: { id: user_id } },
-      relations: ['language', 'user'],
-    });
-
-    const placeDetails = await this.getBusinessDetailsByPlaceId(
-      placeId,
-      agentInfo?.language?.code || 'en',
-    );
 
     if (!placeDetails) {
-      throw new NotFoundException('Business info not found');
+        // Fallback dummy place details if not found on Google Maps
+        placeDetails = {
+            name: query,
+            website: query,
+            formatted_address: '',
+            international_phone_number: '',
+            types: [],
+            opening_hours: { weekday_text: [] },
+            editorial_summary: { overview: '' }
+        };
     }
+
     return placeDetails;
   }
 
@@ -260,7 +289,7 @@ export class BusinessinfosService {
       id: uuidv4(),
       profile: place.url ? place.url : place.website || '',
       name: place.name,
-      address: place.formatted_address,
+      address: place.formatted_address || 'Unknown',
       phone: place.international_phone_number || '',
       overview: place.editorial_summary?.overview || '',
       services: filteredTypes,
@@ -313,7 +342,7 @@ export class BusinessinfosService {
       const placePayload: Partial<BusinessInformation> = {
         profile: place.url ? place.url : place.website || '',
         name: place.name,
-        address: place.formatted_address,
+        address: place.formatted_address || 'Unknown',
         phone: place.international_phone_number || '',
         overview: place.editorial_summary?.overview || '',
         services: filteredTypes,

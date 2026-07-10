@@ -49,13 +49,13 @@ export function HorizontalBarChart({data}: { data: ChartData }) {
     ]
     
     return (
-        <Card className="h-full">
-            <CardHeader className="flex flex-col px-[30px]">
-                <CardTitle className="text-[20px] font-[600] text-start">Call Engagement Distribution</CardTitle>
-                <CardDescription className="text-[14px] font-[400]">The total cost of calls made each day</CardDescription>
+        <Card className="h-full rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col">
+            <CardHeader className="flex flex-col px-6 pt-6 pb-2">
+                <CardTitle className="text-[20px] font-semibold text-gray-900 tracking-tight text-start">Call Engagement Distribution</CardTitle>
+                <CardDescription className="text-[14px] text-gray-500 font-medium text-left">Distribution of calls by length</CardDescription>
             </CardHeader>
-            <CardContent className="h-full pb-4">
-                <ChartContainer config={chartConfig} className="h-full w-auto">
+            <CardContent className="flex-1 pb-4 flex items-center">
+                <ChartContainer config={chartConfig} className="w-full">
                     <BarChart
                         accessibilityLayer
                         data={chartData}

@@ -1,4 +1,10 @@
 import { Frown, Meh, Smile } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function SentimentAnalysisCard({ data }: { data: string[] }) {
 
@@ -15,71 +21,93 @@ export default function SentimentAnalysisCard({ data }: { data: string[] }) {
   const neutralPercent = total ? (neutral / total) * 100 : 0;
 
   return (
-    <div className=" h-full rounded-2xl bg-white px-6 py-2 shadow-sm border border-gray-200">
+    <div className="h-full rounded-xl bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col justify-between">
       {/* Header */}
-      <div className="flex flex-col items-start ">
-        <h2 className="text-[20px] font-semibold text-gray-900">Sentiment analysis</h2>
-        <p className="text-sm text-gray-500">Customer sentiments on the call</p>
+      <div className="flex flex-col items-start">
+        <h2 className="text-[20px] font-semibold text-gray-900 tracking-tight">Sentiment analysis</h2>
+        <p className="text-[14px] text-gray-500 font-medium">Customer sentiments on the call</p>
       </div>
 
       {/* Sentiment Bar */}
-      {/* <div className="mt-10 flex justify-between items-center gap-5">
-        <div className={`h-[30px] w-[${negativePercent == 0 ? '1' : negativePercent}%] rounded-[12.72px] bg-[#F27081]`}></div>
-        <div className={`h-[30px] w-[${neutralPercent == 0 ? '1' : neutralPercent}%] rounded-[12.72px] bg-[#FEE653]`}></div>
-        <div className={`h-[30px] w-[${positivePercent == 0 ? '1' : positivePercent}%] rounded-[12.72px] bg-[#87DB7D]`}></div>
-      </div> */}
-     <div className="mt-10 flex items-center gap-3 h-[42px] w-full overflow-hidden ">
-  {/* Negative */}
-  <div
-    className="h-full rounded-[12.72px] bg-[#F27081]"
-    style={{ width: negative > 0 ? `${negativePercent < 2 ? 2 : negativePercent}%` : '2px' }}
-  />
+      <TooltipProvider>
+        <div className="mt-8 flex items-center gap-2 h-[32px] w-full overflow-visible">
+          {/* Negative */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="h-full rounded-full bg-rose-400 transition-all duration-500 cursor-pointer"
+                style={{ width: negative > 0 ? `${negativePercent < 2 ? 2 : negativePercent}%` : '4px' }}
+              />
+            </TooltipTrigger>
+            <TooltipContent className="bg-white border text-gray-900 shadow-md">
+              <div className="flex flex-col gap-1">
+                <span className="font-semibold">Negative</span>
+                <span className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-rose-400"></div> value <span className="ml-4 font-mono">{negative ? negative : 0}</span></span>
+              </div>
+            </TooltipContent>
+          </Tooltip>
 
-  {/* Neutral */}
-  <div
-    className="h-full rounded-[12.72px] bg-[#FEE653]"
-    style={{ width: neutral > 0 ? `${neutralPercent < 2 ? 2 : neutralPercent}%` : '2px' }}
-  />
+          {/* Neutral */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="h-full rounded-full bg-amber-400 transition-all duration-500 cursor-pointer"
+                style={{ width: neutral > 0 ? `${neutralPercent < 2 ? 2 : neutralPercent}%` : '4px' }}
+              />
+            </TooltipTrigger>
+            <TooltipContent className="bg-white border text-gray-900 shadow-md">
+              <div className="flex flex-col gap-1">
+                <span className="font-semibold">Neutral</span>
+                <span className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-amber-400"></div> value <span className="ml-4 font-mono">{neutral ? neutral : 0}</span></span>
+              </div>
+            </TooltipContent>
+          </Tooltip>
 
-  {/* Positive */}
-  <div
-    className="h-full rounded-[12.72px] bg-[#87DB7D]"
-    style={{ width: positive > 0 ? `${positivePercent < 2 ? 2 : positivePercent}%` : '2px' }}
-  />
-</div>
-
+          {/* Positive */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="h-full rounded-full bg-emerald-400 transition-all duration-500 cursor-pointer"
+                style={{ width: positive > 0 ? `${positivePercent < 2 ? 2 : positivePercent}%` : '4px' }}
+              />
+            </TooltipTrigger>
+            <TooltipContent className="bg-white border text-gray-900 shadow-md">
+              <div className="flex flex-col gap-1">
+                <span className="font-semibold">Positive</span>
+                <span className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-emerald-400"></div> value <span className="ml-4 font-mono">{positive ? positive : 0}</span></span>
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </TooltipProvider>
 
       {/* Sentiment Counts */}
-      <div className="mt-5 flex justify-start items-center gap-8">
+      <div className="mt-8 flex justify-between items-center px-2">
         {/* Negative */}
-        <div className="grid grid-rows-3 justify-items-center items-center gap-1 text-center">
-          <p className="font-[500] text-[16px] text-[#64748B]">Negative</p>
-          <div className="flex gap-2">
-            <Frown className="text-[#F27081]" />
-            <span className="text-[#0F1A2A] font-medium">{negative ? negative : 0}</span>
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-medium text-[13px] text-gray-500 uppercase tracking-wider">Negative</p>
+          <div className="flex items-center gap-2 bg-rose-50 px-3 py-1.5 rounded-full">
+            <Frown className="w-5 h-5 text-rose-500" />
+            <span className="text-gray-900 font-bold">{negative ? negative : 0}</span>
           </div>
-
         </div>
         {/* Neutral */}
-        <div className="grid grid-rows-3 justify-items-center items-center gap-1 text-center">
-          <p className="font-[500] text-[16px] text-[#64748B]">Neutral</p>
-          <div className="flex gap-2">
-            <Meh className="text-[#FEE653]" />
-            <span className="text-[#0F1A2A] font-medium">{neutral ? neutral : 0}</span>
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-medium text-[13px] text-gray-500 uppercase tracking-wider">Neutral</p>
+          <div className="flex items-center gap-2 bg-amber-50 px-3 py-1.5 rounded-full">
+            <Meh className="w-5 h-5 text-amber-500" />
+            <span className="text-gray-900 font-bold">{neutral ? neutral : 0}</span>
           </div>
-
         </div>
         {/* Positive */}
-        <div className="grid grid-rows-3 justify-items-center items-center gap-1 text-center">
-          <p className="font-[500] text-[16px] text-[#64748B]">Positive</p>
-          <div className="flex gap-2">
-            <Smile className="text-[#87DB7D]" />
-            <span className="text-[#0F1A2A] font-medium">{positive ? positive : 0}</span>
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-medium text-[13px] text-gray-500 uppercase tracking-wider">Positive</p>
+          <div className="flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full">
+            <Smile className="w-5 h-5 text-emerald-500" />
+            <span className="text-gray-900 font-bold">{positive ? positive : 0}</span>
           </div>
-
         </div>
       </div>
-
     </div>
   );
 }

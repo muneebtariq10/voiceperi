@@ -21,7 +21,6 @@ import { Public } from 'src/auth/decorators/public.decorator';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @Public()
   @Get()
   getAllUsers() {
     return this.userService.getAllUsers();
@@ -121,7 +120,6 @@ export class UsersController {
   //   return this.userService.deleteUser(id);
   // }
 
-  @Public()
   @Put('deactivate/:id')
   deactivate(@Param('id') id: string) {
     return this.userService.deactivateUser(id);

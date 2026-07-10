@@ -143,7 +143,7 @@ export class CallHistoryService {
     const timezone = 'Asia/Karachi';
     let start: Date;
     let end: Date;
-    let where: any = {};
+    const where: any = {};
     let businessHours = { from: '00:00', to: '23:59' };
     let retell_agent: string | undefined;
 
@@ -300,7 +300,10 @@ export class CallHistoryService {
         return;
       }
 
-      const [fromRaw, toRaw] = time.split('-').map((t) => t.trim());
+      // Split by common dash/hyphen characters (including unicode en-dash/em-dash) and 'to'
+      const timeParts = time.split(/[-–—~]| to /i);
+      const [fromRaw, toRaw] = timeParts.map((t) => t?.trim());
+      
       if (!fromRaw || !toRaw) {
         result[day] = { enabled: false };
         return;
@@ -322,8 +325,17 @@ export class CallHistoryService {
   }
 
   convertTo24Hour(time12h: string): string {
-    const [time, modifier] = time12h.split(/(AM|PM)/i);
+    if (!time12h) return '00:00';
+    // Remove narrow no-break space and other weird whitespace
+    time12h = time12h.replace(/[\u202F\u2009]/g, ' ').trim();
+    
+    const parts = time12h.split(/(AM|PM)/i);
+    const time = parts[0];
+    const modifier = parts[1] || '';
+    
     let [hours, minutes] = time.trim().split(':').map(Number);
+    if (isNaN(hours)) hours = 0;
+    if (isNaN(minutes)) minutes = 0;
 
     if (modifier.toLowerCase() === 'pm' && hours !== 12) {
       hours += 12;
@@ -414,6 +426,7 @@ export class CallHistoryService {
           .pipe(map((res) => res.data)),
       );
 
+      console.log('Fetched from Retell:', response);
       const savedHistories: CallHistory[] = [];
 
       for (const call of response || []) {
@@ -433,6 +446,10 @@ export class CallHistoryService {
           latency: call.latency,
           call_cost: call.call_cost,
           retell_agent: call.agent_id,
+          from_number: call.from_number,
+          to_number: call.to_number,
+          direction: call.direction,
+          call_type: call.call_type,
         });
 
         const saved = await this.callHistoryRepo.save(newHistory);
@@ -547,9 +564,9 @@ export class CallHistoryService {
     try {
       let totalCallMinutes = 0;
       let totalCost = 0;
-      let totalCalls = calls.length;
-      let hangupReason: string[] = [];
-      let userSentiments: string[] = [];
+      const totalCalls = calls.length;
+      const hangupReason: string[] = [];
+      const userSentiments: string[] = [];
       const callDurationCategories = {
         shortCalls: 0,
         mediumCalls: 0,

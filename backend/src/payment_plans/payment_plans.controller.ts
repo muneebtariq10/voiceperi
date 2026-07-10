@@ -11,6 +11,8 @@ import {
     //UseGuards,
     HttpException,
     HttpStatus,
+    Req,
+    UnauthorizedException,
   } from '@nestjs/common';
   import { PaymentPlanService } from './payment_plans.service';
   import { CreatePaymentPlanDto } from './dto/create-plan.dto';
@@ -22,10 +24,12 @@ import { Public } from 'src/auth/decorators/public.decorator';
   export class PaymentPlanController {
     constructor(private readonly paymentPlanService: PaymentPlanService) {}
   
-    @Public()
     //@UseGuards(LocalAuthGuard)
     @Post()
-    async create(@Body() createDto: CreatePaymentPlanDto) {
+    async create(@Body() createDto: CreatePaymentPlanDto, @Req() req: any) {
+      if (req.user?.role !== 'admin') {
+        throw new UnauthorizedException('Only admins can create payment plans');
+      }
       try {
         console.log('Received body:', createDto); // 👀
         return await this.paymentPlanService.create(createDto);
@@ -48,20 +52,25 @@ import { Public } from 'src/auth/decorators/public.decorator';
       return this.paymentPlanService.findOne(id);
     }
   
-    @Public()
     //@UseGuards(LocalAuthGuard)
     @Put(':id')
     update(
       @Param('id', ParseIntPipe) id: number,
       @Body() updateDto: UpdatePaymentPlanDto,
+      @Req() req: any
     ) {
+      if (req.user?.role !== 'admin') {
+        throw new UnauthorizedException('Only admins can update payment plans');
+      }
       return this.paymentPlanService.update(id, updateDto);
     }
 
-    @Public()
     //@UseGuards(LocalAuthGuard)
     @Delete(':id')
-    remove(@Param('id', ParseIntPipe) id: number) {
+    remove(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+      if (req.user?.role !== 'admin') {
+        throw new UnauthorizedException('Only admins can delete payment plans');
+      }
       return this.paymentPlanService.remove(id);
     }
 

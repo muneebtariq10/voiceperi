@@ -102,7 +102,7 @@ const Overview = () => {
 
     fetchCreatedAt(); // Only call if token is available
     console.log("inside token");
-  }, []);
+  }, [token]);
   useEffect(() => {
     const storedToken =
       sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
@@ -158,7 +158,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -197,7 +197,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -235,7 +235,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -274,7 +274,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
   useEffect(() => {
     const fetchData = async () => {
       const params = new URLSearchParams();
@@ -310,7 +310,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   // function handleRefreshData() {
   //   axios.get(`${API_URL}api/call-history/refresh`);
@@ -323,8 +323,10 @@ const Overview = () => {
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
             <div className="md:flex justify-between ">
               <div className="flex flex-row md:flex-col items-center justify-between md:items-start mb-[10px] md:mb-0">
-                <p className="text-[24px] font-[600]">Overview</p>
-                <p className="text-[14px] font-[500]">{Date()}</p>
+                <p className="text-[28px] font-bold tracking-tight text-gray-900">Overview</p>
+                <p className="text-[14px] font-medium text-gray-500 mt-1">
+                  {new Date().toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
               </div>
               <div className="flex justify-between gap-[10px] items-center w-fit">
                 <div className="w-[150px] w-fit">
@@ -338,24 +340,23 @@ const Overview = () => {
                     }}
                   />
                 </div>
-                <div
-                  // onClick={handleRefreshData}
-                  className="px-[10px] md:px-[20px] gap-[6px] md:gap-[10px] flex items-center bg-white rounded-[4px] shadow-sm h-[35px] border-[1px] border-gray-200"
-                >
-                  <p className=" text-[12px] md:text-[14px] font-[500]">
-                    latest update :
-                    {new Date(createdAt)
-                      .toLocaleString("en-GB", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                        hour: "2-digit",
+                <div className="flex items-center gap-2 bg-gray-50/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-100 shadow-sm">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <p className="text-[13px] font-medium text-gray-600">
+                    Updated:{" "}
+                    <span className="text-gray-900">
+                      {new Date(createdAt).toLocaleString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        hour: "numeric",
                         minute: "2-digit",
                         hour12: true,
-                      })
-                      .replace(",", "")}
+                      })}
+                    </span>
                   </p>
-                  {/* <IconReload width={20} /> */}
                 </div>
               </div>
             </div>

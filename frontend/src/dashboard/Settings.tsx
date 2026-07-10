@@ -1,5 +1,5 @@
 import Account from "@/components/Account";
-import PlanAndBilling from "@/components/PlanAndBilling";
+// import PlanAndBilling from "@/components/PlanAndBilling";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AppUser } from "@/AppContext";
@@ -35,6 +35,7 @@ const Settings = () => {
             >
               Account
             </button>
+            {/* Plan and Billing tab temporarily hidden 
             {user?.role === "user" && (
               <button
                 className={`py-2 cursor-pointer  px-4 text-[20px] md:text-2xl font-semibold ${
@@ -47,10 +48,12 @@ const Settings = () => {
                 Plan & Billing
               </button>
             )}
+            */}
           </div>
           {user?.role === "user" && (
             <div className="mt-11">
-              {activeTab === "account" ? <Account /> : <PlanAndBilling />}
+              {/* Plan and Billing temporarily hidden */}
+              {activeTab === "account" ? <Account /> : <Account />}
             </div>
           )}
           {user?.role === "admin" && (

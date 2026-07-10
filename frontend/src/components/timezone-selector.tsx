@@ -186,8 +186,8 @@ export function ComboboxDemo({
         const parts = formatter.formatToParts(date);
         const offsetPart = parts.find((p) => p.type === "timeZoneName");
 
-        let offsetLabel = offsetPart?.value || "";
-        let offsetMatch = offsetLabel.match(/GMT([+-]\d{1,2}):?(\d{2})?/);
+        const offsetLabel = offsetPart?.value || "";
+        const offsetMatch = offsetLabel.match(/GMT([+-]\d{1,2}):?(\d{2})?/);
 
         let offsetHours = 0;
         if (offsetMatch) {

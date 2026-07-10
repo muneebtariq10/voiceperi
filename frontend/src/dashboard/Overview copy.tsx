@@ -102,7 +102,7 @@ const Overview = () => {
 
     fetchCreatedAt(); // Only call if token is available
     console.log("inside token");
-  }, []);
+  }, [token]);
   useEffect(() => {
     const storedToken =
       sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
@@ -158,7 +158,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -197,7 +197,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -235,7 +235,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -274,7 +274,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
   useEffect(() => {
     const fetchData = async () => {
       const params = new URLSearchParams();
@@ -310,7 +310,7 @@ const Overview = () => {
     if (userInfo?.sub && token) {
       fetchData();
     }
-  }, [userInfo?.sub, token, selectedValue, customStart, customEnd]);
+  }, [userInfo?.sub, token, selectedValue, customStart, customEnd, user?.role]);
 
   // function handleRefreshData() {
   //   axios.get(`${API_URL}api/call-history/refresh`);

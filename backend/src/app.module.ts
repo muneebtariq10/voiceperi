@@ -21,16 +21,16 @@ import { LogModule } from './logs_call_history/logs.module';
 import { UsageModule } from './UsedMinutes/usedminutes.module';
 import { RetelWebhookModule } from './retel-webhook/retel-webhook.module';
 import { IntegrationModule } from './integrations/integration.module';
-import { SqlService } from './sql/sql.service';
-import { SqlController } from './sql/sql.controller';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-    }),ServeStaticModule.forRoot({
+    }),
+    ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'upload'),
-      serveRoot: '/upload', 
+      serveRoot: '/upload',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -47,7 +47,10 @@ import { SqlController } from './sql/sql.controller';
           synchronize: true,
           logging: true,
           logger: 'advanced-console',
-          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+          ssl:
+            process.env.NODE_ENV === 'production'
+              ? { rejectUnauthorized: false }
+              : false,
         };
       },
     }),
@@ -64,16 +67,16 @@ import { SqlController } from './sql/sql.controller';
     LogModule,
     UsageModule,
     RetelWebhookModule,
-    IntegrationModule
+    IntegrationModule,
+    FeedbackModule,
   ],
-  controllers: [AppController, SqlController],
+  controllers: [AppController],
   providers: [
     AppService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-    SqlService
   ],
 })
 export class AppModule {}

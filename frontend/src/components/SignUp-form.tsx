@@ -107,7 +107,21 @@ export const SignUpForm = () => {
   // const { search } = useLocation();
   // const query = new URLSearchParams(search);
   // const token = query.get("token");
-  const token = localStorage.getItem("authToken");
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("token");
+    const storedToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    
+    if (urlToken) {
+      setToken(urlToken);
+      localStorage.setItem("authToken", urlToken);
+      sessionStorage.setItem("authToken", urlToken);
+    } else if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
   const API_URL = import.meta.env.VITE_API_BASE_URL;
   // console.log('audiourl1', audioUrl1);
@@ -137,7 +151,7 @@ export const SignUpForm = () => {
                 email: userData.email || "",
               }));
               const step1DataString = localStorage.getItem("step1Data");
-              let step1FormData = step1DataString
+              const step1FormData = step1DataString
                 ? JSON.parse(step1DataString)
                 : null;
               setStep1Data(step1FormData);
@@ -151,7 +165,7 @@ export const SignUpForm = () => {
         console.error("Failed to decode token:", error);
       }
     }
-  }, []);
+  }, [token]);
   useEffect(() => {
     const isStep1Complete =
       step1Data?.agentName?.trim() &&
@@ -171,7 +185,7 @@ export const SignUpForm = () => {
       (async () => {
         try {
           hasSubmittedRef.current = true;
-          await handleBusinessInfo(userId);
+          await handleBusinessInfo(userId, token);
           await handleCreateAgent(userId, token);
           toast.success("Account created successfully!");
           localStorage.setItem("authToken", token);
@@ -207,7 +221,7 @@ export const SignUpForm = () => {
   // console.log("selectedvoiceid", selectedVoiceId);
   useEffect(() => {
     if (userInfo) {
-      let name = userInfo.firstname + " " + userInfo.lastname;
+      const name = userInfo.firstname + " " + userInfo.lastname;
       setFormData((prev) => ({
         ...prev,
         name: name || "",
@@ -354,14 +368,16 @@ export const SignUpForm = () => {
         localStorage.setItem("user_id", userInfo?.id);
         localStorage.removeItem("step1Data");
         localStorage.removeItem("fromStepOne");
-        await handleBusinessInfo(userInfo?.id);
+        await handleBusinessInfo(userInfo?.id, token);
         const agentCreated = await handleCreateAgent(userInfo?.id, token);
         hasSubmittedRef.current = true;
-        toast.success(
-          agentCreated
-            ? "Account created successfully!"
-            : "Account Already exists!"
-        );
+        if (agentCreated === "FAILED") {
+          toast.error("Agent creation failed. Please check your settings.");
+        } else if (agentCreated === "CREATED") {
+          toast.success("Account created successfully!");
+        } else if (agentCreated === "EXISTS") {
+          toast.success("Logged in successfully!");
+        }
         navigate("/dashboard");
         return userInfo?.id ?? null;
       } else if (!token && !userInfo?.id) {
@@ -411,17 +427,19 @@ export const SignUpForm = () => {
 
         const fullUser = await userRes.json();
         setUser(fullUser);
-        await handleBusinessInfo(data.id);
+        await handleBusinessInfo(data.id, data.access_token);
         const agentCreated = await handleCreateAgent(
           data.id,
           data.access_token
         );
         hasSubmittedRef.current = true;
-        toast.success(
-          agentCreated
-            ? "Account created successfully!"
-            : "Account Already exists!"
-        );
+        if (agentCreated === "FAILED") {
+          toast.error("Agent creation failed. Please check your settings.");
+        } else if (agentCreated === "CREATED") {
+          toast.success("Account created successfully!");
+        } else if (agentCreated === "EXISTS") {
+          toast.success("Logged in successfully!");
+        }
         navigate("/dashboard");
         localStorage.removeItem("step1Data");
         setIsLoading(false);
@@ -454,18 +472,21 @@ export const SignUpForm = () => {
       // console.log("audioBase1 preview:", audioBase1?.slice(0, 100)); // Just to verify content
 
       // 🔍 First check if agent exists
-      const existingRes = await fetch(`${API_URL}api/agents/${user_id}`);
+      const existingRes = await fetch(`${API_URL}api/agents/${user_id}`, {
+        headers: { Authorization: `Bearer ${access_token}` }
+      });
       if (existingRes.ok) {
         const agent = await existingRes.json();
         if (agent && agent.id) {
           console.log("Agent already exists. Skipping creation.");
-          return false;
+          return "EXISTS";
         }
       }
       const response = await fetch(`${API_URL}api/agents`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`
         },
         body: JSON.stringify({
           user_id,
@@ -491,7 +512,7 @@ export const SignUpForm = () => {
         body: JSON.stringify({ status: 1, verified: 1 }),
       });
       setIsLoading(false);
-      return true;
+      return "CREATED";
     } catch (error: any) {
       console.error("Create Agent Error:", error);
       const res = await fetch(`${API_URL}api/users/${user_id}`, {
@@ -504,14 +525,14 @@ export const SignUpForm = () => {
       });
       console.log("deactivated user", res);
       setIsLoading(false);
-      return false;
+      return "FAILED";
       // toast.warning("Agent not created !");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleBusinessInfo = async (userId?: string) => {
+  const handleBusinessInfo = async (userId?: string, access_token?: string) => {
     const selectedLanguage = languages?.find(
       (lang) => lang.id == step1Data.language
     );
@@ -522,7 +543,9 @@ export const SignUpForm = () => {
         return;
       }
       // Check if business info already exists
-      const checkRes = await fetch(`${API_URL}api/businessinfos/${userId}`);
+      const checkRes = await fetch(`${API_URL}api/businessinfos/${userId}`, {
+        headers: { Authorization: `Bearer ${access_token || token}` }
+      });
       if (checkRes.ok) {
         const existing = await checkRes.json();
         if (existing?.id) {
@@ -536,6 +559,7 @@ export const SignUpForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token || token}`
         },
         body: JSON.stringify({
           user_id: userId,

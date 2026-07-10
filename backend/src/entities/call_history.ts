@@ -30,13 +30,12 @@ export class CallHistory {
     call_successful: boolean;
   };
 
- 
   @Column({ nullable: true })
   retell_agent: string;
 
   @Column('jsonb')
   latency: {
-    e2e: { p50: number;[key: string]: any };
+    e2e: { p50: number; [key: string]: any };
     [key: string]: any;
   };
 
@@ -45,4 +44,16 @@ export class CallHistory {
     combined_cost: number;
     [key: string]: any;
   };
+
+  @Column({ type: 'text', nullable: true })
+  from_number: string;
+
+  @Column({ type: 'text', nullable: true })
+  to_number: string;
+
+  @Column({ type: 'text', nullable: true })
+  direction: string;
+
+  @Column({ type: 'text', nullable: true })
+  call_type: string;
 }

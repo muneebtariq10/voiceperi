@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/sidebar";
 import logo from "../assets/logo1.png";
 import { Link, NavLink } from "react-router-dom";
-import { LayoutDashboard, PhoneCall, SwatchBook, Logs } from "lucide-react";
+import { PhoneCall, Logs } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
@@ -74,12 +74,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "/dashboard/callHistory",
         icon: PhoneCall,
       },
+      /* Temporarily hiding Integrations
       {
         title: "Integrations",
         url: "/dashboard/integrations",
         icon: LayoutDashboard,
         show: user?.role === "user",
       },
+      */
 
       ...(user?.role === "admin"
         ? [
@@ -95,12 +97,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               icon: Logs,
               show: true,
             },
+            /* Temporarily hiding Plans
             {
               title: "Plans",
               url: "/dashboard/plans",
               icon: SwatchBook,
               show: true,
             },
+            */
             {
               title: "Prompt",
               url: "/dashboard/prompt",
@@ -338,7 +342,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
 
         {/* Payment Card at Bottom */}
-        {user?.role == "user" && (
+        {false && user?.role == "user" && (
           <div className="mt-[100px]">
             <Card className="w-full bg-gradient-to-r !from-[#F3F0FF] !to-[#FFFFFF] p-4 !rounded-1 shadow-md border flex flex-col gap-[8px]">
               <CardContent className="flex flex-col gap-y-2 items-start justify-start p-0">

@@ -6,11 +6,13 @@ import { Public } from 'src/auth/decorators/public.decorator';
 import { BillingHistoryService } from 'src/billing_history/billing_history.service';
 import Stripe from 'stripe';
 if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not defined.');
+  console.warn('⚠️ STRIPE_SECRET_KEY is not defined. Stripe webhook will not work.');
 }
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: process.env.STRIPE_API_VERSION as any,
-});
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: process.env.STRIPE_API_VERSION as any,
+    })
+  : null;
 
 @Controller('webhook')
 export class StripeWebhookController {
@@ -23,6 +25,10 @@ export class StripeWebhookController {
     @Res() res: Response,
     @Headers('stripe-signature') signature: string,
   ) {
+    if (!stripe) {
+      return res.status(503).json({ error: 'Stripe is not configured.' });
+    }
+
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
     let event: Stripe.Event;
 
@@ -43,7 +49,7 @@ export class StripeWebhookController {
     try {
         switch (event.type) {
           case 'checkout.session.completed': {
-            const session = event.data.object as Stripe.Checkout.Session;
+            const session = event.data.object;
             console.log('📦 Event: checkout.session.completed');
             // Store customer, subscription, plan, etc.
             await this.billingHistoryService.handleCheckoutSessionCompleted(session);

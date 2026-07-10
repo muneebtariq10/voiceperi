@@ -144,14 +144,15 @@ export function LoginForm() {
   // }, []);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
+    const urlToken = params.get("token");
+    const localToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
 
-    if (token) {
+    if (urlToken || localToken) {
+      if (urlToken) {
+        sessionStorage.setItem("authToken", urlToken);
+        localStorage.setItem("authToken", urlToken);
+      }
       setIsLoading(true);
-
-      // Use sessionStorage instead of localStorage for "login as"
-      sessionStorage.setItem("authToken", token);
-
       toast.success("Signed in successfully");
       navigate("/dashboard");
     }
