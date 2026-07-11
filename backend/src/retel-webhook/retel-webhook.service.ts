@@ -81,12 +81,11 @@ export class RetelWebhookService {
 
     const agentEmails = agent?.emails || [];
 
-    // const userEmails =
-    //   typeof agent?.user?.email === 'string'
-    //     ? agent?.user.email.split(',').map((email) => email.trim())
-    //     : [];
-    // , ...userEmails
-    const allEmails = [...agentEmails];
+    const userEmails = typeof agent?.user?.email === 'string'
+      ? agent?.user.email.split(',').map((email) => email.trim())
+      : [];
+
+    const allEmails = [...agentEmails, ...userEmails];
 
     if (!agent) {
       console.log('agent id not found');
