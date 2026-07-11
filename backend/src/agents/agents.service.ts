@@ -252,6 +252,11 @@ export class AgentsService implements OnApplicationBootstrap {
         end: '{{end_has_post_call_fields}}',
         key: 'post_call_fields',
       },
+      {
+        start: '{{has_business_phone_number}}',
+        end: '{{end_has_business_phone_number}}',
+        key: 'business_phone_number',
+      },
     ];
 
     for (const section of conditionalSections) {
@@ -375,6 +380,7 @@ export class AgentsService implements OnApplicationBootstrap {
       agent_name: (agent as Agent)?.agent_name || '',
       business_name: businessInfo?.name || '',
       business_address: businessInfo?.address || '',
+      business_phone_number: businessInfo?.phone || '',
       business_hours: businessHours,
       begin_message:
         (agent as Agent)?.message !== 'null'

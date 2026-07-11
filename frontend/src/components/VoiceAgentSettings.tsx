@@ -615,12 +615,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                   <SelectValue placeholder="Select Voice" />
                 </SelectTrigger>
                 <SelectContent>
-                  {voices
-                    ?.filter(
-                      (voice: any) =>
-                        voice.standard_voice_type &&
-                        voice.standard_voice_type.toLowerCase() !== "unknown"
-                    )
+                  {(voices || [])
                     .sort((a: any, b: any) =>
                       a.voice_id === selectedVoice
                         ? -1
