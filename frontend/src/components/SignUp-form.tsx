@@ -832,7 +832,7 @@ export const SignUpForm = () => {
       </div>
       <Card className="overflow-hidden p-0 border-none rounded-none shadow-none w-full ">
         <CardContent className="grid p-0 md:grid-cols-2 ">
-          <form className="p-6 md:pl-10 md:py-12 md:pr-26 self-center relative h-full">
+          <form className="p-6 md:pl-10 md:py-12 md:pr-26 self-center relative h-full overflow-y-auto">
             <div className="flex flex-col gap-1 items-center ">
               <div className="flex items-center justify-between  mb-6 bg-[#F5F6F9] p-3 rounded-lg w-full">
                 {steps.map((step, index) => (

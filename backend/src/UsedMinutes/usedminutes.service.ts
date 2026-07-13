@@ -150,7 +150,12 @@ export class UsageService {
     });
   
     if (!agent || !agent.retell_agent) {
-      throw new Error('Retell Agent not found for this user.');
+      return {
+        allowedMinutes: 0,
+        usedMinutes: 0,
+        previousPlanUsedMinutes: 0,
+        previousPlanRemainingMinutes: 0,
+      };
     }
   
     const retellAgentId = agent.retell_agent;
@@ -162,7 +167,12 @@ export class UsageService {
     });
   
     if (billingHistories.length === 0) {
-      throw new Error('No billing history found for this user.');
+      return {
+        allowedMinutes: 0,
+        usedMinutes: 0,
+        previousPlanUsedMinutes: 0,
+        previousPlanRemainingMinutes: 0,
+      };
     }
   
     const latestPlan = billingHistories[billingHistories.length - 1];

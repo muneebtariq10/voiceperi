@@ -107,7 +107,7 @@ export const Step1 = ({
           Fill the required details to setup
         </p>
       </div>
-      <form action="">
+      <div>
         <div className="grid gap-3 mt-3">
           <Label
             htmlFor="text"
@@ -381,7 +381,7 @@ export const Step1 = ({
             ))}
           </div>
         </div>
-      </form>
+      </div>
       <div className="text-left text-sm mt-3">
         Already a member?{" "}
         <a
