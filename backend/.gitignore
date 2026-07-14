@@ -3,7 +3,7 @@
 /node_modules
 /build
 /public
-/templates/prompt.txt
+/templates/*.secret
 
 # Logs
 logs

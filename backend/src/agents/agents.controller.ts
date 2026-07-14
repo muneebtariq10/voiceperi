@@ -8,6 +8,8 @@ import {
   Delete,
   Put,
   Res,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AgentsService } from './agents.service';
@@ -70,8 +72,16 @@ export class AgentsController {
   }
 
   @Post()
-  create(@Body() createAgentDto: CreateAgentDto) {
-    return this.agentsService.create(createAgentDto);
+  async create(@Body() createAgentDto: CreateAgentDto) {
+    try {
+      return await this.agentsService.create(createAgentDto);
+    } catch (error) {
+      const message = error?.response?.data || error.message;
+      throw new HttpException(
+        { status: 'error', message: message },
+        error?.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get()
