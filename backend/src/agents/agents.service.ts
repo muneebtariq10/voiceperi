@@ -513,7 +513,7 @@ export class AgentsService implements OnApplicationBootstrap {
         payload,
         {
           headers: {
-            Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
+            Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
           },
         },
       ),
