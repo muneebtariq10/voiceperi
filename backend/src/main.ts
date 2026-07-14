@@ -28,7 +28,7 @@ async function bootstrap() {
   const allowedOrigins = [
     'http://localhost:5173',
     'https://dev.voiceperi.com',
-    ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+    ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL, process.env.FRONTEND_URL.replace(/\/$/, '')] : []),
   ];
 
   app.enableCors({
