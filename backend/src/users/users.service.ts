@@ -406,7 +406,7 @@ export class UsersService {
     try {
       const response$ = this.httpService.delete(url, {
         headers: {
-          Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
+          Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
           'Content-Type': 'application/json',
         },
         validateStatus: () => true, // Let us handle all status codes manually

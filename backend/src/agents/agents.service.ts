@@ -1105,7 +1105,7 @@ export class AgentsService implements OnApplicationBootstrap {
   }
 
   voices(): Observable<any> {
-    if (!process.env.RETELL_API_KEY) {
+    if (!process.env.RETELL_AI_API_KEY) {
       // Fallback: return the specific ElevenLabs voices used by the frontend
       const fallbackVoices = [
         { voice_id: '11labs-Andrew', voice_name: 'Andrew', provider: 'elevenlabs', accent: 'American', gender: 'male', age: 'Young', preview_audio_url: '' },
@@ -1131,7 +1131,7 @@ export class AgentsService implements OnApplicationBootstrap {
       .get(`${process.env.RETELL_AI_API_URL}list-voices`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
+          Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
         },
       })
       .pipe(map((response) => response.data));
