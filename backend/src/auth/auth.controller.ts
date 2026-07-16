@@ -104,7 +104,11 @@ export class AuthController {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (user) {
-      await this.mailService.sendResetPasswordEmail(email);
+      try {
+        await this.mailService.sendResetPasswordEmail(email);
+      } catch (error) {
+        console.error('Failed to send reset password email:', error);
+      }
     }
 
     // Always return success to prevent email enumeration
