@@ -56,7 +56,7 @@ export class AuthService {
   //     access_token: this.jwtService.sign(payload),
   //   };
   // }
-  async login(user: any) {
+  login(user: any) {
     const payload = {
       email: user.email,
       sub: user.id,
@@ -162,7 +162,7 @@ export class AuthService {
   //   const payload = { sub: user.id, email: user.email };
   //   return this.jwtService.sign(payload);
   // }
-  async generateJwt(user: any) {
+  generateJwt(user: any) {
     if (!user || !user.email) {
       throw new UnauthorizedException('Invalid user data');
     }

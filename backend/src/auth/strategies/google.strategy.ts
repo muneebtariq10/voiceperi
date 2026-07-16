@@ -44,9 +44,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     }
 
     try {
-      const { user, isNew, error } =
-        await this.authService.validateGoogleUser(profile, intent);
-      
+      const { user, isNew, error } = await this.authService.validateGoogleUser(
+        profile,
+        intent,
+      );
+
       if (error) {
         return done(null, { error });
       }
