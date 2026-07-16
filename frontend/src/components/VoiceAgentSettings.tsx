@@ -43,6 +43,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
   const [welcomeMessage, setWelcomeMessage] = useState<string>("");
   const [userInfo, setUserInfo] = useState<DecodedToken | null>(null);
   const [emails, setEmails] = useState<string[]>([]);
+  const [aiPhoneNumber, setAiPhoneNumber] = useState<string>("");
   const [phoneNumbers, setPhoneNumbers] = useState<string[]>([]);
   const [notes, setNotes] = useState<string[]>([]);
   const [emailInput, setEmailInput] = useState<string>("");
@@ -303,6 +304,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         voice_id: selectedVoice,
         agent_name: agentName.trim(),
         message: welcomeMessage.trim(),
+        ai_number: aiPhoneNumber,
         emails: emails,
         phone_numbers: phoneNumbers,
         notes: notes,
@@ -402,7 +404,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to purchase number");
-      setPhoneNumbers([data.phone_number]);
+      setAiPhoneNumber(data.phone_number);
       toast.success("Phone number purchased successfully!");
     } catch (e: any) {
       toast.error(e.message || "Failed to purchase phone number");
@@ -452,6 +454,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         setWelcomeMessage(json3.message || "");
         setBlockedNumbers(json3.blocked_numbers || []);
         setEmails(json3.emails || []);
+        setAiPhoneNumber(json3.ai_number || "");
         setPhoneNumbers(json3.phone_numbers || []);
         setNotes(json3.notes || []);
         setBlock800Numbers(json3.block_800_number || false);
@@ -706,104 +709,76 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </TooltipWrapper>
           </label>
           <div className="flex flex-col items-start gap-4 w-full">
-            {phoneNumbers && phoneNumbers.length > 0 ? (
-              <div className="flex flex-col gap-4 w-full">
-                {/* Purchased number display */}
-                <div className="flex items-center gap-3 bg-gradient-to-r from-[#f0ebff] to-[#e8f4f8] border border-[#d4c5ff] rounded-xl px-5 py-4 w-full">
-                  <PhoneForwarded className="w-5 h-5 text-[#5222FF] flex-shrink-0" />
-                  <div className="flex flex-col flex-1">
-                    <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">AI Agent Number</span>
-                    <span className="font-mono font-bold text-lg text-gray-900 tracking-wide">
-                      {phoneNumbers[0]}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(phoneNumbers[0]);
-                      setCopiedNumber(true);
-                      toast.success("Number copied!");
-                      setTimeout(() => setCopiedNumber(false), 2000);
-                    }}
-                    className="flex items-center gap-1 text-sm text-[#5222FF] hover:text-[#3b11cc] transition-colors bg-white px-3 py-1.5 rounded-lg border border-[#d4c5ff] hover:border-[#5222FF]"
-                  >
-                    {copiedNumber ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                    {copiedNumber ? "Copied" : "Copy"}
-                  </button>
+            <div className="flex items-center gap-3 w-full">
+              <Input
+                type="tel"
+                placeholder="+1 (xxx) xxx-xxxx (Manually enter or get via Retell)"
+                className="w-full h-[40px]"
+                value={aiPhoneNumber}
+                onChange={(e) => setAiPhoneNumber(e.target.value)}
+              />
+              <Button 
+                type="button" 
+                onClick={handlePurchaseNumber}
+                disabled={purchasingNumber}
+                className="bg-[#5222FF] text-white hover:bg-[#3822ff] whitespace-nowrap h-[40px]"
+              >
+                {purchasingNumber ? "Setting up..." : "Get via Retell"}
+              </Button>
+            </div>
+
+            {/* Call forwarding instructions */}
+            <div className="bg-white border border-gray-200 rounded-xl w-full overflow-hidden mt-2">
+              <button
+                type="button"
+                onClick={() => setShowForwardingGuide(!showForwardingGuide)}
+                className="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <Info className="w-4 h-4 text-[#5222FF]" />
+                  <span className="font-semibold text-sm text-gray-800">How to connect your business number</span>
                 </div>
+                <span className={`text-gray-400 transition-transform duration-200 ${showForwardingGuide ? 'rotate-180' : ''}`}>▾</span>
+              </button>
 
-                {/* Call forwarding instructions */}
-                <div className="bg-white border border-gray-200 rounded-xl w-full overflow-hidden">
-                  <button
-                    type="button"
-                    onClick={() => setShowForwardingGuide(!showForwardingGuide)}
-                    className="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Info className="w-4 h-4 text-[#5222FF]" />
-                      <span className="font-semibold text-sm text-gray-800">How to connect your business number</span>
-                    </div>
-                    <span className={`text-gray-400 transition-transform duration-200 ${showForwardingGuide ? 'rotate-180' : ''}`}>▾</span>
-                  </button>
-
-                  {showForwardingGuide && (
-                    <div className="px-5 pb-4 border-t border-gray-100">
-                      <p className="text-sm text-gray-600 mt-3 mb-3">
-                        Set up <strong>call forwarding</strong> on your business phone so incoming calls are automatically routed to your AI agent:
-                      </p>
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">1</span>
-                          <div>
-                            <p className="text-sm font-medium text-gray-800">Open your phone's dialer</p>
-                            <p className="text-xs text-gray-500">On the business phone that customers already call</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">2</span>
-                          <div>
-                            <p className="text-sm font-medium text-gray-800">Dial the forwarding code</p>
-                            <p className="text-xs text-gray-500">
-                              Type <code className="bg-gray-100 px-1.5 py-0.5 rounded text-[#5222FF] font-mono font-bold">*72{phoneNumbers[0]}</code> and press Call
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">3</span>
-                          <div>
-                            <p className="text-sm font-medium text-gray-800">Wait for confirmation</p>
-                            <p className="text-xs text-gray-500">You'll hear a tone or message confirming forwarding is active</p>
-                          </div>
-                        </div>
+              {showForwardingGuide && (
+                <div className="px-5 pb-4 border-t border-gray-100">
+                  <p className="text-sm text-gray-600 mt-3 mb-3">
+                    Set up <strong>call forwarding</strong> on your business phone so incoming calls are automatically routed to your AI agent:
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">1</span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">Open your phone's dialer</p>
+                        <p className="text-xs text-gray-500">On the business phone that customers already call</p>
                       </div>
-                      <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                        <p className="text-xs text-amber-800">
-                          <strong>💡 Note:</strong> The code <code className="font-mono">*72</code> works for most US carriers. For other regions, check your carrier's call forwarding instructions. To disable forwarding later, dial <code className="font-mono">*73</code>.
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">2</span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">Dial the forwarding code</p>
+                        <p className="text-xs text-gray-500">
+                          Type <code className="bg-gray-100 px-1.5 py-0.5 rounded text-[#5222FF] font-mono font-bold">*72{aiPhoneNumber || "[AI_NUMBER]"}</code> and press Call
                         </p>
                       </div>
                     </div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-3 w-full">
-                <div className="flex items-center gap-4 bg-gray-50 border border-dashed border-gray-300 rounded-xl px-5 py-6 w-full justify-center">
-                  <div className="flex flex-col items-center gap-2 text-center">
-                    <Phone className="w-8 h-8 text-gray-400" />
-                    <span className="text-gray-500 text-sm">No AI phone number assigned yet</span>
-                    <p className="text-xs text-gray-400 max-w-sm">Get a phone number for your AI agent, then forward your business line to it.</p>
-                    <Button 
-                      type="button" 
-                      onClick={handlePurchaseNumber}
-                      disabled={purchasingNumber}
-                      className="bg-[#5222FF] text-white hover:bg-[#3822ff] mt-2"
-                    >
-                      {purchasingNumber ? "Setting up..." : "Get AI Phone Number"}
-                    </Button>
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">3</span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">Wait for confirmation</p>
+                        <p className="text-xs text-gray-500">You'll hear a tone or message confirming forwarding is active</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <p className="text-xs text-amber-800">
+                      <strong>💡 Note:</strong> The code <code className="font-mono">*72</code> works for most US carriers. For other regions, check your carrier's call forwarding instructions. To disable forwarding later, dial <code className="font-mono">*73</code>.
+                    </p>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 

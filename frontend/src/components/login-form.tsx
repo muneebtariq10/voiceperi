@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { AppUser } from "@/AppContext";
 import { jwtDecode } from "jwt-decode";
+import { Eye, EyeOff } from "lucide-react";
 export function LoginForm() {
   const { setUser } = AppUser();
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ export function LoginForm() {
     email: false,
     password: false,
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_BASE_URL;
@@ -48,7 +50,7 @@ export function LoginForm() {
 
   function handleGoogleLogin() {
     setIsLoading(true);
-    window.location.href = `${API_URL}api/auth/google/login`;
+    window.location.href = `${API_URL}api/auth/google/login?intent=login`;
     console.log("Google login initiated", API_URL);
   }
 
@@ -145,9 +147,14 @@ export function LoginForm() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlToken = params.get("token");
+    const urlError = params.get("error");
     const localToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
 
-    if (urlToken || localToken) {
+    if (urlError === 'account_not_found') {
+      toast.error("Account doesn't exist. Please create an account first.");
+      // Clear the error from the URL so it doesn't show again on refresh
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (urlToken || localToken) {
       if (urlToken) {
         sessionStorage.setItem("authToken", urlToken);
         localStorage.setItem("authToken", urlToken);
@@ -240,14 +247,23 @@ export function LoginForm() {
                     Password
                   </Label>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter your password"
-                  className={`${errors.password ? "border-red-500" : ""}`}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    className={`${errors.password ? "border-red-500 pr-10" : "pr-10"}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">

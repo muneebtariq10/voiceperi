@@ -573,6 +573,8 @@ export class AgentsService implements OnApplicationBootstrap {
       agent_name: createAgentDto.agent_name,
       voice_id: createAgentDto.voice_id,
       google_business_url: createAgentDto.google_business_url,
+      ai_number: createAgentDto.ai_number,
+      phone_numbers: createAgentDto.phone_numbers,
       language,
       retell_agent: retellResponse?.agent_id,
       llm_id: retellResponse?.response_engine?.llm_id,
@@ -1040,6 +1042,8 @@ export class AgentsService implements OnApplicationBootstrap {
     if (updateAgentDto.message) agent.message = updateAgentDto.message;
     if (updateAgentDto.google_business_url)
       agent.google_business_url = updateAgentDto.google_business_url;
+    if (updateAgentDto.ai_number !== undefined)
+      agent.ai_number = updateAgentDto.ai_number;
     if (updateAgentDto.blocked_numbers)
       agent.blocked_numbers = updateAgentDto.blocked_numbers;
     if (updateAgentDto.notes) agent.notes = updateAgentDto.notes;
@@ -1119,7 +1123,7 @@ export class AgentsService implements OnApplicationBootstrap {
 
       const phoneNumber = response.data.phone_number;
       if (phoneNumber) {
-        agent.phone_numbers = [phoneNumber];
+        agent.ai_number = phoneNumber;
         await this.agentRepo.save(agent);
         return { success: true, phone_number: phoneNumber };
       }
@@ -1130,9 +1134,10 @@ export class AgentsService implements OnApplicationBootstrap {
         'Error purchasing phone number:',
         error?.response?.data || error.message,
       );
+      
+      const errorMessage = error?.response?.data?.message || '';
       throw new Error(
-        error?.response?.data?.message ||
-          'Failed to purchase phone number. Please check your Retell AI account billing balance.',
+        `Failed to purchase phone number. Please ensure you have added a payment method on your Retell AI dashboard. Details: ${errorMessage}`,
       );
     }
   }

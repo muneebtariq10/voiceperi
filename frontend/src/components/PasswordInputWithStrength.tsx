@@ -1,4 +1,6 @@
 import { Input } from "@/components/ui/input"
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
 
 type Requirement = {
     label: string
@@ -32,26 +34,36 @@ export function PasswordInputWithStrength({
     showError,
     setShowError,
 }: Props) {
+    const [showPassword, setShowPassword] = useState(false)
     const passedRules = requirements.filter(r => r.test(password)).length
     const strengthLabel = getStrengthLabel(passedRules)
 
     return (
         <div className="space-y-2">
-            <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => {
-                    const value = e.target.value
-                    setPassword(value)
-                    if (showError) {
-                        setShowError(false)
-                    }
-                }}
-                className={showError ? "border-red-500" : ""}
-                required
-            />
+            <div className="relative">
+                <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => {
+                        const value = e.target.value
+                        setPassword(value)
+                        if (showError) {
+                            setShowError(false)
+                        }
+                    }}
+                    className={showError ? "border-red-500 pr-10" : "pr-10"}
+                    required
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+            </div>
 
             {password && (
                 <>

@@ -15,5 +15,6 @@ export class CreateAgentDto {
   user_id: string;
 
   google_business_url?: string;
+  ai_number?: string;
   phone_numbers?: string[] | null;
 }

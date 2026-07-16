@@ -26,6 +26,16 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
+import { ExecutionContext } from '@nestjs/common';
+
+export class GoogleAuthGuard extends AuthGuard('google') {
+  getAuthenticateOptions(context: ExecutionContext) {
+    const req = context.switchToHttp().getRequest();
+    return {
+      state: req.query.intent,
+    };
+  }
+}
 
 interface AuthenticatedRequest extends ARequest {
   user?: any;
@@ -55,20 +65,25 @@ export class AuthController {
 
   @Public()
   @Get('google/login')
-  @UseGuards(AuthGuard('google'))
+  @UseGuards(GoogleAuthGuard)
   async googleAuth() {
     // Redirects user to Google's OAuth page
   }
 
   @Public()
   @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
+  @UseGuards(GoogleAuthGuard)
   async googleAuthRedirect(
     @Req() req: AuthenticatedRequest,
     @Res() res: Response,
   ) {
     try {
       const user = req.user;
+      
+      if (user.error) {
+        return res.redirect(`${process.env.FRONTEND_URL}login?error=${user.error}`);
+      }
+
       const token = await this.authService.generateJwt(user);
 
       const redirectPath = user.isNew || user.status == 0 ? 'signup' : 'login';

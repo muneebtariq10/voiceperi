@@ -53,6 +53,9 @@ export class Agent {
   @Column('jsonb', { nullable: true })
   phone_numbers: string[];
 
+  @Column('text', { nullable: true })
+  ai_number: string;
+
   @Column({ type: 'boolean', default: false })
   hangup_if_call_detected: boolean;
 

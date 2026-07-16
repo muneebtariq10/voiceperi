@@ -44,6 +44,10 @@ export class UpdateAgentDto extends PartialType(CreateAgentDto) {
   @IsOptional()
   google_business_url?: string;
 
+  @IsString()
+  @IsOptional()
+  ai_number?: string;
+
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

@@ -294,7 +294,7 @@ export const SignUpForm = () => {
       localStorage.setItem("step1Data", JSON.stringify(step1Data));
     }
 
-    window.location.href = `${API_URL}api/auth/google/login`;
+    window.location.href = `${API_URL}api/auth/google/login?intent=signup`;
   }
 
   const handleSubmit = async () => {

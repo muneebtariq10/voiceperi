@@ -143,13 +143,6 @@ export const Step3 = ({
           }
         />
 
-        <p
-          className={`${
-            errors.password ? "flex" : "hidden"
-          } text-red-500 text-[14px] `}
-        >
-          Password must be 8 character
-        </p>
       </div>
     </>
   );

@@ -71,7 +71,8 @@ export class AuthService {
 
   async validateGoogleUser(
     profile: any,
-  ): Promise<{ user: User; isNew: boolean }> {
+    intent?: string,
+  ): Promise<{ user?: User; isNew?: boolean; error?: string }> {
     const { id, name, emails, photos } = profile;
 
     if (!emails || !emails.length || !emails[0].value) {
@@ -81,6 +82,10 @@ export class AuthService {
     const existingUser = await this.userService.findOne(emails[0].value, true);
     if (existingUser) {
       return { user: existingUser, isNew: false };
+    }
+
+    if (intent === 'login') {
+      return { error: 'account_not_found' };
     }
 
     const newUser = this.userRepository.create({
