@@ -793,7 +793,7 @@ export class AgentsService implements OnApplicationBootstrap {
     const variables = this.buildPromptVariables(
       agent,
       businessInfo,
-      agent.notes,
+      agent.notes || undefined,
     );
 
     console.log('🧩 Variables for prompt:', variables);

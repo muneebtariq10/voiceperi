@@ -153,7 +153,7 @@ export class CallHistoryService {
         where: { user: { id: userId } },
       });
 
-      retell_agent = agent?.retell_agent;
+      retell_agent = agent?.retell_agent || undefined;
 
       const business = await this.businessRepo.findOne({
         where: { user_id: { id: userId } },

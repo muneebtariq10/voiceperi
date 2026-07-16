@@ -192,7 +192,7 @@ export class UsersService {
       this.billingHistoryRepo.find({ where: { user: { id: userId } } }),
     ]);
 
-    const retellAgentIds = agents.map((a) => a.retell_agent).filter((r) => !!r);
+    const retellAgentIds = agents.map((a) => a.retell_agent).filter((r): r is string => !!r);
 
     const callHistory = retellAgentIds.length
       ? await this.callHistoryRepo.find({

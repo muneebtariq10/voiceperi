@@ -27,34 +27,34 @@ export class Agent {
   user: User;
 
   @Column('text', { nullable: true })
-  retell_agent: string; // added new column
+  retell_agent: string | null; // added new column
 
   @Column('text', { nullable: true })
-  llm_id: string; // added new column
+  llm_id: string | null; // added new column
 
   @Column('text', { nullable: true })
-  message: string;
+  message: string | null;
 
   @Column()
   voice_id: string;
 
   @Column('jsonb', { nullable: true })
-  blocked_numbers: string[];
+  blocked_numbers: string[] | null;
 
   @Column('jsonb', { nullable: true })
-  emails: string[];
+  emails: string[] | null;
 
   @Column('text', { nullable: true })
-  google_business_url: string;
+  google_business_url: string | null;
 
   @Column('jsonb', { nullable: true })
-  notes: string[];
+  notes: string[] | null;
 
   @Column('jsonb', { nullable: true })
-  phone_numbers: string[];
+  phone_numbers: string[] | null;
 
   @Column('text', { nullable: true })
-  ai_number: string;
+  ai_number: string | null;
 
   @Column({ type: 'boolean', default: false })
   hangup_if_call_detected: boolean;

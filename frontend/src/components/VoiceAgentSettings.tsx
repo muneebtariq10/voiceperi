@@ -1,6 +1,6 @@
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { AlertCircle, CircleX, Phone, PhoneForwarded, Copy, Check, Info } from "lucide-react";
+import { AlertCircle, CircleX, Phone, Info } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -57,7 +57,6 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
   const [blockedNumbers, setBlockedNumbers] = useState<string[]>([]);
   const [blockedInput, setBlockedInput] = useState<string>("");
   const [block800Numbers, setBlock800Numbers] = useState<boolean>(false);
-  const [copiedNumber, setCopiedNumber] = useState<boolean>(false);
   const [showForwardingGuide, setShowForwardingGuide] = useState<boolean>(false);
   // const [elevenlabsVoices, setElevenlabsVoices] = useState<any[]>([]);
   const [hangupSalesCalls, setHangupSalesCalls] = useState<boolean>(false);
