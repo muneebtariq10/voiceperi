@@ -384,7 +384,7 @@ export const SignUpForm = () => {
         const newErrors = {
           name: !formData.name,
           email: !formData.email,
-          password: !formData.password || formData.password.length < 8,
+          password: !formData.password || formData.password.length < 8 || !/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password) || !/[0-9]/.test(formData.password) || !/[^A-Za-z0-9]/.test(formData.password),
         };
         setErrors(newErrors);
         if (Object.values(newErrors).some(Boolean)) {
@@ -700,7 +700,7 @@ export const SignUpForm = () => {
       const newErrors = {
         name: !name,
         email: !email,
-        password: !password,
+        password: !password || password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[^A-Za-z0-9]/.test(password),
       };
 
       console.log("Step 3 Form Errors:", newErrors);
@@ -884,7 +884,7 @@ export const SignUpForm = () => {
 
                         if (!formData.name.trim()) newErrors.name = true;
                         if (!formData.email.trim()) newErrors.email = true;
-                        if (!formData.password || formData.password.length < 8)
+                        if (!formData.password || formData.password.length < 8 || !/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password) || !/[0-9]/.test(formData.password) || !/[^A-Za-z0-9]/.test(formData.password))
                           newErrors.password = true;
 
                         if (Object.keys(newErrors).length > 0) {

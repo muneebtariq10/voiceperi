@@ -6,7 +6,6 @@ import { Agent } from '../entities/agent'; // adjust the path
 import { InjectRepository } from '@nestjs/typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
 import { BusinessInformation } from 'src/entities/business_information';
-import { Console } from 'console';
 import * as twilio from 'twilio';
 @Injectable()
 export class RetelWebhookService {

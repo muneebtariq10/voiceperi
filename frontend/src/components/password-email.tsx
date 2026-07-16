@@ -26,9 +26,30 @@ export function PasswordEmail() {
               </div>
               <div className="text-left text-sm">
               Didn’t receive the email??{" "} 
-                <a href="#" className="hover:underline underline-offset-4 font-semibold">
+                <button 
+                  type="button"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    if (!email) return;
+                    try {
+                      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/auth/forgot-password`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email }),
+                      });
+                      if (response.ok) {
+                        alert("Reset password email resent successfully!");
+                      } else {
+                        alert("Failed to resend email.");
+                      }
+                    } catch (error) {
+                      alert("Error resending email.");
+                    }
+                  }}
+                  className="hover:underline underline-offset-4 font-semibold cursor-pointer text-primary bg-transparent border-none p-0"
+                >
                 Click to Resend
-                </a>
+                </button>
               </div>
               <div className="text-left text-sm ">
               <Link to={'/login'} className="hover:underline underline-offset-4 font-semibold flex">

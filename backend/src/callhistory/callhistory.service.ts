@@ -593,8 +593,8 @@ export class CallHistoryService {
         if (call.disconnection_reason) {
           hangupReason.push(call.disconnection_reason);
         }
-        if (call.call_analysis.user_sentiment) {
-          userSentiments.push(call.call_analysis?.user_sentiment);
+        if (call.call_analysis?.user_sentiment) {
+          userSentiments.push(call.call_analysis.user_sentiment);
         }
       });
 

@@ -113,9 +113,9 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
 
     // ✅ Format validation for phone numbers
     if (type === "phoneNumbers") {
-      const phoneRegex = /^\d{10,15}$/; // Accepts only digits, 10–15 digits long
+      const phoneRegex = /^\+?\d{10,15}$/; // Accepts optional + and digits, 10–15 digits long
       if (!phoneRegex.test(trimmedValue)) {
-        toast.error("Please enter a valid WhatsApp number (10–15 digits).");
+        toast.error("Please enter a valid WhatsApp number (e.g., +1234567890).");
         return;
       }
     }
