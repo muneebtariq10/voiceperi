@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BillingHistory } from 'src/entities/billing_history';
@@ -9,7 +8,7 @@ import { Agent } from 'src/entities/agent';
 
 @Module({
   imports: [TypeOrmModule.forFeature([BillingHistory, CallHistory, Agent])],
-  providers: [UsageService,],
+  providers: [UsageService],
   controllers: [UsageController],
 })
 export class UsageModule {}

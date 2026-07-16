@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class ForgetPasswordDto {
-    @IsEmail()
-    @IsNotEmpty()
-    email: string;
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 }

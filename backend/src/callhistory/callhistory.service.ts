@@ -303,7 +303,7 @@ export class CallHistoryService {
       // Split by common dash/hyphen characters (including unicode en-dash/em-dash) and 'to'
       const timeParts = time.split(/[-–—~]| to /i);
       const [fromRaw, toRaw] = timeParts.map((t) => t?.trim());
-      
+
       if (!fromRaw || !toRaw) {
         result[day] = { enabled: false };
         return;
@@ -328,11 +328,11 @@ export class CallHistoryService {
     if (!time12h) return '00:00';
     // Remove narrow no-break space and other weird whitespace
     time12h = time12h.replace(/[\u202F\u2009]/g, ' ').trim();
-    
+
     const parts = time12h.split(/(AM|PM)/i);
     const time = parts[0];
     const modifier = parts[1] || '';
-    
+
     let [hours, minutes] = time.trim().split(':').map(Number);
     if (isNaN(hours)) hours = 0;
     if (isNaN(minutes)) minutes = 0;
@@ -560,7 +560,7 @@ export class CallHistoryService {
     });
   }
 
-  async calculateCallMetrics(calls: CallHistory[]): Promise<any> {
+  calculateCallMetrics(calls: CallHistory[]): any {
     try {
       let totalCallMinutes = 0;
       let totalCost = 0;
@@ -678,8 +678,8 @@ export class CallHistoryService {
         });
       }
 
-      const currentMetrics = await this.calculateCallMetrics(currentCalls);
-      const previousMetrics = await this.calculateCallMetrics(previousCalls);
+      const currentMetrics = this.calculateCallMetrics(currentCalls);
+      const previousMetrics = this.calculateCallMetrics(previousCalls);
 
       const percentDiff = (current: number, previous: number): number => {
         if (previous === 0) return 0;
@@ -761,7 +761,7 @@ export class CallHistoryService {
         });
       }
 
-      const currentMetrics = await this.calculateCallMetrics(currentCalls);
+      const currentMetrics = this.calculateCallMetrics(currentCalls);
 
       return {
         totalCallMinutes: {
@@ -792,13 +792,13 @@ export class CallHistoryService {
     }
   }
 
-  async calculateDayWiseTotalCost(
+  calculateDayWiseTotalCost(
     calls: CallHistory[],
     startTimestamp: number,
     endTimestamp: number,
     metric: 'total-cost' | 'total-calls' | 'average-cost' | 'call-minutes',
     groupBy: 'day' | 'month' = 'day',
-  ): Promise<any[]> {
+  ): any[] {
     try {
       const groupedData: {
         [key: string]: {
@@ -949,7 +949,7 @@ export class CallHistoryService {
 
       const groupBy = duration === '1-year' ? 'month' : 'day';
 
-      return await this.calculateDayWiseTotalCost(
+      return this.calculateDayWiseTotalCost(
         callHistory,
         startTimestamp,
         endTimestamp,
@@ -1025,7 +1025,7 @@ export class CallHistoryService {
       );
       const groupBy = diffInDays > 60 ? 'month' : 'day';
 
-      return await this.calculateDayWiseTotalCost(
+      return this.calculateDayWiseTotalCost(
         callHistory,
         startTimestamp,
         endTimestamp,

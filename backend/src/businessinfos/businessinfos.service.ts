@@ -90,21 +90,21 @@ export class BusinessinfosService {
     };
 
     if (!placeDetails) {
-        // Fallback dummy place details if not found on Google Maps
-        placeDetails = {
-            name: query,
-            website: query,
-            formatted_address: '',
-            international_phone_number: '',
-            types: [],
-            opening_hours: { weekday_text: [] },
-            editorial_summary: { overview: '' }
-        };
+      // Fallback dummy place details if not found on Google Maps
+      placeDetails = {
+        name: query,
+        website: query,
+        formatted_address: '',
+        international_phone_number: '',
+        types: [],
+        opening_hours: { weekday_text: [] },
+        editorial_summary: { overview: '' },
+      };
     }
 
     return await this.create(createBusinessinfoDto, placeDetails);
   }
-  
+
   async getNewBusinessInfo(query: string, user_id: string) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
@@ -125,16 +125,16 @@ export class BusinessinfosService {
     }
 
     if (!placeDetails) {
-        // Fallback dummy place details if not found on Google Maps
-        placeDetails = {
-            name: query,
-            website: query,
-            formatted_address: '',
-            international_phone_number: '',
-            types: [],
-            opening_hours: { weekday_text: [] },
-            editorial_summary: { overview: '' }
-        };
+      // Fallback dummy place details if not found on Google Maps
+      placeDetails = {
+        name: query,
+        website: query,
+        formatted_address: '',
+        international_phone_number: '',
+        types: [],
+        opening_hours: { weekday_text: [] },
+        editorial_summary: { overview: '' },
+      };
     }
 
     return placeDetails;

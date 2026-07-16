@@ -87,13 +87,16 @@ export class AuthController {
   async forgotPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
     const { email } = forgetPasswordDto;
     const user = await this.userRepository.findOne({ where: { email } });
-    
+
     if (user) {
       await this.mailService.sendResetPasswordEmail(email);
     }
-    
+
     // Always return success to prevent email enumeration
-    return { message: 'If an account with that email exists, we sent a password reset link.' };
+    return {
+      message:
+        'If an account with that email exists, we sent a password reset link.',
+    };
   }
 
   @Public()

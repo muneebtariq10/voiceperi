@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 // src/payment/payment.controller.ts
 import { Controller, Post, Req, Res, Headers } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -6,7 +5,9 @@ import { Public } from 'src/auth/decorators/public.decorator';
 import { BillingHistoryService } from 'src/billing_history/billing_history.service';
 import Stripe from 'stripe';
 if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('⚠️ STRIPE_SECRET_KEY is not defined. Stripe webhook will not work.');
+  console.warn(
+    '⚠️ STRIPE_SECRET_KEY is not defined. Stripe webhook will not work.',
+  );
 }
 const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -47,25 +48,27 @@ export class StripeWebhookController {
 
     // 2) Handle the event
     try {
-        switch (event.type) {
-          case 'checkout.session.completed': {
-            const session = event.data.object;
-            console.log('📦 Event: checkout.session.completed');
-            // Store customer, subscription, plan, etc.
-            await this.billingHistoryService.handleCheckoutSessionCompleted(session);
-          
-            break;
-          }
+      switch (event.type) {
+        case 'checkout.session.completed': {
+          const session = event.data.object;
+          console.log('📦 Event: checkout.session.completed');
+          // Store customer, subscription, plan, etc.
+          await this.billingHistoryService.handleCheckoutSessionCompleted(
+            session,
+          );
+
+          break;
+        }
         //  case 'invoice.paid':{
         //  await this.billingHistoryService.handleInvoicePaid(event.data.object as Stripe.Invoice);
         //  break;
         //  }
-          default:
-            console.log(`ℹ️ Unhandled event type: ${event.type}`);
-        }
-      } catch (err) {
-        console.error('❗Error handling Stripe event:', err);
+        default:
+          console.log(`ℹ️ Unhandled event type: ${event.type}`);
       }
+    } catch (err) {
+      console.error('❗Error handling Stripe event:', err);
+    }
 
     // 3) Acknowledge receipt
     return res.status(200).json({ received: true });

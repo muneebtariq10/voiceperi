@@ -19,7 +19,7 @@ export class FeedbackService {
 
   async submitFeedback(userId: string, message: string): Promise<Feedback> {
     const user = await this.userRepo.findOne({ where: { id: userId } });
-    
+
     if (!user) {
       throw new InternalServerErrorException('User not found');
     }
@@ -33,11 +33,15 @@ export class FeedbackService {
 
     // Send email notification to admin
     try {
-      // Accessing mailerService through MailService is not exposed, 
+      // Accessing mailerService through MailService is not exposed,
       // let's add a sendFeedbackNotification method to MailService or just send directly if possible.
       // Actually, wait, MailService doesn't have a generic send email method exposed. Let's use mailerService directly or add a method.
       // I will add a method in MailService.
-      await this.mailService.sendFeedbackEmail(user.email, user.firstname, message);
+      await this.mailService.sendFeedbackEmail(
+        user.email,
+        user.firstname,
+        message,
+      );
     } catch (err) {
       console.error('Failed to send feedback email:', err);
     }

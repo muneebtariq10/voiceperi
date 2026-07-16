@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Controller, Get, Param } from '@nestjs/common';
 import { UsageService } from './usedminutes.service';
 import { Public } from 'src/auth/decorators/public.decorator';
@@ -22,14 +21,13 @@ export class UsageController {
   //   return await this.usageService.getUsageByUser(userId);
   // }
   @Public()
-@Get(':userId')
-async getUsage(@Param('userId') userId: string): Promise<{
-  allowedMinutes: number;
-  usedMinutes: number;
-  previousPlanUsedMinutes: number;
-  previousPlanRemainingMinutes: number;
-}> {
-  return await this.usageService.getUsageByUser(userId);
-}
-
+  @Get(':userId')
+  async getUsage(@Param('userId') userId: string): Promise<{
+    allowedMinutes: number;
+    usedMinutes: number;
+    previousPlanUsedMinutes: number;
+    previousPlanRemainingMinutes: number;
+  }> {
+    return await this.usageService.getUsageByUser(userId);
+  }
 }

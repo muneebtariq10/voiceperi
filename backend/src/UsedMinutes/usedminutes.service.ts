@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -33,35 +32,35 @@ export class UsageService {
   //     where: { user: { id: userId } },
   //     relations: ['user'],
   //   });
-  
+
   //   if (!agent || !agent.retell_agent) {
   //     throw new Error('Retell Agent not found for this user.');
   //   }
-  
+
   //   const retellAgentId = agent.retell_agent;
-  
+
   //   const billingHistories = await this.billingRepo.find({
   //     where: { user: { id: userId } },
   //     relations: ['paymentPlan'],
   //     order: { current_period_start: 'ASC' },
   //   });
-  
+
   //   if (billingHistories.length === 0) {
   //     throw new Error('No billing history found for this user.');
   //   }
-  
+
   //   const results: PlanUsageResult[] = [];
-  
+
   //   const lastPlan = billingHistories[billingHistories.length - 1];
-  
+
   //   if (billingHistories.length > 1) {
   //     const secondLast = billingHistories[billingHistories.length - 2];
   //     const secondLastEnd = new Date(secondLast.current_period_end);
   //     const lastStart = new Date(lastPlan.current_period_start);
-  
+
   //     // Check overlap
   //     const isOverlapping = secondLastEnd > lastStart;
-  
+
   //     if (isOverlapping) {
   //       // Previous plan usage (trimmed to avoid overlap)
   //       results.push(await this.calculateUsage(
@@ -71,7 +70,7 @@ export class UsageService {
   //         retellAgentId,
   //         'Overlapping: previous plan trimmed to before current plan'
   //       ));
-  
+
   //       // Current plan usage (full)
   //       results.push(await this.calculateUsage(
   //         lastPlan,
@@ -100,7 +99,7 @@ export class UsageService {
   //       'Only one plan available'
   //     ));
   //   }
-  
+
   //   return results;
   // }
   // private async calculateUsage(
@@ -118,15 +117,15 @@ export class UsageService {
   //       end: periodEnd.getTime(),
   //     })
   //     .getMany();
-  
+
   //   const usedMinutes = calls.reduce((sum, call) => {
   //     const duration = call.end_timestamp - call.start_timestamp;
   //     return sum + duration / 60000;
   //   }, 0);
-  
+
   //   const allowedMinutes = plan.paymentPlan.features.minutes;
   //   const remainingMinutes = Math.max(0, allowedMinutes - usedMinutes);
-  
+
   //   return {
   //     planId: plan.id,
   //     planTitle: plan.paymentPlan.title,
@@ -139,16 +138,16 @@ export class UsageService {
   //   };
   // }
   async getUsageByUser(userId: string): Promise<{
-    allowedMinutes: number,
-    usedMinutes: number,
-    previousPlanUsedMinutes: number,
-    previousPlanRemainingMinutes: number
+    allowedMinutes: number;
+    usedMinutes: number;
+    previousPlanUsedMinutes: number;
+    previousPlanRemainingMinutes: number;
   }> {
     const agent = await this.agentRepo.findOne({
       where: { user: { id: userId } },
       relations: ['user'],
     });
-  
+
     if (!agent || !agent.retell_agent) {
       return {
         allowedMinutes: 0,
@@ -157,15 +156,15 @@ export class UsageService {
         previousPlanRemainingMinutes: 0,
       };
     }
-  
+
     const retellAgentId = agent.retell_agent;
-  
+
     const billingHistories = await this.billingRepo.find({
       where: { user: { id: userId } },
       relations: ['paymentPlan'],
       order: { current_period_start: 'ASC' },
     });
-  
+
     if (billingHistories.length === 0) {
       return {
         allowedMinutes: 0,
@@ -174,58 +173,65 @@ export class UsageService {
         previousPlanRemainingMinutes: 0,
       };
     }
-  
+
     const latestPlan = billingHistories[billingHistories.length - 1];
-    const previousPlan = billingHistories.length > 1
-      ? billingHistories[billingHistories.length - 2]
-      : null;
-  
+    const previousPlan =
+      billingHistories.length > 1
+        ? billingHistories[billingHistories.length - 2]
+        : null;
+
     const currentStart = new Date(latestPlan.current_period_start);
     const currentEnd = new Date(latestPlan.current_period_end);
-  
+
     const currentCalls = await this.callRepo
       .createQueryBuilder('call')
       .where('call.retell_agent = :retellAgentId', { retellAgentId })
-      .andWhere('call.start_timestamp >= :start AND call.start_timestamp < :end', {
-        start: currentStart.getTime(),
-        end: currentEnd.getTime(),
-      })
+      .andWhere(
+        'call.start_timestamp >= :start AND call.start_timestamp < :end',
+        {
+          start: currentStart.getTime(),
+          end: currentEnd.getTime(),
+        },
+      )
       .getMany();
-  
+
     const currentUsed = currentCalls.reduce((sum, call) => {
       const duration = call.end_timestamp - call.start_timestamp;
       return sum + duration / 60000;
     }, 0);
-  
+
     let previousUsed = 0;
     let previousRemaining = 0;
-  
+
     if (previousPlan) {
       const previousStart = new Date(previousPlan.current_period_start);
       const previousEnd = new Date(previousPlan.current_period_end);
-  
+
       const isOverlapping = previousEnd > currentStart;
-  
+
       if (isOverlapping) {
         const prevCalls = await this.callRepo
           .createQueryBuilder('call')
           .where('call.retell_agent = :retellAgentId', { retellAgentId })
-          .andWhere('call.start_timestamp >= :start AND call.start_timestamp < :end', {
-            start: previousStart.getTime(),
-            end: currentStart.getTime(),
-          })
+          .andWhere(
+            'call.start_timestamp >= :start AND call.start_timestamp < :end',
+            {
+              start: previousStart.getTime(),
+              end: currentStart.getTime(),
+            },
+          )
           .getMany();
-  
+
         previousUsed = prevCalls.reduce((sum, call) => {
           const duration = call.end_timestamp - call.start_timestamp;
           return sum + duration / 60000;
         }, 0);
-  
+
         const prevAllowed = previousPlan.paymentPlan.features.minutes;
         previousRemaining = Math.max(0, prevAllowed - previousUsed);
       }
     }
-  
+
     return {
       allowedMinutes: latestPlan.paymentPlan.features.minutes,
       usedMinutes: +currentUsed.toFixed(2),
@@ -233,7 +239,4 @@ export class UsageService {
       previousPlanRemainingMinutes: +previousRemaining.toFixed(2),
     };
   }
-   
-  
-  
 }

@@ -1,7 +1,12 @@
-/* eslint-disable prettier/prettier */
 // src/payment_plans/entities/user-payments.entity.ts
 import { PaymentPlan } from './payment_plans';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { User } from './user';
 import { PaymentPlanPricing } from './payment_plans_pricing';
 
@@ -18,7 +23,10 @@ export class BillingHistory {
   @JoinColumn({ name: 'payment_plan_id' })
   paymentPlan: PaymentPlan;
 
-  @ManyToOne(() => PaymentPlanPricing, (PaymentPlanPricing) => PaymentPlanPricing.BillingHistory)
+  @ManyToOne(
+    () => PaymentPlanPricing,
+    (PaymentPlanPricing) => PaymentPlanPricing.BillingHistory,
+  )
   @JoinColumn({ name: 'payment_plan_price_id' })
   PaymentPlanPricing: PaymentPlanPricing;
 
@@ -33,25 +41,25 @@ export class BillingHistory {
 
   @Column('decimal', { precision: 10, scale: 2 })
   amount: number;
-  
+
   @Column({ nullable: true })
   invoice_status: string; // Subscription status (e.g., active, canceled)
 
   @Column()
-  subscription_status: string; 
+  subscription_status: string;
 
   @Column({ nullable: true })
-  invoice_url: string; 
+  invoice_url: string;
 
   @Column()
-  type: string; 
+  type: string;
 
   @Column({ nullable: true })
   invoice_pdf_url: string;
-  
+
   @Column({ type: 'timestamptz' })
   current_period_end: Date;
-  
+
   @Column({ type: 'timestamptz' })
   current_period_start: Date;
 

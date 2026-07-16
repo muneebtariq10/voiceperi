@@ -20,7 +20,10 @@ export class RetelWebhookService {
     private readonly callHistoryService: CallHistoryService,
   ) {
     if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
-      this.twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+      this.twilioClient = twilio(
+        process.env.TWILIO_ACCOUNT_SID,
+        process.env.TWILIO_AUTH_TOKEN,
+      );
     }
   }
   async getAgentByRetelId(agentId: string) {
@@ -80,9 +83,10 @@ export class RetelWebhookService {
 
     const agentEmails = agent?.emails || [];
 
-    const userEmails = typeof agent?.user?.email === 'string'
-      ? agent?.user.email.split(',').map((email) => email.trim())
-      : [];
+    const userEmails =
+      typeof agent?.user?.email === 'string'
+        ? agent?.user.email.split(',').map((email) => email.trim())
+        : [];
 
     const allEmails = [...agentEmails, ...userEmails];
 
@@ -168,11 +172,13 @@ export class RetelWebhookService {
     // ${transcript}
     await Promise.all(
       allEmails.map((email) =>
-        this.mailerService.sendMail({
-          to: email,
-          subject: `Call summary from ${callerInfo.callerEmail}`,
-          text: `${emailContent}`,
-        }).catch(err => console.error('Failed to send email', err)),
+        this.mailerService
+          .sendMail({
+            to: email,
+            subject: `Call summary from ${callerInfo.callerEmail}`,
+            text: `${emailContent}`,
+          })
+          .catch((err) => console.error('Failed to send email', err)),
       ),
     );
 
@@ -180,13 +186,17 @@ export class RetelWebhookService {
     if (this.twilioClient && process.env.TWILIO_WHATSAPP_NUMBER) {
       await Promise.all(
         phoneNumbers.map((number) => {
-          const formattedNumber = number.startsWith('+') ? number : '+' + number.replace(/\D/g, '');
+          const formattedNumber = number.startsWith('+')
+            ? number
+            : '+' + number.replace(/\D/g, '');
           return this.twilioClient!.messages.create({
             from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
             to: `whatsapp:${formattedNumber}`,
             body: emailContent,
-          }).catch(err => console.error('Failed to send WhatsApp message', err));
-        })
+          }).catch((err) =>
+            console.error('Failed to send WhatsApp message', err),
+          );
+        }),
       );
     }
 

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PaymentPlan } from 'src/entities/payment_plans';
@@ -9,7 +8,14 @@ import { BillingHistory } from 'src/entities/billing_history';
 import { PaymentPlanPricing } from 'src/entities/payment_plans_pricing';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PaymentPlan, User, BillingHistory,PaymentPlanPricing])],
+  imports: [
+    TypeOrmModule.forFeature([
+      PaymentPlan,
+      User,
+      BillingHistory,
+      PaymentPlanPricing,
+    ]),
+  ],
   controllers: [PaymentPlanController],
   providers: [PaymentPlanService],
 })

@@ -1,11 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaymentPlanPricing, PricingInterval } from 'src/entities/payment_plans_pricing';
+import {
+  PaymentPlanPricing,
+  PricingInterval,
+} from 'src/entities/payment_plans_pricing';
 import { Repository } from 'typeorm';
 import { CreatePaymentPlanPricingDto } from './dto/create-pricing.dto';
 import { UpdatePaymentPlanPricingDto } from './dto/update.pricing.dto';
-
 
 @Injectable()
 export class PaymentPlanPricingService {
@@ -36,7 +37,10 @@ export class PaymentPlanPricingService {
     return await this.pricingRepository.save(newPricing);
   }
 
-  async update(id: number, dto: UpdatePaymentPlanPricingDto): Promise<PaymentPlanPricing> {
+  async update(
+    id: number,
+    dto: UpdatePaymentPlanPricingDto,
+  ): Promise<PaymentPlanPricing> {
     const pricing = await this.pricingRepository.findOneBy({ id });
     if (!pricing) {
       throw new NotFoundException('Payment Plan Pricing not found');

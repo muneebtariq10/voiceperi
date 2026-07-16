@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* billing-history.service.ts */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
@@ -14,7 +13,9 @@ export class BillingHistoryService {
     private billingRepo: Repository<BillingHistory>,
   ) {
     if (!process.env.STRIPE_SECRET_KEY) {
-      console.warn('⚠️ STRIPE_SECRET_KEY is not defined. Billing history will not work.');
+      console.warn(
+        '⚠️ STRIPE_SECRET_KEY is not defined. Billing history will not work.',
+      );
     }
     this.stripe = process.env.STRIPE_SECRET_KEY
       ? new Stripe(process.env.STRIPE_SECRET_KEY, {

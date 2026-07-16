@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { BillingHistory } from './billing_history';
 import { PaymentPlanPricing } from './payment_plans_pricing';
@@ -29,9 +28,14 @@ export class PaymentPlan {
   @Column({ default: false })
   is_popular: boolean;
 
-  @OneToMany(() => BillingHistory, (BillingHistory) => BillingHistory.paymentPlan)
+  @OneToMany(
+    () => BillingHistory,
+    (BillingHistory) => BillingHistory.paymentPlan,
+  )
   BillingHistory: BillingHistory[];
 
-  @OneToMany(() => PaymentPlanPricing, (pricing) => pricing.plan, { cascade: true })
+  @OneToMany(() => PaymentPlanPricing, (pricing) => pricing.plan, {
+    cascade: true,
+  })
   pricings: PaymentPlanPricing[];
 }

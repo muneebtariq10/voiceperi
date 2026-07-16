@@ -1,6 +1,15 @@
-/* eslint-disable prettier/prettier */
 import { Type } from 'class-transformer';
-import { IsOptional, IsString, IsBoolean, IsObject, IsNotEmpty, IsEnum, IsNumber, IsArray, ValidateNested} from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsBoolean,
+  IsObject,
+  IsNotEmpty,
+  IsEnum,
+  IsNumber,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
 import { PricingInterval } from 'src/entities/payment_plans_pricing';
 
 class PricingDto {
@@ -31,7 +40,7 @@ export class CreatePaymentPlanDto {
   @IsObject()
   features?: {
     minutes?: number;
-    price_per_minute?: number; 
+    price_per_minute?: number;
     zapier_integration?: boolean;
     smart_spam_detection?: boolean;
     crm_integration?: boolean;

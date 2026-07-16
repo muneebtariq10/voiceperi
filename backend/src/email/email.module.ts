@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 // src/mail/mail.module.ts
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
@@ -9,12 +8,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-
     TypeOrmModule.forFeature([User]),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         const smtpUser = configService.get<string>('SMTP_USER');
         return {
           transport: {
@@ -36,5 +34,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   providers: [MailService],
   exports: [MailService],
 })
-export class MailModule {
-}
+export class MailModule {}

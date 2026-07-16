@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
-import {  IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateEventDto {
-
   @IsString()
   cal_key: string;
 
@@ -11,6 +9,4 @@ export class CreateEventDto {
 
   @IsString()
   title: string;
-
-
 }

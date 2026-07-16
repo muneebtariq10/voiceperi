@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,7 +9,7 @@ export class MailService {
   constructor(
     private readonly mailerService: MailerService,
     @InjectRepository(User) private userRepo: Repository<User>,
-  ) { }
+  ) {}
 
   // async findByEmail(email: string): Promise<User | null> {
   //   return await this.userRepo.findOne({ where: { email } });
@@ -46,7 +45,11 @@ export class MailService {
       `,
     });
   }
-  async sendFeedbackEmail(userEmail: string, userName: string, message: string): Promise<void> {
+  async sendFeedbackEmail(
+    userEmail: string,
+    userName: string,
+    message: string,
+  ): Promise<void> {
     const adminEmail = process.env.SMTP_USER || 'ebbadurrehman538@gmail.com'; // fallback if not set
     await this.mailerService.sendMail({
       to: 'ebbadurrehman538@gmail.com', // Admin email
