@@ -74,21 +74,7 @@ const getColumns = (userRole?: string): ColumnDef<Data>[] => {
         );
       },
     },
-    {
-      accessorKey: "direction",
-      header: ({ column }) => renderHeader("Direction", column),
-      cell: ({ row }) => {
-        const dir = row.getValue<string>("direction");
-        if (!dir) return <div className="text-lg font-medium">-</div>;
-        return (
-          <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
-            dir === 'inbound' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'
-          }`}>
-            {dir}
-          </span>
-        );
-      },
-    },
+
     {
       accessorKey: "duration",
       header: ({ column }) => renderHeader("Duration", column),
