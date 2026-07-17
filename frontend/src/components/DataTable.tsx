@@ -154,6 +154,17 @@ const getColumns = (userRole?: string): ColumnDef<Data>[] => {
         <div className="text-lg font-normal">{row.getValue("latency")}</div>
       ),
     },
+    {
+      id: "actions",
+      header: () => <div className="text-left font-medium text-primary pl-2">Actions</div>,
+      cell: () => (
+        <button
+          className="text-sm font-semibold px-4 py-1.5 bg-[#f0fbf9] border border-[#46a79d] text-[#46a79d] rounded-[8px] hover:bg-[#46a79d] hover:text-white transition-colors"
+        >
+          View Details
+        </button>
+      ),
+    },
   ];
 
   const adminColumns: ColumnDef<Data>[] = [
@@ -407,15 +418,15 @@ export function DataTable({
       </div>
 
       <div className="w-full overflow-x-hidden">
-        <div className="border overflow-x-auto rounded-[12px] mb-[90px]">
+        <div className="border border-gray-200 overflow-x-auto rounded-[12px] mb-[90px] shadow-sm bg-white">
           <Table>
-            <TableHeader>
-              <TableRow>
+            <TableHeader className="bg-gray-50/80 border-b border-gray-200">
+              <TableRow className="hover:bg-transparent">
                 {table.getHeaderGroups().map((headerGroup) =>
                   headerGroup.headers.map((header) => (
                     <TableHead
                       key={header.id}
-                      className="cursor-pointer pl-4 py-2 text-left whitespace-nowrap text-lg text-primary font-medium"
+                      className="cursor-pointer px-5 py-3.5 text-left whitespace-nowrap text-[14px] text-gray-700 font-semibold uppercase tracking-wider"
                     >
                       {flexRender(
                         header.column.columnDef.header,
@@ -436,12 +447,12 @@ export function DataTable({
                       setSelectedRow(row.original);
                       setPopupOpen(true);
                     }}
-                    className="cursor-pointer hover:bg-gray-100"
+                    className="cursor-pointer hover:bg-[#f4fbf9] transition-colors border-b border-gray-100 last:border-0"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className="px-[18.5px] py-[14px] text-left text-default-gray text-lg font-medium"
+                        className="px-5 py-4 text-left text-gray-700 text-[15px] font-medium"
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
