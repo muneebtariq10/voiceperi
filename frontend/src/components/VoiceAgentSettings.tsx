@@ -390,26 +390,8 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     }
   };
 
-  const handlePurchaseNumber = async () => {
-    if (!agent || !agent.id) {
-      toast.error("Please save your agent first");
-      return;
-    }
-    setPurchasingNumber(true);
-    try {
-      const res = await fetch(`${API_URL}api/agents/purchase-number/${agent.id}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to purchase number");
-      setAiPhoneNumber(data.phone_number);
-      toast.success("Phone number purchased successfully!");
-    } catch (e: any) {
-      toast.error(e.message || "Failed to purchase phone number");
-    } finally {
-      setPurchasingNumber(false);
-    }
+  const handlePurchaseNumber = () => {
+    window.open("https://beta.retellai.com/dashboard", "_blank");
   };
 
   useEffect(() => {
