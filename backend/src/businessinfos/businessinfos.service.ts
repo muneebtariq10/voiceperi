@@ -15,6 +15,7 @@ import { AxiosError } from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { User } from 'src/entities/user';
 import { Agent } from 'src/entities/agent';
+import { WebsiteImportService } from './website-import.service';
 
 export interface PlaceDetailsResult {
   place_id?: string;
@@ -61,6 +62,7 @@ export class BusinessinfosService {
     @InjectRepository(Agent)
     private agentRepo: Repository<Agent>,
     private readonly httpService: HttpService,
+    private readonly websiteImportService: WebsiteImportService,
   ) {
     this.apiKey = process.env.GOOGLE_PLACES_API_KEY || '';
   }
@@ -68,15 +70,20 @@ export class BusinessinfosService {
   async getBusinessInfo(query: string, language: string, user_id?: string) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
-      const placeId = await this.findPlaceIdFromText(query);
-      if (placeId) {
-        placeDetails = await this.getBusinessDetailsByPlaceId(
-          placeId,
-          language || 'en',
-        );
+      if (query.startsWith('http://') || query.startsWith('https://') || query.includes('.com') || query.includes('.net') || query.includes('.org')) {
+        this.logger.log(`Query appears to be a website URL: ${query}`);
+        placeDetails = await this.websiteImportService.scrapeWebsite(query);
+      } else {
+        const placeId = await this.findPlaceIdFromText(query);
+        if (placeId) {
+          placeDetails = await this.getBusinessDetailsByPlaceId(
+            placeId,
+            language || 'en',
+          );
+        }
       }
     } catch (error) {
-      this.logger.warn(`Failed to fetch place details for query: ${query}`);
+      this.logger.warn(`Failed to fetch details for query: ${query}`);
     }
 
     if (!user_id) {
@@ -108,17 +115,22 @@ export class BusinessinfosService {
   async getNewBusinessInfo(query: string, user_id: string) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
-      const placeId = await this.findPlaceIdFromText(query);
-      if (placeId) {
-        const agentInfo = await this.agentRepo.findOne({
-          where: { user: { id: user_id } },
-          relations: ['language', 'user'],
-        });
+      if (query.startsWith('http://') || query.startsWith('https://') || query.includes('.com') || query.includes('.net') || query.includes('.org')) {
+        this.logger.log(`Query appears to be a website URL: ${query}`);
+        placeDetails = await this.websiteImportService.scrapeWebsite(query);
+      } else {
+        const placeId = await this.findPlaceIdFromText(query);
+        if (placeId) {
+          const agentInfo = await this.agentRepo.findOne({
+            where: { user: { id: user_id } },
+            relations: ['language', 'user'],
+          });
 
-        placeDetails = await this.getBusinessDetailsByPlaceId(
-          placeId,
-          agentInfo?.language?.code || 'en',
-        );
+          placeDetails = await this.getBusinessDetailsByPlaceId(
+            placeId,
+            agentInfo?.language?.code || 'en',
+          );
+        }
       }
     } catch (error) {
       this.logger.warn(`Failed to fetch new place details for query: ${query}`);
@@ -288,10 +300,12 @@ export class BusinessinfosService {
     const businessInfo = this.businessInfoRepo.create({
       id: uuidv4(),
       profile: place.url ? place.url : place.website || '',
+      websiteUrl: place.website || (place.url ? place.url : ''),
+      businessType: place.types?.includes('ecommerce') ? 'ecommerce' : 'physical',
       name: place.name,
       address: place.formatted_address || 'Unknown',
       phone: place.international_phone_number || '',
-      overview: place.editorial_summary?.overview || '',
+      overview: place.editorial_summary?.overview || place.overview || '',
       services: filteredTypes,
       timezone: 'America/Detroit',
       business_hours: place.opening_hours?.weekday_text || [],
@@ -341,10 +355,12 @@ export class BusinessinfosService {
 
       const placePayload: Partial<BusinessInformation> = {
         profile: place.url ? place.url : place.website || '',
+        websiteUrl: place.website || (place.url ? place.url : ''),
+        businessType: place.types?.includes('ecommerce') ? 'ecommerce' : 'physical',
         name: place.name,
         address: place.formatted_address || 'Unknown',
         phone: place.international_phone_number || '',
-        overview: place.editorial_summary?.overview || '',
+        overview: place.editorial_summary?.overview || place.overview || '',
         services: filteredTypes,
         timezone: '', // optional, fill later
         business_hours: place.opening_hours?.weekday_text || [],

@@ -446,6 +446,24 @@ export class AgentsService implements OnApplicationBootstrap {
         name: 'end_call',
         description: 'End the call with the user.',
       },
+      {
+        type: 'custom',
+        name: 'lookup_order',
+        description: 'Look up the status of an order using the order ID and the last 4 digits of the customer\'s phone number.',
+        url: process.env.RETELL_WEBHOOK_URL ? process.env.RETELL_WEBHOOK_URL.replace('/retell-webhook', '/orders/lookup') : 'https://dev.voiceperi.com/api/orders/lookup',
+        method: 'post',
+        headers: {
+           Authorization: `Bearer ${process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'}`
+        },
+        parameters: {
+          type: 'object',
+          properties: {
+            orderId: { type: 'number', description: 'The order ID' },
+            phoneLast4: { type: 'string', description: 'The last 4 digits of the phone number' }
+          },
+          required: ['orderId', 'phoneLast4']
+        }
+      }
     ];
 
     if (

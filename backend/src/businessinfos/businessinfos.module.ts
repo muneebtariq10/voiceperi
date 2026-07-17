@@ -7,6 +7,8 @@ import { HttpModule } from '@nestjs/axios';
 import { AgentsModule } from 'src/agents/agents.module';
 import { Agent } from 'src/entities/agent';
 
+import { WebsiteImportService } from './website-import.service';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([BusinessInformation, Agent]),
@@ -14,7 +16,7 @@ import { Agent } from 'src/entities/agent';
     forwardRef(() => AgentsModule),
   ],
   controllers: [BusinessinfosController],
-  providers: [BusinessinfosService],
-  exports: [TypeOrmModule, BusinessinfosService],
+  providers: [BusinessinfosService, WebsiteImportService],
+  exports: [TypeOrmModule, BusinessinfosService, WebsiteImportService],
 })
 export class BusinessinfosModule {}

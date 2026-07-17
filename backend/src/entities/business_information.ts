@@ -20,11 +20,59 @@ export class BusinessInformation {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   address: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   phone: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  websiteUrl: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  businessType: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  dataSource: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  placeId: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  googleMapsUrl: string;
+
+  @Column({ type: 'decimal', precision: 10, scale: 7, nullable: true })
+  latitude: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 7, nullable: true })
+  longitude: number;
+
+  @Column({ type: 'varchar', nullable: true })
+  supportEmail: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  contactPageUrl: string;
+
+  @Column({ type: 'text', nullable: true })
+  shippingInformation: string;
+
+  @Column({ type: 'text', nullable: true })
+  returnInformation: string;
+
+  @Column({ type: 'text', nullable: true })
+  faqs: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  escalationPhone: string;
+
+  @Column({ type: 'text', nullable: true })
+  escalationInstructions: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  agentGreeting: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  agentTone: string;
 
   @Column({ type: 'text', nullable: true })
   overview?: string;
@@ -35,7 +83,7 @@ export class BusinessInformation {
   @Column({ type: 'jsonb', nullable: true })
   business_hours?: string[];
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   timezone: string;
 
   // @ManyToOne(() => User, (user) => user.info, { nullable: false })

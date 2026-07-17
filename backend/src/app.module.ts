@@ -22,6 +22,7 @@ import { UsageModule } from './UsedMinutes/usedminutes.module';
 import { RetelWebhookModule } from './retel-webhook/retel-webhook.module';
 import { IntegrationModule } from './integrations/integration.module';
 import { FeedbackModule } from './feedback/feedback.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { FeedbackModule } from './feedback/feedback.module';
     RetelWebhookModule,
     IntegrationModule,
     FeedbackModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [

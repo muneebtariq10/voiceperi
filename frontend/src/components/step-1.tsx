@@ -380,6 +380,11 @@ export const Step1 = ({
               </div>
             ))}
           </div>
+          {locationData?.length === 0 && step1Data?.url?.length > 3 && (
+            <div className="text-sm text-gray-500 mt-1">
+              No physical address found? Don't worry, you can import details from your website directly by clicking Next.
+            </div>
+          )}
         </div>
       </div>
       <div className="text-left text-sm mt-3">

@@ -1,0 +1,66 @@
+import { Injectable, Logger } from '@nestjs/common';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+import { PlaceDetailsResult } from './businessinfos.service';
+
+@Injectable()
+export class WebsiteImportService {
+  private readonly logger = new Logger(WebsiteImportService.name);
+
+  async scrapeWebsite(url: string): Promise<PlaceDetailsResult | null> {
+    try {
+      // Ensure url has protocol
+      if (!url.startsWith('http')) {
+        url = 'https://' + url;
+      }
+
+      this.logger.log(`Fetching website: ${url}`);
+      
+      const response = await axios.get(url, {
+        timeout: 10000,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; PrintEZBot/1.0)',
+        },
+      });
+
+      const html = response.data;
+      const $ = cheerio.load(html);
+
+      // Extract basic info
+      const title = $('title').text().trim();
+      const metaDescription = $('meta[name="description"]').attr('content')?.trim() || '';
+      
+      // Extract main text (h1-h3, p) to build an overview
+      const overviewParts: string[] = [];
+      $('h1, h2, p').each((i, el) => {
+        const text = $(el).text().trim();
+        if (text && text.length > 20) {
+          overviewParts.push(text);
+        }
+      });
+      
+      // Keep overview concise (first 1000 chars)
+      let overview = overviewParts.join(' ').replace(/\\s+/g, ' ');
+      if (overview.length > 1000) {
+        overview = overview.substring(0, 1000) + '...';
+      }
+
+      const businessName = title ? title.split('|')[0].trim() : url;
+
+      return {
+        name: businessName,
+        website: url,
+        formatted_address: 'Online Business',
+        international_phone_number: '',
+        types: ['ecommerce'],
+        opening_hours: { weekday_text: [] },
+        overview: metaDescription + (metaDescription && overview ? '\\n\\n' : '') + overview,
+        dataSource: 'website'
+      };
+
+    } catch (error) {
+      this.logger.error(`Failed to scrape website ${url}: ${error.message}`);
+      return null;
+    }
+  }
+}

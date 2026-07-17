@@ -47,9 +47,13 @@ export function Notification({ className, onClose, ...props }: CardProps) {
         });
 
         if (Array.isArray(response.data)) {
+          const lastReadTime = localStorage.getItem("notificationsLastReadTime");
+          const lastReadDate = lastReadTime ? new Date(lastReadTime).getTime() : 0;
+
           const recentCalls = response.data
+            .filter(call => new Date(call.time || 0).getTime() > lastReadDate)
             .sort((a, b) => new Date(b.time || 0).getTime() - new Date(a.time || 0).getTime())
-            .slice(0, 3)
+            .slice(0, 5)
             .map(call => ({
               title: call.success ? "Successful Call Completed" : "Missed or Failed Call",
               description: `Duration: ${call.duration || "0:00"} - ${call.time || "Recently"}`,
@@ -65,6 +69,8 @@ export function Notification({ className, onClose, ...props }: CardProps) {
     };
     
     fetchNotifications();
+    const interval = setInterval(fetchNotifications, 15000); // Poll every 15s for new notifications
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -118,7 +124,10 @@ export function Notification({ className, onClose, ...props }: CardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full bg-gray-900 hover:bg-gray-800" onClick={() => setNotifications([])}>
+        <Button className="w-full bg-gray-900 hover:bg-gray-800" onClick={() => {
+          localStorage.setItem("notificationsLastReadTime", new Date().toISOString());
+          setNotifications([]);
+        }}>
           <Check className="mr-2 h-4 w-4" /> Mark all as read
         </Button>
       </CardFooter>
