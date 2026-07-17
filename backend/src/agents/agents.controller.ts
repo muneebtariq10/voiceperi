@@ -114,8 +114,15 @@ export class AgentsController {
   }
 
   @Post('purchase-number/:id')
-  purchaseNumber(@Param('id') id: string) {
-    return this.agentsService.purchaseNumber(id);
+  async purchaseNumber(@Param('id') id: string) {
+    try {
+      return await this.agentsService.purchaseNumber(id);
+    } catch (error) {
+      throw new HttpException(
+        { status: 'error', message: error.message },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @Public()
