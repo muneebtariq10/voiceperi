@@ -38,8 +38,8 @@ const FAQ = () => {
                 <div className='flex basis-2/5 flex-col gap-y-4 items-center'>
                     <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-left'>Frequently Asked Questions</h3>
                     <div className='flex flex-col gap-y-2 '>
-                        <p className='text-default-gray text-lg font-normal text-center'>Lörem ipsum geol nystartsjobb milingar. Krokatt stenorade. Poliitet jymäde ekotes. Sonera håtär men kavar för dock. &nbsp;
-                            <span className='text-primary text-[20px] font-medium text-left'>Contact us below if you any more questions.</span>
+                        <p className='text-default-gray text-lg font-normal text-center'>Have questions about integrating VoicePeri into your business workflow? &nbsp;
+                            <span className='text-primary text-[20px] font-medium text-left'>Contact us below if you have any more questions.</span>
                         </p>
                         
                     </div>
@@ -88,7 +88,7 @@ const FAQ = () => {
             <div className='block md:flex items-center justify-between '>
                 <div className='basis-[45%]'>
                     <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-left'>Build Conversational AI agents in minutes</h3>
-                    <p className='text-default-gray text-lg font-normal text-left pt-1'>Lörem ipsum geol nystartsjobb milingar. Krokatt stenorade. Poliitet jymäde ekotes. Sonera håtär men kavar för dock Lörem ipsum geol nystartsjobb milingar. Krokatt stenorade. Poliitet jymäde ekotes. Sonera håtär men kavar för dock</p>
+                    <p className='text-default-gray text-lg font-normal text-left pt-1'>Design, test, and deploy customized AI voice assistants tailored to your brand's unique needs without writing a single line of code.</p>
                 </div>
                 <div className="flex items-center justify-center basis-[50%] bg-cover bg-center h-[400px] cursor-pointer w-full mt-3 md:mt-auto" style={{ backgroundImage: `url(${backgroundimage})` }}>
                     

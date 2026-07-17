@@ -101,8 +101,8 @@ const UseCase = () => {
                     <div className='flex flex-col items-center justify-start gap-y-3 '>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-center'>Use Cases</h3>
                         <div>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>Lorem ipsum dolor sit amet consectetur. Nibh semper diam sed sit </p>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>posuere quam consectetur. Sed senectus enim est ut lacinia. Eu.</p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>Explore how our AI voice assistants can seamlessly integrate into your industry,</p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>enhancing customer engagement and automating routine tasks.</p>
                         </div>
                     </div>
                     

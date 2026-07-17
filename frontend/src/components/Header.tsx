@@ -17,6 +17,7 @@ const navigationMenuItems = [
   { title: "Use Cases", href: "#usecase" },
   { title: "Pricing", href: "#pricing" },
   { title: "FAQ's", href: "#faq" },
+  { title: "About Us", href: "#about" },
   { title: "Contact Us", href: "#contactus" },
 ];
 

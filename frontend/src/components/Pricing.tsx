@@ -81,7 +81,7 @@ const Pricing = () => {
                 <div className='w-full block md:flex items-center md:justify-between '>
                     <div className='flex flex-col gap-y-1 items-center md:items-start'>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-left text-primary'>Our Pricing Plan</h3>
-                        <p className='text-lg font-normal text-left text-default-gray'>CLorem ipsum dolor sit amet consectetur. </p>
+                        <p className='text-lg font-normal text-left text-default-gray'>Choose a plan that scales with your business needs.</p>
                     </div>
                     <ToggleGroup
                         type="single"
