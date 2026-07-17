@@ -84,7 +84,7 @@ export class AuthController {
         return res.redirect(`${process.env.FRONTEND_URL}login?error=${user.error}`);
       }
 
-      const token = await this.authService.generateJwt(user);
+      const token = this.authService.generateJwt(user);
 
       const redirectPath = user.isNew || user.status == 0 ? 'signup' : 'login';
 
@@ -146,7 +146,7 @@ export class AuthController {
       impersonatedBy: admin.id,
     };
 
-    const { access_token } = await this.authService.login(impersonationPayload);
+    const { access_token } = this.authService.login(impersonationPayload);
 
     const url = `${process.env.FRONTEND_URL}login?token=${access_token}&impersonating=true`;
     return { url };
