@@ -10,32 +10,24 @@ import backgroundimage from '../assets/bg2.png'
 // import videoicon from '../assets/video.png'
 const items = [
     {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
+        title: "What is an AI Voice Assistant?",
+        content: "An AI Voice Assistant is an intelligent software program that uses artificial intelligence, natural language processing, and speech recognition to converse seamlessly with humans. It can act as a customer representative, recruiter, or internal assistant.",
     },
     {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
+        title: "How easy is it to integrate VoicePeri into my workflow?",
+        content: "Very easy! VoicePeri offers seamless integration APIs and webhooks that connect directly to your CRM, support systems, and internal tools in just a few clicks. No complex coding is required.",
     },
     {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
+        title: "Are the voices customizable?",
+        content: "Yes. VoicePeri offers a wide variety of ultra-realistic, human-like voices. You can select specific accents, tones, and genders to perfectly match your brand's unique identity.",
     },
     {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
+        title: "Is my data secure?",
+        content: "Security is our top priority. All conversations and data are encrypted end-to-end. We adhere to strict global compliance standards like GDPR and SOC2 to ensure your users' data remains completely private.",
     },
     {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
-    },
-    {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
-    },
-    {
-        title: "This is will be title",
-        content: "Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a. Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.Lorem ipsum dolor sit amet consectetur. Vestibulum aenean turpis nisl sit a.",
+        title: "What languages are supported?",
+        content: "Our AI assistants currently support over 30 languages, including English, Spanish, French, German, Mandarin, and many more, allowing you to connect with a global audience effortlessly.",
     },
 ];
 const FAQ = () => {

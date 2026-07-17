@@ -4,7 +4,11 @@ import image1 from '../assets/rectangle.png'
 import image2 from '../assets/rectangle1.png'
 import image3 from '../assets/rectangle2.png'
 import image4 from '../assets/rectangle3.png'
-import audio from "../assets/audio.mp3"
+import audioFinance from "../assets/finance.mp3"
+import audioRecruit from "../assets/recruit.mp3"
+import audioCsr from "../assets/csr.mp3"
+import audioCustomer from "../assets/customer.mp3"
+import audioGeneric from "../assets/audio.mp3"
 import { useRef, useState } from "react"
 import { Button } from "./ui/button"
 import { ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react"
@@ -14,35 +18,35 @@ import SavingsCalculator from "./SavingsCalculator"
 import AudioProgressBar from "./audioProgressBar";
 
 const voiceAssistants = [
-    { role: "Financing Assistant", image: image1, audio: audio },
-    { role: "Recruitment Assistant", image: image2, audio: audio },
-    { role: "CSR Impact Assistant", image: image3, audio: audio },
-    { role: "Customer Relations ", image: image4, audio: audio },
-    { role: "Financing Assistant", image: image1, audio: audio },
-    { role: "Recruitment Assistant", image: image2, audio: audio },
+    { role: "Financing Assistant", image: image1, audio: audioFinance },
+    { role: "Recruitment Assistant", image: image2, audio: audioRecruit },
+    { role: "CSR Impact Assistant", image: image3, audio: audioCsr },
+    { role: "Customer Relations ", image: image4, audio: audioCustomer },
+    { role: "Financing Assistant", image: image1, audio: audioFinance },
+    { role: "Recruitment Assistant", image: image2, audio: audioRecruit },
 ];
 
 const nationVoiceSamples = [
-    { role: "Czech", Flag: Icons.Czech, audio: audio },
-    { role: "Danish", Flag: Icons.Danish, audio: audio },
-    { role: "Dutch", Flag: Icons.Dutch, audio: audio },
-    { role: "English", Flag: Icons.English, audio: audio },
-    { role: "French", Flag: Icons.French, audio: audio },
-    { role: "German", Flag: Icons.German, audio: audio },
-    { role: "Greek", Flag: Icons.Greek, audio: audio },
-    { role: "Hindi", Flag: Icons.Hindi, audio: audio },
-    { role: "Indonesian", Flag: Icons.Indonesian, audio: audio },
-    { role: "Italian", Flag: Icons.Italian, audio: audio },
-    { role: "Japanese", Flag: Icons.Japanese, audio: audio },
-    { role: "Korean", Flag: Icons.Korean, audio: audio },
-    { role: "Norwegian", Flag: Icons.Norwegian, audio: audio },
-    { role: "Polish", Flag: Icons.Polish, audio: audio },
-    { role: "Portuguese", Flag: Icons.Portuguese, audio: audio },
-    { role: "Russian", Flag: Icons.Russian, audio: audio },
-    { role: "Spanish", Flag: Icons.Spanish, audio: audio },
-    { role: "Swedish", Flag: Icons.Swedish, audio: audio },
-    { role: "Turkish", Flag: Icons.Turkish, audio: audio },
-    { role: "Ukrainian", Flag: Icons.Ukrainian, audio: audio },
+    { role: "Czech", Flag: Icons.Czech, audio: audioGeneric },
+    { role: "Danish", Flag: Icons.Danish, audio: audioGeneric },
+    { role: "Dutch", Flag: Icons.Dutch, audio: audioGeneric },
+    { role: "English", Flag: Icons.English, audio: audioGeneric },
+    { role: "French", Flag: Icons.French, audio: audioGeneric },
+    { role: "German", Flag: Icons.German, audio: audioGeneric },
+    { role: "Greek", Flag: Icons.Greek, audio: audioGeneric },
+    { role: "Hindi", Flag: Icons.Hindi, audio: audioGeneric },
+    { role: "Indonesian", Flag: Icons.Indonesian, audio: audioGeneric },
+    { role: "Italian", Flag: Icons.Italian, audio: audioGeneric },
+    { role: "Japanese", Flag: Icons.Japanese, audio: audioGeneric },
+    { role: "Korean", Flag: Icons.Korean, audio: audioGeneric },
+    { role: "Norwegian", Flag: Icons.Norwegian, audio: audioGeneric },
+    { role: "Polish", Flag: Icons.Polish, audio: audioGeneric },
+    { role: "Portuguese", Flag: Icons.Portuguese, audio: audioGeneric },
+    { role: "Russian", Flag: Icons.Russian, audio: audioGeneric },
+    { role: "Spanish", Flag: Icons.Spanish, audio: audioGeneric },
+    { role: "Swedish", Flag: Icons.Swedish, audio: audioGeneric },
+    { role: "Turkish", Flag: Icons.Turkish, audio: audioGeneric },
+    { role: "Ukrainian", Flag: Icons.Ukrainian, audio: audioGeneric },
 ];
 
 const IndustriesServed = [

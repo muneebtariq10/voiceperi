@@ -32,7 +32,7 @@ const Footer = () => {
                     <div className='flex flex-col items-start justify-start gap-y-6.5'>
                         <h1 className='font-bold text-lg text-primary'>COMPANY</h1>
                         <div className='flex flex-col gap-y-4 items-start justify-start'>
-                            <NavLink to="/about" className='font-normal text-lg text-default-gray'>About Us</NavLink>
+                            <a href="#about" className='font-normal text-lg text-default-gray'>About Us</a>
                             <a href="#contactus" className='font-normal text-lg text-default-gray'>Contact Us</a>
                         </div>
                     </div>

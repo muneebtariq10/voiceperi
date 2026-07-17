@@ -6,6 +6,7 @@ import Header from '@/components/Header'
 import HomeContent from '@/components/HomeContent'
 import Pricing from '@/components/Pricing'
 import UseCase from '@/components/UseCase'
+import AboutUs from '@/components/AboutUs'
 
 const Home = () => {
     return (
@@ -17,6 +18,7 @@ const Home = () => {
             <UseCase />
             <Pricing />
             <FAQ />
+            <AboutUs />
             <ContactUs />
             <Footer />
 

@@ -18,37 +18,37 @@ const ContactUs = () => {
                 <div>
                     <h3 className='text-[35px] md:text-[50px] font-bold text-center text-primary'>Location & Contact Information</h3>
                     <div className='text-[20px] font-normal text-center text-default-gray pt-3.5'>
-                        <p>Lorem ipsum dolor sit amet consectetur. Curabitur imperdiet tortor aenean</p>
-                        <p>scelerisque orci pellentesque libero nisi. Ipsum et sed neque cursus nunc. </p>
+                        <p>We'd love to hear from you. Get in touch with our team</p>
+                        <p>to learn more about how VoicePeri can transform your business.</p>
                     </div>
                 </div>
                 <div className='px-0 md:px-[100px] pt-12 block md:flex justify-between items-start'>
                     <div className="basis-[45%] p-6 pb-0 rounded-[30px] border border-white space-y-6">
                         <h2 className="text-2xl font-bold text-primary text-left">Contact Details</h2>
                         <div className="flex items-center space-x-4">
-                            <a href="tel:+2522254221" className="flex items-center space-x-2">
+                            <a href="tel:+18005550199" className="flex items-center space-x-2">
                                 <div className="w-10 h-10 bg-default-purple text-secondary rounded-full flex items-center justify-center">
                                     <Phone className="w-5 h-5" />
                                 </div>
-                                <span className="text-default-gray text-lg">2522 254221</span>
+                                <span className="text-default-gray text-lg">+1 (800) 555-0199</span>
                             </a>
                         </div>
 
                         <div className="flex items-center space-x-4">
-                            <a href="mailto:abc@abc.com" className="flex items-center space-x-2">
+                            <a href="mailto:support@voiceperi.com" className="flex items-center space-x-2">
                                 <div className="w-10 h-10 bg-default-purple text-secondary rounded-full flex items-center justify-center">
                                     <Mail className="w-5 h-5" />
                                 </div>
-                                <span className="text-default-gray text-lg">abc@abc.com</span>
+                                <span className="text-default-gray text-lg">support@voiceperi.com</span>
                             </a>
                         </div>
 
                         <div className="flex items-center space-x-4">
-                            <a href="https://www.google.com/maps?q=Lorem+ipsum+dolor+sit+amet" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
+                            <a href="https://www.google.com/maps?q=San+Francisco,+CA" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
                                 <div className="w-10 h-10 bg-default-purple text-secondary rounded-full flex items-center justify-center">
                                     <MapPin className="w-5 h-5" />
                                 </div>
-                                <span className="text-default-gray text-lg">Lorem ipsum dolor sit amet</span>
+                                <span className="text-default-gray text-lg">San Francisco, CA</span>
                             </a>
                         </div>
                         <img src={overview} alt="overview" />
