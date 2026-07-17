@@ -1,5 +1,13 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Bell, ChevronDown, Search } from "lucide-react";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Notification } from "./Notification";
 import { SidebarTrigger } from "./ui/sidebar";
 import { useEffect, useState } from "react";
@@ -25,6 +33,18 @@ export function SiteHeader() {
   const [currentUserInfo, setCurrentUserInfo] = useState<DecodedToken | null>(
     null
   );
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setSearchOpen((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_BASE_URL;
@@ -101,7 +121,28 @@ export function SiteHeader() {
           )}
         </h3>
         <div className="ml-auto flex items-center gap-x-4.5">
-          <Search className="cursor-pointer text-default-gray" />
+          <Search 
+            onClick={() => setSearchOpen(true)}
+            className="cursor-pointer text-default-gray hover:text-[#46a79d] transition-colors" 
+          />
+          <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
+            <CommandInput placeholder="Type a command or search..." />
+            <CommandList>
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup heading="Dashboard">
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard"); }}>Overview</CommandItem>
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/voiceAgent"); }}>Voice Agent</CommandItem>
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/callHistory"); }}>Call History</CommandItem>
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/settings"); }}>Settings</CommandItem>
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/users"); }}>Users</CommandItem>
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/plans"); }}>Billing & Plans</CommandItem>
+              </CommandGroup>
+              <CommandGroup heading="Help & Support">
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/helpCenter"); }}>Help Center</CommandItem>
+                <CommandItem onSelect={() => { setSearchOpen(false); navigate("/dashboard/feedback"); }}>Feedback</CommandItem>
+              </CommandGroup>
+            </CommandList>
+          </CommandDialog>
           <div className="relative">
             <div className="relative cursor-pointer" onClick={handleNotification}>
               <Bell className="text-default-gray w-[22px] h-[22px] hover:text-[#46a79d] transition-colors" />
