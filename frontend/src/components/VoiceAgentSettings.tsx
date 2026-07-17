@@ -929,7 +929,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
           >
             WhatsApp Notifications
-            <TooltipWrapper tooltipText="Write emails here">
+            <TooltipWrapper tooltipText="Add phone numbers here to receive WhatsApp notifications">
               <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
             </TooltipWrapper>
           </label>
@@ -991,7 +991,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
           >
             Taking Notes
-            <TooltipWrapper tooltipText="Write questions here for gent to ask from customer">
+            <TooltipWrapper tooltipText="Write questions here for the agent to ask the customer">
               <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
             </TooltipWrapper>
           </label>
