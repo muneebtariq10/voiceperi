@@ -21,8 +21,8 @@ import AudioPlayer1 from "./audio1";
 import { RetellWebClient } from "retell-client-js-sdk";
 // import { Card, CardContent } from "./ui/card";
 interface VoiceAgentSettingsProps {
-  languages: unknown;
-  voices: unknown;
+  languages: any[];
+  voices: any[];
   businessInfovoice?: string;
 }
 interface DecodedToken {
