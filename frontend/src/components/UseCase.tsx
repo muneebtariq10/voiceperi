@@ -344,8 +344,8 @@ const UseCase = () => {
                     <div className='flex flex-col items-center justify-start gap-y-3 '>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-center'>Key Statistics</h3>
                         <div>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>Lorem ipsum dolor sit amet consectetur. Nibh semper diam sed sit </p>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>posuere quam consectetur. Sed senectus enim est ut lacinia. Eu. </p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>See the measurable impact of our AI voice assistants across different industries.</p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>Backed by data, driven by results.</p>
                         </div>
                     </div>
                     <div className="w-full flex flex-col p-2 md:px-[65px] md:py-[51px] md:gap-y-9 rounded-[50px]">
@@ -453,8 +453,8 @@ const UseCase = () => {
                     <div className='flex flex-col items-center justify-start gap-y-3 '>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-center'>Savings Calculator</h3>
                         <div>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>Lorem ipsum dolor sit amet consectetur. Nibh semper diam sed sit </p>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>posuere quam consectetur. Sed senectus enim est ut lacinia. Eu. </p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>Estimate how much you can save by implementing our conversational AI</p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>agents compared to traditional support solutions.</p>
                         </div>
                     </div>
                 </div>

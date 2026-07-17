@@ -339,10 +339,10 @@ const Feature = () => {
           </h3>
           <div>
             <p className="text-[20px] font-normal text-default-gray text-center">
-              Lorem ipsum dolor sit amet consectetur. Nibh semper diam sed sit{" "}
+              Create and launch your custom AI voice agent in three simple steps.
             </p>
             <p className="text-[20px] font-normal text-default-gray text-center">
-              posuere quam consectetur. Sed senectus enim est ut lacinia. Eu.
+              No technical expertise or coding required.
             </p>
           </div>
         </div>
@@ -562,10 +562,10 @@ const Feature = () => {
           </h3>
           <div>
             <p className="text-[20px] font-normal text-default-gray text-center">
-              Lorem ipsum dolor sit amet consectetur. Nibh semper diam sed sit{" "}
+              Discover the mechanics behind our intelligent voice agents.
             </p>
             <p className="text-[20px] font-normal text-default-gray text-center">
-              posuere quam consectetur. Sed senectus enim est ut lacinia. Eu.
+              Seamlessly connect and automate your business operations.
             </p>
           </div>
         </div>
