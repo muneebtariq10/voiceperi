@@ -1,4 +1,6 @@
 import { useState, useMemo } from "react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import { Popup } from "./detailpopup.tsx";
 import {
   ColumnDef,
@@ -44,7 +46,7 @@ type Data = {
   call_type?: string;
 };
 
-const getColumns = (userRole?: string): ColumnDef<Data>[] => {
+const getColumns = (onViewDetails: (row: Data) => void, userRole?: string): ColumnDef<Data>[] => {
   const renderHeader = (title: string, column: any) => (
     <div
       className="flex items-center gap-1 cursor-pointer"
@@ -143,8 +145,9 @@ const getColumns = (userRole?: string): ColumnDef<Data>[] => {
     {
       id: "actions",
       header: () => <div className="text-left font-medium text-primary pl-2">Actions</div>,
-      cell: () => (
+      cell: ({ row }) => (
         <button
+          onClick={() => onViewDetails(row.original)}
           className="text-sm font-semibold px-4 py-1.5 bg-[#f0fbf9] border border-[#46a79d] text-[#46a79d] rounded-[8px] hover:bg-[#46a79d] hover:text-white transition-colors"
         >
           View Details
@@ -214,11 +217,75 @@ export function DataTable({
     return Array.from(new Set(names.filter((n) => n)));
   }, [callHistoryData]);
 
-  const columns = useMemo(() => getColumns(userRole), [userRole]);
+  const columns = useMemo(() => getColumns((row) => {
+    setSelectedRow(row);
+    setPopupOpen(true);
+  }, userRole), [userRole]);
 
   const handleClose = () => {
     setSelectedRow(null);
     setPopupOpen(false);
+  };
+
+  const exportToCSV = () => {
+    if (!filteredData.length) return;
+    const headers = ["Time", "Phone Number", "Duration", "Cost", "Reason", "Status", "Sentiment", "Success", "Latency"];
+    const rows = filteredData.map((row) => {
+      const phone = row.direction === "inbound" ? row.from_number : row.to_number;
+      return [
+        row.time,
+        phone || "-",
+        row.duration,
+        row.cost,
+        row.reason,
+        row.status,
+        row.sentiment,
+        row.success ? "Successful" : "Unsuccessful",
+        row.latency,
+      ].map(val => `"${val}"`).join(",");
+    });
+    
+    const csvContent = [headers.join(",")].concat(rows).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "call_history.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const exportToPDF = () => {
+    if (!filteredData.length) return;
+    const doc = new jsPDF();
+    doc.text("Call History", 14, 15);
+    
+    const tableColumn = ["Time", "Phone Number", "Duration", "Cost", "Reason", "Status", "Sentiment", "Success"];
+    const tableRows = filteredData.map((row) => {
+      const phone = row.direction === "inbound" ? row.from_number : row.to_number;
+      return [
+        row.time,
+        phone || "-",
+        row.duration,
+        row.cost,
+        row.reason,
+        row.status,
+        row.sentiment,
+        row.success ? "Successful" : "Unsuccessful"
+      ];
+    });
+
+    (doc as any).autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+      theme: 'grid',
+      styles: { fontSize: 8 },
+      headStyles: { fillColor: [70, 167, 157] }
+    });
+    
+    doc.save("call_history.pdf");
   };
 
   // const filteredData = useMemo(() => {
@@ -368,15 +435,29 @@ export function DataTable({
           className="max-w-sm"
         /> */}
 
-        <Input
-          placeholder="Search..."
-          value={globalFilter}
-          onChange={(e) => {
-            setGlobalFilter(e.target.value);
-            table.setPageIndex(0);
-          }}
-          className="max-w-sm"
-        />
+        <div className="flex flex-wrap md:flex-nowrap gap-2 w-full md:w-auto items-center mt-3 md:mt-0">
+          <Input
+            placeholder="Search..."
+            value={globalFilter}
+            onChange={(e) => {
+              setGlobalFilter(e.target.value);
+              table.setPageIndex(0);
+            }}
+            className="w-full md:w-[250px]"
+          />
+          <button
+            onClick={exportToCSV}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-[8px] text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap"
+          >
+            Export CSV
+          </button>
+          <button
+            onClick={exportToPDF}
+            className="px-4 py-2 bg-[#46a79d] border border-[#46a79d] rounded-[8px] text-sm font-medium text-white hover:bg-[#3d9188] transition-colors whitespace-nowrap"
+          >
+            Export PDF
+          </button>
+        </div>
 
         {userRole === "admin" && (
           <>
@@ -429,11 +510,7 @@ export function DataTable({
                 paginatedRows.map((row, index) => (
                   <TableRow
                     key={index}
-                    onClick={() => {
-                      setSelectedRow(row.original);
-                      setPopupOpen(true);
-                    }}
-                    className="cursor-pointer hover:bg-[#f4fbf9] transition-colors border-b border-gray-100 last:border-0"
+                    className="hover:bg-[#f4fbf9] transition-colors border-b border-gray-100 last:border-0"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
