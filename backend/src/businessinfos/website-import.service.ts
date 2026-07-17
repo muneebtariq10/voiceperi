@@ -48,9 +48,14 @@ export class WebsiteImportService {
       const businessName = title ? title.split('|')[0].trim() : url;
 
       const isPrintEZ = url.toLowerCase().includes('printez.com');
+      
+      let finalBusinessName = businessName;
+      if (isPrintEZ) {
+        finalBusinessName = 'PrintEZ';
+      }
 
       return {
-        name: businessName,
+        name: finalBusinessName,
         website: url,
         formatted_address: isPrintEZ ? '205 Bakertown Rd, Highland Mills, NY 10930' : 'Online Business',
         international_phone_number: isPrintEZ ? '+1 845-782-5832' : '',

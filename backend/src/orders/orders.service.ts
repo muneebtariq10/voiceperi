@@ -27,7 +27,7 @@ export class OrdersService {
 
     let verified = false;
 
-    if (order && order.customerPhoneLast4 === phoneLast4) {
+    if (order && order.customerPhoneLast4 === String(phoneLast4)) {
       verified = true;
     }
 
