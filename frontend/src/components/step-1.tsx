@@ -382,7 +382,7 @@ export const Step1 = ({
           </div>
           {locationData?.length === 0 && step1Data?.url?.length > 3 && (
             <div className="text-sm text-gray-500 mt-1">
-              No physical address found? Don't worry, you can import details from your website directly by clicking Next.
+              No physical address found? Don't worry, we will import details from your website directly. Please proceed by clicking the "Next" button at the bottom of this form.
             </div>
           )}
         </div>
