@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { BellDot, ChevronDown, Search } from "lucide-react";
+import { Bell, ChevronDown, Search } from "lucide-react";
 import { Notification } from "./Notification";
 import { SidebarTrigger } from "./ui/sidebar";
 import { useEffect, useState } from "react";
@@ -103,11 +103,10 @@ export function SiteHeader() {
         <div className="ml-auto flex items-center gap-x-4.5">
           <Search className="cursor-pointer text-default-gray" />
           <div className="relative">
-            <BellDot
-              onClick={handleNotification}
-              // onClick={setShowNotification(!showNotification)}
-              className="cursor-pointer text-default-gray"
-            />
+            <div className="relative cursor-pointer" onClick={handleNotification}>
+              <Bell className="text-default-gray w-[22px] h-[22px] hover:text-[#46a79d] transition-colors" />
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center w-2 h-2 transform translate-x-1/4 -translate-y-1/4 bg-red-500 rounded-full ring-2 ring-white"></span>
+            </div>
             <Notification
               className={`${
                 showNotification ? "flex" : "hidden"

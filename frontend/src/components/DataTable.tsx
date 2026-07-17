@@ -200,7 +200,7 @@ export function DataTable({
   const [selectedRow, setSelectedRow] = useState<Data | null>(null);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 17,
+    pageSize: 10,
   });
   const [userNameFilter, setUserNameFilter] = useState("");
   const [agentNameFilter, setAgentNameFilter] = useState("");
