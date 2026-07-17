@@ -945,17 +945,20 @@ export class AgentsService implements OnApplicationBootstrap {
       });
       const businessInfo =
         await this.businessInfosService.findOneByUserId(userId);
-      const searchQuery = `${businessInfo?.name}, ${businessInfo?.address},`;
-      const businessData = await this.businessInfosService.getBusinessInfo(
-        searchQuery,
-        foundLanguage?.code || 'en',
-      );
+        
+      if (businessInfo && businessInfo.businessType !== 'ecommerce') {
+        const searchQuery = `${businessInfo?.name}, ${businessInfo?.address},`;
+        const businessData = await this.businessInfosService.getBusinessInfo(
+          searchQuery,
+          foundLanguage?.code || 'en',
+        );
 
-      await this.businessInfosService.update(
-        businessInfo.id,
-        {},
-        businessData || undefined,
-      );
+        await this.businessInfosService.update(
+          businessInfo.id,
+          {},
+          businessData || undefined,
+        );
+      }
       console.log('📦 Business services:', businessInfo.services);
 
       if (!foundLanguage)
