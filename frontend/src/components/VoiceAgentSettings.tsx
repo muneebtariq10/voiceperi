@@ -1,6 +1,6 @@
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { AlertCircle, CircleX, Phone, Info } from "lucide-react";
+import { AlertCircle, CircleX, Phone, Info, ExternalLink } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -724,6 +724,16 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               >
                 {purchasingNumber ? "Setting up..." : "Get via Retell"}
               </Button>
+            </div>
+            <div className="flex w-full justify-end -mt-2">
+              <a 
+                href="https://beta.retellai.com/dashboard" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs text-[#5222FF] hover:underline flex items-center gap-1"
+              >
+                Manage Billing on Retell AI <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
 
             {/* Call forwarding instructions */}
