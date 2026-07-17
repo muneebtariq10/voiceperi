@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { AlertCircle, CircleX, Phone, Info, ExternalLink } from "lucide-react";
@@ -20,8 +21,8 @@ import AudioPlayer1 from "./audio1";
 import { RetellWebClient } from "retell-client-js-sdk";
 // import { Card, CardContent } from "./ui/card";
 interface VoiceAgentSettingsProps {
-  languages: any;
-  voices: any;
+  languages: unknown;
+  voices: unknown;
   businessInfovoice?: string;
 }
 interface DecodedToken {
@@ -269,7 +270,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         console.error("Failed to decode token:", error);
       }
     }
-  }, []);
+  }, [token]);
 
   const handleUpdateLlm = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -476,7 +477,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     if (userInfo?.sub) {
       fetchData();
     }
-  }, [userInfo?.sub, API_URL, languages, voices]);
+  }, [userInfo?.sub, API_URL, languages, voices, token]);
   console.log("agent", agent);
   // const text = `Hi, my name is ${agentName}, and I'm here to assist you. How can I help you today?`;
   // console.log('audioUrl1', audioUrl1);
