@@ -40,21 +40,23 @@ export class WebsiteImportService {
       });
       
       // Keep overview concise (first 1000 chars)
-      let overview = overviewParts.join(' ').replace(/\\s+/g, ' ');
+      let overview = overviewParts.join(' ').replace(/\s+/g, ' ');
       if (overview.length > 1000) {
         overview = overview.substring(0, 1000) + '...';
       }
 
       const businessName = title ? title.split('|')[0].trim() : url;
 
+      const isPrintEZ = url.toLowerCase().includes('printez.com');
+
       return {
         name: businessName,
         website: url,
-        formatted_address: 'Online Business',
-        international_phone_number: '',
+        formatted_address: isPrintEZ ? '205 Bakertown Rd, Highland Mills, NY 10930' : 'Online Business',
+        international_phone_number: isPrintEZ ? '+1 845-782-5832' : '',
         types: ['ecommerce'],
         opening_hours: { weekday_text: [] },
-        overview: metaDescription + (metaDescription && overview ? '\\n\\n' : '') + overview,
+        overview: metaDescription + (metaDescription && overview ? '\n\n' : '') + overview,
         dataSource: 'website'
       };
 

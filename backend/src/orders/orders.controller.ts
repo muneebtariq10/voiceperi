@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Headers,
+  Query,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { Public } from '../auth/decorators/public.decorator';
@@ -20,11 +21,15 @@ export class OrdersController {
   async lookupOrder(
     @Body() body: { orderId: number; phoneLast4: string },
     @Headers('authorization') authHeader: string,
+    @Query('token') queryToken?: string,
   ) {
     const integrationToken = process.env.ORDER_LOOKUP_INTEGRATION_TOKEN;
     
     if (integrationToken) {
-      if (!authHeader || authHeader !== `Bearer ${integrationToken}`) {
+      const isAuthHeaderValid = authHeader && authHeader === `Bearer ${integrationToken}`;
+      const isQueryTokenValid = queryToken && queryToken === integrationToken;
+      
+      if (!isAuthHeaderValid && !isQueryTokenValid) {
          throw new UnauthorizedException('Invalid integration token');
       }
     }
