@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 import { Popup } from "./detailpopup.tsx";
 import {
+  Column,
   ColumnDef,
   SortingState,
   flexRender,
@@ -47,7 +48,7 @@ type Data = {
 };
 
 const getColumns = (onViewDetails: (row: Data) => void, userRole?: string): ColumnDef<Data>[] => {
-  const renderHeader = (title: string, column: any) => (
+  const renderHeader = (title: string, column: Column<Data, unknown>) => (
     <div
       className="flex items-center gap-1 cursor-pointer"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -276,7 +277,7 @@ export function DataTable({
       ];
     });
 
-    (doc as any).autoTable({
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20,

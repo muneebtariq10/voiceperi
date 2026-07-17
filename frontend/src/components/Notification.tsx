@@ -1,4 +1,4 @@
-import { BellRing, Check, Bell } from "lucide-react"
+import { BellRing, Check } from "lucide-react"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { jwtDecode } from "jwt-decode"
@@ -21,8 +21,14 @@ interface DecodedToken {
   sub?: string;
 }
 
+interface NotificationItem {
+  title: string;
+  description: string;
+  isUnread: boolean;
+}
+
 export function Notification({ className, ...props }: CardProps) {
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

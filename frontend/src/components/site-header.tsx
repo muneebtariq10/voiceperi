@@ -89,7 +89,7 @@ export function SiteHeader() {
     if (userInfo?.sub && token) {
       fetchUser();
     }
-  }, [userInfo?.sub, token]);
+  }, [userInfo?.sub, token, API_URL]);
 
   const handleLogout = () => {
     const tokenImpersonated = sessionStorage.getItem("authToken");
