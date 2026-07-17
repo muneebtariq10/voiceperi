@@ -148,11 +148,12 @@ export function SiteHeader() {
               <Bell className="text-default-gray w-[22px] h-[22px] hover:text-[#46a79d] transition-colors" />
               <span className="absolute top-0 right-0 inline-flex items-center justify-center w-2 h-2 transform translate-x-1/4 -translate-y-1/4 bg-red-500 rounded-full ring-2 ring-white"></span>
             </div>
-            <Notification
-              className={`${
-                showNotification ? "flex" : "hidden"
-              } absolute left-[-30px] md:left-[-120px] -translate-x-1/2 md:translate-x-0 top-[40px] z-10 py-3`}
-            />
+            {showNotification && (
+              <Notification
+                onClose={() => setShowNotification(false)}
+                className="absolute flex left-[-30px] md:left-[-120px] -translate-x-1/2 md:translate-x-0 top-[40px] z-10 py-3"
+              />
+            )}
           </div>
           <div className="border-l-3 h-5 text-default-gray"></div>
           <Avatar className="cursor-pointer">

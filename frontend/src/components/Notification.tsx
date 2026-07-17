@@ -1,4 +1,4 @@
-import { BellRing, Check } from "lucide-react"
+import { BellRing, Check, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { jwtDecode } from "jwt-decode"
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 
-type CardProps = React.ComponentProps<typeof Card>
+type CardProps = React.ComponentProps<typeof Card> & { onClose?: () => void }
 
 interface DecodedToken {
   sub?: string;
@@ -27,7 +27,7 @@ interface NotificationItem {
   isUnread: boolean;
 }
 
-export function Notification({ className, ...props }: CardProps) {
+export function Notification({ className, onClose, ...props }: CardProps) {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,7 +55,7 @@ export function Notification({ className, ...props }: CardProps) {
               description: `Duration: ${call.duration || "0:00"} - ${call.time || "Recently"}`,
               isUnread: true
             }));
-          setNotifications(recentCalls.length > 0 ? recentCalls : [{ title: "No new notifications", description: "You're all caught up!", isUnread: false }]);
+          setNotifications(recentCalls);
         }
       } catch (err) {
         console.error("Error fetching notifications", err);
@@ -69,13 +69,20 @@ export function Notification({ className, ...props }: CardProps) {
 
   return (
     <Card className={cn("w-[380px]", className)} {...props}>
-      <CardHeader>
-        <CardTitle>Notifications</CardTitle>
-        <CardDescription>
-          {loading ? "Loading..." : `You have ${notifications.filter(n => n.isUnread).length} unread messages.`}
-        </CardDescription>
+      <CardHeader className="flex flex-row items-start justify-between pb-2 space-y-0">
+        <div className="space-y-1">
+          <CardTitle>Notifications</CardTitle>
+          <CardDescription>
+            {loading ? "Loading..." : `You have ${notifications.filter(n => n.isUnread).length} unread messages.`}
+          </CardDescription>
+        </div>
+        {onClose && (
+          <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 text-muted-foreground hover:text-gray-900 -mt-2">
+            <X className="h-4 w-4" />
+          </Button>
+        )}
       </CardHeader>
-      <CardContent className="grid gap-4">
+      <CardContent className="grid gap-4 mt-2">
         <div className=" flex items-center space-x-4 rounded-md border p-4">
           <BellRing className="text-[#46a79d]" />
           <div className="flex-1 space-y-1">
@@ -89,6 +96,9 @@ export function Notification({ className, ...props }: CardProps) {
           <Switch />
         </div>
         <div>
+          {notifications.length === 0 && !loading && (
+            <p className="text-sm text-muted-foreground text-center py-4">You're all caught up!</p>
+          )}
           {notifications.map((notification, index) => (
             <div
               key={index}
@@ -108,7 +118,7 @@ export function Notification({ className, ...props }: CardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full bg-gray-900 hover:bg-gray-800" onClick={() => setNotifications(notifications.map(n => ({...n, isUnread: false})))}>
+        <Button className="w-full bg-gray-900 hover:bg-gray-800" onClick={() => setNotifications([])}>
           <Check className="mr-2 h-4 w-4" /> Mark all as read
         </Button>
       </CardFooter>
