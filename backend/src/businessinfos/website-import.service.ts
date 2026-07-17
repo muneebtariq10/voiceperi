@@ -60,7 +60,7 @@ export class WebsiteImportService {
         formatted_address: isPrintEZ ? '205 Bakertown Rd, Highland Mills, NY 10930' : 'Online Business',
         international_phone_number: isPrintEZ ? '+1 845-782-5832' : '',
         types: ['ecommerce'],
-        opening_hours: { weekday_text: [] },
+        opening_hours: { weekday_text: isPrintEZ ? ['Available Monday - Friday 8AM - 6PM EST'] : [] },
         overview: metaDescription + (metaDescription && overview ? '\n\n' : '') + overview,
         dataSource: 'website'
       };
