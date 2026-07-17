@@ -980,6 +980,9 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
           <p className="text-gray-400 text-sm mt-1 text-center">
             You can add a maximum of 5 WhatsApp no. here
           </p>
+          <div className="w-full text-gray-500 text-xs mt-2 bg-gray-50 p-3 rounded border border-gray-200 text-left">
+            <strong>Note:</strong> Sending automated messages requires an official <strong>WhatsApp Business API</strong> number (e.g., registered via Twilio). A standard WhatsApp Business app number on a mobile phone cannot be used directly unless migrated to the API.
+          </div>
         </div>
 
         <div className="flex flex-col h-full items-start">
