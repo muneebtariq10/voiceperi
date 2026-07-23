@@ -120,6 +120,17 @@ export class OrdersImportService implements OnModuleInit {
         order.vendorId = record.vendor_id || null;
         order.representativeId = record.representativeid || null;
 
+        // --- Coupon Info ---
+        const couponEntry = record.totals?.find(
+          (t: any) => t.code === 'coupon',
+        );
+        if (couponEntry) {
+          // Extract coupon code from title like "Coupon (HBE10)"
+          const codeMatch = couponEntry.title?.match(/\(([^)]+)\)/);
+          order.couponCode = codeMatch ? codeMatch[1] : couponEntry.title;
+          order.couponDiscount = Math.abs(couponEntry.value || 0);
+        }
+
         // --- Customer Info ---
         order.customerFirstName = record.customer?.firstname || null;
         order.customerLastName = record.customer?.lastname || null;

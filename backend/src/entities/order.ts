@@ -146,6 +146,13 @@ export class Order {
   @Column({ type: 'varchar', nullable: true })
   billingCountry: string;
 
+  // --- Coupon Info ---
+  @Column({ type: 'varchar', nullable: true })
+  couponCode: string;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  couponDiscount: number;
+
   @OneToMany(() => OrderProduct, (product) => product.order)
   products: OrderProduct[];
 

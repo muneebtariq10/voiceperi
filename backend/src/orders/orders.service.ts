@@ -147,6 +147,8 @@ export class OrdersService {
         subtotal: order.subtotal,
         shippingCost: order.shippingTotal,
         discount: order.discountTotal,
+        couponCode: order.couponCode || null,
+        couponDiscount: order.couponDiscount || null,
         total: order.grandTotal,
 
         // Customer Info
@@ -180,7 +182,9 @@ export class OrdersService {
         // Products with full details
         products:
           order.products?.map((p) => ({
+            productId: p.externalProductId,
             name: p.name,
+            model: p.model,
             quantity: p.quantity,
             unitPrice: p.unitPrice,
             total: p.total,
