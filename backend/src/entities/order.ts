@@ -77,6 +77,75 @@ export class Order {
   @Column({ type: 'varchar', nullable: true })
   shippingPostcodeNormalized: string;
 
+  // --- Customer Info ---
+  @Column({ type: 'varchar', nullable: true })
+  customerFirstName: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  customerLastName: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  customerEmail: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  customerPhone: string;
+
+  // --- Shipping Address ---
+  @Column({ type: 'varchar', nullable: true })
+  shippingFirstName: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingLastName: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingCompany: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingAddress1: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingAddress2: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingCity: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingZone: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingPostcode: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shippingCountry: string;
+
+  // --- Billing Address ---
+  @Column({ type: 'varchar', nullable: true })
+  billingFirstName: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingLastName: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingCompany: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingAddress1: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingAddress2: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingCity: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingZone: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingPostcode: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  billingCountry: string;
+
   @OneToMany(() => OrderProduct, (product) => product.order)
   products: OrderProduct[];
 

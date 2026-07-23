@@ -115,6 +115,38 @@ export class OrdersImportService implements OnModuleInit {
         order.dateAdded = new Date(record.date_added);
         order.dateModified = new Date(record.date_modified);
         order.customerEmailNormalized = record.customer?.email?.toLowerCase();
+        order.externalCustomerId = record.customer?.customer_id;
+        order.reorderId = record.reorder_id || null;
+        order.vendorId = record.vendor_id || null;
+        order.representativeId = record.representativeid || null;
+
+        // --- Customer Info ---
+        order.customerFirstName = record.customer?.firstname || null;
+        order.customerLastName = record.customer?.lastname || null;
+        order.customerEmail = record.customer?.email || null;
+        order.customerPhone = record.customer?.telephone || null;
+
+        // --- Shipping Address ---
+        order.shippingFirstName = record.shipping_address?.firstname || null;
+        order.shippingLastName = record.shipping_address?.lastname || null;
+        order.shippingCompany = record.shipping_address?.company || null;
+        order.shippingAddress1 = record.shipping_address?.address_1 || null;
+        order.shippingAddress2 = record.shipping_address?.address_2 || null;
+        order.shippingCity = record.shipping_address?.city || null;
+        order.shippingZone = record.shipping_address?.zone || null;
+        order.shippingPostcode = record.shipping_address?.postcode || null;
+        order.shippingCountry = record.shipping_address?.country || null;
+
+        // --- Billing Address ---
+        order.billingFirstName = record.payment?.firstname || null;
+        order.billingLastName = record.payment?.lastname || null;
+        order.billingCompany = record.payment?.company || null;
+        order.billingAddress1 = record.payment?.address_1 || null;
+        order.billingAddress2 = record.payment?.address_2 || null;
+        order.billingCity = record.payment?.city || null;
+        order.billingZone = record.payment?.zone || null;
+        order.billingPostcode = record.payment?.postcode || null;
+        order.billingCountry = record.payment?.country || null;
 
         // Save phone last 4 digits for verification
         const phone = record.customer?.telephone;
@@ -159,6 +191,18 @@ export class OrdersImportService implements OnModuleInit {
             product.unitPrice = prod.price;
             product.total = prod.total;
             product.type = prod.type;
+
+            // Store product options (size, color, variant, etc.)
+            if (
+              prod.options &&
+              Array.isArray(prod.options) &&
+              prod.options.length > 0
+            ) {
+              product.normalizedOptions = prod.options.map((opt: any) => ({
+                name: opt.name,
+                value: opt.value,
+              }));
+            }
 
             if (!dryRun) {
               await queryRunner.manager.save(OrderProduct, product);
