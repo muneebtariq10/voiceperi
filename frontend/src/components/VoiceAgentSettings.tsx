@@ -372,22 +372,47 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     }
 
     try {
+      if (typeof window !== "undefined" && navigator?.mediaDevices?.getUserMedia) {
+        try {
+          await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (micErr) {
+          toast.error(
+            "Microphone access denied. Please allow microphone permissions in your browser settings.",
+          );
+          setIsCalling(false);
+          return;
+        }
+      }
+
       toast.loading("Starting call...", { id: "call" });
-      const response = await fetch(`${API_URL}api/agents/web-call/${agent.id}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (!response.ok) throw new Error("Failed to get call token");
-      
+      const response = await fetch(
+        `${API_URL}api/agents/web-call/${agent.id}`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.message || "Failed to create web call token");
+      }
+
       const data = await response.json();
+      if (!data?.access_token) {
+        throw new Error("No web call token returned from server");
+      }
+
       await retellClient?.startCall({
-        accessToken: data.access_token
+        accessToken: data.access_token,
       });
       toast.dismiss("call");
-    } catch (e) {
+    } catch (e: any) {
       toast.dismiss("call");
-      toast.error("Could not start call. Ensure microphone permissions.");
+      toast.error(
+        e?.message || "Could not start call. Ensure microphone permissions.",
+      );
       console.error(e);
+      setIsCalling(false);
     }
   };
 
