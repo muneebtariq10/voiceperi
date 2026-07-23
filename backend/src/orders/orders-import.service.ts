@@ -1,14 +1,15 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 import { Order } from '../entities/order';
 import { OrderProduct } from '../entities/order_product';
 import { OrderHistory } from '../entities/order_history';
 import * as fs from 'fs';
+import * as path from 'path';
 import { OrderStatusMappingService } from './order-status-mapping.service';
 
 @Injectable()
-export class OrdersImportService {
+export class OrdersImportService implements OnModuleInit {
   private readonly logger = new Logger(OrdersImportService.name);
 
   constructor(
@@ -21,6 +22,34 @@ export class OrdersImportService {
     private readonly historyRepository: Repository<OrderHistory>,
     private readonly statusMappingService: OrderStatusMappingService,
   ) {}
+
+  async onModuleInit() {
+    const candidatePaths = [
+      path.join(process.cwd(), 'data', 'printez-orders.json'),
+      path.join(process.cwd(), 'backend', 'data', 'printez-orders.json'),
+      path.join(__dirname, '..', '..', 'data', 'printez-orders.json'),
+      path.join(__dirname, '..', '..', '..', 'data', 'printez-orders.json'),
+    ];
+
+    let foundPath: string | null = null;
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p)) {
+        foundPath = p;
+        break;
+      }
+    }
+
+    if (foundPath) {
+      this.logger.log(`Auto-seeding orders from ${foundPath} on startup...`);
+      try {
+        await this.importOrders(foundPath, false);
+      } catch (e: any) {
+        this.logger.error(`Error auto-seeding orders: ${e?.message || e}`);
+      }
+    } else {
+      this.logger.warn('No printez-orders.json found for auto-seeding.');
+    }
+  }
 
   async importOrders(filePath: string, dryRun: boolean = false) {
     this.logger.log(`Starting import from ${filePath} (Dry Run: ${dryRun})`);
