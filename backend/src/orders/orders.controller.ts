@@ -19,7 +19,7 @@ export class OrdersController {
   @Post('lookup')
   @HttpCode(HttpStatus.OK)
   async lookupOrder(
-    @Body() body: { orderId: number; phoneLast4: string },
+    @Body() body: { orderId: number | string },
     @Headers('authorization') authHeader: string,
     @Query('token') queryToken?: string,
   ) {
@@ -34,15 +34,15 @@ export class OrdersController {
       }
     }
 
-    if (!body.orderId || !body.phoneLast4) {
+    if (!body.orderId) {
       return {
         found: false,
         verified: false,
-        message: 'We could not verify the order details provided.',
+        message: 'We could not find the order ID provided.',
       };
     }
 
     const correlationId = Math.random().toString(36).substring(7);
-    return await this.ordersService.lookupOrder(body.orderId, body.phoneLast4, correlationId);
+    return await this.ordersService.lookupOrder(body.orderId, correlationId);
   }
 }

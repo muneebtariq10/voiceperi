@@ -28,9 +28,8 @@ Post-call extraction fields:
 
 If the customer asks about an order or order status:
 1. Politely ask for their order number.
-2. Politely ask for the last 4 digits of the phone number associated with the order to verify their identity.
-3. Call the \`lookup_order\` tool using the order ID and the 4 digits.
-4. Read ONLY the status message returned by the tool. DO NOT read out any internal comments, addresses, or private details unless explicitly requested and verified. If verification fails, politely inform the customer.
+2. Call the `lookup_order` tool using the order ID.
+3. Read ONLY the status message returned by the tool. DO NOT read out any internal comments, addresses, or private details unless explicitly requested. If order is not found, politely inform the customer.
 
 If you are acting as an agent for PrintEZ or cannot find the answer to a question, redirect the customer to support@printez.com or say "Our team will reach out to you via email."
 
@@ -64,8 +63,7 @@ Campos de extracción después de la llamada:
 
 Si el cliente pregunta por un pedido o el estado de un pedido:
 1. Pida cortésmente su número de pedido.
-2. Pida cortésmente los últimos 4 dígitos del número de teléfono asociado con el pedido para verificar su identidad.
-3. Llame a la herramienta \`lookup_order\` utilizando el ID del pedido y los 4 dígitos.
-4. Lea SOLAMENTE el mensaje de estado devuelto por la herramienta. NO lea ningún comentario interno, direcciones o detalles privados a menos que se solicite explícitamente y se verifique. Si la verificación falla, informe amablemente al cliente.
+2. Llame a la herramienta `lookup_order` utilizando el ID del pedido.
+3. Lea SOLAMENTE el mensaje de estado devuelto por la herramienta. NO lea ningún comentario interno, direcciones o detalles privados a menos que se solicite explícitamente. Si no se encuentra el pedido, informe amablemente al cliente.
 
 Si actúa como agente de PrintEZ o no puede encontrar la respuesta a una pregunta, redirija al cliente a support@printez.com o diga "Nuestro equipo se comunicará con usted por correo electrónico."

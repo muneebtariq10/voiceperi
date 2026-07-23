@@ -17,35 +17,35 @@ export class OrdersService {
     private readonly statusMappingService: OrderStatusMappingService,
   ) {}
 
-  async lookupOrder(orderId: number, phoneLast4: string, requestCorrelationId: string) {
+  async lookupOrder(orderId: number | string, requestCorrelationId: string) {
     this.logger.log(`[${requestCorrelationId}] Looking up order ${orderId}`);
 
-    const order = await this.orderRepository.findOne({
-      where: { externalOrderId: orderId },
-      relations: ['products', 'history'],
-    });
+    const numericOrderId = typeof orderId === 'number' ? orderId : parseInt(String(orderId).replace(/\D/g, ''), 10);
 
-    let verified = false;
+    const order = isNaN(numericOrderId)
+      ? null
+      : await this.orderRepository.findOne({
+          where: { externalOrderId: numericOrderId },
+          relations: ['products', 'history'],
+        });
 
-    if (order && order.customerPhoneLast4 === String(phoneLast4)) {
-      verified = true;
-    }
+    const verified = !!order;
 
     // Save audit log
     await this.auditRepository.save({
-      requestedOrderId: orderId,
-      verificationMethod: 'phoneLast4',
+      requestedOrderId: isNaN(numericOrderId) ? 0 : numericOrderId,
+      verificationMethod: 'orderId',
       verificationSucceeded: verified,
       source: 'api',
       requestCorrelationId,
     });
 
-    if (!verified || !order) {
+    if (!order) {
       this.logger.warn(`[${requestCorrelationId}] Verification failed for order ${orderId}`);
       return {
         found: false,
         verified: false,
-        message: 'We could not verify the order details provided.',
+        message: 'We could not find an order with the provided order ID.',
       };
     }
 

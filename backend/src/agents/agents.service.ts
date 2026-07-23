@@ -449,15 +449,14 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status of an order using the order ID and the last 4 digits of the customer\'s phone number.',
+        description: 'Look up the status of an order using the order ID.',
         url: (process.env.RETELL_WEBHOOK_URL ? process.env.RETELL_WEBHOOK_URL.replace('/retell-webhook', '/orders/lookup') : 'https://dev.voiceperi.com/api/orders/lookup') + '?token=' + (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID' },
-            phoneLast4: { type: 'string', description: 'The last 4 digits of the phone number' }
+            orderId: { type: 'number', description: 'The order ID' }
           },
-          required: ['orderId', 'phoneLast4']
+          required: ['orderId']
         }
       }
     ];
@@ -830,15 +829,14 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status of an order using the order ID and the last 4 digits of the customer\'s phone number.',
+        description: 'Look up the status of an order using the order ID.',
         url: (process.env.RETELL_WEBHOOK_URL ? process.env.RETELL_WEBHOOK_URL.replace('/retell-webhook', '/orders/lookup') : 'https://dev.voiceperi.com/api/orders/lookup') + '?token=' + (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID' },
-            phoneLast4: { type: 'string', description: 'The last 4 digits of the phone number' }
+            orderId: { type: 'number', description: 'The order ID' }
           },
-          required: ['orderId', 'phoneLast4']
+          required: ['orderId']
         }
       }
     ];
