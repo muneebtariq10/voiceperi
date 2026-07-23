@@ -450,9 +450,13 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       setIsCalling(false);
       toast.success("Call ended");
     });
-    client.on("error", (error) => {
+    client.on("error", (error: any) => {
       setIsCalling(false);
-      toast.error("Call error: " + error);
+      const errorMsg =
+        typeof error === "string"
+          ? error
+          : error?.message || error?.error || JSON.stringify(error);
+      toast.error("Call error: " + errorMsg);
     });
 
     return () => {
