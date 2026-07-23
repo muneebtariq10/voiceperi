@@ -15,7 +15,7 @@ export class WebsiteImportService {
       }
 
       this.logger.log(`Fetching website: ${url}`);
-      
+
       const response = await axios.get(url, {
         timeout: 10000,
         headers: {
@@ -28,8 +28,9 @@ export class WebsiteImportService {
 
       // Extract basic info
       const title = $('title').text().trim();
-      const metaDescription = $('meta[name="description"]').attr('content')?.trim() || '';
-      
+      const metaDescription =
+        $('meta[name="description"]').attr('content')?.trim() || '';
+
       // Extract main text (h1-h3, p) to build an overview
       const overviewParts: string[] = [];
       $('h1, h2, p').each((i, el) => {
@@ -38,7 +39,7 @@ export class WebsiteImportService {
           overviewParts.push(text);
         }
       });
-      
+
       // Keep overview concise (first 1000 chars)
       let overview = overviewParts.join(' ').replace(/\s+/g, ' ');
       if (overview.length > 1000) {
@@ -48,7 +49,7 @@ export class WebsiteImportService {
       const businessName = title ? title.split('|')[0].trim() : url;
 
       const isPrintEZ = url.toLowerCase().includes('printez.com');
-      
+
       let finalBusinessName = businessName;
       if (isPrintEZ) {
         finalBusinessName = 'PrintEZ';
@@ -57,14 +58,22 @@ export class WebsiteImportService {
       return {
         name: finalBusinessName,
         website: url,
-        formatted_address: isPrintEZ ? '205 Bakertown Rd, Highland Mills, NY 10930' : 'Online Business',
+        formatted_address: isPrintEZ
+          ? '205 Bakertown Rd, Highland Mills, NY 10930'
+          : 'Online Business',
         international_phone_number: isPrintEZ ? '+1 845-782-5832' : '',
         types: ['ecommerce'],
-        opening_hours: { weekday_text: isPrintEZ ? ['Available Monday - Friday 8AM - 6PM EST'] : [] },
-        overview: metaDescription + (metaDescription && overview ? '\n\n' : '') + overview,
-        dataSource: 'website'
+        opening_hours: {
+          weekday_text: isPrintEZ
+            ? ['Available Monday - Friday 8AM - 6PM EST']
+            : [],
+        },
+        overview:
+          metaDescription +
+          (metaDescription && overview ? '\n\n' : '') +
+          overview,
+        dataSource: 'website',
       };
-
     } catch (error) {
       this.logger.error(`Failed to scrape website ${url}: ${error.message}`);
       return null;

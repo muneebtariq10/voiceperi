@@ -70,7 +70,13 @@ export class BusinessinfosService {
   async getBusinessInfo(query: string, language: string, user_id?: string) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
-      if (query.startsWith('http://') || query.startsWith('https://') || query.includes('.com') || query.includes('.net') || query.includes('.org')) {
+      if (
+        query.startsWith('http://') ||
+        query.startsWith('https://') ||
+        query.includes('.com') ||
+        query.includes('.net') ||
+        query.includes('.org')
+      ) {
         this.logger.log(`Query appears to be a website URL: ${query}`);
         placeDetails = await this.websiteImportService.scrapeWebsite(query);
       } else {
@@ -115,7 +121,13 @@ export class BusinessinfosService {
   async getNewBusinessInfo(query: string, user_id: string) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
-      if (query.startsWith('http://') || query.startsWith('https://') || query.includes('.com') || query.includes('.net') || query.includes('.org')) {
+      if (
+        query.startsWith('http://') ||
+        query.startsWith('https://') ||
+        query.includes('.com') ||
+        query.includes('.net') ||
+        query.includes('.org')
+      ) {
         this.logger.log(`Query appears to be a website URL: ${query}`);
         placeDetails = await this.websiteImportService.scrapeWebsite(query);
       } else {
@@ -301,7 +313,9 @@ export class BusinessinfosService {
       id: uuidv4(),
       profile: place.url ? place.url : place.website || '',
       websiteUrl: place.website || (place.url ? place.url : ''),
-      businessType: place.types?.includes('ecommerce') ? 'ecommerce' : 'physical',
+      businessType: place.types?.includes('ecommerce')
+        ? 'ecommerce'
+        : 'physical',
       name: place.name,
       address: place.formatted_address || 'Unknown',
       phone: place.international_phone_number || '',
@@ -356,7 +370,9 @@ export class BusinessinfosService {
       const placePayload: Partial<BusinessInformation> = {
         profile: place.url ? place.url : place.website || '',
         websiteUrl: place.website || (place.url ? place.url : ''),
-        businessType: place.types?.includes('ecommerce') ? 'ecommerce' : 'physical',
+        businessType: place.types?.includes('ecommerce')
+          ? 'ecommerce'
+          : 'physical',
         name: place.name,
         address: place.formatted_address || 'Unknown',
         phone: place.international_phone_number || '',

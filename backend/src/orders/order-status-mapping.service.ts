@@ -3,7 +3,10 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class OrderStatusMappingService {
   mapStatus(internalStatus: string, historyComment?: string | null): string {
-    if (historyComment && historyComment.includes('Address not found or not deliverable')) {
+    if (
+      historyComment &&
+      historyComment.includes('Address not found or not deliverable')
+    ) {
       return 'The order could not proceed because the delivery address could not be verified. Please confirm the address or contact customer support.';
     }
 
@@ -24,13 +27,13 @@ export class OrderStatusMappingService {
 
   mapHistoryComment(comment: string): string | null {
     if (!comment) return null;
-    
+
     // Remove HTML tags
     let sanitized = comment.replace(/<[^>]*>?/gm, '').trim();
 
     // Redact payment IDs
     sanitized = sanitized.replace(/pm[a-zA-Z0-9]+/g, '[REDACTED_PAYMENT_ID]');
-    
+
     // Ignore internal staff "Viewed Order" or empty comments
     if (sanitized === 'Viewed Order' || sanitized === '') {
       return null;

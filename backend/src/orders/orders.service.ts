@@ -20,7 +20,10 @@ export class OrdersService {
   async lookupOrder(orderId: number | string, requestCorrelationId: string) {
     this.logger.log(`[${requestCorrelationId}] Looking up order ${orderId}`);
 
-    const numericOrderId = typeof orderId === 'number' ? orderId : parseInt(String(orderId).replace(/\D/g, ''), 10);
+    const numericOrderId =
+      typeof orderId === 'number'
+        ? orderId
+        : parseInt(String(orderId).replace(/\D/g, ''), 10);
 
     const order = isNaN(numericOrderId)
       ? null
@@ -41,7 +44,9 @@ export class OrdersService {
     });
 
     if (!order) {
-      this.logger.warn(`[${requestCorrelationId}] Verification failed for order ${orderId}`);
+      this.logger.warn(
+        `[${requestCorrelationId}] Verification failed for order ${orderId}`,
+      );
       return {
         found: false,
         verified: false,
@@ -55,23 +60,35 @@ export class OrdersService {
 
     if (order.history && order.history.length > 0) {
       // Sort history descending
-      const sortedHistory = order.history.sort((a, b) => b.dateAdded.getTime() - a.dateAdded.getTime());
-      
+      const sortedHistory = order.history.sort(
+        (a, b) => b.dateAdded.getTime() - a.dateAdded.getTime(),
+      );
+
       for (const history of sortedHistory) {
-        if (history.sanitizedComment && history.sanitizedComment.includes('Address not found or not deliverable')) {
-           latestIssue = 'Address not found or not deliverable';
-           break;
+        if (
+          history.sanitizedComment &&
+          history.sanitizedComment.includes(
+            'Address not found or not deliverable',
+          )
+        ) {
+          latestIssue = 'Address not found or not deliverable';
+          break;
         }
       }
     }
 
-    const mappedStatusMessage = this.statusMappingService.mapStatus(order.statusName, latestIssue);
+    const mappedStatusMessage = this.statusMappingService.mapStatus(
+      order.statusName,
+      latestIssue,
+    );
 
     if (order.statusName === 'TESTING' || latestIssue) {
-        needsReview = true;
+      needsReview = true;
     }
 
-    this.logger.log(`[${requestCorrelationId}] Verification succeeded for order ${orderId}`);
+    this.logger.log(
+      `[${requestCorrelationId}] Verification succeeded for order ${orderId}`,
+    );
 
     return {
       found: true,
@@ -80,18 +97,23 @@ export class OrdersService {
         orderId: order.externalOrderId,
         status: order.statusName,
         statusMessage: mappedStatusMessage,
-        date: order.dateAdded ? order.dateAdded.toISOString().split('T')[0] : null,
+        date: order.dateAdded
+          ? order.dateAdded.toISOString().split('T')[0]
+          : null,
         currency: order.currencyCode,
         subtotal: order.subtotal,
         shipping: order.shippingTotal,
         discount: order.discountTotal,
         total: order.grandTotal,
         shippingMethod: order.shippingMethod,
-        products: order.products?.map((p) => ({
-          name: p.name,
-          quantity: p.quantity,
-        })) || [],
-        latestIssue: latestIssue ? this.statusMappingService.mapStatus(order.statusName, latestIssue) : null,
+        products:
+          order.products?.map((p) => ({
+            name: p.name,
+            quantity: p.quantity,
+          })) || [],
+        latestIssue: latestIssue
+          ? this.statusMappingService.mapStatus(order.statusName, latestIssue)
+          : null,
         requiresHumanReview: needsReview,
       },
     };

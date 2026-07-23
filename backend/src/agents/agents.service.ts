@@ -450,15 +450,23 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_order',
         description: 'Look up the status of an order using the order ID.',
-        url: (process.env.RETELL_WEBHOOK_URL ? process.env.RETELL_WEBHOOK_URL.replace('/retell-webhook', '/orders/lookup') : 'https://dev.voiceperi.com/api/orders/lookup') + '?token=' + (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
+        url:
+          (process.env.RETELL_WEBHOOK_URL
+            ? process.env.RETELL_WEBHOOK_URL.replace(
+                '/retell-webhook',
+                '/orders/lookup',
+              )
+            : 'https://dev.voiceperi.com/api/orders/lookup') +
+          '?token=' +
+          (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID' }
+            orderId: { type: 'number', description: 'The order ID' },
           },
-          required: ['orderId']
-        }
-      }
+          required: ['orderId'],
+        },
+      },
     ];
 
     if (
@@ -830,15 +838,23 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_order',
         description: 'Look up the status of an order using the order ID.',
-        url: (process.env.RETELL_WEBHOOK_URL ? process.env.RETELL_WEBHOOK_URL.replace('/retell-webhook', '/orders/lookup') : 'https://dev.voiceperi.com/api/orders/lookup') + '?token=' + (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
+        url:
+          (process.env.RETELL_WEBHOOK_URL
+            ? process.env.RETELL_WEBHOOK_URL.replace(
+                '/retell-webhook',
+                '/orders/lookup',
+              )
+            : 'https://dev.voiceperi.com/api/orders/lookup') +
+          '?token=' +
+          (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID' }
+            orderId: { type: 'number', description: 'The order ID' },
           },
-          required: ['orderId']
-        }
-      }
+          required: ['orderId'],
+        },
+      },
     ];
 
     if (agent.phone_numbers && agent.phone_numbers.length > 0) {
@@ -943,7 +959,7 @@ export class AgentsService implements OnApplicationBootstrap {
       });
       const businessInfo =
         await this.businessInfosService.findOneByUserId(userId);
-        
+
       if (businessInfo && businessInfo.businessType !== 'ecommerce') {
         const searchQuery = `${businessInfo?.name}, ${businessInfo?.address},`;
         const businessData = await this.businessInfosService.getBusinessInfo(
@@ -1163,7 +1179,7 @@ export class AgentsService implements OnApplicationBootstrap {
         'Error purchasing phone number:',
         error?.response?.data || error.message,
       );
-      
+
       const errorMessage = error?.response?.data?.message || '';
       throw new Error(
         `Failed to purchase phone number. Please ensure you have added a payment method on your Retell AI dashboard. Details: ${errorMessage}`,

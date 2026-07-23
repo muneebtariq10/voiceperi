@@ -77,7 +77,8 @@ export class OrdersImportService {
         order.statusName = record.order_status_name;
         order.currencyCode = record.currency_code;
         order.subtotal = record.ez_review?.sub_total || 0;
-        order.shippingTotal = record.totals?.find((t: any) => t.code === 'shipping')?.value || 0;
+        order.shippingTotal =
+          record.totals?.find((t: any) => t.code === 'shipping')?.value || 0;
         order.discountTotal = record.ez_review?.ez_discount || 0;
         order.grandTotal = record.total;
         order.shippingMethod = record.shipping_address?.method;
@@ -85,17 +86,20 @@ export class OrdersImportService {
         order.dateAdded = new Date(record.date_added);
         order.dateModified = new Date(record.date_modified);
         order.customerEmailNormalized = record.customer?.email?.toLowerCase();
-        
+
         // Save phone last 4 digits for verification
         const phone = record.customer?.telephone;
         if (phone) {
           const digits = phone.replace(/\\D/g, '');
-          order.customerPhoneLast4 = digits.length >= 4 ? digits.slice(-4) : digits;
+          order.customerPhoneLast4 =
+            digits.length >= 4 ? digits.slice(-4) : digits;
         }
-        
+
         const postcode = record.shipping_address?.postcode;
         if (postcode) {
-          order.shippingPostcodeNormalized = postcode.replace(/\\s/g, '').toUpperCase();
+          order.shippingPostcodeNormalized = postcode
+            .replace(/\\s/g, '')
+            .toUpperCase();
         }
 
         if (!dryRun) {
@@ -106,7 +110,9 @@ export class OrdersImportService {
         if (record.products && Array.isArray(record.products)) {
           // If updating, delete old products first (simplification)
           if (isUpdate && !dryRun) {
-            await queryRunner.manager.delete(OrderProduct, { order: { id: order.id } });
+            await queryRunner.manager.delete(OrderProduct, {
+              order: { id: order.id },
+            });
           }
 
           for (const prod of record.products) {
@@ -114,15 +120,17 @@ export class OrdersImportService {
             product.order = order;
             product.externalOrderProductId = prod.order_product_id;
             product.externalProductId = prod.product_id;
-            
+
             // Decode HTML entities in name
-            product.name = prod.name ? prod.name.replace(/&amp;/g, '&') : prod.name;
+            product.name = prod.name
+              ? prod.name.replace(/&amp;/g, '&')
+              : prod.name;
             product.model = prod.model;
             product.quantity = prod.quantity;
             product.unitPrice = prod.price;
             product.total = prod.total;
             product.type = prod.type;
-            
+
             if (!dryRun) {
               await queryRunner.manager.save(OrderProduct, product);
             }
@@ -132,12 +140,15 @@ export class OrdersImportService {
         // Import History
         if (record.history && Array.isArray(record.history)) {
           if (isUpdate && !dryRun) {
-            await queryRunner.manager.delete(OrderHistory, { order: { id: order.id } });
+            await queryRunner.manager.delete(OrderHistory, {
+              order: { id: order.id },
+            });
           }
 
           for (const hist of record.history) {
-            const sanitizedComment = this.statusMappingService.mapHistoryComment(hist.comment);
-            
+            const sanitizedComment =
+              this.statusMappingService.mapHistoryComment(hist.comment);
+
             if (sanitizedComment) {
               const history = new OrderHistory();
               history.order = order;
@@ -154,12 +165,13 @@ export class OrdersImportService {
         }
 
         await queryRunner.commitTransaction();
-        
+
         if (isUpdate) updated++;
         else imported++;
-
       } catch (err) {
-        this.logger.error(`Failed to import order ${record.order_id}: ${err.message}`);
+        this.logger.error(
+          `Failed to import order ${record.order_id}: ${err.message}`,
+        );
         await queryRunner.rollbackTransaction();
         skipped++;
       }
@@ -167,6 +179,8 @@ export class OrdersImportService {
 
     await queryRunner.release();
 
-    this.logger.log(`Import Complete. Imported: ${imported}, Updated: ${updated}, Skipped: ${skipped}`);
+    this.logger.log(
+      `Import Complete. Imported: ${imported}, Updated: ${updated}, Skipped: ${skipped}`,
+    );
   }
 }

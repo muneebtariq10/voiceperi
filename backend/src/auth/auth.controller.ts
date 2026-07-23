@@ -79,9 +79,11 @@ export class AuthController {
   ) {
     try {
       const user = req.user;
-      
+
       if (user.error) {
-        return res.redirect(`${process.env.FRONTEND_URL}login?error=${user.error}`);
+        return res.redirect(
+          `${process.env.FRONTEND_URL}login?error=${user.error}`,
+        );
       }
 
       const token = this.authService.generateJwt(user);

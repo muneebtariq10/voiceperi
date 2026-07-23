@@ -24,13 +24,14 @@ export class OrdersController {
     @Query('token') queryToken?: string,
   ) {
     const integrationToken = process.env.ORDER_LOOKUP_INTEGRATION_TOKEN;
-    
+
     if (integrationToken) {
-      const isAuthHeaderValid = authHeader && authHeader === `Bearer ${integrationToken}`;
+      const isAuthHeaderValid =
+        authHeader && authHeader === `Bearer ${integrationToken}`;
       const isQueryTokenValid = queryToken && queryToken === integrationToken;
-      
+
       if (!isAuthHeaderValid && !isQueryTokenValid) {
-         throw new UnauthorizedException('Invalid integration token');
+        throw new UnauthorizedException('Invalid integration token');
       }
     }
 
