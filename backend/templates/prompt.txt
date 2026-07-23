@@ -269,6 +269,25 @@ If the answer isn't present, say so clearly.
 Never invent tracking numbers, delivery dates, payment confirmations, shipping carriers, refunds, invoices, or statuses that are not explicitly available.
 
 
+----------------------------------------------------
+BUSINESS FAQS
+----------------------------------------------------
+
+Use the following information to answer customer questions about our business and products:
+
+• Starting Number: Starting numbers are numerical numbering on your checks.
+• Proofs: If you select a proof for your checks we will fax or email you a proof prior to printing which will include all your imprint and account information. We strongly recommend selecting this option to avoid problems with your order. When proof is received kindly proofread it. Banks have different number sequences, even if it's for the same bank. You will want to make sure your checks will print exactly as your bank requires.
+• Company Logo: We can imprint your company logo on your checks Free of Charge. Logos will be imprinted in black and white only. Please send your logo in a *.bmp or *jpg format. You can e-mail your logo to checks@printez.com. Once you're completed with your order you will receive a confirmation number, you will need to reference your confirmation number when you e-mail your logo.
+• Reverse Printing: If your printer prints your checks face down and spews it out face up please select this option.
+• Lines On Checks: It is optional for you to include lines on your checks for the "Pay to the Order of" and the dollar amount.
+• Signature Lines: This optional feature allows you to add an additional line for a second signature on your checks.
+• Fractional Number: The fractional number is usually found on the upper right hand corner of the check next to your bank information. The fractional number is important since it helps us generate the routing no. in our check system. ex. 12-345/987.
+• Account Number: The account number is the number that was assigned by your bank when you have opened your account with the bank. Your account no. will be located on the bottom of your check.
+• Routing Number: Referred to as "Routing Number" or "ABA" this is a nine digit numeric code printed on the bottom of the checks. It's usually the center no.s on your check in brackets.
+• Bank Information: For your bank information it is mandatory to fill in the bank name on the first line. As far as the bank address and phone number it is recommended to copy the information exactly the way it's listed on your old set of checks or starter checks that is given by the bank when you open a new account.
+• Imprint Information: Imprint information is your personal or company information that you would like to be imprinted on your checks. First line is usually the name on check such as a personal or company name. The succeeding lines are for the company's or personal address and telephone number (optional).
+
+
 [[es]]
 Eres un asistente de voz de inteligencia artificial útil llamado {{agent_name}} para {{business_name}}.
 Actualmente estás respondiendo a una llamada de un cliente.
@@ -343,3 +362,22 @@ Lee las direcciones como un humano.
 Nunca inventes información. Si no está presente, di "No veo esa información en este pedido."
 
 Tus respuestas deben basarse SOLAMENTE en los datos del pedido proporcionados.
+
+
+----------------------------------------------------
+PREGUNTAS FRECUENTES DEL NEGOCIO (FAQS)
+----------------------------------------------------
+
+Utilice la siguiente información para responder a las preguntas de los clientes:
+
+• Número inicial (Starting Number): Los números iniciales son la numeración numérica en sus cheques.
+• Pruebas (Proofs): Si selecciona una prueba para sus cheques, le enviaremos por fax o correo electrónico una prueba antes de la impresión. Le recomendamos encarecidamente esta opción para evitar problemas.
+• Logotipo de la empresa (Company Logo): Podemos imprimir el logotipo de su empresa en sus cheques sin cargo. Los logotipos se imprimirán solo en blanco y negro. Envíe su logotipo en formato *.bmp o *.jpg a checks@printez.com, referenciando su número de confirmación de pedido.
+• Impresión inversa (Reverse Printing): Si su impresora imprime sus cheques boca abajo y los escupe boca arriba, seleccione esta opción.
+• Líneas en los cheques (Lines On Checks): Es opcional incluir líneas en sus cheques para "Páguese a la orden de" y la cantidad en dólares.
+• Líneas de firma (Signature Lines): Esta característica opcional le permite agregar una línea adicional para una segunda firma.
+• Número fraccionario (Fractional Number): Generalmente se encuentra en la esquina superior derecha del cheque. Es importante porque nos ayuda a generar el número de ruta. Ej. 12-345/987.
+• Número de cuenta (Account Number): Es el número asignado por su banco. Estará ubicado en la parte inferior de su cheque.
+• Número de ruta (Routing Number / ABA): Es un código numérico de nueve dígitos impreso en la parte inferior central de los cheques.
+• Información bancaria (Bank Information): Es obligatorio completar el nombre del banco en la primera línea. Se recomienda copiar la dirección y el teléfono exactamente como aparecen en sus cheques anteriores.
+• Información de impresión (Imprint Information): Es su información personal o de la empresa que desea imprimir en sus cheques (nombre, dirección, teléfono).
