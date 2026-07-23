@@ -60,9 +60,11 @@ export class OrdersService {
 
     if (order.history && order.history.length > 0) {
       // Sort history descending
-      const sortedHistory = order.history.sort(
-        (a, b) => b.dateAdded.getTime() - a.dateAdded.getTime(),
-      );
+      const sortedHistory = order.history.sort((a, b) => {
+        const timeA = a.dateAdded ? new Date(a.dateAdded).getTime() : 0;
+        const timeB = b.dateAdded ? new Date(b.dateAdded).getTime() : 0;
+        return timeB - timeA;
+      });
 
       for (const history of sortedHistory) {
         if (
@@ -90,6 +92,10 @@ export class OrdersService {
       `[${requestCorrelationId}] Verification succeeded for order ${orderId}`,
     );
 
+    const formattedDate = order.dateAdded
+      ? new Date(order.dateAdded).toISOString().split('T')[0]
+      : null;
+
     return {
       found: true,
       verified: true,
@@ -97,9 +103,7 @@ export class OrdersService {
         orderId: order.externalOrderId,
         status: order.statusName,
         statusMessage: mappedStatusMessage,
-        date: order.dateAdded
-          ? order.dateAdded.toISOString().split('T')[0]
-          : null,
+        date: formattedDate,
         currency: order.currencyCode,
         subtotal: order.subtotal,
         shipping: order.shippingTotal,
