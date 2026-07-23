@@ -2,6 +2,8 @@ import {
   Injectable,
   NotFoundException,
   OnApplicationBootstrap,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
@@ -855,7 +857,7 @@ export class AgentsService implements OnApplicationBootstrap {
           type: 'cold_transfer',
         },
       });
-    } else if (businessInfo.phone) {
+    } else if (businessInfo?.phone) {
       tools.push({
         type: 'transfer_call',
         name: 'transfer_call',
@@ -878,7 +880,7 @@ export class AgentsService implements OnApplicationBootstrap {
         description: 'Book an appointment for the user',
         cal_api_key: user.cal_key,
         event_type_id: parseInt(user.event_id, 10),
-        timezone: businessInfo.timezone || 'America/New_York',
+        timezone: businessInfo?.timezone || 'America/New_York',
       });
     }
 
@@ -1117,11 +1119,18 @@ export class AgentsService implements OnApplicationBootstrap {
       );
       return response.data;
     } catch (error) {
-      console.error(
-        'Error creating web call:',
-        error?.response?.data || error.message,
+      const errDetails = error?.response?.data || error.message;
+      console.error('Error creating web call:', errDetails);
+      const statusCode =
+        error?.response?.status || HttpStatus.INTERNAL_SERVER_ERROR;
+      const msg =
+        typeof errDetails === 'object'
+          ? errDetails.message || JSON.stringify(errDetails)
+          : errDetails;
+      throw new HttpException(
+        msg || 'Failed to create web call token',
+        statusCode,
       );
-      throw new Error('Failed to create web call token');
     }
   }
 
