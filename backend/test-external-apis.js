@@ -27,7 +27,7 @@ async function run() {
   results.push(await testEndpoint(
     'Retell AI',
     'https://api.retellai.com/list-voices',
-    { 'Authorization': `Bearer ${process.env.RETELL_API_KEY}` },
+    { 'Authorization': `Bearer ${process.env.RETELL_AI_API_KEY}` },
     (json, status) => status === 200 && Array.isArray(json)
   ));
 
