@@ -406,7 +406,7 @@ export class AgentsService implements OnApplicationBootstrap {
           ? formattedServices[0]
           : formattedServices.slice(0, -1).join(', ') +
             ' and ' +
-            formattedServices.slice(-1)
+            formattedServices[formattedServices.length - 1]
         : '',
 
       question_section: questionSection,
