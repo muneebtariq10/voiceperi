@@ -450,15 +450,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_order',
         description: 'Look up the status of an order using the order ID.',
-        url:
-          (process.env.RETELL_WEBHOOK_URL
-            ? process.env.RETELL_WEBHOOK_URL.replace(
-                '/retell-webhook',
-                '/orders/lookup',
-              )
-            : 'https://dev.voiceperi.com/api/orders/lookup') +
-          '?token=' +
-          (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
+        url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
@@ -838,15 +830,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_order',
         description: 'Look up the status of an order using the order ID.',
-        url:
-          (process.env.RETELL_WEBHOOK_URL
-            ? process.env.RETELL_WEBHOOK_URL.replace(
-                '/retell-webhook',
-                '/orders/lookup',
-              )
-            : 'https://dev.voiceperi.com/api/orders/lookup') +
-          '?token=' +
-          (process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token'),
+        url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
@@ -1361,5 +1345,24 @@ export class AgentsService implements OnApplicationBootstrap {
     );
 
     return Buffer.from(response.data);
+  }
+
+  private getOrderLookupUrl(): string {
+    const token =
+      process.env.ORDER_LOOKUP_INTEGRATION_TOKEN || 'your-secret-token';
+    let baseUrl = 'https://dev.voiceperi.com/api';
+
+    if (process.env.RETELL_WEBHOOK_URL) {
+      const cleaned = process.env.RETELL_WEBHOOK_URL.replace(
+        /\/retell?-webhook\/?$/i,
+        '',
+      ).replace(/\/webhook\/?$/i, '');
+      if (cleaned.startsWith('http')) {
+        baseUrl = cleaned;
+      }
+    }
+
+    const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
+    return `${cleanBase}/api/orders/lookup?token=${token}`;
   }
 }

@@ -19,7 +19,7 @@ export class OrdersController {
   @Post('lookup')
   @HttpCode(HttpStatus.OK)
   async lookupOrder(
-    @Body() body: { orderId: number | string },
+    @Body() body: any,
     @Headers('authorization') authHeader: string,
     @Query('token') queryToken?: string,
   ) {
@@ -35,7 +35,17 @@ export class OrdersController {
       }
     }
 
-    if (!body.orderId) {
+    const rawOrderId =
+      body?.orderId ??
+      body?.order_id ??
+      body?.order ??
+      body?.args?.orderId ??
+      body?.args?.order_id ??
+      body?.arguments?.orderId ??
+      body?.arguments?.order_id ??
+      (typeof body === 'number' || typeof body === 'string' ? body : undefined);
+
+    if (rawOrderId === undefined || rawOrderId === null) {
       return {
         found: false,
         verified: false,
@@ -44,6 +54,6 @@ export class OrdersController {
     }
 
     const correlationId = Math.random().toString(36).substring(7);
-    return await this.ordersService.lookupOrder(body.orderId, correlationId);
+    return await this.ordersService.lookupOrder(rawOrderId, correlationId);
   }
 }
