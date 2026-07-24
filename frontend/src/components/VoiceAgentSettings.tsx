@@ -375,7 +375,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       if (typeof window !== "undefined" && navigator?.mediaDevices?.getUserMedia) {
         try {
           await navigator.mediaDevices.getUserMedia({ audio: true });
-        } catch (micErr) {
+        } catch {
           toast.error(
             "Microphone access denied. Please allow microphone permissions in your browser settings.",
           );

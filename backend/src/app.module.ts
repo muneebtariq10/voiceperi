@@ -23,6 +23,7 @@ import { RetelWebhookModule } from './retel-webhook/retel-webhook.module';
 import { IntegrationModule } from './integrations/integration.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { OrdersModule } from './orders/orders.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { OrdersModule } from './orders/orders.module';
     IntegrationModule,
     FeedbackModule,
     OrdersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [
