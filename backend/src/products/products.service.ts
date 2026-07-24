@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like } from 'typeorm';
+import { Repository, Like, ILike } from 'typeorm';
 import { Product } from '../entities/product';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -79,9 +79,9 @@ export class ProductsService implements OnModuleInit {
       // Find products that match the query in name or category
       const products = await this.productRepository.find({
         where: [
-          { name: Like(`%${query}%`) },
-          { category: Like(`%${query}%`) },
-          { sku: Like(`%${query}%`) },
+          { name: ILike(`%${query}%`) },
+          { category: ILike(`%${query}%`) },
+          { sku: ILike(`%${query}%`) },
         ],
         take: 5, // Return top 5 results
       });
