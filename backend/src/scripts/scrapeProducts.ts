@@ -10,7 +10,6 @@ interface ScrapedProduct {
   name: string;
   description: string;
   price: string;
-  sku: string;
   category: string;
   url: string;
 }
@@ -214,7 +213,6 @@ async function scrapeProducts() {
               name,
               description: `PrintEZ product: ${name}. Section: ${categoryName}.`,
               price,
-              sku: sku || productId,
               category: categoryName,
               url: productUrl,
             });

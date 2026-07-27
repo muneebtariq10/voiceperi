@@ -47,7 +47,7 @@ export class ProductsService implements OnModuleInit {
             name: record.name,
             description: record.description || '',
             price: record.price,
-            sku: record.sku || '',
+            sku: record.productId,
             category: record.category || '',
             url: record.url || '',
           });
@@ -117,7 +117,8 @@ export class ProductsService implements OnModuleInit {
           name: p.name,
           price: p.price,
           category: p.category,
-          sku: p.sku,
+          productId: p.productId,
+          sku: p.sku || p.productId,
           description: p.description,
         })),
       };
