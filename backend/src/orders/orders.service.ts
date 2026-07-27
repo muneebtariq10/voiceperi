@@ -17,8 +17,12 @@ export class OrdersService {
     private readonly statusMappingService: OrderStatusMappingService,
   ) {}
 
-  async lookupOrder(orderId: number | string, requestCorrelationId: string) {
-    this.logger.log(`[${requestCorrelationId}] Looking up order ${orderId}`);
+  async lookupOrder(
+    orderId: number | string,
+    requestCorrelationId: string,
+    email?: string,
+  ) {
+    this.logger.log(`[${requestCorrelationId}] Looking up order ${orderId} with email: ${email || 'not provided'}`);
 
     const numericOrderId =
       typeof orderId === 'number'
@@ -32,12 +36,24 @@ export class OrdersService {
           relations: ['products', 'history'],
         });
 
-    const verified = !!order;
+    let emailMatches = false;
+    if (order && email) {
+      const normalizedInput = String(email).toLowerCase().trim().replace(/\s+/g, '');
+      const normalizedDb = (order.customerEmailNormalized || order.customerEmail || '')
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '');
+      if (normalizedInput && normalizedDb && normalizedInput === normalizedDb) {
+        emailMatches = true;
+      }
+    }
+
+    const verified = !!order && emailMatches;
 
     // Save audit log
     await this.auditRepository.save({
       requestedOrderId: isNaN(numericOrderId) ? 0 : numericOrderId,
-      verificationMethod: 'orderId',
+      verificationMethod: email ? 'orderId+email' : 'orderId',
       verificationSucceeded: verified,
       source: 'api',
       requestCorrelationId,
@@ -45,12 +61,36 @@ export class OrdersService {
 
     if (!order) {
       this.logger.warn(
-        `[${requestCorrelationId}] Verification failed for order ${orderId}`,
+        `[${requestCorrelationId}] Verification failed: order ${orderId} not found`,
       );
       return {
         found: false,
         verified: false,
         message: 'We could not find an order with the provided order ID.',
+      };
+    }
+
+    if (!email) {
+      this.logger.warn(
+        `[${requestCorrelationId}] Order ${orderId} found, but email verification required`,
+      );
+      return {
+        found: true,
+        verified: false,
+        message:
+          'An email address is required to check the status of this order. Please politely ask the caller for their email address for verification.',
+      };
+    }
+
+    if (!emailMatches) {
+      this.logger.warn(
+        `[${requestCorrelationId}] Email verification failed for order ${orderId}`,
+      );
+      return {
+        found: true,
+        verified: false,
+        message:
+          'The email address provided does not match our records for this order number. Please ask the caller to double check their email address.',
       };
     }
 

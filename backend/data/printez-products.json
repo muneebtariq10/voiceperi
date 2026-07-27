@@ -1,86 +1,4376 @@
 [
   {
-    "productId": "70459",
-    "name": "Branded Static Cling Call for Service LabelsBranded Static Cling Call for Service Labels",
-    "price": "price:$0.13 not specialEx Tax: $0.00Item#:58163",
-    "url": "https://www.printez.com/static-cling-call-for-service-labels.html",
-    "category": "Promotional Products"
+    "productId": "58163",
+    "name": "Branded Static Cling Call for Service Labels",
+    "description": "PrintEZ product: Branded Static Cling Call for Service Labels. Section: Automotive.",
+    "price": "$0.13",
+    "sku": "58163",
+    "category": "Automotive",
+    "url": "https://www.printez.com/static-cling-call-for-service-labels.html"
   },
   {
-    "productId": "77405",
-    "name": "Branded Call for Service Label on Silver Poly Top & Bottom Navy TrimBranded Call for Service Label on Silver Poly Top & Bottom Navy Trim",
-    "price": "price:$0.24 not specialEx Tax: $0.00Item#:58167",
-    "url": "https://www.printez.com/58167-call-for-service-label-on-silver-poly-top-bottom-navy-trim.html",
-    "category": "Promotional Products"
+    "productId": "58167",
+    "name": "Branded Call for Service Label on Silver Poly Top & Bottom Navy Trim",
+    "description": "PrintEZ product: Branded Call for Service Label on Silver Poly Top & Bottom Navy Trim. Section: Automotive.",
+    "price": "$0.24",
+    "sku": "58167",
+    "category": "Automotive",
+    "url": "https://www.printez.com/58167-call-for-service-label-on-silver-poly-top-bottom-navy-trim.html"
   },
   {
-    "productId": "51222",
-    "name": "Custom Printed Weatherproof Plate Silver LabelsCustom Printed Weatherproof Plate Silver Labels",
-    "price": "price:$0.27 not specialEx Tax: $0.00Item#:1521",
-    "url": "https://www.printez.com/weatherproof-plate-silver-labels.html",
-    "category": "Promotional Products"
+    "productId": "1521",
+    "name": "Custom Printed Weatherproof Plate Silver Labels",
+    "description": "PrintEZ product: Custom Printed Weatherproof Plate Silver Labels. Section: Automotive.",
+    "price": "$0.27",
+    "sku": "1521",
+    "category": "Automotive",
+    "url": "https://www.printez.com/weatherproof-plate-silver-labels.html"
   },
   {
-    "productId": "64750",
-    "name": "Custom Auto Floor Mat, \"We Try To Keep it Clean...\"Custom Auto Floor Mat, \"We Try To Keep it Clean...\"",
-    "price": "price:$0.17 not specialEx Tax: $0.00Item#:6515",
-    "url": "https://www.printez.com/6515-auto-floor-mat-we-try-to-keep-it-clean.html",
-    "category": "Promotional Products"
+    "productId": "6515",
+    "name": "Custom Auto Floor Mat, \"We Try To Keep it Clean...\"",
+    "description": "PrintEZ product: Custom Auto Floor Mat, \"We Try To Keep it Clean...\". Section: Auto Replacement.",
+    "price": "$158.99",
+    "sku": "6515",
+    "category": "Auto Replacement",
+    "url": "https://www.printez.com/6515-auto-floor-mat-we-try-to-keep-it-clean.html"
   },
   {
-    "productId": "15757",
-    "name": "Professional Black Weather Resistant LabelsProfessional Black Weather Resistant Labels",
-    "price": "price:$0.25 not specialEx Tax: $0.00Item#:369",
-    "url": "https://www.printez.com/black-weather-resistant-labels.html",
-    "category": "Promotional Products"
+    "productId": "369",
+    "name": "Professional Black Weather Resistant Labels",
+    "description": "PrintEZ product: Professional Black Weather Resistant Labels. Section: Automotive.",
+    "price": "$0.25",
+    "sku": "369",
+    "category": "Automotive",
+    "url": "https://www.printez.com/black-weather-resistant-labels.html"
   },
   {
-    "productId": "85079",
-    "name": "Branded Tuff Shield Weatherproof LabelsBranded Tuff Shield Weatherproof Labels",
-    "price": "price:$0.24 not specialEx Tax: $0.00Item#:367",
-    "url": "https://www.printez.com/tuff-shield-weatherproof-labels.html",
-    "category": "Promotional Products"
+    "productId": "367",
+    "name": "Branded Tuff Shield Weatherproof Labels",
+    "description": "PrintEZ product: Branded Tuff Shield Weatherproof Labels. Section: Automotive.",
+    "price": "$0.24",
+    "sku": "367",
+    "category": "Automotive",
+    "url": "https://www.printez.com/tuff-shield-weatherproof-labels.html"
   },
   {
-    "productId": "31571",
-    "name": "Branded Windshield Next Lubrication LabelsBranded Windshield Next Lubrication Labels",
-    "price": "price:$0.13 not specialEx Tax: $0.00Item#:1690B",
-    "url": "https://www.printez.com/windshield-next-lubrication-labels.html",
-    "category": "Promotional Products"
+    "productId": "1690B",
+    "name": "Branded Windshield Next Lubrication Labels",
+    "description": "PrintEZ product: Branded Windshield Next Lubrication Labels. Section: Automotive.",
+    "price": "$0.13",
+    "sku": "1690B",
+    "category": "Automotive",
+    "url": "https://www.printez.com/windshield-next-lubrication-labels.html"
   },
   {
-    "productId": "39978",
-    "name": "Custom Printed Windshield Next Tune Up LabelsCustom Printed Windshield Next Tune Up Labels",
-    "price": "price:$0.13 not specialEx Tax: $0.00Item#:1690D",
-    "url": "https://www.printez.com/windshield-next-tune-up-labels.html",
-    "category": "Promotional Products"
+    "productId": "1690D",
+    "name": "Custom Printed Windshield Next Tune Up Labels",
+    "description": "PrintEZ product: Custom Printed Windshield Next Tune Up Labels. Section: Automotive.",
+    "price": "$0.13",
+    "sku": "1690D",
+    "category": "Automotive",
+    "url": "https://www.printez.com/windshield-next-tune-up-labels.html"
   },
   {
-    "productId": "2406",
-    "name": "Branded Windshield Service Performed LabelsBranded Windshield Service Performed Labels",
-    "price": "price:$0.13 not specialEx Tax: $0.00Item#:1690F",
-    "url": "https://www.printez.com/windshield-service-performed-labels.html",
-    "category": "Promotional Products"
+    "productId": "1690F",
+    "name": "Branded Windshield Service Performed Labels",
+    "description": "PrintEZ product: Branded Windshield Service Performed Labels. Section: Automotive.",
+    "price": "$0.13",
+    "sku": "1690F",
+    "category": "Automotive",
+    "url": "https://www.printez.com/windshield-service-performed-labels.html"
   },
   {
-    "productId": "69314",
-    "name": "Custom Printed Small Record Items LabelsCustom Printed Small Record Items Labels",
-    "price": "price:$0.28 not specialEx Tax: $0.00Item#:CL13",
-    "url": "https://www.printez.com/small-record-items-labels.html",
-    "category": "Promotional Products"
+    "productId": "CL13",
+    "name": "Custom Printed Small Record Items Labels",
+    "description": "PrintEZ product: Custom Printed Small Record Items Labels. Section: Automotive.",
+    "price": "$0.28",
+    "sku": "CL13",
+    "category": "Automotive",
+    "url": "https://www.printez.com/small-record-items-labels.html"
   },
   {
-    "productId": "59892",
-    "name": "Professional White Matte Service Record LabelsProfessional White Matte Service Record Labels",
-    "price": "price:$0.34 not specialEx Tax: $0.00Item#:CL12",
-    "url": "https://www.printez.com/white-matte-service-record-labels.html",
-    "category": "Promotional Products"
+    "productId": "CL12",
+    "name": "Professional White Matte Service Record Labels",
+    "description": "PrintEZ product: Professional White Matte Service Record Labels. Section: Automotive.",
+    "price": "$0.34",
+    "sku": "CL12",
+    "category": "Automotive",
+    "url": "https://www.printez.com/white-matte-service-record-labels.html"
   },
   {
-    "productId": "81314",
-    "name": "Custom Printed Windshield Imprinted Oil Change LabelsCustom Printed Windshield Imprinted Oil Change Labels",
-    "price": "price:$0.13 not specialEx Tax: $0.00Item#:1690C",
-    "url": "https://www.printez.com/windshield-imprinted-oil-change-labels.html",
-    "category": "Promotional Products"
+    "productId": "1690C",
+    "name": "Custom Printed Windshield Imprinted Oil Change Labels",
+    "description": "PrintEZ product: Custom Printed Windshield Imprinted Oil Change Labels. Section: Booked Forms.",
+    "price": "$98.57",
+    "sku": "1690C",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/windshield-imprinted-oil-change-labels.html"
+  },
+  {
+    "productId": "109127",
+    "name": "Branded Customizable Playing Cards",
+    "description": "PrintEZ product: Branded Customizable Playing Cards. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.22",
+    "sku": "109127",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/customizable-playing-cards-new.html"
+  },
+  {
+    "productId": "108602",
+    "name": "Promotional Stress Relief Hard Hats",
+    "description": "PrintEZ product: Promotional Stress Relief Hard Hats. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.22",
+    "sku": "108602",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/stress-relief-hard-hats-new.html"
+  },
+  {
+    "productId": "765880",
+    "name": "Branded MopTopper Stress Reliever",
+    "description": "PrintEZ product: Branded MopTopper Stress Reliever. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.74",
+    "sku": "765880",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/moptopper-stress-reliever-new.html"
+  },
+  {
+    "productId": "765567",
+    "name": "Professional Dollar Sign Stress Reliever",
+    "description": "PrintEZ product: Professional Dollar Sign Stress Reliever. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.26",
+    "sku": "765567",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/dollar-sign-stress-reliever-new.html"
+  },
+  {
+    "productId": "108603",
+    "name": "Custom Stress Relief Vans",
+    "description": "PrintEZ product: Custom Stress Relief Vans. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.50",
+    "sku": "108603",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/stress-relief-vans-new.html"
+  },
+  {
+    "productId": "765566",
+    "name": "Custom Tooth Stress Reliever",
+    "description": "PrintEZ product: Custom Tooth Stress Reliever. Section: Outdoors, Sports & Leisure.",
+    "price": "$1.95",
+    "sku": "765566",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/tooth-stress-reliever-new.html"
+  },
+  {
+    "productId": "765452",
+    "name": "Branded Light Up Yo-Yo",
+    "description": "PrintEZ product: Branded Light Up Yo-Yo. Section: Outdoors, Sports & Leisure.",
+    "price": "$1.68",
+    "sku": "765452",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/light-up-yo-yo-new.html"
+  },
+  {
+    "productId": "765568",
+    "name": "Professional Pig Stress Reliever",
+    "description": "PrintEZ product: Professional Pig Stress Reliever. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.12",
+    "sku": "765568",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/pig-stress-reliever-new.html"
+  },
+  {
+    "productId": "765565",
+    "name": "Promotional Truck Stress Reliever",
+    "description": "PrintEZ product: Promotional Truck Stress Reliever. Section: Outdoors, Sports & Leisure.",
+    "price": "$3.08",
+    "sku": "765565",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/truck-stress-reliever-new.html"
+  },
+  {
+    "productId": "765063",
+    "name": "Professional Contour Handle Imprinted Pom",
+    "description": "PrintEZ product: Professional Contour Handle Imprinted Pom. Section: Outdoors, Sports & Leisure.",
+    "price": "$1.09",
+    "sku": "765063",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/contour-handle-imprinted-pom-new.html"
+  },
+  {
+    "productId": "109362",
+    "name": "Branded 16 Oz. Plastic Stadium Cup, Promotional Cups",
+    "description": "PrintEZ product: Branded 16 Oz. Plastic Stadium Cup, Promotional Cups. Section: Drinkware.",
+    "price": "$0.90",
+    "sku": "109362",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/16-oz-plastic-stadium-cup-promotional-cup.html"
+  },
+  {
+    "productId": "109622",
+    "name": "Branded Sydney Tumbler",
+    "description": "PrintEZ product: Branded Sydney Tumbler. Section: Drinkware.",
+    "price": "$9.57",
+    "sku": "109622",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/sydney-tumbler-new.html"
+  },
+  {
+    "productId": "109481",
+    "name": "Branded Sports Pack",
+    "description": "PrintEZ product: Branded Sports Pack. Section: Bags & Totes.",
+    "price": "$1.71",
+    "sku": "109481",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/sports-pack-new.html"
+  },
+  {
+    "productId": "109086",
+    "name": "Promotional Sling Backpack",
+    "description": "PrintEZ product: Promotional Sling Backpack. Section: Bags & Totes.",
+    "price": "$2.93",
+    "sku": "109086",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/sling-backpack-new.html"
+  },
+  {
+    "productId": "108969",
+    "name": "Professional Cutie Patootie Slingpack",
+    "description": "PrintEZ product: Professional Cutie Patootie Slingpack. Section: Bags & Totes.",
+    "price": "$10.33",
+    "sku": "108969",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/cutie-patootie-slingpack-new.html"
+  },
+  {
+    "productId": "108970",
+    "name": "Logo On the Move Backpack",
+    "description": "PrintEZ product: Logo On the Move Backpack. Section: Bags & Totes.",
+    "price": "$12.65",
+    "sku": "108970",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/on-the-move-backpack-new.html"
+  },
+  {
+    "productId": "109848",
+    "name": "Promotional Compu-Backpack",
+    "description": "PrintEZ product: Promotional Compu-Backpack. Section: Bags & Totes.",
+    "price": "$73.00",
+    "sku": "109848",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/compu-backpack-new.html"
+  },
+  {
+    "productId": "765014",
+    "name": "Logo High Sierra Curve Backpack",
+    "description": "PrintEZ product: Logo High Sierra Curve Backpack. Section: Bags & Totes.",
+    "price": "$43.91",
+    "sku": "765014",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/high-sierra-curve-backpack-new.html"
+  },
+  {
+    "productId": "109711",
+    "name": "Promotional Polypropylene Tote Bag",
+    "description": "PrintEZ product: Promotional Polypropylene Tote Bag. Section: Bags & Totes.",
+    "price": "$1.57",
+    "sku": "109711",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/polypropylene-tote-bag-new.html"
+  },
+  {
+    "productId": "109865",
+    "name": "Promotional Book Tote",
+    "description": "PrintEZ product: Promotional Book Tote. Section: Bags & Totes.",
+    "price": "$1.85",
+    "sku": "109865",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/book-tote-new.html"
+  },
+  {
+    "productId": "109862",
+    "name": "Branded Wine Bag",
+    "description": "PrintEZ product: Branded Wine Bag. Section: Bags & Totes.",
+    "price": "$2.13",
+    "sku": "109862",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/wine-bag-new.html"
+  },
+  {
+    "productId": "108851",
+    "name": "Logo Non-woven side Pocket Tote - Small",
+    "description": "PrintEZ product: Logo Non-woven side Pocket Tote - Small. Section: Bags & Totes.",
+    "price": "$2.24",
+    "sku": "108851",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/non-woven-side-pocket-tote-small-new.html"
+  },
+  {
+    "productId": "109866",
+    "name": "Branded Designer Laminated Tote",
+    "description": "PrintEZ product: Branded Designer Laminated Tote. Section: Bags & Totes.",
+    "price": "$2.34",
+    "sku": "109866",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/designer-laminated-tote-new.html"
+  },
+  {
+    "productId": "108844",
+    "name": "Promotional Side Pocket Tote",
+    "description": "PrintEZ product: Promotional Side Pocket Tote. Section: Bags & Totes.",
+    "price": "$2.47",
+    "sku": "108844",
+    "category": "Bags & Totes",
+    "url": "https://www.printez.com/side-pocket-tote-new.html"
+  },
+  {
+    "productId": "765446",
+    "name": "Branded 22-oz. Stadium Cup",
+    "description": "PrintEZ product: Branded 22-oz. Stadium Cup. Section: Drinkware.",
+    "price": "$0.80",
+    "sku": "765446",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/22-oz-stadium-cup-new.html"
+  },
+  {
+    "productId": "765442",
+    "name": "Personalized 16-oz. Stadium Cup w/lid",
+    "description": "PrintEZ product: Personalized 16-oz. Stadium Cup w/lid. Section: Drinkware.",
+    "price": "$1.00",
+    "sku": "765442",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/16-oz-stadium-cup-w-lid.html"
+  },
+  {
+    "productId": "109793",
+    "name": "Branded Commuter Tumbler 16 oz.",
+    "description": "PrintEZ product: Branded Commuter Tumbler 16 oz.. Section: Drinkware.",
+    "price": "$5.86",
+    "sku": "109793",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/commuter-tumbler-16-oz-new.html"
+  },
+  {
+    "productId": "109623",
+    "name": "Promotional White Ceramic Mug",
+    "description": "PrintEZ product: Promotional White Ceramic Mug. Section: Drinkware.",
+    "price": "$2.14",
+    "sku": "109623",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/white-ceramic-mug-new.html"
+  },
+  {
+    "productId": "109624",
+    "name": "Logo Colored Ceramic Mug",
+    "description": "PrintEZ product: Logo Colored Ceramic Mug. Section: Drinkware.",
+    "price": "$2.65",
+    "sku": "109624",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/colored-ceramic-mug-new.html"
+  },
+  {
+    "productId": "109099",
+    "name": "Promotional Everyday Stainless Mug",
+    "description": "PrintEZ product: Promotional Everyday Stainless Mug. Section: Drinkware.",
+    "price": "$5.35",
+    "sku": "109099",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/everyday-stainless-mug-new.html"
+  },
+  {
+    "productId": "108442",
+    "name": "Branded Bistro Mug",
+    "description": "PrintEZ product: Branded Bistro Mug. Section: Drinkware.",
+    "price": "$7.66",
+    "sku": "108442",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/bistro-mug-new.html"
+  },
+  {
+    "productId": "109323",
+    "name": "Promotional 9 Oz. Diner Coffee Mug",
+    "description": "PrintEZ product: Promotional 9 Oz. Diner Coffee Mug. Section: Drinkware.",
+    "price": "$8.40",
+    "sku": "109323",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/9-oz-diner-coffee-mug-new.html"
+  },
+  {
+    "productId": "108429",
+    "name": "Personalized Konga Ceramic Mug",
+    "description": "PrintEZ product: Personalized Konga Ceramic Mug. Section: Drinkware.",
+    "price": "$8.64",
+    "sku": "108429",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/konga-ceramic-mug-new.html"
+  },
+  {
+    "productId": "765492",
+    "name": "Branded Moscow Mule Mug 16oz",
+    "description": "PrintEZ product: Branded Moscow Mule Mug 16oz. Section: Drinkware.",
+    "price": "$19.35",
+    "sku": "765492",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/moscow-mule-mug-16ozz.html"
+  },
+  {
+    "productId": "109677",
+    "name": "Branded English Butter Toffee",
+    "description": "PrintEZ product: Branded English Butter Toffee. Section: Food & Candy.",
+    "price": "$0.78",
+    "sku": "109677",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/english-butter-toffee-109677.html"
+  },
+  {
+    "productId": "108797",
+    "name": "Premium Chocolate Butter Cookies - Custom",
+    "description": "PrintEZ product: Premium Chocolate Butter Cookies - Custom. Section: Food & Candy.",
+    "price": "$2.50",
+    "sku": "108797",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/chocolate-butter-cookies-custom-108797.html"
+  },
+  {
+    "productId": "108796",
+    "name": "Premium Chocolate Butter Cookies - Stock",
+    "description": "PrintEZ product: Premium Chocolate Butter Cookies - Stock. Section: Food & Candy.",
+    "price": "$2.50",
+    "sku": "108796",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/chocolate-butter-cookies-stock-108796.html"
+  },
+  {
+    "productId": "108794",
+    "name": "Branded Truffle Gift Box",
+    "description": "PrintEZ product: Branded Truffle Gift Box. Section: Food & Candy.",
+    "price": "$25.77",
+    "sku": "108794",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/truffle-gift-box-108794.html"
+  },
+  {
+    "productId": "108792",
+    "name": "Personalized Chocolate Almonds & Cashew Filled Wooden Collectors Box",
+    "description": "PrintEZ product: Personalized Chocolate Almonds & Cashew Filled Wooden Collectors Box. Section: Food & Candy.",
+    "price": "$42.40",
+    "sku": "108792",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/chocolate-almonds-cashew-filled-wooden-collectors-box-108792.html"
+  },
+  {
+    "productId": "108791",
+    "name": "Branded Toffee Filled Wooden Collector's Box",
+    "description": "PrintEZ product: Branded Toffee Filled Wooden Collector's Box. Section: Food & Candy.",
+    "price": "$48.05",
+    "sku": "108791",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/toffee-filled-wooden-collector-s-box.html"
+  },
+  {
+    "productId": "108719",
+    "name": "Promotional Premium Confection Assortment with Truffles 36 oz Dark Choc",
+    "description": "PrintEZ product: Promotional Premium Confection Assortment with Truffles 36 oz Dark Choc. Section: Food & Candy.",
+    "price": "$103.41",
+    "sku": "108719",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/premium-confection-assortment-with-truffles-36-oz-dark-choc-108719.html"
+  },
+  {
+    "productId": "108718",
+    "name": "Promotional Premium Confection Assortments - Cashews/Almonds 20 oz.dark",
+    "description": "PrintEZ product: Promotional Premium Confection Assortments - Cashews/Almonds 20 oz.dark. Section: Food & Candy.",
+    "price": "$59.77",
+    "sku": "108718",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/premium-confection-assortments-cashews-almonds-20-oz-dark.html"
+  },
+  {
+    "productId": "108715",
+    "name": "Premium Solid Dark Chocolate Gift Box - 10 oz.",
+    "description": "PrintEZ product: Premium Solid Dark Chocolate Gift Box - 10 oz.. Section: Food & Candy.",
+    "price": "$27.62",
+    "sku": "108715",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/solid-dark-chocolate-gift-box-10-oz.html"
+  },
+  {
+    "productId": "108711",
+    "name": "Professional Premium Confection Assortment w/Truffles -36oz",
+    "description": "PrintEZ product: Professional Premium Confection Assortment w/Truffles -36oz. Section: Food & Candy.",
+    "price": "$102.06",
+    "sku": "108711",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/premium-confection-assortment-w-truffles-36oz.html"
+  },
+  {
+    "productId": "108691",
+    "name": "Personalized Chocolate Covered Almonds & Cashews w/ Milk Chocolate",
+    "description": "PrintEZ product: Personalized Chocolate Covered Almonds & Cashews w/ Milk Chocolate. Section: Food & Candy.",
+    "price": "$58.98",
+    "sku": "108691",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/chocolate-covered-almonds-cashews-w-milk-chocolate-108691.html"
+  },
+  {
+    "productId": "108804",
+    "name": "Promotional Premium Confection Assortment - Stock Message",
+    "description": "PrintEZ product: Promotional Premium Confection Assortment - Stock Message. Section: Food & Candy.",
+    "price": "$30.09",
+    "sku": "108804",
+    "category": "Food & Candy",
+    "url": "https://www.printez.com/premium-confection-assortment-stock-message-108804.html"
+  },
+  {
+    "productId": "108484",
+    "name": "Imprinted Bandage Dispenser",
+    "description": "PrintEZ product: Imprinted Bandage Dispenser. Section: Household & Personal.",
+    "price": "$0.86",
+    "sku": "108484",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/bandage-dispenser-new.html"
+  },
+  {
+    "productId": "108482",
+    "name": "Branded 7-Day Pill Box",
+    "description": "PrintEZ product: Branded 7-Day Pill Box. Section: Household & Personal.",
+    "price": "$1.21",
+    "sku": "108482",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/7-day-pill-box-108482.html"
+  },
+  {
+    "productId": "765519",
+    "name": "Professional Instant Care Kit",
+    "description": "PrintEZ product: Professional Instant Care Kit. Section: Household & Personal.",
+    "price": "$1.43",
+    "sku": "765519",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/instant-care-kit-new.html"
+  },
+  {
+    "productId": "109421",
+    "name": "Branded Medicine Bottle Opener",
+    "description": "PrintEZ product: Branded Medicine Bottle Opener. Section: Household & Personal.",
+    "price": "$2.25",
+    "sku": "109421",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/medicine-bottle-opener-new.html"
+  },
+  {
+    "productId": "765626",
+    "name": "Premium 7-Day Pill Box",
+    "description": "PrintEZ product: Premium 7-Day Pill Box. Section: Household & Personal.",
+    "price": "$1.64",
+    "sku": "765626",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/7-day-pill-box-new.html"
+  },
+  {
+    "productId": "765465",
+    "name": "Custom Soothe-IT Ice/Heat Pack",
+    "description": "PrintEZ product: Custom Soothe-IT Ice/Heat Pack. Section: Household & Personal.",
+    "price": "$2.58",
+    "sku": "765465",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/soothe-it-ice-heat-pack-new.html"
+  },
+  {
+    "productId": "109287",
+    "name": "Branded Pill Cutter",
+    "description": "PrintEZ product: Branded Pill Cutter. Section: Household & Personal.",
+    "price": "$2.73",
+    "sku": "109287",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/pill-cutter-new.html"
+  },
+  {
+    "productId": "108483",
+    "name": "Branded Companion Care First Aid Kits",
+    "description": "PrintEZ product: Branded Companion Care First Aid Kits. Section: Household & Personal.",
+    "price": "$0.00",
+    "sku": "108483",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/companion-care-first-aid-kits-new.html"
+  },
+  {
+    "productId": "109746",
+    "name": "Professional Quilted Pot Holder",
+    "description": "PrintEZ product: Professional Quilted Pot Holder. Section: Household & Personal.",
+    "price": "$2.52",
+    "sku": "109746",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/quilted-pot-holder-new.html"
+  },
+  {
+    "productId": "109239",
+    "name": "Promotional 2 1 2\" Keep-It Clip",
+    "description": "PrintEZ product: Promotional 2 1 2\" Keep-It Clip. Section: Household & Personal.",
+    "price": "$0.89",
+    "sku": "109239",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/2-1-2-keep-it-clip-new.html"
+  },
+  {
+    "productId": "109747",
+    "name": "Custom Quilted Oven Mitt",
+    "description": "PrintEZ product: Custom Quilted Oven Mitt. Section: Household & Personal.",
+    "price": "$3.71",
+    "sku": "109747",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/quilted-oven-mitt-new.html"
+  },
+  {
+    "productId": "108501",
+    "name": "Custom Keep-It Clips",
+    "description": "PrintEZ product: Custom Keep-It Clips. Section: Household & Personal.",
+    "price": "$1.01",
+    "sku": "108501",
+    "category": "Household & Personal",
+    "url": "https://www.printez.com/keep-it-clips-new.html"
+  },
+  {
+    "productId": "108914",
+    "name": "Custom Printed Oblong Key Tag",
+    "description": "PrintEZ product: Custom Printed Oblong Key Tag. Section: Automotive.",
+    "price": "$8.18",
+    "sku": "108914",
+    "category": "Automotive",
+    "url": "https://www.printez.com/oblong-key-tag-108914.html"
+  },
+  {
+    "productId": "108917",
+    "name": "Custom Printed Tab Key Tag",
+    "description": "PrintEZ product: Custom Printed Tab Key Tag. Section: Automotive.",
+    "price": "$0.82",
+    "sku": "108917",
+    "category": "Automotive",
+    "url": "https://www.printez.com/tab-key-tag-108917.html"
+  },
+  {
+    "productId": "108910",
+    "name": "Professional Rectangle Key Tag",
+    "description": "PrintEZ product: Professional Rectangle Key Tag. Section: Automotive.",
+    "price": "$0.82",
+    "sku": "108910",
+    "category": "Automotive",
+    "url": "https://www.printez.com/rectangle-key-tag-108910.html"
+  },
+  {
+    "productId": "108915",
+    "name": "Professional Key Tag",
+    "description": "PrintEZ product: Professional Key Tag. Section: Automotive.",
+    "price": "$0.82",
+    "sku": "108915",
+    "category": "Automotive",
+    "url": "https://www.printez.com/key-tag-108920.html"
+  },
+  {
+    "productId": "108920",
+    "name": "Branded Oval Key Tag",
+    "description": "PrintEZ product: Branded Oval Key Tag. Section: Automotive.",
+    "price": "$0.82",
+    "sku": "108920",
+    "category": "Automotive",
+    "url": "https://www.printez.com/oval-key-tag-108920.html"
+  },
+  {
+    "productId": "108416",
+    "name": "Professional Beverage Wrench",
+    "description": "PrintEZ product: Professional Beverage Wrench. Section: Automotive.",
+    "price": "$0.85",
+    "sku": "108416",
+    "category": "Automotive",
+    "url": "https://www.printez.com/beverage-wrench-108416.html"
+  },
+  {
+    "productId": "109521",
+    "name": "Custom Micro 3 LED torch/key holder",
+    "description": "PrintEZ product: Custom Micro 3 LED torch/key holder. Section: Automotive.",
+    "price": "$2.93",
+    "sku": "109521",
+    "category": "Automotive",
+    "url": "https://www.printez.com/micro-3-led-torch-key-holder-109521.html"
+  },
+  {
+    "productId": "108979",
+    "name": "Professional Full Color Business Card Magnet",
+    "description": "PrintEZ product: Professional Full Color Business Card Magnet. Section: Magnets.",
+    "price": "$0.31",
+    "sku": "108979",
+    "category": "Magnets",
+    "url": "https://www.printez.com/full-color-business-card-magnet-new.html"
+  },
+  {
+    "productId": "108761",
+    "name": "Professional Business Card Magnet",
+    "description": "PrintEZ product: Professional Business Card Magnet. Section: Magnets.",
+    "price": "$0.31",
+    "sku": "108761",
+    "category": "Magnets",
+    "url": "https://www.printez.com/business-card-magnet-108761.html"
+  },
+  {
+    "productId": "108874",
+    "name": "Professional Business Card Magnet",
+    "description": "PrintEZ product: Professional Business Card Magnet. Section: Magnets.",
+    "price": "$0.34",
+    "sku": "108874",
+    "category": "Magnets",
+    "url": "https://www.printez.com/business-card-magnet-new.html"
+  },
+  {
+    "productId": "108866",
+    "name": "Custom Thanks Magnet",
+    "description": "PrintEZ product: Custom Thanks Magnet. Section: Magnets.",
+    "price": "$0.34",
+    "sku": "108866",
+    "category": "Magnets",
+    "url": "https://www.printez.com/thanks-magnet-new.html"
+  },
+  {
+    "productId": "108762",
+    "name": "Branded Jumbo Business Card Magnet",
+    "description": "PrintEZ product: Branded Jumbo Business Card Magnet. Section: Magnets.",
+    "price": "$0.46",
+    "sku": "108762",
+    "category": "Magnets",
+    "url": "https://www.printez.com/jumbo-business-card-magnet-new.html"
+  },
+  {
+    "productId": "109088",
+    "name": "Promotional Alligator Clip",
+    "description": "PrintEZ product: Promotional Alligator Clip. Section: Magnets.",
+    "price": "$0.97",
+    "sku": "109088",
+    "category": "Magnets",
+    "url": "https://www.printez.com/alligator-clip-new.html"
+  },
+  {
+    "productId": "108759",
+    "name": "Professional Van Magnet",
+    "description": "PrintEZ product: Professional Van Magnet. Section: Magnets.",
+    "price": "$0.57",
+    "sku": "108759",
+    "category": "Magnets",
+    "url": "https://www.printez.com/van-magnet-108759.html"
+  },
+  {
+    "productId": "108760",
+    "name": "Custom House Magnet",
+    "description": "PrintEZ product: Custom House Magnet. Section: Magnets.",
+    "price": "$0.57",
+    "sku": "108760",
+    "category": "Magnets",
+    "url": "https://www.printez.com/house-magnet-108760.html"
+  },
+  {
+    "productId": "108870",
+    "name": "Promotional Truck Magnet",
+    "description": "PrintEZ product: Promotional Truck Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108870",
+    "category": "Magnets",
+    "url": "https://www.printez.com/truck-magnet-new.html"
+  },
+  {
+    "productId": "108862",
+    "name": "Custom Tooth Magnet",
+    "description": "PrintEZ product: Custom Tooth Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108862",
+    "category": "Magnets",
+    "url": "https://www.printez.com/tooth-magnet-new.html"
+  },
+  {
+    "productId": "108869",
+    "name": "Custom Car Magnet",
+    "description": "PrintEZ product: Custom Car Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108869",
+    "category": "Magnets",
+    "url": "https://www.printez.com/car-magnet-new.html"
+  },
+  {
+    "productId": "108860",
+    "name": "Custom 1 Magnet",
+    "description": "PrintEZ product: Custom 1 Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108860",
+    "category": "Magnets",
+    "url": "https://www.printez.com/1-magnet-new.html"
+  },
+  {
+    "productId": "104W",
+    "name": "Branded Punch & Bind Cover with Window",
+    "description": "PrintEZ product: Branded Punch & Bind Cover with Window. Section: Office Accessories.",
+    "price": "$0.91",
+    "sku": "104W",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/punch-bind-cover-with-window-new.html"
+  },
+  {
+    "productId": "108616",
+    "name": "Professional Policy Holders Large",
+    "description": "PrintEZ product: Professional Policy Holders Large. Section: Office Accessories.",
+    "price": "$0.71",
+    "sku": "108616",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/policy-holders-large-new.html"
+  },
+  {
+    "productId": "108525",
+    "name": "Custom House Letter Slitters",
+    "description": "PrintEZ product: Custom House Letter Slitters. Section: Office Accessories.",
+    "price": "$0.97",
+    "sku": "108525",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/house-letter-slitters-new.html"
+  },
+  {
+    "productId": "109509",
+    "name": "Custom Business Card Sticky Pack",
+    "description": "PrintEZ product: Custom Business Card Sticky Pack. Section: Office Accessories.",
+    "price": "$1.29",
+    "sku": "109509",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/business-card-sticky-pack-new.html"
+  },
+  {
+    "productId": "108747",
+    "name": "Promotional Proof of Insurance Holder",
+    "description": "PrintEZ product: Promotional Proof of Insurance Holder. Section: Office Accessories.",
+    "price": "$0.59",
+    "sku": "108747",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/proof-of-insurance-holder-new.html"
+  },
+  {
+    "productId": "108613",
+    "name": "Promotional Economy Portfolio",
+    "description": "PrintEZ product: Promotional Economy Portfolio. Section: Office Accessories.",
+    "price": "$1.56",
+    "sku": "108613",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/economy-portfolio-new.html"
+  },
+  {
+    "productId": "109343",
+    "name": "Promotional Venzia Journal",
+    "description": "PrintEZ product: Promotional Venzia Journal. Section: Office Accessories.",
+    "price": "$9.24",
+    "sku": "109343",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/venzia-journal-new.html"
+  },
+  {
+    "productId": "108618",
+    "name": "Custom Registration Card Holders",
+    "description": "PrintEZ product: Custom Registration Card Holders. Section: Office Accessories.",
+    "price": "$0.49",
+    "sku": "108618",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/registration-card-holders-new.html"
+  },
+  {
+    "productId": "108617",
+    "name": "Professional Policy Holders Small",
+    "description": "PrintEZ product: Professional Policy Holders Small. Section: Office Accessories.",
+    "price": "$0.44",
+    "sku": "108617",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/policy-holders-small-new.html"
+  },
+  {
+    "productId": "108565",
+    "name": "Custom Sticky Book",
+    "description": "PrintEZ product: Custom Sticky Book. Section: Office Accessories.",
+    "price": "$2.89",
+    "sku": "108565",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/sticky-book-new.html"
+  },
+  {
+    "productId": "109896",
+    "name": "Imprinted Stone Paper Spiral Notebook with Pen Combo",
+    "description": "PrintEZ product: Imprinted Stone Paper Spiral Notebook with Pen Combo. Section: Office Accessories.",
+    "price": "$4.75",
+    "sku": "109896",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/stone-paper-spiral-notebook-with-pen-combo-new.html"
+  },
+  {
+    "productId": "765788",
+    "name": "Branded Clear-View Mini Notebook With Pen",
+    "description": "PrintEZ product: Branded Clear-View Mini Notebook With Pen. Section: Office Accessories.",
+    "price": "$1.26",
+    "sku": "765788",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/clear-view-mini-notebook-with-pen-new.html"
+  },
+  {
+    "productId": "108656",
+    "name": "Imprinted Golf Pencils",
+    "description": "PrintEZ product: Imprinted Golf Pencils. Section: Outdoors, Sports & Leisure.",
+    "price": "$0.17",
+    "sku": "108656",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/golf-pencils-new.html"
+  },
+  {
+    "productId": "108469",
+    "name": "Branded Golf Tee Pouch",
+    "description": "PrintEZ product: Branded Golf Tee Pouch. Section: Outdoors, Sports & Leisure.",
+    "price": "$1.73",
+    "sku": "108469",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/golf-tee-pouch-new.html"
+  },
+  {
+    "productId": "108458",
+    "name": "Custom Barbecue Set",
+    "description": "PrintEZ product: Custom Barbecue Set. Section: Outdoors, Sports & Leisure.",
+    "price": "$66.55",
+    "sku": "108458",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/barbecue-set-new.html"
+  },
+  {
+    "productId": "109096",
+    "name": "Professional 60\" Golf Umbrella",
+    "description": "PrintEZ product: Professional 60\" Golf Umbrella. Section: Outdoors, Sports & Leisure.",
+    "price": "$13.40",
+    "sku": "109096",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/60-golf-umbrella-new.html"
+  },
+  {
+    "productId": "765885",
+    "name": "Promotional Patriotic Sunglasses",
+    "description": "PrintEZ product: Promotional Patriotic Sunglasses. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.91",
+    "sku": "765885",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/patriotic-sunglasses-new.html"
+  },
+  {
+    "productId": "765717",
+    "name": "Custom Hand Grip Exerciser",
+    "description": "PrintEZ product: Custom Hand Grip Exerciser. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.15",
+    "sku": "765717",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/hand-grip-exerciser-new.html"
+  },
+  {
+    "productId": "765719",
+    "name": "Professional Flower Pot Set With Marigold Seeds",
+    "description": "PrintEZ product: Professional Flower Pot Set With Marigold Seeds. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.53",
+    "sku": "765719",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/flower-pot-set-with-marigold-seeds-new.html"
+  },
+  {
+    "productId": "765720",
+    "name": "Branded Flower Pot Set With Basil Seeds",
+    "description": "PrintEZ product: Branded Flower Pot Set With Basil Seeds. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.53",
+    "sku": "765720",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/flower-pot-set-with-basil-seeds-new.html"
+  },
+  {
+    "productId": "765722",
+    "name": "Branded Growpot Eco-Planter Herb 3-Pack",
+    "description": "PrintEZ product: Branded Growpot Eco-Planter Herb 3-Pack. Section: Outdoors, Sports & Leisure.",
+    "price": "$5.07",
+    "sku": "765722",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/growpot-eco-planter-herb-3-pack-new.html"
+  },
+  {
+    "productId": "765562",
+    "name": "Professional Roll-Up Blanket",
+    "description": "PrintEZ product: Professional Roll-Up Blanket. Section: Outdoors, Sports & Leisure.",
+    "price": "$15.23",
+    "sku": "765562",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/roll-up-blanket-new.html"
+  },
+  {
+    "productId": "765718",
+    "name": "Custom Champion's Jump Rope",
+    "description": "PrintEZ product: Custom Champion's Jump Rope. Section: Outdoors, Sports & Leisure.",
+    "price": "$4.19",
+    "sku": "765718",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/champion-s-jump-rope-new.html"
+  },
+  {
+    "productId": "765627",
+    "name": "Custom Exercise Band",
+    "description": "PrintEZ product: Custom Exercise Band. Section: Outdoors, Sports & Leisure.",
+    "price": "$4.21",
+    "sku": "765627",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/exercise-band-new.html"
+  },
+  {
+    "productId": "127",
+    "name": "Carbonless Packing List Forms",
+    "description": "PrintEZ product: Carbonless Packing List Forms. Section: By Business Type.",
+    "price": "$141.99",
+    "sku": "127",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/carbonless-packing-list-forms.html"
+  },
+  {
+    "productId": "5060",
+    "name": "Large Shipping Packing List Forms",
+    "description": "PrintEZ product: Large Shipping Packing List Forms. Section: By Business Type.",
+    "price": "$171.99",
+    "sku": "5060",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/large-shipping-packing-list-forms.html"
+  },
+  {
+    "productId": "RF6600",
+    "name": "Consecutively Numbered Packing Lists",
+    "description": "PrintEZ product: Consecutively Numbered Packing Lists. Section: Shipping Forms.",
+    "price": "$120.99",
+    "sku": "RF6600",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/consecutively-numbered-packing-lists.html"
+  },
+  {
+    "productId": "R6520",
+    "name": "Delivery Receipt Forms",
+    "description": "PrintEZ product: Delivery Receipt Forms. Section: Delivery Receipts.",
+    "price": "$120.99",
+    "sku": "R6520",
+    "category": "Delivery Receipts",
+    "url": "https://www.printez.com/delivery-receipt-forms.html"
+  },
+  {
+    "productId": "5052",
+    "name": "Preprinted Delivery Receipt Forms",
+    "description": "PrintEZ product: Preprinted Delivery Receipt Forms. Section: Delivery Receipts.",
+    "price": "$141.99",
+    "sku": "5052",
+    "category": "Delivery Receipts",
+    "url": "https://www.printez.com/preprinted-delivery-receipt-forms.html"
+  },
+  {
+    "productId": "6205",
+    "name": "Bill of Lading Forms",
+    "description": "PrintEZ product: Bill of Lading Forms. Section: Bills of Ladings.",
+    "price": "$190.99",
+    "sku": "6205",
+    "category": "Bills of Ladings",
+    "url": "https://www.printez.com/bill-of-lading-forms.html"
+  },
+  {
+    "productId": "7200",
+    "name": "Regulated Bill of Lading Forms",
+    "description": "PrintEZ product: Regulated Bill of Lading Forms. Section: Bills of Ladings.",
+    "price": "$131.99",
+    "sku": "7200",
+    "category": "Bills of Ladings",
+    "url": "https://www.printez.com/regulated-bill-of-lading-forms.html"
+  },
+  {
+    "productId": "126",
+    "name": "Carbon Copy Bill of Lading",
+    "description": "PrintEZ product: Carbon Copy Bill of Lading. Section: Bills of Ladings.",
+    "price": "$384.99",
+    "sku": "126",
+    "category": "Bills of Ladings",
+    "url": "https://www.printez.com/carbon-copy-bill-of-lading.html"
+  },
+  {
+    "productId": "5041",
+    "name": "Carbonless Straight Bill of Ladings Forms",
+    "description": "PrintEZ product: Carbonless Straight Bill of Ladings Forms. Section: Bills of Ladings.",
+    "price": "$131.99",
+    "sku": "5041",
+    "category": "Bills of Ladings",
+    "url": "https://www.printez.com/carbonless-straight-bill-of-ladings-forms.html"
+  },
+  {
+    "productId": "6225",
+    "name": "Straight Bill of Ladings",
+    "description": "PrintEZ product: Straight Bill of Ladings. Section: Bills of Ladings.",
+    "price": "$129.99",
+    "sku": "6225",
+    "category": "Bills of Ladings",
+    "url": "https://www.printez.com/straight-bill-of-ladings.html"
+  },
+  {
+    "productId": "6207",
+    "name": "Freight Bills of Lading",
+    "description": "PrintEZ product: Freight Bills of Lading. Section: Bills of Ladings.",
+    "price": "$190.99",
+    "sku": "6207",
+    "category": "Bills of Ladings",
+    "url": "https://www.printez.com/freight-bils-of-lading.html"
+  },
+  {
+    "productId": "1140",
+    "name": "Continuation Exam Records Card Style With Account Record",
+    "description": "PrintEZ product: Continuation Exam Records Card Style With Account Record. Section: Delivery Receipts.",
+    "price": "$84.99",
+    "sku": "1140",
+    "category": "Delivery Receipts",
+    "url": "https://www.printez.com/small-awareness-bag.html"
+  },
+  {
+    "productId": "13861",
+    "name": "Continuous Bill Of Lading Form",
+    "description": "PrintEZ product: Continuous Bill Of Lading Form. Section: Shipping Forms.",
+    "price": "$264.99",
+    "sku": "13861",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/touchscreen-gloves.html"
+  },
+  {
+    "productId": "R8600",
+    "name": "Large Format Carbonless Bills Of Lading",
+    "description": "PrintEZ product: Large Format Carbonless Bills Of Lading. Section: Shipping Forms.",
+    "price": "$263.99",
+    "sku": "R8600",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/large-format-carbonless-bills-of-lading.html"
+  },
+  {
+    "productId": "R1200",
+    "name": "Small Carbon Bill of Lading Forms",
+    "description": "PrintEZ product: Small Carbon Bill of Lading Forms. Section: Shipping Forms.",
+    "price": "$267.99",
+    "sku": "R1200",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/small-carbon-bill-of-lading-forms.html"
+  },
+  {
+    "productId": "13862",
+    "name": "Continuous Bill of Lading Forms",
+    "description": "PrintEZ product: Continuous Bill of Lading Forms. Section: Shipping Forms.",
+    "price": "$201.99",
+    "sku": "13862",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/continuous-bill-of-lading-forms.html"
+  },
+  {
+    "productId": "6223",
+    "name": "Delivery Receipt Booked Forms",
+    "description": "PrintEZ product: Delivery Receipt Booked Forms. Section: Shipping Forms.",
+    "price": "$211.99",
+    "sku": "6223",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/delivery-receipt-booked-forms.html"
+  },
+  {
+    "productId": "RET0147",
+    "name": "Custom Designed Layaway Forms",
+    "description": "PrintEZ product: Custom Designed Layaway Forms. Section: Shipping Forms.",
+    "price": "$167.99",
+    "sku": "RET0147",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/custom-designed-layaway-forms.html"
+  },
+  {
+    "productId": "125",
+    "name": "Triplicate Credit Memos",
+    "description": "PrintEZ product: Triplicate Credit Memos. Section: By Business Type.",
+    "price": "$131.99",
+    "sku": "125",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/triplicate-credit-memos.html"
+  },
+  {
+    "productId": "124",
+    "name": "Debit & Credit Memos",
+    "description": "PrintEZ product: Debit & Credit Memos. Section: By Business Type.",
+    "price": "$131.99",
+    "sku": "124",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/debit-amp-credit-memos-124.html"
+  },
+  {
+    "productId": "21180Size",
+    "name": "Accounting Ledger Sheets - End Balance",
+    "description": "PrintEZ product: Accounting Ledger Sheets - End Balance. Section: Ledgers.",
+    "price": "$35.00",
+    "sku": "21180Size",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/accounting-ledger-sheets-end-balance-21180.html"
+  },
+  {
+    "productId": "461",
+    "name": "Accounts Receivable Ledgers",
+    "description": "PrintEZ product: Accounts Receivable Ledgers. Section: Ledgers.",
+    "price": "$129.99",
+    "sku": "461",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/accounts-receivable-ledgers.html"
+  },
+  {
+    "productId": "21140",
+    "name": "Legal Size Columnar Work Sheets",
+    "description": "PrintEZ product: Legal Size Columnar Work Sheets. Section: By Business Type.",
+    "price": "$82.99",
+    "sku": "21140",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/legal-size-columnar-work-sheets-21140.html"
+  },
+  {
+    "productId": "21117",
+    "name": "Legal Size Columnar Pads",
+    "description": "PrintEZ product: Legal Size Columnar Pads. Section: By Business Type.",
+    "price": "$96.99",
+    "sku": "21117",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/legal-size-columnar-pads-21117.html"
+  },
+  {
+    "productId": "99",
+    "name": "Accounting Ledger Cards",
+    "description": "PrintEZ product: Accounting Ledger Cards. Section: By Business Type.",
+    "price": "$146.99",
+    "sku": "99",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/99-accounting-ledger-cards-099.html"
+  },
+  {
+    "productId": "D83",
+    "name": "Ledger Cards Stock",
+    "description": "PrintEZ product: Ledger Cards Stock. Section: Ledgers.",
+    "price": "$129.99",
+    "sku": "D83",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/ledger-cards-stock.html"
+  },
+  {
+    "productId": "21119Size",
+    "name": "Ledger Sheets - Double Entry",
+    "description": "PrintEZ product: Ledger Sheets - Double Entry. Section: By Business Type.",
+    "price": "$35.00",
+    "sku": "21119Size",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/accounting-ledger-sheets-double-entry-21119.html"
+  },
+  {
+    "productId": "223",
+    "name": "Landscaping Estimate Forms",
+    "description": "PrintEZ product: Landscaping Estimate Forms. Section: Ledgers.",
+    "price": "$198.99",
+    "sku": "223",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/landscaping-estimate-forms.html"
+  },
+  {
+    "productId": "084",
+    "name": "Ledger Folders",
+    "description": "PrintEZ product: Ledger Folders. Section: Ledgers.",
+    "price": "$199.99",
+    "sku": "084",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/ledger-folders-1.html"
+  },
+  {
+    "productId": "451",
+    "name": "Accounts Receivable Journals",
+    "description": "PrintEZ product: Accounts Receivable Journals. Section: Ledgers.",
+    "price": "$133.99",
+    "sku": "451",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/accounts-receivable-journal.html"
+  },
+  {
+    "productId": "21126",
+    "name": "Columnar Work Sheets",
+    "description": "PrintEZ product: Columnar Work Sheets. Section: Ledgers.",
+    "price": "$170.99",
+    "sku": "21126",
+    "category": "Ledgers",
+    "url": "https://www.printez.com/columnar-work-sheets-21126.html"
+  },
+  {
+    "productId": "4504",
+    "name": "Past Due Notices System with Finance Charge",
+    "description": "PrintEZ product: Past Due Notices System with Finance Charge. Section: By Business Type.",
+    "price": "$151.99",
+    "sku": "4504",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/past-due-notices-system-with-finance-charge-4504.html"
+  },
+  {
+    "productId": "2540",
+    "name": "Carbonless Sales Books - Small",
+    "description": "PrintEZ product: Carbonless Sales Books - Small. Section: Invoice Books.",
+    "price": "$90.99",
+    "sku": "2540",
+    "category": "Invoice Books",
+    "url": "https://www.printez.com/carbonless-sales-books-small.html"
+  },
+  {
+    "productId": "118B",
+    "name": "Classic Proposal Forms",
+    "description": "PrintEZ product: Classic Proposal Forms. Section: General Forms.",
+    "price": "$336.99",
+    "sku": "118B",
+    "category": "General Forms",
+    "url": "https://www.printez.com/booked-proposals-classic.html"
+  },
+  {
+    "productId": "53B",
+    "name": "Extra Long Sales Order Forms Carbonless",
+    "description": "PrintEZ product: Extra Long Sales Order Forms Carbonless. Section: Sales Books.",
+    "price": "$336.99",
+    "sku": "53B",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/extra-long-sales-order-forms-carbonless.html"
+  },
+  {
+    "productId": "609SW",
+    "name": "Custom Register Forms",
+    "description": "PrintEZ product: Custom Register Forms. Section: Booked Forms.",
+    "price": "$91.99",
+    "sku": "609SW",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/custom-register-forms-pre-printed.html"
+  },
+  {
+    "productId": "609T",
+    "name": "Small Colored Fan Apart Register Forms",
+    "description": "PrintEZ product: Small Colored Fan Apart Register Forms. Section: Booked Forms.",
+    "price": "$91.99",
+    "sku": "609T",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/small-colored-fan-apart-register-forms.html"
+  },
+  {
+    "productId": "610T",
+    "name": "Small Colored Register Forms",
+    "description": "PrintEZ product: Small Colored Register Forms. Section: Booked Forms.",
+    "price": "$112.99",
+    "sku": "610T",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/small-colored-register-forms.html"
+  },
+  {
+    "productId": "320",
+    "name": "Service Order Invoice Forms Booked",
+    "description": "PrintEZ product: Service Order Invoice Forms Booked. Section: General Forms.",
+    "price": "$88.99",
+    "sku": "320",
+    "category": "General Forms",
+    "url": "https://www.printez.com/service-order-invoice-forms-booked.html"
+  },
+  {
+    "productId": "321",
+    "name": "Service Order Invoice Books",
+    "description": "PrintEZ product: Service Order Invoice Books. Section: General Forms.",
+    "price": "$131.99",
+    "sku": "321",
+    "category": "General Forms",
+    "url": "https://www.printez.com/service-order-invoice-books.html"
+  },
+  {
+    "productId": "350",
+    "name": "Sales Slips Pads with Carbon Copies",
+    "description": "PrintEZ product: Sales Slips Pads with Carbon Copies. Section: General Forms.",
+    "price": "$138.99",
+    "sku": "350",
+    "category": "General Forms",
+    "url": "https://www.printez.com/sales-slips-pads-with-carbon-copies.html"
+  },
+  {
+    "productId": "2501",
+    "name": "Carbon Copy Sales Receipt Books",
+    "description": "PrintEZ product: Carbon Copy Sales Receipt Books. Section: Sales Books.",
+    "price": "$102.99",
+    "sku": "2501",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/carbon-copy-sales-receipt-books.html"
+  },
+  {
+    "productId": "054",
+    "name": "Sales Form Books without Carbon",
+    "description": "PrintEZ product: Sales Form Books without Carbon. Section: Service & Repair.",
+    "price": "$120.99",
+    "sku": "054",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/sales-form-books-without-carbon.html"
+  },
+  {
+    "productId": "2500",
+    "name": "Collection Customer Special Invoice Sales Books",
+    "description": "PrintEZ product: Collection Customer Special Invoice Sales Books. Section: Sales Books.",
+    "price": "$109.99",
+    "sku": "2500",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/collection-customer-special-invoice-sales-books.html"
+  },
+  {
+    "productId": "108TB",
+    "name": "Booked Colored Compact Business Forms",
+    "description": "PrintEZ product: Booked Colored Compact Business Forms. Section: General Forms.",
+    "price": "$162.99",
+    "sku": "108TB",
+    "category": "General Forms",
+    "url": "https://www.printez.com/booked-colored-compact-business-forms.html"
+  },
+  {
+    "productId": "108B",
+    "name": "Booked Compact Business Forms",
+    "description": "PrintEZ product: Booked Compact Business Forms. Section: Booked Forms.",
+    "price": "$162.99",
+    "sku": "108B",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/booked-compact-business-forms.html"
+  },
+  {
+    "productId": "209B",
+    "name": "Job Booked Invoice Forms",
+    "description": "PrintEZ product: Job Booked Invoice Forms. Section: Booked Forms.",
+    "price": "$220.00",
+    "sku": "209B",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/job-booked-invoice-forms.html"
+  },
+  {
+    "productId": "106B",
+    "name": "Triplicate Invoice Business Forms",
+    "description": "PrintEZ product: Triplicate Invoice Business Forms. Section: Booked Forms.",
+    "price": "$336.99",
+    "sku": "106B",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/triplicate-invoice-business-forms.html"
+  },
+  {
+    "productId": "87T",
+    "name": "Purchase Order Books Colored",
+    "description": "PrintEZ product: Purchase Order Books Colored. Section: Booked Forms.",
+    "price": "$126.99",
+    "sku": "87T",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/purchase-order-books-colored.html"
+  },
+  {
+    "productId": "087",
+    "name": "Purchase Order Books",
+    "description": "PrintEZ product: Purchase Order Books. Section: Booked Forms.",
+    "price": "$126.99",
+    "sku": "087",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/purchase-order-booked.html"
+  },
+  {
+    "productId": "91B",
+    "name": "Purchase Order Carbonless Forms",
+    "description": "PrintEZ product: Purchase Order Carbonless Forms. Section: Booked Forms.",
+    "price": "$162.99",
+    "sku": "91B",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/purchase-order-caronless-forms.html"
+  },
+  {
+    "productId": "088",
+    "name": "Purchase Order Acceptance Form",
+    "description": "PrintEZ product: Purchase Order Acceptance Form. Section: Booked Forms.",
+    "price": "$102.99",
+    "sku": "088",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/classic-booked-purchase-orders-with-carbons.html"
+  },
+  {
+    "productId": "92B",
+    "name": "Long Purchase Order Books",
+    "description": "PrintEZ product: Long Purchase Order Books. Section: Booked Forms.",
+    "price": "$220.00",
+    "sku": "92B",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/long-purchase-order-books.html"
+  },
+  {
+    "productId": "GC125",
+    "name": "Contemporary Gift Certificate Snapsets",
+    "description": "PrintEZ product: Contemporary Gift Certificate Snapsets. Section: Gift Certificate Forms.",
+    "price": "$125.99",
+    "sku": "GC125",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/contemporary-gift-certificate-snapsets.html"
+  },
+  {
+    "productId": "GC155",
+    "name": "Ivory Marble Gift Certificate Snapsets",
+    "description": "PrintEZ product: Ivory Marble Gift Certificate Snapsets. Section: Gift Certificate Forms.",
+    "price": "$125.99",
+    "sku": "GC155",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/ivory-marble-gift-certificate-snapsets.html"
+  },
+  {
+    "productId": "BGC125",
+    "name": "Contemporary Gift Certificates, Booked, Carbonless",
+    "description": "PrintEZ product: Contemporary Gift Certificates, Booked, Carbonless. Section: Gift Certificate Forms.",
+    "price": "$138.99",
+    "sku": "BGC125",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/contemporary-gift-certificates-booked-carbonless.html"
+  },
+  {
+    "productId": "114",
+    "name": "Carbon Copy Job Invoice Forms",
+    "description": "PrintEZ product: Carbon Copy Job Invoice Forms. Section: General Forms.",
+    "price": "$174.99",
+    "sku": "114",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbon-copy-invoice-forms-114.html"
+  },
+  {
+    "productId": "671",
+    "name": "Florist Sales Order Forms, Padded",
+    "description": "PrintEZ product: Florist Sales Order Forms, Padded. Section: Florist.",
+    "price": "$86.99",
+    "sku": "671",
+    "category": "Florist",
+    "url": "https://www.printez.com/florist-sales-order-forms-padded.html"
+  },
+  {
+    "productId": "5550",
+    "name": "California State Contract Proposal Forms",
+    "description": "PrintEZ product: California State Contract Proposal Forms. Section: By Business Type.",
+    "price": "$131.99",
+    "sku": "5550",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/5550-proposals-california-state.html"
+  },
+  {
+    "productId": "AUT6510",
+    "name": "Small Motorcycle Repair Order Forms",
+    "description": "PrintEZ product: Small Motorcycle Repair Order Forms. Section: Automotive.",
+    "price": "$228.99",
+    "sku": "AUT6510",
+    "category": "Automotive",
+    "url": "https://www.printez.com/small-motorcycle-repair-order-froms.html"
+  },
+  {
+    "productId": "252",
+    "name": "Locksmith Service Orders - Auto Lockout Booked",
+    "description": "PrintEZ product: Locksmith Service Orders - Auto Lockout Booked. Section: General Forms.",
+    "price": "$131.99",
+    "sku": "252",
+    "category": "General Forms",
+    "url": "https://www.printez.com/service-orders-auto-lockout-booked.html"
+  },
+  {
+    "productId": "RHS0311",
+    "name": "Service Order, Large",
+    "description": "PrintEZ product: Service Order, Large. Section: General Forms.",
+    "price": "$243.99",
+    "sku": "RHS0311",
+    "category": "General Forms",
+    "url": "https://www.printez.com/rhs0311-service-order-large.html"
+  },
+  {
+    "productId": "286",
+    "name": "Real Estate Legal Size Folders",
+    "description": "PrintEZ product: Real Estate Legal Size Folders. Section: General Forms.",
+    "price": "$76.99",
+    "sku": "286",
+    "category": "General Forms",
+    "url": "https://www.printez.com/real-estate-legal-size-folders.html"
+  },
+  {
+    "productId": "212",
+    "name": "Daily Job Report Forms",
+    "description": "PrintEZ product: Daily Job Report Forms. Section: General Forms.",
+    "price": "$128.99",
+    "sku": "212",
+    "category": "General Forms",
+    "url": "https://www.printez.com/daily-job-report-forms.html"
+  },
+  {
+    "productId": "254",
+    "name": "Business Contract Forms",
+    "description": "PrintEZ product: Business Contract Forms. Section: Service & Repair.",
+    "price": "$129.99",
+    "sku": "254",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/business-contract-forms.html"
+  },
+  {
+    "productId": "D856BSize",
+    "name": "Santa Fe Customer Gift Certificate Books",
+    "description": "PrintEZ product: Santa Fe Customer Gift Certificate Books. Section: General Forms.",
+    "price": "$126.99",
+    "sku": "D856BSize",
+    "category": "General Forms",
+    "url": "https://www.printez.com/santa-fe-customer-gift-certificate-books.html"
+  },
+  {
+    "productId": "808Size",
+    "name": "Customized Gift Certificate Forms",
+    "description": "PrintEZ product: Customized Gift Certificate Forms. Section: General Forms.",
+    "price": "$152.99",
+    "sku": "808Size",
+    "category": "General Forms",
+    "url": "https://www.printez.com/customized-gift-certificate-forms.html"
+  },
+  {
+    "productId": "838Size",
+    "name": "Custom Pre Printed Gift Certificates",
+    "description": "PrintEZ product: Custom Pre Printed Gift Certificates. Section: General Forms.",
+    "price": "$152.99",
+    "sku": "838Size",
+    "category": "General Forms",
+    "url": "https://www.printez.com/custom-pre-printed-gift-certificates.html"
+  },
+  {
+    "productId": "8382",
+    "name": "Vineyard Gift Certificates",
+    "description": "PrintEZ product: Vineyard Gift Certificates. Section: General Forms.",
+    "price": "$201.99",
+    "sku": "8382",
+    "category": "General Forms",
+    "url": "https://www.printez.com/vineyard-gift-certificates-booked-sets-green-vine.html"
+  },
+  {
+    "productId": "HSD862B",
+    "name": "Elegant St. Croix Booked Gift Certificate with Duplicate",
+    "description": "PrintEZ product: Elegant St. Croix Booked Gift Certificate with Duplicate. Section: General Forms.",
+    "price": "$126.99",
+    "sku": "HSD862B",
+    "category": "General Forms",
+    "url": "https://www.printez.com/elegant-st-croix-booked-gift-certificate-with-duplicate.html"
+  },
+  {
+    "productId": "865A",
+    "name": "Spring Bouquet Set Gift Certificate",
+    "description": "PrintEZ product: Spring Bouquet Set Gift Certificate. Section: Gift Certificate Forms.",
+    "price": "$111.99",
+    "sku": "865A",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/spring-bouquet-set-gift-certificate.html"
+  },
+  {
+    "productId": "865B",
+    "name": "Spring Bouquet Book Gift Certificate",
+    "description": "PrintEZ product: Spring Bouquet Book Gift Certificate. Section: Gift Certificate Forms.",
+    "price": "$120.99",
+    "sku": "865B",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/spring-bouquet-book-gift-certificate.html"
+  },
+  {
+    "productId": "GC165",
+    "name": "Country Gift Certificate Snapsets",
+    "description": "PrintEZ product: Country Gift Certificate Snapsets. Section: Gift Certificate Forms.",
+    "price": "$125.99",
+    "sku": "GC165",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/country-gift-certificate-snapsets.html"
+  },
+  {
+    "productId": "8385",
+    "name": "Harvest Gift Certificates, Booked, Light Burgundy",
+    "description": "PrintEZ product: Harvest Gift Certificates, Booked, Light Burgundy. Section: Gift Certificate Forms.",
+    "price": "$201.99",
+    "sku": "8385",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/harvest-gift-certificates-booked-light-burgundy.html"
+  },
+  {
+    "productId": "052",
+    "name": "Compact Sales Order Forms",
+    "description": "PrintEZ product: Compact Sales Order Forms. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "052",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-sales-order-forms.html"
+  },
+  {
+    "productId": "053",
+    "name": "Large Custom Sales Order Forms",
+    "description": "PrintEZ product: Large Custom Sales Order Forms. Section: General Forms.",
+    "price": "$171.99",
+    "sku": "053",
+    "category": "General Forms",
+    "url": "https://www.printez.com/large-custom-sales-order-forms.html"
+  },
+  {
+    "productId": "147",
+    "name": "Carbon Copy Layaway Forms",
+    "description": "PrintEZ product: Carbon Copy Layaway Forms. Section: Order Forms.",
+    "price": "$228.99",
+    "sku": "147",
+    "category": "Order Forms",
+    "url": "https://www.printez.com/carbon-copy-layaway-forms.html"
+  },
+  {
+    "productId": "AUT0655",
+    "name": "Repair Orders, Garage, Carbonless, Side-Stub, Large Format",
+    "description": "PrintEZ product: Repair Orders, Garage, Carbonless, Side-Stub, Large Format. Section: Service Orders.",
+    "price": "$242.99",
+    "sku": "AUT0655",
+    "category": "Service Orders",
+    "url": "https://www.printez.com/repair-orders-garage-carbonless-side-stub-large-format.html"
+  },
+  {
+    "productId": "619",
+    "name": "Locksmith Register Order Forms",
+    "description": "PrintEZ product: Locksmith Register Order Forms. Section: By Business Type.",
+    "price": "$141.99",
+    "sku": "619",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/locksmith-register-order-forms.html"
+  },
+  {
+    "productId": "607T",
+    "name": "Jewelry Register Forms",
+    "description": "PrintEZ product: Jewelry Register Forms. Section: By Business Type.",
+    "price": "$91.99",
+    "sku": "607T",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/jewelry-register-forms.html"
+  },
+  {
+    "productId": "308",
+    "name": "Service Forms with Customer Sign Off",
+    "description": "PrintEZ product: Service Forms with Customer Sign Off. Section: General Forms.",
+    "price": "$152.99",
+    "sku": "308",
+    "category": "General Forms",
+    "url": "https://www.printez.com/service-forms-with-customer-sign-off.html"
+  },
+  {
+    "productId": "305",
+    "name": "Service Order Forms wth Claim Checks",
+    "description": "PrintEZ product: Service Order Forms wth Claim Checks. Section: General Forms.",
+    "price": "$228.99",
+    "sku": "305",
+    "category": "General Forms",
+    "url": "https://www.printez.com/service-order-forms-wth-claim-checks.html"
+  },
+  {
+    "productId": "311",
+    "name": "Service Forms with Claim Check",
+    "description": "PrintEZ product: Service Forms with Claim Check. Section: General Forms.",
+    "price": "$151.99",
+    "sku": "311",
+    "category": "General Forms",
+    "url": "https://www.printez.com/service-forms-with-claim-check.html"
+  },
+  {
+    "productId": "607",
+    "name": "Jewelry Register Invoice Forms",
+    "description": "PrintEZ product: Jewelry Register Invoice Forms. Section: By Business Type.",
+    "price": "$91.99",
+    "sku": "607",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/jewelry-register-invoice-forms.html"
+  },
+  {
+    "productId": "322",
+    "name": "Jewelry Repair Orders",
+    "description": "PrintEZ product: Jewelry Repair Orders. Section: By Business Type.",
+    "price": "$162.99",
+    "sku": "322",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/jewelry-repair-orders.html"
+  },
+  {
+    "productId": "128",
+    "name": "Jewelry Appraisal Forms",
+    "description": "PrintEZ product: Jewelry Appraisal Forms. Section: By Business Type.",
+    "price": "$126.99",
+    "sku": "128",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/jewelry-aprraisal-forms.html"
+  },
+  {
+    "productId": "2506",
+    "name": "Preprinted Guest Checks Forms",
+    "description": "PrintEZ product: Preprinted Guest Checks Forms. Section: By Business Type.",
+    "price": "$220.00",
+    "sku": "2506",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/preprinted-guest-checks-forms.html"
+  },
+  {
+    "productId": "6501",
+    "name": "HVAC Service Invoice Forms",
+    "description": "PrintEZ product: HVAC Service Invoice Forms. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6501",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/hvac-service-order-forms.html"
+  },
+  {
+    "productId": "309",
+    "name": "TV Repair Order forms",
+    "description": "PrintEZ product: TV Repair Order forms. Section: By Business Type.",
+    "price": "$290.00",
+    "sku": "309",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/tv-repair-order-forms.html"
+  },
+  {
+    "productId": "312",
+    "name": "Carbon Service Order with Claim Check",
+    "description": "PrintEZ product: Carbon Service Order with Claim Check. Section: Service & Repair.",
+    "price": "$290.00",
+    "sku": "312",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/carbon-service-order-with-claim-check.html"
+  },
+  {
+    "productId": "RHS0313",
+    "name": "Technical Service Carbonless Business Forms",
+    "description": "PrintEZ product: Technical Service Carbonless Business Forms. Section: Service & Repair.",
+    "price": "$220.00",
+    "sku": "RHS0313",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/technical-service-carbonless-business-forms.html"
+  },
+  {
+    "productId": "RHS0309",
+    "name": "TV Service Order Forms - Carbonless",
+    "description": "PrintEZ product: TV Service Order Forms - Carbonless. Section: Service & Repair.",
+    "price": "$129.99",
+    "sku": "RHS0309",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/tv-service-order-forms-carbonless.html"
+  },
+  {
+    "productId": "319",
+    "name": "Carbon Marine Forms with Tags",
+    "description": "PrintEZ product: Carbon Marine Forms with Tags. Section: By Business Type.",
+    "price": "$332.99",
+    "sku": "319",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/carbon-marine-forms-with-tags.html"
+  },
+  {
+    "productId": "365",
+    "name": "Pest Control Booked Forms",
+    "description": "PrintEZ product: Pest Control Booked Forms. Section: By Business Type.",
+    "price": "$155.99",
+    "sku": "365",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/pest-control-booked-forms.html"
+  },
+  {
+    "productId": "300",
+    "name": "Repair Tags W/ Claim Check & Carbons, White",
+    "description": "PrintEZ product: Repair Tags W/ Claim Check & Carbons, White. Section: Service & Repair.",
+    "price": "$259.99",
+    "sku": "300",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/4-in-1-carbon-copy-repair-tags-with-claim-checks-300.html"
+  },
+  {
+    "productId": "256",
+    "name": "Tag Stock Work Order Pads",
+    "description": "PrintEZ product: Tag Stock Work Order Pads. Section: Service & Repair.",
+    "price": "$120.99",
+    "sku": "256",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/tag-stock-work-order-pads.html"
+  },
+  {
+    "productId": "6558",
+    "name": "Carbonless Job Work Order Forms",
+    "description": "PrintEZ product: Carbonless Job Work Order Forms. Section: Service & Repair.",
+    "price": "$155.99",
+    "sku": "6558",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/carbonless-job-work-order-forms.html"
+  },
+  {
+    "productId": "6558B",
+    "name": "Booked Job Work Order and Invoice in One",
+    "description": "PrintEZ product: Booked Job Work Order and Invoice in One. Section: Service & Repair.",
+    "price": "$175.00",
+    "sku": "6558B",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/job-work-orders-in-book-format.html"
+  },
+  {
+    "productId": "213",
+    "name": "Wide Carbonless Work Orders",
+    "description": "PrintEZ product: Wide Carbonless Work Orders. Section: Service & Repair.",
+    "price": "$155.99",
+    "sku": "213",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/wide-carbonless-work-orders.html"
+  },
+  {
+    "productId": "6548",
+    "name": "Work Order Plumbing Compact Forms",
+    "description": "PrintEZ product: Work Order Plumbing Compact Forms. Section: Service & Repair.",
+    "price": "$202.99",
+    "sku": "6548",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/work-order-plumbing-compact-forms.html"
+  },
+  {
+    "productId": "6539",
+    "name": "Small Work Forms for HVAC",
+    "description": "PrintEZ product: Small Work Forms for HVAC. Section: By Business Type.",
+    "price": "$202.99",
+    "sku": "6539",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/small-work-forms-for-hvac.html"
+  },
+  {
+    "productId": "GEN0255",
+    "name": "Carbonless Work Order Business Forms",
+    "description": "PrintEZ product: Carbonless Work Order Business Forms. Section: Service & Repair.",
+    "price": "$155.99",
+    "sku": "GEN0255",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/carbonless-work-order-business-forms.html"
+  },
+  {
+    "productId": "2541",
+    "name": "Sales Books - Large Image",
+    "description": "PrintEZ product: Sales Books - Large Image. Section: Sales Books.",
+    "price": "$155.99",
+    "sku": "2541",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/burst-of-excitement-welcome-cards.html"
+  },
+  {
+    "productId": "138",
+    "name": "Video Rental Order Custom Order Forms",
+    "description": "PrintEZ product: Video Rental Order Custom Order Forms. Section: General Forms.",
+    "price": "$124.99",
+    "sku": "138",
+    "category": "General Forms",
+    "url": "https://www.printez.com/video-rental-order-custom-order-forms.html"
+  },
+  {
+    "productId": "675T",
+    "name": "Wedding Flower Order Business Forms",
+    "description": "PrintEZ product: Wedding Flower Order Business Forms. Section: By Business Type.",
+    "price": "$126.99",
+    "sku": "675T",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/wedding-flower-order-business-forms.html"
+  },
+  {
+    "productId": "52T",
+    "name": "Small Sales Order Forms",
+    "description": "PrintEZ product: Small Sales Order Forms. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "52T",
+    "category": "General Forms",
+    "url": "https://www.printez.com/small-sales-order-forms.html"
+  },
+  {
+    "productId": "081",
+    "name": "Sales Receipt with Consecutive Numbering",
+    "description": "PrintEZ product: Sales Receipt with Consecutive Numbering. Section: General Forms.",
+    "price": "$101.99",
+    "sku": "081",
+    "category": "General Forms",
+    "url": "https://www.printez.com/sales-receipt-with-consecutive-numbering.html"
+  },
+  {
+    "productId": "2590",
+    "name": "Sales Receipts with Personalized Wording",
+    "description": "PrintEZ product: Sales Receipts with Personalized Wording. Section: General Forms.",
+    "price": "$94.99",
+    "sku": "2590",
+    "category": "General Forms",
+    "url": "https://www.printez.com/sales-receipts-with-personalized-wording.html"
+  },
+  {
+    "productId": "691",
+    "name": "Personalized Receipt Books",
+    "description": "PrintEZ product: Personalized Receipt Books. Section: Booked Forms.",
+    "price": "$152.99",
+    "sku": "691",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/personalized-receipt-books.html"
+  },
+  {
+    "productId": "055",
+    "name": "Multi-Purpose Sales Books, Classic Design, Large Format",
+    "description": "PrintEZ product: Multi-Purpose Sales Books, Classic Design, Large Format. Section: By Business Type.",
+    "price": "$145.00",
+    "sku": "055",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/carbonless-sales-forms-booked.html"
+  },
+  {
+    "productId": "55T",
+    "name": "Carbonless Colored Sales Forms Booked",
+    "description": "PrintEZ product: Carbonless Colored Sales Forms Booked. Section: Booked Forms.",
+    "price": "$136.99",
+    "sku": "55T",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/carbonless-colored-sales-forms-booked.html"
+  },
+  {
+    "productId": "063",
+    "name": "Classic Medium Size Sales Books",
+    "description": "PrintEZ product: Classic Medium Size Sales Books. Section: Booked Forms.",
+    "price": "$100.99",
+    "sku": "063",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/high-impact-medium-sales-books-063.html"
+  },
+  {
+    "productId": "50SW",
+    "name": "Carbonless Extra Wording Sales Books",
+    "description": "PrintEZ product: Carbonless Extra Wording Sales Books. Section: Booked Forms.",
+    "price": "$94.99",
+    "sku": "50SW",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/carbonless-custom-extra-wording-sales-books.html"
+  },
+  {
+    "productId": "2509T",
+    "name": "Carbonless Sales Receipts Booked",
+    "description": "PrintEZ product: Carbonless Sales Receipts Booked. Section: Booked Forms.",
+    "price": "$109.99",
+    "sku": "2509T",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/carbonless-sales-rececipts-booked.html"
+  },
+  {
+    "productId": "080",
+    "name": "Sales Receipts",
+    "description": "PrintEZ product: Sales Receipts. Section: General Forms.",
+    "price": "$69.99",
+    "sku": "080",
+    "category": "General Forms",
+    "url": "https://www.printez.com/sales-receipts-with-return-options.html"
+  },
+  {
+    "productId": "2591",
+    "name": "Custom Special Wording Receipts",
+    "description": "PrintEZ product: Custom Special Wording Receipts. Section: General Forms.",
+    "price": "$115.99",
+    "sku": "2591",
+    "category": "General Forms",
+    "url": "https://www.printez.com/custom-special-wording-receipts.html"
+  },
+  {
+    "productId": "690",
+    "name": "Sales Slips, Padded - Large",
+    "description": "PrintEZ product: Sales Slips, Padded - Large. Section: Sales Receipts.",
+    "price": "$243.99",
+    "sku": "690",
+    "category": "Sales Receipts",
+    "url": "https://www.printez.com/sales-slips-padded-large.html"
+  },
+  {
+    "productId": "D58",
+    "name": "Dental Continuation Exam Records,2 Sided, Card Style",
+    "description": "PrintEZ product: Dental Continuation Exam Records,2 Sided, Card Style. Section: By Business Type.",
+    "price": "$71.99",
+    "sku": "D58",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/dental-continuation-exam-records-two-sided-card-style.html"
+  },
+  {
+    "productId": "129",
+    "name": "Pest Control Contract - Service Agreements",
+    "description": "PrintEZ product: Pest Control Contract - Service Agreements. Section: By Business Type.",
+    "price": "$171.99",
+    "sku": "129",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/129.html"
+  },
+  {
+    "productId": "D304",
+    "name": "Bright Orange Repair Tag",
+    "description": "PrintEZ product: Bright Orange Repair Tag. Section: By Business Type.",
+    "price": "$76.99",
+    "sku": "D304",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/bright-orange-repair-tag-d304.html"
+  },
+  {
+    "productId": "112",
+    "name": "Rental Agreement With Carbons",
+    "description": "PrintEZ product: Rental Agreement With Carbons. Section: General Forms.",
+    "price": "$184.99",
+    "sku": "112",
+    "category": "General Forms",
+    "url": "https://www.printez.com/112-rental-agreement-with-carbons-item-112.html"
+  },
+  {
+    "productId": "251",
+    "name": "Locksmith Work Service/Order Book",
+    "description": "PrintEZ product: Locksmith Work Service/Order Book. Section: By Business Type.",
+    "price": "$131.99",
+    "sku": "251",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/251-locksmith-work-serviceorder-book-item-251.html"
+  },
+  {
+    "productId": "761Size",
+    "name": "Florist Custom Made Envelopes with Eyelets",
+    "description": "PrintEZ product: Florist Custom Made Envelopes with Eyelets. Section: Florist.",
+    "price": "$120.99",
+    "sku": "761Size",
+    "category": "Florist",
+    "url": "https://www.printez.com/florist-custom-made-envelopes-with-holes.html"
+  },
+  {
+    "productId": "616",
+    "name": "Bakery Goods Custom Register Forms",
+    "description": "PrintEZ product: Bakery Goods Custom Register Forms. Section: By Business Type.",
+    "price": "$112.99",
+    "sku": "616",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/bakery-goods-custom-register-forms.html"
+  },
+  {
+    "productId": "241",
+    "name": "Field Report Forms",
+    "description": "PrintEZ product: Field Report Forms. Section: By Business Type.",
+    "price": "$105.99",
+    "sku": "241",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/field-report-forms.html"
+  },
+  {
+    "productId": "253",
+    "name": "General Contractor Business Invoices",
+    "description": "PrintEZ product: General Contractor Business Invoices. Section: By Business Type.",
+    "price": "$129.99",
+    "sku": "253",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/general-contractor-business-invoices.html"
+  },
+  {
+    "productId": "230",
+    "name": "Material and Labor Booked Records",
+    "description": "PrintEZ product: Material and Labor Booked Records. Section: By Business Type.",
+    "price": "$93.99",
+    "sku": "230",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/material-and-labor-booked-records.html"
+  },
+  {
+    "productId": "6531",
+    "name": "HVAC Detailed Checklist Service Forms",
+    "description": "PrintEZ product: HVAC Detailed Checklist Service Forms. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6531",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/hvac-detailed-checklist-service-forms.html"
+  },
+  {
+    "productId": "6520",
+    "name": "Custom Designed Electrical Forms",
+    "description": "PrintEZ product: Custom Designed Electrical Forms. Section: By Business Type.",
+    "price": "$133.99",
+    "sku": "6520",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/electrical-work-orders-6520.html"
+  },
+  {
+    "productId": "6574",
+    "name": "Electrical Work Orders with Manilla Tag",
+    "description": "PrintEZ product: Electrical Work Orders with Manilla Tag. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6574",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/electrial-work-orders-with-manilla-tag.html"
+  },
+  {
+    "productId": "6540",
+    "name": "Plumbing Invoice Forms",
+    "description": "PrintEZ product: Plumbing Invoice Forms. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6540",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/plumbing-work-order-forms.html"
+  },
+  {
+    "productId": "6535",
+    "name": "Detailed Plumbing Forms with Manilla Tag",
+    "description": "PrintEZ product: Detailed Plumbing Forms with Manilla Tag. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6535",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/detailed-plumbing-forms-with-manilla-tag.html"
+  },
+  {
+    "productId": "217",
+    "name": "Compact Carbon Copy Proposal Forms",
+    "description": "PrintEZ product: Compact Carbon Copy Proposal Forms. Section: By Business Type.",
+    "price": "$185.00",
+    "sku": "217",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/compact-carbon-copy-proposal-forms.html"
+  },
+  {
+    "productId": "6532",
+    "name": "HVAC Work Orders - Large Format",
+    "description": "PrintEZ product: HVAC Work Orders - Large Format. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6532",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/hvac-work-orders-with-checklist.html"
+  },
+  {
+    "productId": "672",
+    "name": "Flower Register Order Forms",
+    "description": "PrintEZ product: Flower Register Order Forms. Section: By Business Type.",
+    "price": "$150.99",
+    "sku": "672",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/flower-register-order-forms.html"
+  },
+  {
+    "productId": "672T",
+    "name": "Flower Customized Register Forms",
+    "description": "PrintEZ product: Flower Customized Register Forms. Section: By Business Type.",
+    "price": "$138.99",
+    "sku": "672T",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/flower-customized-register-forms.html"
+  },
+  {
+    "productId": "398",
+    "name": "Tyvek Weather Resistant Plant Tags",
+    "description": "PrintEZ product: Tyvek Weather Resistant Plant Tags. Section: By Business Type.",
+    "price": "$143.99",
+    "sku": "398",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/tyvek-weather-resistant-plant-tags.html"
+  },
+  {
+    "productId": "5125",
+    "name": "Imprinted Floral Plant Tags",
+    "description": "PrintEZ product: Imprinted Floral Plant Tags. Section: By Business Type.",
+    "price": "$179.99",
+    "sku": "5125",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/imprinted-floral-plant-tags.html"
+  },
+  {
+    "productId": "760",
+    "name": "Custom Printed Envelopes for Florists",
+    "description": "PrintEZ product: Custom Printed Envelopes for Florists. Section: Florist.",
+    "price": "$104.99",
+    "sku": "760",
+    "category": "Florist",
+    "url": "https://www.printez.com/custom-printed-envelopes-for-florists.html"
+  },
+  {
+    "productId": "2519T",
+    "name": "Supplies Order Forms For Gardeners",
+    "description": "PrintEZ product: Supplies Order Forms For Gardeners. Section: Florist.",
+    "price": "$138.99",
+    "sku": "2519T",
+    "category": "Florist",
+    "url": "https://www.printez.com/garden-supplies-order-forms.html"
+  },
+  {
+    "productId": "RET0764",
+    "name": "Jewelry Personalized Repair Envelopes",
+    "description": "PrintEZ product: Jewelry Personalized Repair Envelopes. Section: By Business Type.",
+    "price": "$230.99",
+    "sku": "RET0764",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/jewelry-personalized-repair-envelopes.html"
+  },
+  {
+    "productId": "765",
+    "name": "Jewelry Repair Orders with Envelopes",
+    "description": "PrintEZ product: Jewelry Repair Orders with Envelopes. Section: By Business Type.",
+    "price": "$130.99",
+    "sku": "765",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/repair-orders-jewelry-envelope.html"
+  },
+  {
+    "productId": "764T",
+    "name": "Jewelry Repair Order Forms with Envelope",
+    "description": "PrintEZ product: Jewelry Repair Order Forms with Envelope. Section: By Business Type.",
+    "price": "$151.99",
+    "sku": "764T",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/jewelry-repair-orders-with-envelope-large.html"
+  },
+  {
+    "productId": "D925Size",
+    "name": "Large Plastic Portable Countertop for Register Forms",
+    "description": "PrintEZ product: Large Plastic Portable Countertop for Register Forms. Section: Countertop Registers.",
+    "price": "$62.99",
+    "sku": "D925Size",
+    "category": "Countertop Registers",
+    "url": "https://www.printez.com/large-plastic-portable-countertop-for-register-forms.html"
+  },
+  {
+    "productId": "D924Size",
+    "name": "Plastic Portable Countertop for Register Forms",
+    "description": "PrintEZ product: Plastic Portable Countertop for Register Forms. Section: Countertop Registers.",
+    "price": "$46.99",
+    "sku": "D924Size",
+    "category": "Countertop Registers",
+    "url": "https://www.printez.com/plastic-portable-countertop-for-register-forms.html"
+  },
+  {
+    "productId": "D902Size",
+    "name": "Aluminum Business Forms Holder",
+    "description": "PrintEZ product: Aluminum Business Forms Holder. Section: Form Holders.",
+    "price": "$47.99",
+    "sku": "D902Size",
+    "category": "Form Holders",
+    "url": "https://www.printez.com/aluminum-business-forms-holder.html"
+  },
+  {
+    "productId": "108622",
+    "name": "Branded Essential Padfolio",
+    "description": "PrintEZ product: Branded Essential Padfolio. Section: Office Accessories.",
+    "price": "$13.53",
+    "sku": "108622",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/openclosed-sign-kit.html"
+  },
+  {
+    "productId": "108621",
+    "name": "Economy Padfolios",
+    "description": "PrintEZ product: Economy Padfolios. Section: Form Holders.",
+    "price": "$643.99",
+    "sku": "108621",
+    "category": "Form Holders",
+    "url": "https://www.printez.com/continuous-tenant-statement.html"
+  },
+  {
+    "productId": "108615",
+    "name": "Custom Deluxe Document Cases",
+    "description": "PrintEZ product: Custom Deluxe Document Cases. Section: Office Accessories.",
+    "price": "$1.03",
+    "sku": "108615",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/double-window-envelope-new.html"
+  },
+  {
+    "productId": "R715",
+    "name": "Job Jacket",
+    "description": "PrintEZ product: Job Jacket. Section: Form Accessories.",
+    "price": "$1",
+    "sku": "R715",
+    "category": "Form Accessories",
+    "url": "https://www.printez.com/click-clack-magnets.html"
+  },
+  {
+    "productId": "P401",
+    "name": "Folding Pegboard",
+    "description": "PrintEZ product: Folding Pegboard. Section: Form Accessories.",
+    "price": "$91.99",
+    "sku": "P401",
+    "category": "Form Accessories",
+    "url": "https://www.printez.com/retractable-badge-holder-4-color-dome.html"
+  },
+  {
+    "productId": "945",
+    "name": "Posting File For Forms Up To 7 1/2 X 9 1/2\"",
+    "description": "PrintEZ product: Posting File For Forms Up To 7 1/2 X 9 1/2\". Section: Form Holders.",
+    "price": "$117.99",
+    "sku": "945",
+    "category": "Form Holders",
+    "url": "https://www.printez.com/city-lights.html"
+  },
+  {
+    "productId": "944",
+    "name": "Posting File For Forms Up To 6 1/2 X 9 1/4\"",
+    "description": "PrintEZ product: Posting File For Forms Up To 6 1/2 X 9 1/4\". Section: Supplies.",
+    "price": "$115.99",
+    "sku": "944",
+    "category": "Supplies",
+    "url": "https://www.printez.com/pen-lightstylus-for-touchscreen-mobile-devices.html"
+  },
+  {
+    "productId": "045",
+    "name": "A Z Index Guide",
+    "description": "PrintEZ product: A Z Index Guide. Section: Form Accessories.",
+    "price": "$33.99",
+    "sku": "045",
+    "category": "Form Accessories",
+    "url": "https://www.printez.com/pre-threaded-sewing-kit.html"
+  },
+  {
+    "productId": "044",
+    "name": "A Z Index Guides Metal Tabs 6.5 X 9 1/4",
+    "description": "PrintEZ product: A Z Index Guides Metal Tabs 6.5 X 9 1/4. Section: Form Accessories.",
+    "price": "$36.99",
+    "sku": "044",
+    "category": "Form Accessories",
+    "url": "https://www.printez.com/funky-foam-flyer.html"
+  },
+  {
+    "productId": "927Size",
+    "name": "Large Metal Countertop for Register Forms",
+    "description": "PrintEZ product: Large Metal Countertop for Register Forms. Section: Countertop Registers.",
+    "price": "$255.99",
+    "sku": "927Size",
+    "category": "Countertop Registers",
+    "url": "https://www.printez.com/large-metal-countertop-for-register-forms.html"
+  },
+  {
+    "productId": "143045",
+    "name": "Set Of 2 Cancelled Check Storage Boxes",
+    "description": "PrintEZ product: Set Of 2 Cancelled Check Storage Boxes. Section: Form Accessories.",
+    "price": "$77.99",
+    "sku": "143045",
+    "category": "Form Accessories",
+    "url": "https://www.printez.com/set-of-2-cancelled-check-storage-boxes-1.html"
+  },
+  {
+    "productId": "650",
+    "name": "Repair Orders, Garage, Carbonless, Small Format",
+    "description": "PrintEZ product: Repair Orders, Garage, Carbonless, Small Format. Section: General Forms.",
+    "price": "$161.99",
+    "sku": "650",
+    "category": "General Forms",
+    "url": "https://www.printez.com/repair-orders-garage-carbonless-small-format.html"
+  },
+  {
+    "productId": "2520",
+    "name": "Glass Repair Work Order Invoice",
+    "description": "PrintEZ product: Glass Repair Work Order Invoice. Section: General Forms.",
+    "price": "$202.99",
+    "sku": "2520",
+    "category": "General Forms",
+    "url": "https://www.printez.com/glass-repair-work-order-invoic-2520.html"
+  },
+  {
+    "productId": "6585",
+    "name": "Large Auto Repair Order Form - Florida State",
+    "description": "PrintEZ product: Large Auto Repair Order Form - Florida State. Section: Service & Repair.",
+    "price": "$228.99",
+    "sku": "6585",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/large-auto-repair-order-form-florida-state-6585.html"
+  },
+  {
+    "productId": "8851Size",
+    "name": "Road Service Dispatch Forms - Booked",
+    "description": "PrintEZ product: Road Service Dispatch Forms - Booked. Section: Service & Repair.",
+    "price": "$38.99",
+    "sku": "8851Size",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/road-service-dispatch-forms-booked-8851.html"
+  },
+  {
+    "productId": "660",
+    "name": "Auto Estimates with Insurance Requirements",
+    "description": "PrintEZ product: Auto Estimates with Insurance Requirements. Section: Service & Repair.",
+    "price": "$138.99",
+    "sku": "660",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/auto-esitmates-with-insurance-requirements.html"
+  },
+  {
+    "productId": "654",
+    "name": "Auto Repair Estimate and Order Forms",
+    "description": "PrintEZ product: Auto Repair Estimate and Order Forms. Section: Service & Repair.",
+    "price": "$455.99",
+    "sku": "654",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/auto-repair-estimate-and-order-forms.html"
+  },
+  {
+    "productId": "6583C",
+    "name": "Large Auto Repair Order - California State",
+    "description": "PrintEZ product: Large Auto Repair Order - California State. Section: Service & Repair.",
+    "price": "$228.99",
+    "sku": "6583C",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/large-auto-repair-order-california-state-6583c.html"
+  },
+  {
+    "productId": "6597",
+    "name": "Auto Body Repair Order Forms",
+    "description": "PrintEZ product: Auto Body Repair Order Forms. Section: Service & Repair.",
+    "price": "$133.99",
+    "sku": "6597",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/auto-body-repair-order-forms-6597.html"
+  },
+  {
+    "productId": "6581",
+    "name": "Auto Repair Order Forms, Carbonless",
+    "description": "PrintEZ product: Auto Repair Order Forms, Carbonless. Section: Service & Repair.",
+    "price": "$228.99",
+    "sku": "6581",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/auto-repair-order-forms-carbonless-6581.html"
+  },
+  {
+    "productId": "6582",
+    "name": "Auto Repair Order Forms with Key Tag",
+    "description": "PrintEZ product: Auto Repair Order Forms with Key Tag. Section: Service & Repair.",
+    "price": "$332.99",
+    "sku": "6582",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/auto-repair-order-forms-with-key-tag-6582.html"
+  },
+  {
+    "productId": "2525",
+    "name": "Road Service Form - Booked",
+    "description": "PrintEZ product: Road Service Form - Booked. Section: Service & Repair.",
+    "price": "$131.99",
+    "sku": "2525",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/road-service-form-booked-2525.html"
+  },
+  {
+    "productId": "613",
+    "name": "Road Service Towing Register Forms",
+    "description": "PrintEZ product: Road Service Towing Register Forms. Section: Auto Replacement.",
+    "price": "$112.99",
+    "sku": "613",
+    "category": "Auto Replacement",
+    "url": "https://www.printez.com/road-service-towing-register-forms.html"
+  },
+  {
+    "productId": "2527",
+    "name": "Booked Towing Service Order Form",
+    "description": "PrintEZ product: Booked Towing Service Order Form. Section: By Business Type.",
+    "price": "$141.99",
+    "sku": "2527",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/booked-towing-service-order-form-2527.html"
+  },
+  {
+    "productId": "346",
+    "name": "Branded Red and Yellow Service Labels",
+    "description": "PrintEZ product: Branded Red and Yellow Service Labels. Section: Automotive.",
+    "price": "$0.35",
+    "sku": "346",
+    "category": "Automotive",
+    "url": "https://www.printez.com/red-and-yellow-service-labels.html"
+  },
+  {
+    "productId": "1158",
+    "name": "Professional Auto Key Tags, Brushed Chrome",
+    "description": "PrintEZ product: Professional Auto Key Tags, Brushed Chrome. Section: General Forms.",
+    "price": "$161.99",
+    "sku": "1158",
+    "category": "General Forms",
+    "url": "https://www.printez.com/brushed-chrome-auto-key-tags.html"
+  },
+  {
+    "productId": "CL16",
+    "name": "Professional Yellow Vinyl Contractor Labels",
+    "description": "PrintEZ product: Professional Yellow Vinyl Contractor Labels. Section: Automotive.",
+    "price": "$0.29",
+    "sku": "CL16",
+    "category": "Automotive",
+    "url": "https://www.printez.com/yellow-vinyl-contractor-labels.html"
+  },
+  {
+    "productId": "200116",
+    "name": "Promotional Drive Safely with Signs Floor Mat",
+    "description": "PrintEZ product: Promotional Drive Safely with Signs Floor Mat. Section: Automotive.",
+    "price": "$0.17",
+    "sku": "200116",
+    "category": "Automotive",
+    "url": "https://www.printez.com/drive-safely-with-signs-floor-mat-200116.html"
+  },
+  {
+    "productId": "200115",
+    "name": "Custom Floor Mat - Patriotic",
+    "description": "PrintEZ product: Custom Floor Mat - Patriotic. Section: Automotive.",
+    "price": "$0.17",
+    "sku": "200115",
+    "category": "Automotive",
+    "url": "https://www.printez.com/floor-mat-patriotic-200115.html"
+  },
+  {
+    "productId": "108571",
+    "name": "Branded License Plate Frame - Straight Top",
+    "description": "PrintEZ product: Branded License Plate Frame - Straight Top. Section: Automotive.",
+    "price": "$1.16",
+    "sku": "108571",
+    "category": "Automotive",
+    "url": "https://www.printez.com/license-plate-frame-straight-top-108571.html"
+  },
+  {
+    "productId": "108570",
+    "name": "Promotional License Plate Frame - Straight Bottom",
+    "description": "PrintEZ product: Promotional License Plate Frame - Straight Bottom. Section: Automotive.",
+    "price": "$1.21",
+    "sku": "108570",
+    "category": "Automotive",
+    "url": "https://www.printez.com/license-plate-frame-straight-bottom-108570.html"
+  },
+  {
+    "productId": "765513",
+    "name": "Branded Snowflake Ice Scraper",
+    "description": "PrintEZ product: Branded Snowflake Ice Scraper. Section: Automotive.",
+    "price": "$1.46",
+    "sku": "765513",
+    "category": "Automotive",
+    "url": "https://www.printez.com/snowflake-ice-scraper-765513.html"
+  },
+  {
+    "productId": "765666",
+    "name": "Promotional Expandable Auto Organizer - 80gsm",
+    "description": "PrintEZ product: Promotional Expandable Auto Organizer - 80gsm. Section: Automotive.",
+    "price": "$7.38",
+    "sku": "765666",
+    "category": "Automotive",
+    "url": "https://www.printez.com/expandable-auto-organizer-80gsm-765666.html"
+  },
+  {
+    "productId": "765512",
+    "name": "Promotional Gripper Ice Scraper",
+    "description": "PrintEZ product: Promotional Gripper Ice Scraper. Section: Automotive.",
+    "price": "$3.51",
+    "sku": "765512",
+    "category": "Automotive",
+    "url": "https://www.printez.com/gripper-ice-scrapers.html"
+  },
+  {
+    "productId": "WSV2",
+    "name": "Custom Printed Call For Service Weather-Resistant Labels, Yellow",
+    "description": "PrintEZ product: Custom Printed Call For Service Weather-Resistant Labels, Yellow. Section: Automotive.",
+    "price": "$0.17",
+    "sku": "WSV2",
+    "category": "Automotive",
+    "url": "https://www.printez.com/game-day-clear-stadium-tote-bag.html"
+  },
+  {
+    "productId": "WSV1S",
+    "name": "Branded Call For Service Weather-Resistant Labels, Silver",
+    "description": "PrintEZ product: Branded Call For Service Weather-Resistant Labels, Silver. Section: Automotive.",
+    "price": "$0.17",
+    "sku": "WSV1S",
+    "category": "Automotive",
+    "url": "https://www.printez.com/chevron-oversized-carry-all-tote-bag.html"
+  },
+  {
+    "productId": "WIL8S",
+    "name": "Professional Weather-Resistant Labels, Brushed Poly, Silver",
+    "description": "PrintEZ product: Professional Weather-Resistant Labels, Brushed Poly, Silver. Section: Automotive.",
+    "price": "$0.14",
+    "sku": "WIL8S",
+    "category": "Automotive",
+    "url": "https://www.printez.com/flip-leather-ipad-portfolio-case.html"
+  },
+  {
+    "productId": "WIL2Y",
+    "name": "Weather-Resistant Labels, Laminated Vinyl, Yellow",
+    "description": "PrintEZ product: Weather-Resistant Labels, Laminated Vinyl, Yellow. Section: Automotive.",
+    "price": "$0.14",
+    "sku": "WIL2Y",
+    "category": "Automotive",
+    "url": "https://www.printez.com/sea-salt-carmels.html"
+  },
+  {
+    "productId": "CL15",
+    "name": "Branded Water Heater Label with Pipe Design",
+    "description": "PrintEZ product: Branded Water Heater Label with Pipe Design. Section: Automotive.",
+    "price": "$0.30",
+    "sku": "CL15",
+    "category": "Automotive",
+    "url": "https://www.printez.com/water-heater-label-with-pipe-design.html"
+  },
+  {
+    "productId": "58165",
+    "name": "Professional Static Cling Service Labels",
+    "description": "PrintEZ product: Professional Static Cling Service Labels. Section: Automotive.",
+    "price": "$0.11",
+    "sku": "58165",
+    "category": "Automotive",
+    "url": "https://www.printez.com/static-cling-service-labels.html"
+  },
+  {
+    "productId": "1522",
+    "name": "Branded Weatherproof Plate Label, Brushed Silver Poly",
+    "description": "PrintEZ product: Branded Weatherproof Plate Label, Brushed Silver Poly. Section: Automotive.",
+    "price": "$0.31",
+    "sku": "1522",
+    "category": "Automotive",
+    "url": "https://www.printez.com/plate-labels-brushed-silver.html"
+  },
+  {
+    "productId": "1520",
+    "name": "Custom Printed Weatherproof Plate Label, Brushed Silver Poly",
+    "description": "PrintEZ product: Custom Printed Weatherproof Plate Label, Brushed Silver Poly. Section: Automotive.",
+    "price": "$0.80",
+    "sku": "1520",
+    "category": "Automotive",
+    "url": "https://www.printez.com/brushed-silver-plate-labels.html"
+  },
+  {
+    "productId": "358",
+    "name": "Custom Printed Chrome Tough Shield Labels",
+    "description": "PrintEZ product: Custom Printed Chrome Tough Shield Labels. Section: Automotive.",
+    "price": "$0.76",
+    "sku": "358",
+    "category": "Automotive",
+    "url": "https://www.printez.com/chrome-tough-shield-labels.html"
+  },
+  {
+    "productId": "357",
+    "name": "Custom Printed Tough Weather Proof Labels",
+    "description": "PrintEZ product: Custom Printed Tough Weather Proof Labels. Section: Automotive.",
+    "price": "$0.69",
+    "sku": "357",
+    "category": "Automotive",
+    "url": "https://www.printez.com/tough-weather-proof-labels.html"
+  },
+  {
+    "productId": "6517",
+    "name": "Custom Auto Floor Mat, \"Please Drive Safely!\"",
+    "description": "PrintEZ product: Custom Auto Floor Mat, \"Please Drive Safely!\". Section: Automotive.",
+    "price": "$0.17",
+    "sku": "6517",
+    "category": "Automotive",
+    "url": "https://www.printez.com/6517-auto-floor-mat-please-drive-safely.html"
+  },
+  {
+    "productId": "6516",
+    "name": "Professional Auto Floor Mat - \"Thanks!\"",
+    "description": "PrintEZ product: Professional Auto Floor Mat - \"Thanks!\". Section: Automotive.",
+    "price": "$0.17",
+    "sku": "6516",
+    "category": "Automotive",
+    "url": "https://www.printez.com/6516-auto-floor-mat-thanks.html"
+  },
+  {
+    "productId": "374",
+    "name": "Imprinted Blue Advertising Label",
+    "description": "PrintEZ product: Imprinted Blue Advertising Label. Section: Automotive.",
+    "price": "$0.17",
+    "sku": "374",
+    "category": "Automotive",
+    "url": "https://www.printez.com/imprinted-blue-advertising-label.html"
+  },
+  {
+    "productId": "1514",
+    "name": "Branded Weatherproof Laminated Label",
+    "description": "PrintEZ product: Branded Weatherproof Laminated Label. Section: Automotive.",
+    "price": "$0.25",
+    "sku": "1514",
+    "category": "Automotive",
+    "url": "https://www.printez.com/weatherproof-laminated-label.html"
+  },
+  {
+    "productId": "347",
+    "name": "Professional Pressure Sensitive Flourescent Labels",
+    "description": "PrintEZ product: Professional Pressure Sensitive Flourescent Labels. Section: Automotive.",
+    "price": "$0.11",
+    "sku": "347",
+    "category": "Automotive",
+    "url": "https://www.printez.com/pressure-sensitive-flourescent-labels.html"
+  },
+  {
+    "productId": "1512",
+    "name": "Branded Laminated Weather Proof Labels",
+    "description": "PrintEZ product: Branded Laminated Weather Proof Labels. Section: Automotive.",
+    "price": "$0.22",
+    "sku": "1512",
+    "category": "Automotive",
+    "url": "https://www.printez.com/laminated-weather-proof-labels.html"
+  },
+  {
+    "productId": "368",
+    "name": "Custom Printed Weatherproof Gold Labels",
+    "description": "PrintEZ product: Custom Printed Weatherproof Gold Labels. Section: Automotive.",
+    "price": "$0.20",
+    "sku": "368",
+    "category": "Automotive",
+    "url": "https://www.printez.com/weatherproof-gold-labels.html"
+  },
+  {
+    "productId": "1690E",
+    "name": "Branded Windshield Next Tire Service Labels",
+    "description": "PrintEZ product: Branded Windshield Next Tire Service Labels. Section: Automotive.",
+    "price": "$0.13",
+    "sku": "1690E",
+    "category": "Automotive",
+    "url": "https://www.printez.com/windshield-next-tire-service-labels.html"
+  },
+  {
+    "productId": "353",
+    "name": "Branded Weather Resistant Tough Shipping Labels",
+    "description": "PrintEZ product: Branded Weather Resistant Tough Shipping Labels. Section: Automotive.",
+    "price": "$0.51",
+    "sku": "353",
+    "category": "Automotive",
+    "url": "https://www.printez.com/weather-resistant-tough-shipping-labels.html"
+  },
+  {
+    "productId": "CL14",
+    "name": "Branded Contractor Service Custom Labels",
+    "description": "PrintEZ product: Branded Contractor Service Custom Labels. Section: Automotive.",
+    "price": "$0.31",
+    "sku": "CL14",
+    "category": "Automotive",
+    "url": "https://www.printez.com/contractor-service-custom-labels.html"
+  },
+  {
+    "productId": "109621",
+    "name": "Promotional Matte Barrel Mug",
+    "description": "PrintEZ product: Promotional Matte Barrel Mug. Section: Drinkware.",
+    "price": "$9.72",
+    "sku": "109621",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/matte-barrel-mug-109621.html"
+  },
+  {
+    "productId": "108445",
+    "name": "Professional Can Coolers, Collapsible",
+    "description": "PrintEZ product: Professional Can Coolers, Collapsible. Section: Drinkware.",
+    "price": "$1.06",
+    "sku": "108445",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/can-coolers-collapsible-108445.html"
+  },
+  {
+    "productId": "765448",
+    "name": "Logo Comfort Grip Cup Sleeve",
+    "description": "PrintEZ product: Logo Comfort Grip Cup Sleeve. Section: Drinkware.",
+    "price": "$0.68",
+    "sku": "765448",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/comfort-grip-cup-sleeve-765448.html"
+  },
+  {
+    "productId": "108472",
+    "name": "Promotional Collapsible Koozie® Bottle Kooler",
+    "description": "PrintEZ product: Promotional Collapsible Koozie® Bottle Kooler. Section: Drinkware.",
+    "price": "$2.61",
+    "sku": "108472",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/collapsible-koozie-bottle-kooler-108472.html"
+  },
+  {
+    "productId": "765673",
+    "name": "Promotional Football Can Holder",
+    "description": "PrintEZ product: Promotional Football Can Holder. Section: Drinkware.",
+    "price": "$5.42",
+    "sku": "765673",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/football-can-holder-765673.html"
+  },
+  {
+    "productId": "765672",
+    "name": "Promotional Baseball Can Holder",
+    "description": "PrintEZ product: Promotional Baseball Can Holder. Section: Drinkware.",
+    "price": "$5.42",
+    "sku": "765672",
+    "category": "Drinkware",
+    "url": "https://www.printez.com/baseball-can-holder-765672.html"
+  },
+  {
+    "productId": "108865",
+    "name": "Custom Heart Magnet",
+    "description": "PrintEZ product: Custom Heart Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108865",
+    "category": "Magnets",
+    "url": "https://www.printez.com/heart-magnet-new.html"
+  },
+  {
+    "productId": "108859",
+    "name": "Professional Oval Magnet",
+    "description": "PrintEZ product: Professional Oval Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108859",
+    "category": "Magnets",
+    "url": "https://www.printez.com/oval-magnet-new.html"
+  },
+  {
+    "productId": "108863",
+    "name": "Custom Toothpaste Magnet",
+    "description": "PrintEZ product: Custom Toothpaste Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108863",
+    "category": "Magnets",
+    "url": "https://www.printez.com/toothpaste-magnet-new.html"
+  },
+  {
+    "productId": "108868",
+    "name": "Promotional Dog Bone Magnet",
+    "description": "PrintEZ product: Promotional Dog Bone Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108868",
+    "category": "Magnets",
+    "url": "https://www.printez.com/dog-bone-magnet-new.html"
+  },
+  {
+    "productId": "108867",
+    "name": "Professional Pizza Magnet",
+    "description": "PrintEZ product: Professional Pizza Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108867",
+    "category": "Magnets",
+    "url": "https://www.printez.com/pizza-magnet-new.html"
+  },
+  {
+    "productId": "108858",
+    "name": "Promotional House Magnet",
+    "description": "PrintEZ product: Promotional House Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108858",
+    "category": "Magnets",
+    "url": "https://www.printez.com/house-magnet-new.html"
+  },
+  {
+    "productId": "108888",
+    "name": "Professional Tire Magnet",
+    "description": "PrintEZ product: Professional Tire Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108888",
+    "category": "Magnets",
+    "url": "https://www.printez.com/tire-magnet-new.html"
+  },
+  {
+    "productId": "108857",
+    "name": "Branded Van Magnet",
+    "description": "PrintEZ product: Branded Van Magnet. Section: Magnets.",
+    "price": "$0.71",
+    "sku": "108857",
+    "category": "Magnets",
+    "url": "https://www.printez.com/van-magnet-new.html"
+  },
+  {
+    "productId": "109089",
+    "name": "Branded House Clip",
+    "description": "PrintEZ product: Branded House Clip. Section: Magnets.",
+    "price": "$1.48",
+    "sku": "109089",
+    "category": "Magnets",
+    "url": "https://www.printez.com/house-clip-new.html"
+  },
+  {
+    "productId": "108680",
+    "name": "Promotional Business Card Magnet with Notepad",
+    "description": "PrintEZ product: Promotional Business Card Magnet with Notepad. Section: Magnets.",
+    "price": "$1.56",
+    "sku": "108680",
+    "category": "Magnets",
+    "url": "https://www.printez.com/business-card-magnet-with-notepad-new.html"
+  },
+  {
+    "productId": "109568",
+    "name": "Branded Magnetic Clip Holder",
+    "description": "PrintEZ product: Branded Magnetic Clip Holder. Section: Magnets.",
+    "price": "$0.97",
+    "sku": "109568",
+    "category": "Magnets",
+    "url": "https://www.printez.com/magnetic-clip-holder-new.html"
+  },
+  {
+    "productId": "109607",
+    "name": "Custom Card Holder",
+    "description": "PrintEZ product: Custom Card Holder. Section: Office Accessories.",
+    "price": "$0.57",
+    "sku": "109607",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/card-holder-new.html"
+  },
+  {
+    "productId": "108614",
+    "name": "Custom Document Envelopes",
+    "description": "PrintEZ product: Custom Document Envelopes. Section: Office Accessories.",
+    "price": "$0.90",
+    "sku": "108614",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/document-envelopes-new.html"
+  },
+  {
+    "productId": "108524",
+    "name": "Branded Letter Slitters Plus",
+    "description": "PrintEZ product: Branded Letter Slitters Plus. Section: Office Accessories.",
+    "price": "$1.30",
+    "sku": "108524",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/letter-slitters-plus-new.html"
+  },
+  {
+    "productId": "109087",
+    "name": "Branded Flip Top Calculator",
+    "description": "PrintEZ product: Branded Flip Top Calculator. Section: Office Accessories.",
+    "price": "$2.97",
+    "sku": "109087",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/flip-top-calculator-new.html"
+  },
+  {
+    "productId": "108978",
+    "name": "Professional 4 x 3\" Sticky Note - Full Color",
+    "description": "PrintEZ product: Professional 4 x 3\" Sticky Note - Full Color. Section: Office Accessories.",
+    "price": "$0.61",
+    "sku": "108978",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/4-x-3-sticky-note-full-color-new.html"
+  },
+  {
+    "productId": "108977",
+    "name": "Custom 3 x 3\" Square Sticky Note",
+    "description": "PrintEZ product: Custom 3 x 3\" Square Sticky Note. Section: Office Accessories.",
+    "price": "$0.61",
+    "sku": "108977",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/3-x-3-square-sticky-note-108977.html"
+  },
+  {
+    "productId": "108541",
+    "name": "Professional SOUVENIR Sticky Notes 4\" x 3\" 25 sheets/pad",
+    "description": "PrintEZ product: Professional SOUVENIR Sticky Notes 4\" x 3\" 25 sheets/pad. Section: Office Accessories.",
+    "price": "$0.63",
+    "sku": "108541",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-4-x-3-25-sheets-pad-new.html"
+  },
+  {
+    "productId": "765540",
+    "name": "Branded Harrison Portfolio - Junior",
+    "description": "PrintEZ product: Branded Harrison Portfolio - Junior. Section: Office Accessories.",
+    "price": "$2.33",
+    "sku": "765540",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/harrison-portfolio-junior-new.html"
+  },
+  {
+    "productId": "TX2W",
+    "name": "Custom Tax Folder with Window",
+    "description": "PrintEZ product: Custom Tax Folder with Window. Section: Office Accessories.",
+    "price": "$2.33",
+    "sku": "TX2W",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/tax-folder-with-window-new.html"
+  },
+  {
+    "productId": "765816",
+    "name": "Branded Micro Sticky Book",
+    "description": "PrintEZ product: Branded Micro Sticky Book. Section: Office Accessories.",
+    "price": "$1.77",
+    "sku": "765816",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/micro-sticky-book-new.html"
+  },
+  {
+    "productId": "108539",
+    "name": "Promotional SOUVENIR Sticky Notes Cube",
+    "description": "PrintEZ product: Promotional SOUVENIR Sticky Notes Cube. Section: Office Accessories.",
+    "price": "$5.04",
+    "sku": "108539",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-cube-new.html"
+  },
+  {
+    "productId": "765569",
+    "name": "Branded Recycled Paper Memo Tablet",
+    "description": "PrintEZ product: Branded Recycled Paper Memo Tablet. Section: Office Accessories.",
+    "price": "$1.81",
+    "sku": "765569",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/recycled-paper-memo-tablet-new.html"
+  },
+  {
+    "productId": "109179",
+    "name": "Promotional Personalized Micro Sticky Book",
+    "description": "PrintEZ product: Promotional Personalized Micro Sticky Book. Section: Office Accessories.",
+    "price": "$2.31",
+    "sku": "109179",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/personalized-micro-sticky-book-new.html"
+  },
+  {
+    "productId": "108896",
+    "name": "Branded 4 x 6 Aluminum Photo Frame",
+    "description": "PrintEZ product: Branded 4 x 6 Aluminum Photo Frame. Section: Office Accessories.",
+    "price": "$4.84",
+    "sku": "108896",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/4-x-6-aluminum-photo-frame-new.html"
+  },
+  {
+    "productId": "108537",
+    "name": "Custom SOUVENIR Sticky Notes 4\" x 3\" 50 sheets/pad",
+    "description": "PrintEZ product: Custom SOUVENIR Sticky Notes 4\" x 3\" 50 sheets/pad. Section: Office Accessories.",
+    "price": "$1.08",
+    "sku": "108537",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-4-x-3-50-sheets-pad-new.html"
+  },
+  {
+    "productId": "108959",
+    "name": "Branded 3 x 3\" Square Sticky Note",
+    "description": "PrintEZ product: Branded 3 x 3\" Square Sticky Note. Section: Office Accessories.",
+    "price": "$1.09",
+    "sku": "108959",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/3-x-3-square-sticky-note-new.html"
+  },
+  {
+    "productId": "108533",
+    "name": "Branded SOUVENIR Sticky Notes House",
+    "description": "PrintEZ product: Branded SOUVENIR Sticky Notes House. Section: Office Accessories.",
+    "price": "$1.13",
+    "sku": "108533",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-house-new.html"
+  },
+  {
+    "productId": "108535",
+    "name": "Professional SOUVENIR Sticky Notes Phone",
+    "description": "PrintEZ product: Professional SOUVENIR Sticky Notes Phone. Section: Office Accessories.",
+    "price": "$1.13",
+    "sku": "108535",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-phone-new.html"
+  },
+  {
+    "productId": "108534",
+    "name": "Branded SOUVINER Sticky Notes Truck",
+    "description": "PrintEZ product: Branded SOUVINER Sticky Notes Truck. Section: Office Accessories.",
+    "price": "$1.13",
+    "sku": "108534",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souviner-sticky-notes-truck-new.html"
+  },
+  {
+    "productId": "108542",
+    "name": "Professional SOUVENIR Sticky Notes 4\" x 6\" 25 sheets/pad",
+    "description": "PrintEZ product: Professional SOUVENIR Sticky Notes 4\" x 6\" 25 sheets/pad. Section: Office Accessories.",
+    "price": "$1.16",
+    "sku": "108542",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-4-x-6-25-sheets-pad-new.html"
+  },
+  {
+    "productId": "108540",
+    "name": "Promotional SOUVENIR Note Pads 4\" x 6\" 50 sheets/pad",
+    "description": "PrintEZ product: Promotional SOUVENIR Note Pads 4\" x 6\" 50 sheets/pad. Section: Office Accessories.",
+    "price": "$1.22",
+    "sku": "108540",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-note-pads-4-x-6-50-sheets-pad-new.html"
+  },
+  {
+    "productId": "109475",
+    "name": "Promotional Standard Vinyl Binder 1\" Ring Size",
+    "description": "PrintEZ product: Promotional Standard Vinyl Binder 1\" Ring Size. Section: Office Accessories.",
+    "price": "$9.04",
+    "sku": "109475",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/standard-vinyl-binder-1-ring-size-new.html"
+  },
+  {
+    "productId": "108992",
+    "name": "Custom SIgN Wave (TM) Jr. Pad Holder",
+    "description": "PrintEZ product: Custom SIgN Wave (TM) Jr. Pad Holder. Section: Office Accessories.",
+    "price": "$6.71",
+    "sku": "108992",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/sign-wave-tm-jr-pad-holder-new.html"
+  },
+  {
+    "productId": "765539",
+    "name": "Professional Harrison Portfolio - Large",
+    "description": "PrintEZ product: Professional Harrison Portfolio - Large. Section: Office Accessories.",
+    "price": "$90.43",
+    "sku": "765539",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/harrison-portfolio-large-new.html"
+  },
+  {
+    "productId": "109332",
+    "name": "Promotional Flexi Ruler",
+    "description": "PrintEZ product: Promotional Flexi Ruler. Section: Office Accessories.",
+    "price": "$1.39",
+    "sku": "109332",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/flexi-ruler-new.html"
+  },
+  {
+    "productId": "765892",
+    "name": "Branded Sticky Memo Tape Dispenser",
+    "description": "PrintEZ product: Branded Sticky Memo Tape Dispenser. Section: Office Accessories.",
+    "price": "$2.97",
+    "sku": "765892",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/sticky-memo-tape-dispenser-new.html"
+  },
+  {
+    "productId": "108497",
+    "name": "Professional Keep-It Clip Board",
+    "description": "PrintEZ product: Professional Keep-It Clip Board. Section: Office Accessories.",
+    "price": "$5.04",
+    "sku": "108497",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/keep-it-clip-board-new.html"
+  },
+  {
+    "productId": "109476",
+    "name": "Custom Standard Vinyl Binder 1 1/2\" Ring Size",
+    "description": "PrintEZ product: Custom Standard Vinyl Binder 1 1/2\" Ring Size. Section: Office Accessories.",
+    "price": "$8.76",
+    "sku": "109476",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/standard-vinyl-binder-1-1-2-ring-size-new.html"
+  },
+  {
+    "productId": "109477",
+    "name": "Custom Junior Vinyl Ring Binder",
+    "description": "PrintEZ product: Custom Junior Vinyl Ring Binder. Section: Office Accessories.",
+    "price": "$8.96",
+    "sku": "109477",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/junior-vinyl-ring-binder-new.html"
+  },
+  {
+    "productId": "108993",
+    "name": "Professional SIgN Wave (TM) Pad Holder",
+    "description": "PrintEZ product: Professional SIgN Wave (TM) Pad Holder. Section: Office Accessories.",
+    "price": "$11.11",
+    "sku": "108993",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/sign-wave-tm-pad-holder-new.html"
+  },
+  {
+    "productId": "108538",
+    "name": "Professional SOUVENIR Sticky Notes 4\" x 6\" 50 sheets/pad",
+    "description": "PrintEZ product: Professional SOUVENIR Sticky Notes 4\" x 6\" 50 sheets/pad. Section: Office Accessories.",
+    "price": "$2.17",
+    "sku": "108538",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/souvenir-sticky-notes-4-x-6-50-sheets-pad-new.html"
+  },
+  {
+    "productId": "P575",
+    "name": "Branded Reinforced Presentation Folders, Continuous Pocket",
+    "description": "PrintEZ product: Branded Reinforced Presentation Folders, Continuous Pocket. Section: Office Accessories.",
+    "price": "$0.91",
+    "sku": "P575",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/branded-reinforced-presentation-folders.html"
+  },
+  {
+    "productId": "109801",
+    "name": "Branded Standard Presentation Folder - Ink Imprint",
+    "description": "PrintEZ product: Branded Standard Presentation Folder - Ink Imprint. Section: Office Accessories.",
+    "price": "$0.68",
+    "sku": "109801",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/standard-presentation-folder-ink-imprint.html"
+  },
+  {
+    "productId": "109800",
+    "name": "Branded Standard Presentation Folder - Foil Imprint",
+    "description": "PrintEZ product: Branded Standard Presentation Folder - Foil Imprint. Section: Office Accessories.",
+    "price": "$0.99",
+    "sku": "109800",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/standard-presentation-folder-foil-imprint.html"
+  },
+  {
+    "productId": "PF25",
+    "name": "Custom Presentation Folders 2 Pockets",
+    "description": "PrintEZ product: Custom Presentation Folders 2 Pockets. Section: Office Accessories.",
+    "price": "$1.55",
+    "sku": "PF25",
+    "category": "Office Accessories",
+    "url": "https://www.printez.com/presentation-folders-2-Pockets-new.html"
+  },
+  {
+    "productId": "765060",
+    "name": "Professional White Golf Towels",
+    "description": "PrintEZ product: Professional White Golf Towels. Section: Outdoors, Sports & Leisure.",
+    "price": "$4.88",
+    "sku": "765060",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/white-golf-towels-new.html"
+  },
+  {
+    "productId": "765061",
+    "name": "Professional Colored Golf Towels",
+    "description": "PrintEZ product: Professional Colored Golf Towels. Section: Outdoors, Sports & Leisure.",
+    "price": "$4.88",
+    "sku": "765061",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/colored-golf-towels-new.html"
+  },
+  {
+    "productId": "765493",
+    "name": "Branded BBQ Now Apron and 3 piece BBQ Set",
+    "description": "PrintEZ product: Branded BBQ Now Apron and 3 piece BBQ Set. Section: Outdoors, Sports & Leisure.",
+    "price": "$29.78",
+    "sku": "765493",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/bbq-now-apron-and-3-piece-bbq-set-new.html"
+  },
+  {
+    "productId": "765713",
+    "name": "Custom Yowie Express Multi-Functional Rally Wear",
+    "description": "PrintEZ product: Custom Yowie Express Multi-Functional Rally Wear. Section: Outdoors, Sports & Leisure.",
+    "price": "$2.28",
+    "sku": "765713",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/yowie-express-multi-functional-rally-wear-new.html"
+  },
+  {
+    "productId": "109256",
+    "name": "Custom Rain Gauge",
+    "description": "PrintEZ product: Custom Rain Gauge. Section: Outdoors, Sports & Leisure.",
+    "price": "$10.15",
+    "sku": "109256",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/rain-gauge-new.html"
+  },
+  {
+    "productId": "765058",
+    "name": "Professional Screen Printed Beach Towels",
+    "description": "PrintEZ product: Professional Screen Printed Beach Towels. Section: Outdoors, Sports & Leisure.",
+    "price": "$18.54",
+    "sku": "765058",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/screen-printed-beach-towels-new.html"
+  },
+  {
+    "productId": "108972",
+    "name": "Custom Big Chill 6 Pack Cooler",
+    "description": "PrintEZ product: Custom Big Chill 6 Pack Cooler. Section: Outdoors, Sports & Leisure.",
+    "price": "$6.74",
+    "sku": "108972",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/big-chill-6-pack-cooler-new.html"
+  },
+  {
+    "productId": "765658",
+    "name": "Professional Weekend Explorer Grill & Cooler",
+    "description": "PrintEZ product: Professional Weekend Explorer Grill & Cooler. Section: Outdoors, Sports & Leisure.",
+    "price": "$38.21",
+    "sku": "765658",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/weekend-explorer-grill-cooler-new.html"
+  },
+  {
+    "productId": "108557",
+    "name": "Branded Six Pack Coolers",
+    "description": "PrintEZ product: Branded Six Pack Coolers. Section: Outdoors, Sports & Leisure.",
+    "price": "$7.20",
+    "sku": "108557",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/six-pack-coolers-new.html"
+  },
+  {
+    "productId": "109616",
+    "name": "Custom Travel Blanket",
+    "description": "PrintEZ product: Custom Travel Blanket. Section: Outdoors, Sports & Leisure.",
+    "price": "$18.36",
+    "sku": "109616",
+    "category": "Outdoors, Sports & Leisure",
+    "url": "https://www.printez.com/travel-blanket-new.html"
+  },
+  {
+    "productId": "5005",
+    "name": "Packing List Form with Shipping Label",
+    "description": "PrintEZ product: Packing List Form with Shipping Label. Section: Shipping Forms.",
+    "price": "$164.99",
+    "sku": "5005",
+    "category": "Shipping Forms",
+    "url": "https://www.printez.com/packing-list-form-with-shipping-label.html"
+  },
+  {
+    "productId": "215B",
+    "name": "Duplicate Job Estimate Forms In Books",
+    "description": "PrintEZ product: Duplicate Job Estimate Forms In Books. Section: General Forms.",
+    "price": "$214.99",
+    "sku": "215B",
+    "category": "General Forms",
+    "url": "https://www.printez.com/duplice-job-estimate-forms-in-books.html"
+  },
+  {
+    "productId": "693T",
+    "name": "Custom Receipt Books- Color Collection",
+    "description": "PrintEZ product: Custom Receipt Books- Color Collection. Section: Sales Books.",
+    "price": "$146.99",
+    "sku": "693T",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/custom-receipt-book-color-collection.html"
+  },
+  {
+    "productId": "2509SW",
+    "name": "Carbonless Custom Sales Form Books",
+    "description": "PrintEZ product: Carbonless Custom Sales Form Books. Section: Sales Books.",
+    "price": "$138.99",
+    "sku": "2509SW",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/carbonless-custom-sales-form-books.html"
+  },
+  {
+    "productId": "50T",
+    "name": "Carbonless Sales Order Form",
+    "description": "PrintEZ product: Carbonless Sales Order Form. Section: Sales Books.",
+    "price": "$85.99",
+    "sku": "50T",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/carbonless-sales-order-form.html"
+  },
+  {
+    "productId": "050",
+    "name": "Small Sales Forms Booked",
+    "description": "PrintEZ product: Small Sales Forms Booked. Section: Sales Books.",
+    "price": "$90.71",
+    "sku": "050",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/small-sales-forms-booked.html"
+  },
+  {
+    "productId": "2509",
+    "name": "Sales Business Invoice Books",
+    "description": "PrintEZ product: Sales Business Invoice Books. Section: Sales Books.",
+    "price": "$109.99",
+    "sku": "2509",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/carbonless-sales-invoice-books.html"
+  },
+  {
+    "productId": "2531",
+    "name": "Multi-Purpose Register Forms, Large Format",
+    "description": "PrintEZ product: Multi-Purpose Register Forms, Large Format. Section: Booked Forms.",
+    "price": "$112.99",
+    "sku": "2531",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/multi-purpose-register-forms-large-format-2531.html"
+  },
+  {
+    "productId": "55SW",
+    "name": "Carbonless Custom Sales Invoice Books",
+    "description": "PrintEZ product: Carbonless Custom Sales Invoice Books. Section: Sales Books.",
+    "price": "$136.99",
+    "sku": "55SW",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/carbonless-custom-sales-invoice-books.html"
+  },
+  {
+    "productId": "082",
+    "name": "Carbonless Sales Order Form Books",
+    "description": "PrintEZ product: Carbonless Sales Order Form Books. Section: Sales Books.",
+    "price": "$120.99",
+    "sku": "082",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/carbonless-sales-order-form-books.html"
+  },
+  {
+    "productId": "127B",
+    "name": "Packing Slip Form",
+    "description": "PrintEZ product: Packing Slip Form. Section: Booked Forms.",
+    "price": "$211.99",
+    "sku": "127B",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/127b-packing-lists-booked.html"
+  },
+  {
+    "productId": "7936",
+    "name": "4 to Page 2 Part Receipt Books",
+    "description": "PrintEZ product: 4 to Page 2 Part Receipt Books. Section: Sales Books.",
+    "price": "$325.99",
+    "sku": "7936",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/4-to-page-2-part-receipt-books.html"
+  },
+  {
+    "productId": "051",
+    "name": "Sales Invoice Books for Service Station",
+    "description": "PrintEZ product: Sales Invoice Books for Service Station. Section: Booked Forms.",
+    "price": "$1",
+    "sku": "051",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/sales-invoice-books-for-service-station.html"
+  },
+  {
+    "productId": "439",
+    "name": "Custom Receipts",
+    "description": "PrintEZ product: Custom Receipts. Section: Booked Forms.",
+    "price": "$237.99",
+    "sku": "439",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/receipts-439.html"
+  },
+  {
+    "productId": "608",
+    "name": "Service Station Small Classic Register Forms",
+    "description": "PrintEZ product: Service Station Small Classic Register Forms. Section: Booked Forms.",
+    "price": "$91.99",
+    "sku": "608",
+    "category": "Booked Forms",
+    "url": "https://www.printez.com/service-station-small-classic-register-forms.html"
+  },
+  {
+    "productId": "5595",
+    "name": "Marine Purchase Agreement with Details",
+    "description": "PrintEZ product: Marine Purchase Agreement with Details. Section: General Forms.",
+    "price": "$131.99",
+    "sku": "5595",
+    "category": "General Forms",
+    "url": "https://www.printez.com/marine-purchase-agreement-with-details.html"
+  },
+  {
+    "productId": "216",
+    "name": "Verbal Quotation Records",
+    "description": "PrintEZ product: Verbal Quotation Records. Section: General Forms.",
+    "price": "$105.99",
+    "sku": "216",
+    "category": "General Forms",
+    "url": "https://www.printez.com/verbal-quotation-records.html"
+  },
+  {
+    "productId": "R2535",
+    "name": "Repair Tag with Claim Check",
+    "description": "PrintEZ product: Repair Tag with Claim Check. Section: General Forms.",
+    "price": "$157.99",
+    "sku": "R2535",
+    "category": "General Forms",
+    "url": "https://www.printez.com/repair-tag-with-claim-check-r2535.html"
+  },
+  {
+    "productId": "306",
+    "name": "Repair Tag/Invoice With Claim Check",
+    "description": "PrintEZ product: Repair Tag/Invoice With Claim Check. Section: General Forms.",
+    "price": "$189.99",
+    "sku": "306",
+    "category": "General Forms",
+    "url": "https://www.printez.com/repair-taginvoice-with-claim-check-306.html"
+  },
+  {
+    "productId": "301",
+    "name": "Repair Tags W/ Detachable Claim Check, 1 Part, Manilla",
+    "description": "PrintEZ product: Repair Tags W/ Detachable Claim Check, 1 Part, Manilla. Section: General Forms.",
+    "price": "$140.99",
+    "sku": "301",
+    "category": "General Forms",
+    "url": "https://www.printez.com/repair-tag-with-detachable-claim-check-301.html"
+  },
+  {
+    "productId": "258",
+    "name": "Job Work Orders, Carbon Copy",
+    "description": "PrintEZ product: Job Work Orders, Carbon Copy. Section: Service & Repair.",
+    "price": "$211.99",
+    "sku": "258",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/job-work-orders-carbon-copy-258.html"
+  },
+  {
+    "productId": "096",
+    "name": "Carbon Copy Statement Forms",
+    "description": "PrintEZ product: Carbon Copy Statement Forms. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "096",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbon-copy-statement-forms.html"
+  },
+  {
+    "productId": "496",
+    "name": "Carbonless Statement Forms Numbered",
+    "description": "PrintEZ product: Carbonless Statement Forms Numbered. Section: General Forms.",
+    "price": "$91.99",
+    "sku": "496",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbonless-statement-forms-numbered.html"
+  },
+  {
+    "productId": "705",
+    "name": "Statement with Return Payment Envelopes",
+    "description": "PrintEZ product: Statement with Return Payment Envelopes. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "705",
+    "category": "General Forms",
+    "url": "https://www.printez.com/statement-with-return-payment-envelopes.html"
+  },
+  {
+    "productId": "4586",
+    "name": "Purchase Order Business Forms",
+    "description": "PrintEZ product: Purchase Order Business Forms. Section: General Forms.",
+    "price": "$105.99",
+    "sku": "4586",
+    "category": "General Forms",
+    "url": "https://www.printez.com/purchase-order-business-forms.html"
+  },
+  {
+    "productId": "91T",
+    "name": "Compact Colored Purchase Order Forms",
+    "description": "PrintEZ product: Compact Colored Purchase Order Forms. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "91T",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-colored-purchase-order-forms.html"
+  },
+  {
+    "productId": "091",
+    "name": "Compact Purchase Order Forms",
+    "description": "PrintEZ product: Compact Purchase Order Forms. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "091",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-purchase-order-forms.html"
+  },
+  {
+    "productId": "092",
+    "name": "Carbonless Purchase Order Forms",
+    "description": "PrintEZ product: Carbonless Purchase Order Forms. Section: General Forms.",
+    "price": "$110.99",
+    "sku": "092",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbonless-purchase-order-forms.html"
+  },
+  {
+    "productId": "274",
+    "name": "Graph Paper Proposal Forms",
+    "description": "PrintEZ product: Graph Paper Proposal Forms. Section: General Forms.",
+    "price": "$313.99",
+    "sku": "274",
+    "category": "General Forms",
+    "url": "https://www.printez.com/graph-paper-proposal-forms.html"
+  },
+  {
+    "productId": "122",
+    "name": "Business Shipping Invoice Forms",
+    "description": "PrintEZ product: Business Shipping Invoice Forms. Section: General Forms.",
+    "price": "$216.99",
+    "sku": "122",
+    "category": "General Forms",
+    "url": "https://www.printez.com/business-shipping-invoice-forms.html"
+  },
+  {
+    "productId": "4551",
+    "name": "Professional Invoices",
+    "description": "PrintEZ product: Professional Invoices. Section: General Forms.",
+    "price": "$171.99",
+    "sku": "4551",
+    "category": "General Forms",
+    "url": "https://www.printez.com/professional-invoices.html"
+  },
+  {
+    "productId": "245",
+    "name": "Carbon Copy Invoice Forms",
+    "description": "PrintEZ product: Carbon Copy Invoice Forms. Section: General Forms.",
+    "price": "$282.99",
+    "sku": "245",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbon-copy-invoice-forms-245.html"
+  },
+  {
+    "productId": "107",
+    "name": "Ulined Compact Carbonless Forms",
+    "description": "PrintEZ product: Ulined Compact Carbonless Forms. Section: General Forms.",
+    "price": "$141.99",
+    "sku": "107",
+    "category": "General Forms",
+    "url": "https://www.printez.com/ulined-compact-carbonless-forms.html"
+  },
+  {
+    "productId": "105T",
+    "name": "Compact Invoice Forms",
+    "description": "PrintEZ product: Compact Invoice Forms. Section: General Forms.",
+    "price": "$131.99",
+    "sku": "105T",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-invoice-forms.html"
+  },
+  {
+    "productId": "307",
+    "name": "Sales and Service Invoice Forms",
+    "description": "PrintEZ product: Sales and Service Invoice Forms. Section: By Business Type.",
+    "price": "$174.99",
+    "sku": "307",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/sales-and-service-invoice-forms.html"
+  },
+  {
+    "productId": "106T",
+    "name": "Business Forms Invoice",
+    "description": "PrintEZ product: Business Forms Invoice. Section: General Forms.",
+    "price": "$121.99",
+    "sku": "106T",
+    "category": "General Forms",
+    "url": "https://www.printez.com/business-forms-invoice.html"
+  },
+  {
+    "productId": "106",
+    "name": "Invoice Forms For Business",
+    "description": "PrintEZ product: Invoice Forms For Business. Section: General Forms.",
+    "price": "$171.99",
+    "sku": "106",
+    "category": "General Forms",
+    "url": "https://www.printez.com/invoice-forms-for-business.html"
+  },
+  {
+    "productId": "6545",
+    "name": "Carbonless Job Invoice Forms",
+    "description": "PrintEZ product: Carbonless Job Invoice Forms. Section: General Forms.",
+    "price": "$121.99",
+    "sku": "6545",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carobnless-job-invoice-forms.html"
+  },
+  {
+    "productId": "108T",
+    "name": "Compact Carbonless Invoice Forms",
+    "description": "PrintEZ product: Compact Carbonless Invoice Forms. Section: General Forms.",
+    "price": "$141.99",
+    "sku": "108T",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-carbonless-invoice-froms.html"
+  },
+  {
+    "productId": "108",
+    "name": "Compact Carbonless Custom Invoices",
+    "description": "PrintEZ product: Compact Carbonless Custom Invoices. Section: General Forms.",
+    "price": "$141.99",
+    "sku": "108",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-carbonless-custom-inovices.html"
+  },
+  {
+    "productId": "209",
+    "name": "Job Invoice Forms Basic",
+    "description": "PrintEZ product: Job Invoice Forms Basic. Section: General Forms.",
+    "price": "$171.99",
+    "sku": "209",
+    "category": "General Forms",
+    "url": "https://www.printez.com/job-invoice-forms-basic.html"
+  },
+  {
+    "productId": "255",
+    "name": "Carbon Copy Job Invoice Forms",
+    "description": "PrintEZ product: Carbon Copy Job Invoice Forms. Section: General Forms.",
+    "price": "$216.99",
+    "sku": "255",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbon-copy-job-invoice-forms.html"
+  },
+  {
+    "productId": "235",
+    "name": "Pricing Estimate Forms in Pads",
+    "description": "PrintEZ product: Pricing Estimate Forms in Pads. Section: General Forms.",
+    "price": "$78.99",
+    "sku": "235",
+    "category": "General Forms",
+    "url": "https://www.printez.com/pricing-estimate-forms-in-pads.html"
+  },
+  {
+    "productId": "215",
+    "name": "Job Estimate Business Forms",
+    "description": "PrintEZ product: Job Estimate Business Forms. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "215",
+    "category": "General Forms",
+    "url": "https://www.printez.com/job-estimate-business-forms.html"
+  },
+  {
+    "productId": "249",
+    "name": "Subcontract Agreement Business Forms",
+    "description": "PrintEZ product: Subcontract Agreement Business Forms. Section: Service & Repair.",
+    "price": "$129.99",
+    "sku": "249",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/subcontract-agreement-business-forms.html"
+  },
+  {
+    "productId": "220",
+    "name": "Weekly Employee Time Cards",
+    "description": "PrintEZ product: Weekly Employee Time Cards. Section: General Forms.",
+    "price": "$52.99",
+    "sku": "220",
+    "category": "General Forms",
+    "url": "https://www.printez.com/weekly-employee-time-cards-220.html"
+  },
+  {
+    "productId": "211",
+    "name": "Compact Job Invoice Forms",
+    "description": "PrintEZ product: Compact Job Invoice Forms. Section: General Forms.",
+    "price": "$99.99",
+    "sku": "211",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-job-invoice-forms.html"
+  },
+  {
+    "productId": "2518",
+    "name": "Carpet Cleaning Contract Invoice",
+    "description": "PrintEZ product: Carpet Cleaning Contract Invoice. Section: By Business Type.",
+    "price": "$162.99",
+    "sku": "2518",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/carpet-cleaning-contract-invoice.html"
+  },
+  {
+    "productId": "6544",
+    "name": "Carbonless Job Invoices",
+    "description": "PrintEZ product: Carbonless Job Invoices. Section: General Forms.",
+    "price": "$121.99",
+    "sku": "6544",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbonless-job-invoices.html"
+  },
+  {
+    "productId": "237",
+    "name": "Personalized Estimate Pads",
+    "description": "PrintEZ product: Personalized Estimate Pads. Section: General Forms.",
+    "price": "$86.99",
+    "sku": "237",
+    "category": "General Forms",
+    "url": "https://www.printez.com/personalized-estime-pads.html"
+  },
+  {
+    "productId": "610SW",
+    "name": "Customized Special Wording Register Forms",
+    "description": "PrintEZ product: Customized Special Wording Register Forms. Section: General Forms.",
+    "price": "$112.99",
+    "sku": "610SW",
+    "category": "General Forms",
+    "url": "https://www.printez.com/customized-special-wording-register-forms.html"
+  },
+  {
+    "productId": "244",
+    "name": "Carbon Copy Job Invoice Forms",
+    "description": "PrintEZ product: Carbon Copy Job Invoice Forms. Section: General Forms.",
+    "price": "$257.99",
+    "sku": "244",
+    "category": "General Forms",
+    "url": "https://www.printez.com/carbon-copy-invoice-forms-244.html"
+  },
+  {
+    "productId": "231",
+    "name": "Material & Labor Business Forms",
+    "description": "PrintEZ product: Material & Labor Business Forms. Section: Service & Repair.",
+    "price": "$147.99",
+    "sku": "231",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/231-material-labor-records-padded.html"
+  },
+  {
+    "productId": "119",
+    "name": "Wholesale Invoice Forms",
+    "description": "PrintEZ product: Wholesale Invoice Forms. Section: General Forms.",
+    "price": "$216.99",
+    "sku": "119",
+    "category": "General Forms",
+    "url": "https://www.printez.com/wholesale-invoice-froms.html"
+  },
+  {
+    "productId": "105",
+    "name": "Compact Business Invoices",
+    "description": "PrintEZ product: Compact Business Invoices. Section: General Forms.",
+    "price": "$102.99",
+    "sku": "105",
+    "category": "General Forms",
+    "url": "https://www.printez.com/compact-business-invoices.html"
+  },
+  {
+    "productId": "086",
+    "name": "Special Order Forms with Postcards",
+    "description": "PrintEZ product: Special Order Forms with Postcards. Section: By Business Type.",
+    "price": "$219.99",
+    "sku": "086",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/special-order-forms-with-postcards.html"
+  },
+  {
+    "productId": "5860",
+    "name": "Employee Applications",
+    "description": "PrintEZ product: Employee Applications. Section: General Forms.",
+    "price": "$36.99",
+    "sku": "5860",
+    "category": "General Forms",
+    "url": "https://www.printez.com/employee-applications-5860.html"
+  },
+  {
+    "productId": "91496",
+    "name": "Invoices, Continuous, Classic",
+    "description": "PrintEZ product: Invoices, Continuous, Classic. Section: General Forms.",
+    "price": "$125.99",
+    "sku": "91496",
+    "category": "General Forms",
+    "url": "https://www.printez.com/invoices-continuous-classic-1.html"
+  },
+  {
+    "productId": "9347",
+    "name": "Continuous Statement",
+    "description": "PrintEZ product: Continuous Statement. Section: General Forms.",
+    "price": "$141.99",
+    "sku": "9347",
+    "category": "General Forms",
+    "url": "https://www.printez.com/collapsible-strainer.html"
+  },
+  {
+    "productId": "9211",
+    "name": "9 1/2 X 8 1/2 Statement",
+    "description": "PrintEZ product: 9 1/2 X 8 1/2 Statement. Section: General Forms.",
+    "price": "$141.99",
+    "sku": "9211",
+    "category": "General Forms",
+    "url": "https://www.printez.com/shoe-wallet.html"
+  },
+  {
+    "productId": "9178",
+    "name": "Continuous Tenant Statement",
+    "description": "PrintEZ product: Continuous Tenant Statement. Section: General Forms.",
+    "price": "$126.99",
+    "sku": "9178",
+    "category": "General Forms",
+    "url": "https://www.printez.com/bubba-classic-travel-mug-20oz.html"
+  },
+  {
+    "productId": "9138G",
+    "name": "Continuous Invoice Parchment",
+    "description": "PrintEZ product: Continuous Invoice Parchment. Section: General Forms.",
+    "price": "$198.99",
+    "sku": "9138G",
+    "category": "General Forms",
+    "url": "https://www.printez.com/koozie-six-pack-kooler.html"
+  },
+  {
+    "productId": "9131",
+    "name": "Continuous Statement",
+    "description": "PrintEZ product: Continuous Statement. Section: General Forms.",
+    "price": "$128.99",
+    "sku": "9131",
+    "category": "General Forms",
+    "url": "https://www.printez.com/koozie-duplex-lunch-kooler.html"
+  },
+  {
+    "productId": "9068",
+    "name": "Continuous Statement",
+    "description": "PrintEZ product: Continuous Statement. Section: General Forms.",
+    "price": "$141.99",
+    "sku": "9068",
+    "category": "General Forms",
+    "url": "https://www.printez.com/rally-disposable-poncho.html"
+  },
+  {
+    "productId": "9060G",
+    "name": "Continuous Statement Parchment",
+    "description": "PrintEZ product: Continuous Statement Parchment. Section: General Forms.",
+    "price": "$129.99",
+    "sku": "9060G",
+    "category": "General Forms",
+    "url": "https://www.printez.com/vigo-vibration-speaker.html"
+  },
+  {
+    "productId": "13869",
+    "name": "Continuous Invoice",
+    "description": "PrintEZ product: Continuous Invoice. Section: General Forms.",
+    "price": "$201.99",
+    "sku": "13869",
+    "category": "General Forms",
+    "url": "https://www.printez.com/volt-power-bank.html"
+  },
+  {
+    "productId": "13251",
+    "name": "7\" Retail Invoice",
+    "description": "PrintEZ product: 7\" Retail Invoice. Section: General Forms.",
+    "price": "$166.99",
+    "sku": "13251",
+    "category": "General Forms",
+    "url": "https://www.printez.com/safety-works-checklite-closefitting-safety-glasses.html"
+  },
+  {
+    "productId": "13133G",
+    "name": "Laser Statement Parchment",
+    "description": "PrintEZ product: Laser Statement Parchment. Section: General Forms.",
+    "price": "$123.99",
+    "sku": "13133G",
+    "category": "General Forms",
+    "url": "https://www.printez.com/smead-end-tab-file-jacket-w-antimicrobial-protection-11-pt.html"
+  },
+  {
+    "productId": "12079",
+    "name": "Item Forms, Laser, Classic",
+    "description": "PrintEZ product: Item Forms, Laser, Classic. Section: General Forms.",
+    "price": "$139.99",
+    "sku": "12079",
+    "category": "General Forms",
+    "url": "https://www.printez.com/10-envelope-marble-design-740me.html"
+  },
+  {
+    "productId": "13124G",
+    "name": "Change Orders, Laser, Parchment",
+    "description": "PrintEZ product: Change Orders, Laser, Parchment. Section: General Forms.",
+    "price": "$123.99",
+    "sku": "13124G",
+    "category": "General Forms",
+    "url": "https://www.printez.com/mailing-labels-padded-white-with-blue-red-borders.html"
+  },
+  {
+    "productId": "12063",
+    "name": "Multi Purpose Forms, Laser, Classic",
+    "description": "PrintEZ product: Multi Purpose Forms, Laser, Classic. Section: General Forms.",
+    "price": "$2.00",
+    "sku": "12063",
+    "category": "General Forms",
+    "url": "https://www.printez.com/chargeable-timeexpense-slip.html"
+  },
+  {
+    "productId": "13105",
+    "name": "Laser/Inkjet Statement",
+    "description": "PrintEZ product: Laser/Inkjet Statement. Section: General Forms.",
+    "price": "$123.99",
+    "sku": "13105",
+    "category": "General Forms",
+    "url": "https://www.printez.com/mailing-labels-padded-white-blue.html"
+  },
+  {
+    "productId": "HSD857B",
+    "name": "High Security Embassy Gift Certificates",
+    "description": "PrintEZ product: High Security Embassy Gift Certificates. Section: Gift Certificate Forms.",
+    "price": "$126.99",
+    "sku": "HSD857B",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/high-security-embassy-gift-certificates.html"
+  },
+  {
+    "productId": "HSD854B",
+    "name": "High Security Colored Printable Gift Certificates",
+    "description": "PrintEZ product: High Security Colored Printable Gift Certificates. Section: Gift Certificate Forms.",
+    "price": "$126.99",
+    "sku": "HSD854B",
+    "category": "Gift Certificate Forms",
+    "url": "https://www.printez.com/high-security-colored-printable-gift-certificates.html"
+  },
+  {
+    "productId": "6583A",
+    "name": "Auto Repair Order Forms",
+    "description": "PrintEZ product: Auto Repair Order Forms. Section: Service & Repair.",
+    "price": "$228.99",
+    "sku": "6583A",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/auto-repair-order-forms-6583a.html"
+  },
+  {
+    "productId": "610",
+    "name": "Classic Large Register Forms",
+    "description": "PrintEZ product: Classic Large Register Forms. Section: By Business Type.",
+    "price": "$112.99",
+    "sku": "610",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/classic-large-register-forms.html"
+  },
+  {
+    "productId": "248",
+    "name": "Locksmith Work Orders - Booked",
+    "description": "PrintEZ product: Locksmith Work Orders - Booked. Section: By Business Type.",
+    "price": "$151.99",
+    "sku": "248",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/locksmith-work-order-booked.html"
+  },
+  {
+    "productId": "6534",
+    "name": "Horizontal Detailed HVAC Service Orders",
+    "description": "PrintEZ product: Horizontal Detailed HVAC Service Orders. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6534",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/horizontal-detaild-hvac-service-orders.html"
+  },
+  {
+    "productId": "655",
+    "name": "Repair Orders, Garage, Carbonless, Side-Stub, Large Format",
+    "description": "PrintEZ product: Repair Orders, Garage, Carbonless, Side-Stub, Large Format. Section: Service & Repair.",
+    "price": "$332.99",
+    "sku": "655",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/carbon-copy-auto-repair-order-forms-655.html"
+  },
+  {
+    "productId": "6510",
+    "name": "Motorcycle Repair Order Form",
+    "description": "PrintEZ product: Motorcycle Repair Order Form. Section: Service & Repair.",
+    "price": "$332.99",
+    "sku": "6510",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/carbon-copy-motorcycle-engine-repair-orders-6510.html"
+  },
+  {
+    "productId": "CON0123",
+    "name": "Landscaping Lawn Maintenance Forms",
+    "description": "PrintEZ product: Landscaping Lawn Maintenance Forms. Section: By Business Type.",
+    "price": "$144.99",
+    "sku": "CON0123",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/landscaping-lawn-maintenance-forms.html"
+  },
+  {
+    "productId": "GEN0086",
+    "name": "Sales Order Forms with Mailing Card",
+    "description": "PrintEZ product: Sales Order Forms with Mailing Card. Section: Service & Repair.",
+    "price": "$138.99",
+    "sku": "GEN0086",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/sales-order-forms-with-mailing-card.html"
+  },
+  {
+    "productId": "GEN0112",
+    "name": "Rental Agreements with Terms",
+    "description": "PrintEZ product: Rental Agreements with Terms. Section: By Business Type.",
+    "price": "$157.99",
+    "sku": "GEN0112",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/rental-agreements-with-terms.html"
+  },
+  {
+    "productId": "6579",
+    "name": "Residential Cleaning Invoice Forms",
+    "description": "PrintEZ product: Residential Cleaning Invoice Forms. Section: By Business Type.",
+    "price": "$129.99",
+    "sku": "6579",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/residential-cleaning-invoice-forms.html"
+  },
+  {
+    "productId": "6527",
+    "name": "Cleaning Service Invoice Forms",
+    "description": "PrintEZ product: Cleaning Service Invoice Forms. Section: By Business Type.",
+    "price": "$133.99",
+    "sku": "6527",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/cleaning-service-invoice-forms.html"
+  },
+  {
+    "productId": "6560",
+    "name": "Protection System Work Invoice Forms",
+    "description": "PrintEZ product: Protection System Work Invoice Forms. Section: Service & Repair.",
+    "price": "$133.99",
+    "sku": "6560",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/protection-system-work-invoice-forms.html"
+  },
+  {
+    "productId": "612",
+    "name": "Building Materials Register Forms",
+    "description": "PrintEZ product: Building Materials Register Forms. Section: Service & Repair.",
+    "price": "$138.99",
+    "sku": "612",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/building-materials-register-forms.html"
+  },
+  {
+    "productId": "611",
+    "name": "Large Auto Parts Register Order Forms",
+    "description": "PrintEZ product: Large Auto Parts Register Order Forms. Section: Service & Repair.",
+    "price": "$112.99",
+    "sku": "611",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/large-auto-parts-register-order-forms.html"
+  },
+  {
+    "productId": "520",
+    "name": "Carbon Copy Hotel Guest Registration Forms",
+    "description": "PrintEZ product: Carbon Copy Hotel Guest Registration Forms. Section: Service & Repair.",
+    "price": "$198.99",
+    "sku": "520",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/carbon-copy-hotel-guest-registration-forms.html"
+  },
+  {
+    "productId": "265",
+    "name": "Flooring Proposal Forms with Signature",
+    "description": "PrintEZ product: Flooring Proposal Forms with Signature. Section: Service & Repair.",
+    "price": "$129.99",
+    "sku": "265",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/flooring-proposal-forms-with-signature.html"
+  },
+  {
+    "productId": "657Size",
+    "name": "Small Auto Parts Order Form",
+    "description": "PrintEZ product: Small Auto Parts Order Form. Section: Service & Repair.",
+    "price": "$240.99",
+    "sku": "657Size",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/small-auto-parts-order-form-657.html"
+  },
+  {
+    "productId": "6575",
+    "name": "Custom Preprinted Pest Control Forms",
+    "description": "PrintEZ product: Custom Preprinted Pest Control Forms. Section: Service & Repair.",
+    "price": "$162.99",
+    "sku": "6575",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/custom-preprinted-pest-control-forms.html"
+  },
+  {
+    "productId": "6578",
+    "name": "Pool and Spa Sales Receipts",
+    "description": "PrintEZ product: Pool and Spa Sales Receipts. Section: Service & Repair.",
+    "price": "$162.99",
+    "sku": "6578",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/pool-and-spa-sales-receipts.html"
+  },
+  {
+    "productId": "6592",
+    "name": "General Cleaning Proposal Forms",
+    "description": "PrintEZ product: General Cleaning Proposal Forms. Section: Service & Repair.",
+    "price": "$129.99",
+    "sku": "6592",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/general-cleaning-proposal-forms.html"
+  },
+  {
+    "productId": "5521",
+    "name": "Cleaning Proposal Forms",
+    "description": "PrintEZ product: Cleaning Proposal Forms. Section: Service & Repair.",
+    "price": "$129.99",
+    "sku": "5521",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/cleaning-proposal-forms.html"
+  },
+  {
+    "productId": "6573",
+    "name": "Professional Painting Proposal Forms",
+    "description": "PrintEZ product: Professional Painting Proposal Forms. Section: Service & Repair.",
+    "price": "$216.99",
+    "sku": "6573",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/professional-painting-proposal-forms.html"
+  },
+  {
+    "productId": "028",
+    "name": "Fuel or Diesel Neptune Compatible Invoices",
+    "description": "PrintEZ product: Fuel or Diesel Neptune Compatible Invoices. Section: Service & Repair.",
+    "price": "$262.99",
+    "sku": "028",
+    "category": "Service & Repair",
+    "url": "https://www.printez.com/fuel-or-diesel-neptune-compatible-invoices.html"
+  },
+  {
+    "productId": "693",
+    "name": "Custom Receipt Books",
+    "description": "PrintEZ product: Custom Receipt Books. Section: Sales Books.",
+    "price": "$146.99",
+    "sku": "693",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/customized-receipt-books.html"
+  },
+  {
+    "productId": "060",
+    "name": "Medium Jewelry Sales Books",
+    "description": "PrintEZ product: Medium Jewelry Sales Books. Section: Sales Books.",
+    "price": "$223.99",
+    "sku": "060",
+    "category": "Sales Books",
+    "url": "https://www.printez.com/medium-jewelry-sales-books.html"
+  },
+  {
+    "productId": "6576Size",
+    "name": "Professional Invoices - Pest Control Invoices",
+    "description": "PrintEZ product: Professional Invoices - Pest Control Invoices. Section: By Business Type.",
+    "price": "$152.99",
+    "sku": "6576Size",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/professional-invoices-pest-control-invoices-6576.html"
+  },
+  {
+    "productId": "123",
+    "name": "Professional Invoices - Lawn Maintenance Invoices",
+    "description": "PrintEZ product: Professional Invoices - Lawn Maintenance Invoices. Section: By Business Type.",
+    "price": "$174.99",
+    "sku": "123",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/professional-invoices-lawn-maintenance-invoices-123.html"
+  },
+  {
+    "productId": "6571",
+    "name": "Landscaping Estimates",
+    "description": "PrintEZ product: Landscaping Estimates. Section: By Business Type.",
+    "price": "$126.99",
+    "sku": "6571",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/landscaping-estimates-6571.html"
+  },
+  {
+    "productId": "1690A",
+    "name": "Service Due Sticker Labels",
+    "description": "PrintEZ product: Service Due Sticker Labels. Section: By Business Type.",
+    "price": "$220.99",
+    "sku": "1690A",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/windshield-service-due-labels.html"
+  },
+  {
+    "productId": "609",
+    "name": "Small Basic Register Forms",
+    "description": "PrintEZ product: Small Basic Register Forms. Section: By Business Type.",
+    "price": "$91.99",
+    "sku": "609",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/small-basic-register-forms.html"
+  },
+  {
+    "productId": "20597",
+    "name": "Dental Service Records",
+    "description": "PrintEZ product: Dental Service Records. Section: By Business Type.",
+    "price": "$154.99",
+    "sku": "20597",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/dental-service-records.html"
+  },
+  {
+    "productId": "4059",
+    "name": "Dental Services Re Exam Records, Primary and Permanent Arch",
+    "description": "PrintEZ product: Dental Services Re Exam Records, Primary and Permanent Arch. Section: By Business Type.",
+    "price": "$181.99",
+    "sku": "4059",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/dental-services-re-exam-records-primary-and-permanent-arch.html"
+  },
+  {
+    "productId": "AUT0613",
+    "name": "Road Service Form",
+    "description": "PrintEZ product: Road Service Form. Section: By Business Type.",
+    "price": "$80.99",
+    "sku": "AUT0613",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/aut0613-road-service-register-form.html"
+  },
+  {
+    "productId": "D8505",
+    "name": "2 Line Coding and Pricing Label Gun",
+    "description": "PrintEZ product: 2 Line Coding and Pricing Label Gun. Section: By Business Type.",
+    "price": "$214.99",
+    "sku": "D8505",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/2-line-coding-and-pricing-label-gun.html"
+  },
+  {
+    "productId": "6577",
+    "name": "Pool Service Agreements",
+    "description": "PrintEZ product: Pool Service Agreements. Section: By Business Type.",
+    "price": "$216.99",
+    "sku": "6577",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/pool-service-agreements-6577.html"
+  },
+  {
+    "productId": "6537Size",
+    "name": "Work Order Forms for Landscapers",
+    "description": "PrintEZ product: Work Order Forms for Landscapers. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6537Size",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/landscaping-work-order-forms-6537.html"
+  },
+  {
+    "productId": "6570",
+    "name": "Landscaping Work Order Forms",
+    "description": "PrintEZ product: Landscaping Work Order Forms. Section: By Business Type.",
+    "price": "$228.99",
+    "sku": "6570",
+    "category": "By Business Type",
+    "url": "https://www.printez.com/landscaping-work-order-forms-6570.html"
   }
 ]

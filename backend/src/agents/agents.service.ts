@@ -451,14 +451,36 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status of an order using the order ID.',
+        description: 'Look up the status of an order using the order ID and customer email address.',
         url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
             orderId: { type: 'number', description: 'The order ID' },
+            email: {
+              type: 'string',
+              description: 'The email address associated with the order for verification',
+            },
           },
-          required: ['orderId'],
+          required: ['orderId', 'email'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'lookup_product',
+        description:
+          'Searches the PrintEZ product catalog to answer questions about pricing, availability, and item details.',
+        url: this.getProductLookupUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            query: {
+              type: 'string',
+              description:
+                "The search keyword to look up (e.g. 'red ink stamp', 'floor mat', 'tote bag')",
+            },
+          },
+          required: ['query'],
         },
       },
     ];
@@ -831,14 +853,36 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status of an order using the order ID.',
+        description: 'Look up the status of an order using the order ID and customer email address.',
         url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
             orderId: { type: 'number', description: 'The order ID' },
+            email: {
+              type: 'string',
+              description: 'The email address associated with the order for verification',
+            },
           },
-          required: ['orderId'],
+          required: ['orderId', 'email'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'lookup_product',
+        description:
+          'Searches the PrintEZ product catalog to answer questions about pricing, availability, and item details.',
+        url: this.getProductLookupUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            query: {
+              type: 'string',
+              description:
+                "The search keyword to look up (e.g. 'red ink stamp', 'floor mat', 'tote bag')",
+            },
+          },
+          required: ['query'],
         },
       },
     ];
@@ -1373,5 +1417,20 @@ export class AgentsService implements OnApplicationBootstrap {
 
     const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
     return `${cleanBase}/api/orders/lookup?token=${token}`;
+  }
+
+  private getProductLookupUrl(): string {
+    let baseUrl = 'https://dev.voiceperi.com/api';
+    if (process.env.RETELL_WEBHOOK_URL) {
+      const cleaned = process.env.RETELL_WEBHOOK_URL.replace(
+        /\/retell?-webhook\/?$/i,
+        '',
+      ).replace(/\/webhook\/?$/i, '');
+      if (cleaned.startsWith('http')) {
+        baseUrl = cleaned;
+      }
+    }
+    const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
+    return `${cleanBase}/api/products/lookup`;
   }
 }

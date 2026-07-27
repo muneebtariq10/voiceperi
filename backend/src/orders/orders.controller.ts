@@ -53,7 +53,16 @@ export class OrdersController {
       };
     }
 
+    const rawEmail =
+      body?.email ??
+      body?.customerEmail ??
+      body?.args?.email ??
+      body?.args?.customerEmail ??
+      body?.arguments?.email ??
+      body?.arguments?.customerEmail ??
+      undefined;
+
     const correlationId = Math.random().toString(36).substring(7);
-    return await this.ordersService.lookupOrder(rawOrderId, correlationId);
+    return await this.ordersService.lookupOrder(rawOrderId, correlationId, rawEmail);
   }
 }
