@@ -78,9 +78,9 @@ export class ProductsService implements OnModuleInit {
     try {
       const cleanQuery = query.trim();
       const normalizedQuery = cleanQuery.replace(/cheques?/gi, 'check').trim();
-      
+
       const searchTerms = new Set<string>([cleanQuery, normalizedQuery]);
-      
+
       // Extract significant individual words if multi-word query (e.g., "computer cheques" -> "computer", "check")
       const words = normalizedQuery.split(/\s+/).filter((w) => w.length > 3);
       for (const word of words) {
@@ -97,7 +97,7 @@ export class ProductsService implements OnModuleInit {
         );
       }
 
-      let products = await this.productRepository.find({
+      const products = await this.productRepository.find({
         where: whereConditions,
         take: 8,
       });
