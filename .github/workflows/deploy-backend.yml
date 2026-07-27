@@ -20,8 +20,11 @@ jobs:
           script: |
             set -e
             cd ~/voiceperi
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd
             cd backend
             pnpm install --no-frozen-lockfile
             pnpm build
             pm2 startOrRestart ecosystem.config.js --update-env
+            pm2 save
