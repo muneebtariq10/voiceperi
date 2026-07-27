@@ -42,23 +42,51 @@ export class IntegrationService {
       throw new BadRequestException('LLM ID not found');
     }
 
+    let existingTools: any[] = [];
+    try {
+      const getResponse = await firstValueFrom(
+        this.httpService.get(
+          `${process.env.RETELL_AI_API_URL}get-retell-llm/${agentInfo.llm_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+            },
+          },
+        ),
+      );
+      if (getResponse.data && Array.isArray(getResponse.data.general_tools)) {
+        existingTools = getResponse.data.general_tools.filter(
+          (t: any) => t.type !== 'check_availability_cal',
+        );
+      }
+    } catch (err: unknown) {
+      console.warn(
+        'Could not fetch existing Retell LLM tools, falling back to default tools',
+      );
+      existingTools = [
+        {
+          type: 'end_call',
+          name: 'end_call',
+          description: 'End the call with user.',
+        },
+      ];
+    }
+
+    const updatedTools = [
+      ...existingTools,
+      {
+        type: 'check_availability_cal',
+        name: formattedEventName,
+        cal_api_key: key,
+        event_type_id: Number(eventId),
+      },
+    ];
+
     const updateResponse = await firstValueFrom(
       this.httpService.patch(
-        `${process.env.RETELL_AI_API_URL}update-retell-llm/${agentInfo?.llm_id}`,
+        `${process.env.RETELL_AI_API_URL}update-retell-llm/${agentInfo.llm_id}`,
         {
-          general_tools: [
-            {
-              type: 'end_call',
-              name: 'end_call',
-              description: 'End the call with user.',
-            },
-            {
-              type: 'check_availability_cal',
-              name: formattedEventName,
-              cal_api_key: key,
-              event_type_id: Number(eventId),
-            },
-          ],
+          general_tools: updatedTools,
         },
         {
           headers: {
