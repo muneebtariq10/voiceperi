@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   And,
   Between,
+  In,
   LessThanOrEqual,
   MoreThanOrEqual,
   Repository,
@@ -148,79 +149,61 @@ export class CallHistoryService {
     let retell_agent: string | undefined;
 
     if (userId) {
-      // Regular user path
-      const agent = await this.AgentRepo.findOne({
+      // Regular user path: fetch all agents belonging to the user so calls on newly created agents are included
+      const agents = await this.AgentRepo.find({
         where: { user: { id: userId } },
       });
 
-      retell_agent = agent?.retell_agent || undefined;
+      const retell_agents = agents
+        .map((a) => a.retell_agent)
+        .filter((id): id is string => typeof id === 'string' && id.trim() !== '');
+
+      if (retell_agents.length === 0) {
+        return {
+          statusCode: 200,
+          message: 'No voice agents found for this user',
+          date: targetDate.toISOString().split('T')[0],
+          timezone,
+          totalCalls: 0,
+          hourlyStats: this.fillHourlyStats(businessHours, {}),
+        };
+      }
+      where.retell_agent = In(retell_agents);
+      retell_agent = retell_agents[0];
 
       const business = await this.businessRepo.findOne({
         where: { user_id: { id: userId } },
       });
 
       if (!business) {
-        console.error(`[getAllStats] Business not found for userId: ${userId}`);
-        throw new NotFoundException({
-          statusCode: 404,
-          message: 'Business not found for this user',
-          error: 'Not Found',
-        });
+        console.warn(`[getAllStats] Business info not found for userId: ${userId}, defaulting to 24 hours`);
+      } else {
+        const businessHoursRaw = business.business_hours;
+        const businessTimezone = business.timezone || timezone;
+        if (businessHoursRaw && Array.isArray(businessHoursRaw)) {
+          const parsedHours = this.parseBusinessHours(businessHoursRaw);
+          const dayOfWeek = targetDate
+            .toLocaleDateString('en-US', {
+              weekday: 'long',
+              timeZone: businessTimezone,
+            })
+            .toLowerCase();
+          const hours = parsedHours[dayOfWeek];
+          if (hours && hours.enabled) {
+            businessHours = { from: hours.from, to: hours.to };
+          }
+        }
       }
-
-      const businessHoursRaw = business.business_hours;
-      const businessTimezone = business.timezone || timezone;
-
-      if (!businessHoursRaw || !Array.isArray(businessHoursRaw)) {
-        console.warn(`[getAllStats] Business hours not configured or invalid`);
-        return {
-          statusCode: 400,
-          message: 'Business hours not configured correctly',
-          data: [],
-        };
-      }
-
-      const parsedHours = this.parseBusinessHours(businessHoursRaw);
-      const dayOfWeek = targetDate
-        .toLocaleDateString('en-US', {
-          weekday: 'long',
-          timeZone: businessTimezone,
-        })
-        .toLowerCase();
-
-      const hours = parsedHours[dayOfWeek];
-      if (!hours || !hours.enabled) {
-        return {
-          statusCode: 200,
-          message: `Business is closed on ${dayOfWeek}`,
-          date: targetDate.toISOString().split('T')[0],
-          timezone: businessTimezone,
-          hourlyStats: {},
-        };
-      }
-
-      businessHours = { from: hours.from, to: hours.to };
-
-      const [fromHour, fromMinute] = hours.from.split(':').map(Number);
-      const [toHour, toMinute] = hours.to.split(':').map(Number);
-
-      start = new Date(targetDate);
-      start.setHours(fromHour, fromMinute, 0, 0);
-
-      end = new Date(targetDate);
-      if (hours.crossesMidnight) end.setDate(end.getDate() + 1);
-      end.setHours(toHour, toMinute, 59, 999);
-    } else {
-      // Admin path
-      start = new Date(targetDate);
-      start.setHours(0, 0, 0, 0);
-
-      end = new Date(targetDate);
-      end.setHours(23, 59, 59, 999);
     }
 
+    // Always fetch all calls across the entire 24-hour day (00:00:00 to 23:59:59) so test calls and out-of-hours customer calls appear on the dashboard
+    start = new Date(targetDate);
+    start.setHours(0, 0, 0, 0);
+
+    end = new Date(targetDate);
+    end.setHours(23, 59, 59, 999);
+
     where.start_timestamp = Between(start.getTime(), end.getTime());
-    if (retell_agent) where.retell_agent = retell_agent;
 
     let calls: CallHistory[] = [];
     try {
@@ -255,12 +238,8 @@ export class CallHistoryService {
     stats: Record<string, any>,
   ) {
     const result = {};
-    const [fromHour] = hours.from.split(':').map(Number);
-    const [toHour] = hours.to.split(':').map(Number);
-
-    // Build a 24-hour range loop that wraps around midnight if needed
-    let h = fromHour;
-    do {
+    // Populate all 24 hours of the day so every call is visually represented in the Bar Chart
+    for (let h = 0; h < 24; h++) {
       const key = `${String(h).padStart(2, '0')}:00`;
       result[key] = stats[key] || {
         total: 0,
@@ -268,9 +247,7 @@ export class CallHistoryService {
         negative: 0,
         neutral: 0,
       };
-      h = (h + 1) % 24; // Wrap around 24
-    } while (h !== (toHour + 1) % 24); // Include `toHour` in the loop
-
+    }
     return result;
   }
 
