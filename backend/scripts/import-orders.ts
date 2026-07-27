@@ -16,13 +16,15 @@ async function bootstrap() {
   }
 
   if (!filePath) {
-    console.error('Usage: npm run import:orders -- --file="<path>" [--dry-run]');
+    console.error(
+      'Usage: npm run import:orders -- --file="<path>" [--dry-run]',
+    );
     process.exit(1);
   }
 
   // Create an application context without listening on HTTP ports
   const app = await NestFactory.createApplicationContext(AppModule);
-  
+
   const importService = app.get(OrdersImportService);
 
   await importService.importOrders(filePath, dryRun);

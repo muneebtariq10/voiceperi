@@ -23,7 +23,7 @@ import { PaymentPlan } from 'src/entities/payment_plans';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET') || 'your_jwt_secret',
         signOptions: {
           expiresIn: configService.get<string>('JWT_EXPIRES') || '1h',

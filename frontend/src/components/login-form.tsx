@@ -89,7 +89,7 @@ export function LoginForm() {
           localStorage.setItem("authToken", data.access_token);
 
           try {
-            const decoded: any = jwtDecode(data.access_token);
+            const decoded = jwtDecode<{ sub?: string; id?: string; userId?: string }>(data.access_token);
             const userId = decoded.sub || decoded.id || decoded.userId;
 
             if (!userId) throw new Error("Invalid token structure");
@@ -163,7 +163,7 @@ export function LoginForm() {
       toast.success("Signed in successfully");
       navigate("/dashboard");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className={cn("flex justify-center max-w-3xl md:max-w-7xl mx-auto")}>

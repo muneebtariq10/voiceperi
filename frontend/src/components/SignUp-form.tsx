@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
 import { AppUser } from "@/AppContext";
 const steps = ["Step 1", "Step 2", "Step 3"];
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 type Step1Data = {
   name: string;
   email: string;
@@ -56,7 +57,7 @@ export const SignUpForm = () => {
     name?: string;
     formatted_address?: string;
     international_phone_number?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
   const [businessinfo, setBusinessinfo] = useState<BusinessInfo | null>(null);
   const [formData, setFormData] = useState({
@@ -95,7 +96,7 @@ export const SignUpForm = () => {
     id: string;
     name: string;
     locale: string;
-    [key: string]: any;
+    [key: string]: unknown;
     status: boolean;
     code: string;
   };
@@ -123,10 +124,6 @@ export const SignUpForm = () => {
     }
   }, []);
 
-  const API_URL = import.meta.env.VITE_API_BASE_URL;
-  // console.log('audiourl1', audioUrl1);
-  // console.log('audiourl2', audioUrl2);
-
   useEffect(() => {
     if (token) {
       try {
@@ -144,7 +141,7 @@ export const SignUpForm = () => {
 
               const userData = await res.json();
               setUserInfo(userData);
-              console.log(userInfo, "userInfo after setting it from token");
+              console.log(userData, "userInfo after setting it from token");
               setFormData((prev) => ({
                 ...prev,
                 name: userData.firstname || "",
@@ -198,6 +195,7 @@ export const SignUpForm = () => {
         }
       })();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, userInfo?.id, step1Data]);
 
   // useEffect(() => {
@@ -445,9 +443,9 @@ export const SignUpForm = () => {
         setIsLoading(false);
         return data.id;
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Submit Error:", error);
-      toast.error(error.message || "Something went wrong");
+      toast.error((error as Error).message || "Something went wrong");
       return null;
     } finally {
       setLoading(false);
@@ -513,7 +511,7 @@ export const SignUpForm = () => {
       });
       setIsLoading(false);
       return "CREATED";
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Create Agent Error:", error);
       const res = await fetch(`${API_URL}api/users/${user_id}`, {
         method: "PUT",
@@ -577,7 +575,7 @@ export const SignUpForm = () => {
       console.log("Business info created:", data);
       setBusinessinfo(data);
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Business Info Error:", error);
     }
   };

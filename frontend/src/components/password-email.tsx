@@ -42,7 +42,7 @@ export function PasswordEmail() {
                       } else {
                         alert("Failed to resend email.");
                       }
-                    } catch (error) {
+                    } catch {
                       alert("Error resending email.");
                     }
                   }}

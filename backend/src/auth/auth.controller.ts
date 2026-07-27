@@ -53,7 +53,7 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req: Express.Request) {
+  login(@Request() req: Express.Request) {
     return this.authService.login(req.user);
   }
 
@@ -73,10 +73,7 @@ export class AuthController {
   @Public()
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleAuthRedirect(
-    @Req() req: AuthenticatedRequest,
-    @Res() res: Response,
-  ) {
+  googleAuthRedirect(@Req() req: AuthenticatedRequest, @Res() res: Response) {
     try {
       const user = req.user;
 
