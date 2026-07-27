@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { AlertCircle, CircleX, Phone, Info, ExternalLink, Bot, Mic, ShieldAlert, Bell, MessageSquare, Save, X, Play, Square, Sparkles, ShieldCheck, Plus } from "lucide-react";
+import { AlertCircle, CircleX, Phone, Info, ExternalLink, Bot, Mic, Bell, Save, X, Play, Square, ShieldCheck, Plus } from "lucide-react";
 import {
   Select,
   SelectTrigger,
