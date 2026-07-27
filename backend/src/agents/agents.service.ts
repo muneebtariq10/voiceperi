@@ -465,7 +465,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_product',
         description:
-          'Searches the PrintEZ product catalog to answer questions about pricing, availability, and item details.',
+          'Searches the PrintEZ product catalog to answer questions about pricing, availability, computer checks, business forms, item numbers, and model details.',
         url: this.getProductLookupUrl(),
         parameters: {
           type: 'object',
@@ -473,7 +473,7 @@ export class AgentsService implements OnApplicationBootstrap {
             query: {
               type: 'string',
               description:
-                "The search keyword to look up (e.g. 'red ink stamp', 'floor mat', 'tote bag')",
+                "The search keyword, item number, model number, or product name to look up (e.g. 'computer checks', 'packing list forms', '127', 'QuickBooks deposit slips', 'TP0069')",
             },
           },
           required: ['query'],
@@ -863,7 +863,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_product',
         description:
-          'Searches the PrintEZ product catalog to answer questions about pricing, availability, and item details.',
+          'Searches the PrintEZ product catalog to answer questions about pricing, availability, computer checks, business forms, item numbers, and model details.',
         url: this.getProductLookupUrl(),
         parameters: {
           type: 'object',
@@ -871,7 +871,7 @@ export class AgentsService implements OnApplicationBootstrap {
             query: {
               type: 'string',
               description:
-                "The search keyword to look up (e.g. 'red ink stamp', 'floor mat', 'tote bag')",
+                "The search keyword, item number, model number, or product name to look up (e.g. 'computer checks', 'packing list forms', '127', 'QuickBooks deposit slips', 'TP0069')",
             },
           },
           required: ['query'],
