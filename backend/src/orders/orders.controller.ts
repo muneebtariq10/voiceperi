@@ -63,6 +63,10 @@ export class OrdersController {
       undefined;
 
     const correlationId = Math.random().toString(36).substring(7);
-    return await this.ordersService.lookupOrder(rawOrderId, correlationId, rawEmail);
+    return await this.ordersService.lookupOrder(
+      rawOrderId,
+      correlationId,
+      rawEmail,
+    );
   }
 }

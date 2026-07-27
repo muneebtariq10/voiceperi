@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { AlertCircle, CircleX, Phone, Info, ExternalLink } from "lucide-react";
+import { AlertCircle, CircleX, Phone, Info, ExternalLink, Bot, Mic, ShieldAlert, Bell, MessageSquare, Save, X, Play, Square, Sparkles, ShieldCheck, Plus } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -534,119 +534,133 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
   //   handleVoice2(matchedVoiceId, businessInfovoice ?? "");
   // }
   return (
-    <div className="flex flex-col w-full">
-      <form className="grid grid-cols-1 md:grid-cols-2 w-full md:w-[75%] mt-[30px] py-5 gap-x-[80px] gap-y-[30px]">
-        <div className="flex flex-col items-start">
-          <label
-            htmlFor="profile"
-            className="text-[16px] md:text-[20px] font-[600] mb-[7px] text-default"
-          >
-            Agent Name
-          </label>
-          <Input
-            className="h-[40px]"
-            id="profile"
-            placeholder="Not Set"
-            value={agentName}
-            onChange={(e) => setAgentName(e.target.value)}
-          />
+    <div className="flex flex-col w-full gap-8 mt-2">
+      {/* Card 1: AI Persona & Voice Configuration */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+        <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
+          <div className="p-3 bg-purple-50 rounded-xl text-[#5222FF] border border-purple-100/60 shadow-sm">
+            <Bot className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-800 tracking-tight">AI Persona & Voice Behavior</h2>
+            <p className="text-xs md:text-sm text-slate-500 mt-0.5">Customize your agent's identity, dialect, vocal characteristics, and opening greeting.</p>
+          </div>
         </div>
 
-        <div className="flex flex-col items-start">
-          <label
-            htmlFor="profile"
-            className="text-[16px] md:text-[20px] font-[600] mb-[7px] text-default"
-          >
-            Speak & Understand
-          </label>
-          {/* <Input  id="profile" placeholder="Not Set" /> */}
-          <Select
-            value={selectedLanguage || ""}
-            onValueChange={(value) => {
-              setSelectedLanguage(value);
-              setSelectedVoice("");
-            }}
-          >
-            <SelectTrigger className="w-full !h-[40px] border rounded-[8px]">
-              <SelectValue placeholder="Select Language" />
-            </SelectTrigger>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+          <div className="flex flex-col items-start">
+            <label
+              htmlFor="agentName"
+              className="text-sm font-semibold text-slate-700 mb-2"
+            >
+              Agent Name
+            </label>
+            <Input
+              id="agentName"
+              className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+              placeholder="e.g. TestUser Agent"
+              value={agentName}
+              onChange={(e) => setAgentName(e.target.value)}
+            />
+          </div>
 
-            <SelectContent>
-              {selectedLanguageObj && (
-                <SelectItem
-                  key={selectedLanguageObj.id}
-                  value={selectedLanguageObj.id}
-                >
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={`https://flagcdn.com/w40/${getCountryCode(
-                        selectedLanguageObj.locale
-                      )}.png`}
-                      alt=""
-                      className="w-5 h-4 object-cover rounded-sm"
-                    />
-                    {selectedLanguageObj.name}
-                  </div>
-                </SelectItem>
-              )}
+          <div className="flex flex-col items-start">
+            <label
+              className="text-sm font-semibold text-slate-700 mb-2"
+            >
+              Speak & Understand Language
+            </label>
+            <Select
+              value={selectedLanguage || ""}
+              onValueChange={(value) => {
+                setSelectedLanguage(value);
+                setSelectedVoice("");
+              }}
+            >
+              <SelectTrigger className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl text-slate-800 font-medium">
+                <SelectValue placeholder="Select Language" />
+              </SelectTrigger>
 
-              {/* Then show the rest */}
-              {(languages || [])
-                .filter((language: any) => language.id !== selectedLanguage)
-                .map((language: any) => (
-                  <SelectItem key={language.id} value={language.id}>
-                    <div className="flex items-center gap-2">
+              <SelectContent className="rounded-xl border-slate-200 shadow-xl">
+                {selectedLanguageObj && (
+                  <SelectItem
+                    key={selectedLanguageObj.id}
+                    value={selectedLanguageObj.id}
+                    className="cursor-pointer rounded-lg font-medium"
+                  >
+                    <div className="flex items-center gap-2.5">
                       <img
                         src={`https://flagcdn.com/w40/${getCountryCode(
-                          language.locale
+                          selectedLanguageObj.locale
                         )}.png`}
                         alt=""
-                        className="w-5 h-4 object-cover rounded-sm"
+                        className="w-5 h-3.5 object-cover rounded-sm shadow-sm"
                       />
-                      {language.name}
+                      {selectedLanguageObj.name}
                     </div>
                   </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex flex-col items-start">
-          <label
-            htmlFor="overview"
-            className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
-          >
-            Welcome Message
-            <TooltipWrapper tooltipText="Write welcome message for customer here">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
+                )}
 
-          <Textarea
-            id="overview"
-            className="resize-none w-full h-[120px] border-[1px] border-gray-200 rounded-[8px] p-[10px]"
-            placeholder="Business Overview"
-            value={welcomeMessage != "null" ? welcomeMessage : ""}
-            onChange={(e) => setWelcomeMessage(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col gap-3 w-full">
-          <div className="flex justify-between gap-3 w-full">
-            {/* Voice Selector */}
+                {(languages || [])
+                  .filter((language: any) => language.id !== selectedLanguage)
+                  .map((language: any) => (
+                    <SelectItem key={language.id} value={language.id} className="cursor-pointer rounded-lg font-medium">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          src={`https://flagcdn.com/w40/${getCountryCode(
+                            language.locale
+                          )}.png`}
+                          alt=""
+                          className="w-5 h-3.5 object-cover rounded-sm shadow-sm"
+                        />
+                        {language.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col items-start md:col-span-2">
+            <div className="flex items-center justify-between w-full mb-2">
+              <label
+                htmlFor="welcomeMsg"
+                className="flex gap-2 items-center text-sm font-semibold text-slate-700"
+              >
+                Welcome Message
+                <TooltipWrapper tooltipText="The initial greeting your voice agent says as soon as the customer calls.">
+                  <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                </TooltipWrapper>
+              </label>
+              <span className="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-100">
+                First impression
+              </span>
+            </div>
+            <Textarea
+              id="welcomeMsg"
+              className="resize-none w-full h-28 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
+              placeholder="Hi, thanks for calling PrintEZ! How can I assist with your order or questions today?"
+              value={welcomeMessage !== "null" ? welcomeMessage : ""}
+              onChange={(e) => setWelcomeMessage(e.target.value)}
+            />
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 w-full md:col-span-2 bg-slate-50/70 p-4 rounded-xl border border-slate-200/70">
             <div className="flex flex-col flex-1">
               <label
-                htmlFor="profile"
-                className="text-[16px] md:text-[20px] font-[600] mb-[7px] text-left"
+                className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2"
               >
-                Voice & Tone
+                <Mic className="w-4 h-4 text-purple-600" />
+                Voice & Vocal Tone
               </label>
               <Select
                 value={selectedVoice || ""}
                 onValueChange={(value) => setSelectedVoice(value)}
               >
-                <SelectTrigger className="w-full !h-[40px] border rounded-[8px]">
-                  <SelectValue placeholder="Select Voice" />
+                <SelectTrigger className="w-full h-11 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl font-medium text-slate-800 shadow-sm">
+                  <SelectValue placeholder="Select Voice & Tone" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-xl border-slate-200 shadow-xl">
                   {(voices || [])
                     .sort((a: any, b: any) =>
                       a.voice_id === selectedVoice
@@ -678,7 +692,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                             label = "Male - Professional";
                             break;
                           default:
-                            return null; // don't render other voices
+                            return null;
                         }
                       } else if (languageCode === "es") {
                         switch (voice.voice_id) {
@@ -701,14 +715,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                             label = "Female - Dinámico y Versátil";
                             break;
                           default:
-                            return null; // don't render other voices
+                            return null;
                         }
                       } else {
-                        return null; // hide voices if languageCode is not "en" or "es"
+                        return null;
                       }
 
                       return (
-                        <SelectItem key={voice.voice_id} value={voice.voice_id}>
+                        <SelectItem key={voice.voice_id} value={voice.voice_id} className="cursor-pointer rounded-lg font-medium">
                           {label}
                         </SelectItem>
                       );
@@ -717,8 +731,8 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               </Select>
             </div>
 
-            {/* Audio Preview */}
-            <div className="flex items-end">
+            {/* Audio Preview Component */}
+            <div className="flex items-center min-w-[240px] bg-white p-2 rounded-xl border border-slate-200/60 shadow-sm">
               <AudioPlayer1
                 src={
                   voices?.find((voice: any) => voice.voice_id === selectedVoice)
@@ -728,399 +742,467 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col h-full items-start w-full md:col-span-2">
-          <label className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]">
-            <Phone className="w-5 h-5 text-[#5222FF]" />
-            Inbound Phone Number
-            <TooltipWrapper tooltipText="Get an AI phone number, then forward your business line to it so customers call your existing number and the AI answers.">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
-          <div className="flex flex-col items-start gap-4 w-full">
-            <div className="flex items-center gap-3 w-full">
-              <Input
-                type="tel"
-                placeholder="+1 (xxx) xxx-xxxx (Manually enter or get via Retell)"
-                className="w-full h-[40px]"
-                value={aiPhoneNumber}
-                onChange={(e) => setAiPhoneNumber(e.target.value)}
-              />
-              <Button 
-                type="button" 
-                onClick={handlePurchaseNumber}
-                disabled={purchasingNumber}
-                className="bg-[#5222FF] text-white hover:bg-[#3822ff] whitespace-nowrap h-[40px]"
-              >
-                {purchasingNumber ? "Setting up..." : "Get via Retell"}
-              </Button>
-            </div>
-            <div className="flex w-full justify-end -mt-2">
-              <a 
-                href="https://beta.retellai.com/dashboard" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xs text-[#5222FF] hover:underline flex items-center gap-1"
-              >
-                Manage Billing on Retell AI <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-
-            {/* Call forwarding instructions */}
-            <div className="bg-white border border-gray-200 rounded-xl w-full overflow-hidden mt-2">
-              <button
-                type="button"
-                onClick={() => setShowForwardingGuide(!showForwardingGuide)}
-                className="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-center gap-2">
-                  <Info className="w-4 h-4 text-[#5222FF]" />
-                  <span className="font-semibold text-sm text-gray-800">How to connect your business number</span>
-                </div>
-                <span className={`text-gray-400 transition-transform duration-200 ${showForwardingGuide ? 'rotate-180' : ''}`}>▾</span>
-              </button>
-
-              {showForwardingGuide && (
-                <div className="px-5 pb-4 border-t border-gray-100">
-                  <p className="text-sm text-gray-600 mt-3 mb-3">
-                    Set up <strong>call forwarding</strong> on your business phone so incoming calls are automatically routed to your AI agent:
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">1</span>
-                      <div>
-                        <p className="text-sm font-medium text-gray-800">Open your phone's dialer</p>
-                        <p className="text-xs text-gray-500">On the business phone that customers already call</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">2</span>
-                      <div>
-                        <p className="text-sm font-medium text-gray-800">Dial the forwarding code</p>
-                        <p className="text-xs text-gray-500">
-                          Type <code className="bg-gray-100 px-1.5 py-0.5 rounded text-[#5222FF] font-mono font-bold">*72{aiPhoneNumber || "[AI_NUMBER]"}</code> and press Call
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5222FF] text-white text-xs flex items-center justify-center font-bold">3</span>
-                      <div>
-                        <p className="text-sm font-medium text-gray-800">Wait for confirmation</p>
-                        <p className="text-xs text-gray-500">You'll hear a tone or message confirming forwarding is active</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                    <p className="text-xs text-amber-800">
-                      <strong>💡 Note:</strong> The code <code className="font-mono">*72</code> works for most US carriers. For other regions, check your carrier's call forwarding instructions. To disable forwarding later, dial <code className="font-mono">*73</code>.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+      {/* Card 2: Telephony & Connection */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+        <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
+          <div className="p-3 bg-blue-50 rounded-xl text-blue-600 border border-blue-100/60 shadow-sm">
+            <Phone className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-800 tracking-tight">Inbound Telephony & Call Routing</h2>
+            <p className="text-xs md:text-sm text-slate-500 mt-0.5">Connect a live phone number so callers directly interact with your autonomous agent.</p>
           </div>
         </div>
 
-        <div className="flex flex-col h-full items-start w-full">
-          <label
-            htmlFor="blockedNumbersInput"
-            className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
-          >
-            Blocked Numbers
-            <TooltipWrapper tooltipText="Write numbers to block">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
-          <div
-            className="border rounded p-2 w-full min-h-[100px] flex flex-wrap items-start gap-2"
-            id="blockedNumbersInput"
-          >
-            {blockedNumbers.map((number, index) => (
-              <span
-                key={index}
-                className="flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
-              >
-                {number}
-                <button
-                  onClick={(e) => handleRemove(e, number)}
-                  className="ml-2 text-blue-600 hover:text-blue-900 focus:outline-none"
-                >
-                  <CircleX className="w-4 h-4" />
-                </button>
-              </span>
-            ))}
-
-            {/* Tiny input inside the textarea div */}
-            <input
-              type="text"
-              value={blockedInput}
-              onChange={(e) => setBlockedInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="flex-1 min-w-[100px] border-none focus:outline-none text-sm"
-              placeholder={
-                blockedNumbers.length === 0
-                  ? "Type numbers and press Enter..."
-                  : ""
-              }
-            />
-          </div>
-        </div>
-        <div className="flex flex-col items-start">
-          <label
-            htmlFor="overview"
-            className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
-          >
-            Spam Safety{" "}
-            <TooltipWrapper tooltipText="enable span safety">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
-          <div className="flex items-center gap-4 pt-[10px]">
-            <Switch
-              className="data-[state=checked]:bg-blue-500"
-              checked={block800Numbers}
-              onCheckedChange={(checked) => setBlock800Numbers(checked)}
-            />
-            <label className="text-[16px] font-[500]">
-              Block 1-800 numbers
+        <div className="flex flex-col items-start w-full gap-5">
+          <div className="flex items-center justify-between w-full">
+            <label className="flex gap-2 items-center text-sm font-semibold text-slate-700">
+              Inbound Phone Number
+              <TooltipWrapper tooltipText="Get an AI phone number, then forward your business line to it so customers call your existing number and the AI answers.">
+                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+              </TooltipWrapper>
             </label>
-          </div>
-
-          <div className="flex items-center gap-4 pt-[10px]">
-            <Switch
-              className="data-[state=checked]:bg-blue-500"
-              checked={hangupSalesCalls}
-              onCheckedChange={(checked) => setHangupSalesCalls(checked)}
-            />
-            <label className="text-[16px] font-[500]">
-              Hang up if sales call detected
-            </label>
-          </div>
-        </div>
-        <div className="flex flex-col h-full items-start">
-          <label
-            htmlFor="services"
-            className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
-          >
-            Email Notifications{" "}
-            <TooltipWrapper tooltipText="Write emails here to get notifications">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
-          <div className="flex flex-col gap-2 w-full">
-            {emails.map((email, index) => (
-              <ClearableInput
-                type="email"
-                key={index}
-                value={email}
-                onChange={(e) => {
-                  const updatedEmails = [...emails];
-                  updatedEmails[index] = e.target.value;
-                  setEmails(updatedEmails);
-                }}
-                onClear={() => {
-                  const updatedEmails = emails.filter((_, i) => i !== index);
-                  setEmails(updatedEmails);
-                }}
-              />
-            ))}
-          </div>
-          <div className="w-full flex justify-between mt-[10px]">
-            <Input
-              placeholder="Add email addresses to get notified"
-              className="w-[80%] h-[40px]"
-              type="email"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-            />
-            <Button
-              className="bg-default-purple hover:bg-default-lightblue cursor-pointer rounded-[8px]"
-              onClick={(e) =>
-                handleAddItem(
-                  e,
-                  emailInput,
-                  setEmailInput,
-                  emails,
-                  setEmails,
-                  "emails"
-                )
-              }
+            <a
+              href="https://beta.retellai.com/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold text-purple-600 hover:text-purple-700 hover:underline flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-lg transition-colors border border-purple-100"
             >
-              Add
-            </Button>
+              Manage Billing on Retell AI <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
-          <p className="text-gray-400 text-sm mt-1 text-center">
-            You can add a maximum of 5 emails here
-          </p>
-        </div>
-        <div className="flex flex-col h-full items-start">
-          <label
-            htmlFor="services"
-            className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
-          >
-            WhatsApp Notifications
-            <TooltipWrapper tooltipText="Add phone numbers here to receive WhatsApp notifications">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
-          <div className="flex flex-col gap-2 w-full">
-            {phoneNumbers.map((phone, index) => (
-              <ClearableInput
-                type="tel"
-                key={index}
-                value={phone}
-                onChange={(e) => {
-                  const updatedPhones = [...phoneNumbers];
-                  updatedPhones[index] = e.target.value;
-                  setPhoneNumbers(updatedPhones);
-                }}
-                onClear={() => {
-                  const updatedPhones = phoneNumbers.filter(
-                    (_, i) => i !== index
-                  );
-                  setPhoneNumbers(updatedPhones);
-                }}
-              />
-            ))}
-          </div>
-          <div className="w-full flex justify-between mt-[10px]">
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
             <Input
               type="tel"
-              placeholder="Add phone numbers to get notified"
-              className="w-[80%] h-[40px]"
-              value={phoneInput}
-              onChange={(e) => setPhoneInput(e.target.value)}
+              placeholder="+1 (xxx) xxx-xxxx (Manually enter or get via Retell)"
+              className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl text-slate-800 font-mono text-sm placeholder:text-slate-400 placeholder:font-sans"
+              value={aiPhoneNumber}
+              onChange={(e) => setAiPhoneNumber(e.target.value)}
             />
             <Button
-              className="bg-default-purple hover:bg-default-lightblue cursor-pointer rounded-[8px]"
-              onClick={(e) =>
-                handleAddItem(
-                  e,
-                  phoneInput,
-                  setPhoneInput,
-                  phoneNumbers,
-                  setPhoneNumbers,
-                  "phoneNumbers"
-                )
-              }
+              type="button"
+              onClick={handlePurchaseNumber}
+              disabled={purchasingNumber}
+              className="w-full sm:w-auto px-6 h-11 bg-gradient-to-r from-[#5222FF] to-[#7B42FF] hover:from-[#3822ff] hover:to-[#6333FF] text-white font-semibold rounded-xl shadow-md shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-200 cursor-pointer whitespace-nowrap active:scale-95"
             >
-              Add
+              {purchasingNumber ? "Setting up..." : "Get via Retell"}
             </Button>
           </div>
-          <p className="text-gray-400 text-sm mt-1 text-center">
-            You can add a maximum of 5 WhatsApp no. here
-          </p>
-          <div className="w-full text-gray-500 text-xs mt-2 bg-gray-50 p-3 rounded border border-gray-200 text-left">
-            <strong>Note:</strong> Sending automated messages requires an official <strong>WhatsApp Business API</strong> number (e.g., registered via <a href="https://www.twilio.com/whatsapp" target="_blank" rel="noopener noreferrer" className="text-[#5222FF] hover:underline">Twilio</a>). A standard WhatsApp Business app number on a mobile phone cannot be used directly unless migrated to the API.
+
+          {/* Call forwarding accordion */}
+          <div className="bg-slate-50/60 border border-slate-200/80 rounded-2xl w-full overflow-hidden transition-all duration-200 mt-1">
+            <button
+              type="button"
+              onClick={() => setShowForwardingGuide(!showForwardingGuide)}
+              className="flex items-center justify-between w-full px-6 py-4 hover:bg-slate-100/60 transition-colors cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-1.5 bg-purple-100 rounded-lg text-purple-700">
+                  <Info className="w-4 h-4" />
+                </div>
+                <span className="font-bold text-sm text-slate-800">How to connect your existing business number (Call Forwarding Guide)</span>
+              </div>
+              <span className={`text-slate-500 text-lg transition-transform duration-200 font-mono ${showForwardingGuide ? "rotate-180" : ""}`}>▾</span>
+            </button>
+
+            {showForwardingGuide && (
+              <div className="px-6 pb-6 pt-2 border-t border-slate-200/60">
+                <p className="text-sm text-slate-600 mb-5 leading-relaxed">
+                  Set up <strong>call forwarding</strong> on your physical business phone so incoming calls are automatically routed to your AI agent without changing your publicized number:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#5222FF] to-[#7B42FF] text-white text-xs flex items-center justify-center font-bold shadow-sm">1</span>
+                    <div>
+                      <p className="text-sm font-bold text-slate-800">Open Phone Dialer</p>
+                      <p className="text-xs text-slate-500 mt-1">On the office phone or mobile device that customers currently call.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#5222FF] to-[#7B42FF] text-white text-xs flex items-center justify-center font-bold shadow-sm">2</span>
+                    <div>
+                      <p className="text-sm font-bold text-slate-800">Dial Forwarding Code</p>
+                      <p className="text-xs text-slate-500 mt-1">
+                        Dial <code className="bg-purple-50 border border-purple-100 px-1.5 py-0.5 rounded text-[#5222FF] font-mono font-bold">*72{aiPhoneNumber || "[AI_NUMBER]"}</code> & call.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#5222FF] to-[#7B42FF] text-white text-xs flex items-center justify-center font-bold shadow-sm">3</span>
+                    <div>
+                      <p className="text-sm font-bold text-slate-800">Wait for Tone</p>
+                      <p className="text-xs text-slate-500 mt-1">Listen for a confirmation beep or message confirming forwarding is active.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 p-4 bg-amber-50/80 border border-amber-200/80 rounded-xl flex items-center gap-3">
+                  <span className="text-lg">💡</span>
+                  <p className="text-xs text-amber-900 leading-relaxed font-medium">
+                    <strong>Pro Tip:</strong> The code <code className="font-mono font-bold bg-amber-100 px-1 py-0.5 rounded">*72</code> works for most US carriers (Verizon, AT&T, etc.). To turn off automatic forwarding at any time, simply dial <code className="font-mono font-bold bg-amber-100 px-1 py-0.5 rounded">*73</code>.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Card 3: Call Security & Spam Guardrails */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+        <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
+          <div className="p-3 bg-rose-50 rounded-xl text-rose-600 border border-rose-100/60 shadow-sm">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-800 tracking-tight">Call Security & Spam Guardrails</h2>
+            <p className="text-xs md:text-sm text-slate-500 mt-0.5">Protect your AI phone lines from robocallers, spam telemarketers, and toll-free spam.</p>
           </div>
         </div>
 
-        <div className="flex flex-col h-full items-start">
-          <label
-            htmlFor="services"
-            className="flex gap-[10px] items-center text-[16px] md:text-[20px] font-[600] mb-[7px]"
-          >
-            Taking Notes
-            <TooltipWrapper tooltipText="Write questions here for the agent to ask the customer">
-              <AlertCircle className="w-[16px] h-[16px] text-[#5222FF]" />
-            </TooltipWrapper>
-          </label>
-          <div className="flex flex-col gap-2 w-full">
-            {notes.map((note, index) => (
-              <ClearableInput
-                type="text"
-                key={index}
-                value={note}
-                onChange={(e) => {
-                  const updatedNotes = [...notes];
-                  updatedNotes[index] = e.target.value;
-                  setNotes(updatedNotes);
-                }}
-                onClear={() => {
-                  const updatedNotes = notes.filter((_, i) => i !== index);
-                  setNotes(updatedNotes);
-                }}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div className="flex flex-col gap-4 bg-slate-50/70 p-5 rounded-2xl border border-slate-200/70">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <span className="font-bold text-sm text-slate-800 block">Block 1-800 Toll-Free Numbers</span>
+                <span className="text-xs text-slate-500">Automatically drop calls originating from 800/888 telemarketing prefixes.</span>
+              </div>
+              <Switch
+                className="data-[state=checked]:bg-purple-600 cursor-pointer scale-110 shadow-sm"
+                checked={block800Numbers}
+                onCheckedChange={(checked) => setBlock800Numbers(checked)}
               />
-            ))}
-          </div>
-          <div className="w-full flex justify-between mt-[10px]">
-            <Input
-              placeholder="Type your question for note-taking"
-              className="w-[80%] h-[40px]"
-              value={noteInput}
-              onChange={(e) => setNoteInput(e.target.value)}
-            />
-            <Button
-              className="bg-default-purple hover:bg-default-lightblue cursor-pointer rounded-[8px]"
-              onClick={(e) =>
-                handleAddItem(
-                  e,
-                  noteInput,
-                  setNoteInput,
-                  notes,
-                  setNotes,
-                  "notes"
-                )
-              }
-            >
-              Add
-            </Button>
-          </div>
-          <p className="text-gray-400 text-sm mt-1 text-center">
-            You can add a maximum of 5 questions here
-          </p>
-        </div>
-      </form>
-      <div className="my-[40px] flex justify-end gap-[20px]">
-        <button
-          className="w-[175px] h-[50px] cursor-pointer rounded-[8px] border-[1px] border-[#5222FF] text-[#5222FF]"
-          onClick={() => navigate("/dashboard")}
-        >
-          Cancel
-        </button>
-        <Button
-          type="button"
-          onClick={handleToggleCall}
-          className={`w-[175px] h-[50px] rounded-[8px] border-[1px] text-[white] cursor-pointer mr-4 transition-colors ${
-            isCalling
-              ? "border-[#ef4444] bg-[#ef4444] hover:bg-[#dc2626] animate-pulse"
-              : "border-[#10b981] bg-[#10b981] hover:bg-[#059669]"
-          }`}
-        >
-          {isCalling ? "End Call" : "Test Agent"}
-        </Button>
-        <Button
-          disabled={loading}
-          type="button"
-          onClick={(e) => {
-            handleSave(e);
-          }}
-          className="w-[175px] h-[50px] rounded-[8px] border-[1px] border-[#5222FF] text-[white] bg-[#5222FF] hover:bg-[#3822ff] cursor-pointer"
-        >
-          {loading ? (
-            <div role="status">
-              <svg
-                aria-hidden="true"
-                className="w-[28px] h-[28px] text-gray-600 animate-spin fill-[#fff]"
-                viewBox="0 0 100 101"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                  fill="currentFill"
-                />
-              </svg>
-              <span className="sr-only">Loading...</span>
             </div>
-          ) : (
-            "Save"
-          )}
-        </Button>
+
+            <hr className="border-slate-200/60" />
+
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <span className="font-bold text-sm text-slate-800 block">AI Sales Call Auto-Hangup</span>
+                <span className="text-xs text-slate-500">Instruct AI to politely terminate the line if a solicitation or robocall is identified.</span>
+              </div>
+              <Switch
+                className="data-[state=checked]:bg-purple-600 cursor-pointer scale-110 shadow-sm"
+                checked={hangupSalesCalls}
+                onCheckedChange={(checked) => setHangupSalesCalls(checked)}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col items-start w-full">
+            <label
+              htmlFor="blockedNumbersInput"
+              className="flex gap-2 items-center text-sm font-semibold text-slate-700 mb-2"
+            >
+              Blacklisted Phone Numbers
+              <TooltipWrapper tooltipText="Enter phone numbers to block from calling your agent.">
+                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+              </TooltipWrapper>
+            </label>
+            <div
+              className="border border-slate-200 bg-slate-50/50 focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-500/20 focus-within:border-purple-600 transition-all duration-200 rounded-xl p-3 w-full min-h-[120px] flex flex-wrap items-start gap-2 shadow-inner"
+              id="blockedNumbersInput"
+            >
+              {blockedNumbers.map((number, index) => (
+                <span
+                  key={index}
+                  className="flex items-center gap-1.5 bg-gradient-to-r from-rose-50 to-red-50 border border-rose-200/80 text-rose-800 px-3 py-1 rounded-lg text-xs font-semibold shadow-sm animate-fadeIn"
+                >
+                  {number}
+                  <button
+                    onClick={(e) => handleRemove(e, number)}
+                    className="text-rose-400 hover:text-rose-700 focus:outline-none transition-colors ml-0.5 cursor-pointer"
+                  >
+                    <CircleX className="w-4 h-4" />
+                  </button>
+                </span>
+              ))}
+
+              <input
+                type="text"
+                value={blockedInput}
+                onChange={(e) => setBlockedInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="flex-1 min-w-[140px] bg-transparent border-none focus:outline-none text-sm text-slate-800 placeholder:text-slate-400 font-mono mt-0.5"
+                placeholder={
+                  blockedNumbers.length === 0
+                    ? "Type number & press Enter to block..."
+                    : "Add another..."
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 4: Post-Call Actions & Intelligence */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+        <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
+          <div className="p-3 bg-emerald-50 rounded-xl text-emerald-600 border border-emerald-100/60 shadow-sm">
+            <Bell className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-800 tracking-tight">Post-Call Notifications & AI Note-Taking</h2>
+            <p className="text-xs md:text-sm text-slate-500 mt-0.5">Configure real-time delivery of call summaries, recordings, and custom qualification notes.</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          {/* Email notifications */}
+          <div className="flex flex-col h-full items-start bg-slate-50/50 p-5 rounded-2xl border border-slate-200/70">
+            <label className="flex gap-2 items-center text-sm font-bold text-slate-800 mb-1">
+              Email Notifications
+              <TooltipWrapper tooltipText="Receive automated call summaries and recording links directly in your inbox.">
+                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+              </TooltipWrapper>
+            </label>
+            <span className="text-xs text-slate-500 mb-4">Send full call transcript & analysis to up to 5 team emails.</span>
+
+            <div className="flex flex-col gap-2.5 w-full mb-3">
+              {emails.map((email, index) => (
+                <ClearableInput
+                  type="email"
+                  key={index}
+                  value={email}
+                  onChange={(e) => {
+                    const updatedEmails = [...emails];
+                    updatedEmails[index] = e.target.value;
+                    setEmails(updatedEmails);
+                  }}
+                  onClear={() => {
+                    const updatedEmails = emails.filter((_, i) => i !== index);
+                    setEmails(updatedEmails);
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="w-full flex items-center gap-2 mt-auto">
+              <Input
+                placeholder="Enter team email address..."
+                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl text-xs"
+                type="email"
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+              />
+              <Button
+                type="button"
+                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
+                onClick={(e) =>
+                  handleAddItem(
+                    e,
+                    emailInput,
+                    setEmailInput,
+                    emails,
+                    setEmails,
+                    "emails"
+                  )
+                }
+              >
+                <Plus className="w-3.5 h-3.5" /> Add
+              </Button>
+            </div>
+            <p className="text-slate-400 text-[11px] mt-2.5 font-medium">
+              {emails.length}/5 maximum recipients configured
+            </p>
+          </div>
+
+          {/* WhatsApp notifications */}
+          <div className="flex flex-col h-full items-start bg-slate-50/50 p-5 rounded-2xl border border-slate-200/70">
+            <label className="flex gap-2 items-center text-sm font-bold text-slate-800 mb-1">
+              WhatsApp Notifications
+              <TooltipWrapper tooltipText="Receive call summaries via WhatsApp (requires Twilio WhatsApp Business API).">
+                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+              </TooltipWrapper>
+            </label>
+            <span className="text-xs text-slate-500 mb-4">Instant mobile text notifications for priority customer calls.</span>
+
+            <div className="flex flex-col gap-2.5 w-full mb-3">
+              {phoneNumbers.map((phone, index) => (
+                <ClearableInput
+                  type="tel"
+                  key={index}
+                  value={phone}
+                  onChange={(e) => {
+                    const updatedPhones = [...phoneNumbers];
+                    updatedPhones[index] = e.target.value;
+                    setPhoneNumbers(updatedPhones);
+                  }}
+                  onClear={() => {
+                    const updatedPhones = phoneNumbers.filter(
+                      (_, i) => i !== index
+                    );
+                    setPhoneNumbers(updatedPhones);
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="w-full flex items-center gap-2 mt-auto">
+              <Input
+                type="tel"
+                placeholder="+1234567890 (WhatsApp)..."
+                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl text-xs font-mono"
+                value={phoneInput}
+                onChange={(e) => setPhoneInput(e.target.value)}
+              />
+              <Button
+                type="button"
+                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
+                onClick={(e) =>
+                  handleAddItem(
+                    e,
+                    phoneInput,
+                    setPhoneInput,
+                    phoneNumbers,
+                    setPhoneNumbers,
+                    "phoneNumbers"
+                  )
+                }
+              >
+                <Plus className="w-3.5 h-3.5" /> Add
+              </Button>
+            </div>
+            <div className="w-full text-slate-600 text-[11px] mt-3 bg-white p-3 rounded-xl border border-slate-200/80 shadow-xs">
+              <strong>Info:</strong> Requires an official <strong>WhatsApp Business API</strong> account (via <a href="https://www.twilio.com/whatsapp" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline font-bold">Twilio</a>).
+            </div>
+          </div>
+
+          {/* Note taking */}
+          <div className="flex flex-col h-full items-start bg-slate-50/50 p-5 rounded-2xl border border-slate-200/70">
+            <label className="flex gap-2 items-center text-sm font-bold text-slate-800 mb-1">
+              AI Note-Taking Questions
+              <TooltipWrapper tooltipText="Instruct the AI to specifically ask for and note down these answers during conversation.">
+                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+              </TooltipWrapper>
+            </label>
+            <span className="text-xs text-slate-500 mb-4">Define key qualification metrics for the AI to extract per call.</span>
+
+            <div className="flex flex-col gap-2.5 w-full mb-3">
+              {notes.map((note, index) => (
+                <ClearableInput
+                  type="text"
+                  key={index}
+                  value={note}
+                  onChange={(e) => {
+                    const updatedNotes = [...notes];
+                    updatedNotes[index] = e.target.value;
+                    setNotes(updatedNotes);
+                  }}
+                  onClear={() => {
+                    const updatedNotes = notes.filter((_, i) => i !== index);
+                    setNotes(updatedNotes);
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="w-full flex items-center gap-2 mt-auto">
+              <Input
+                placeholder="e.g. What is their project budget?"
+                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl text-xs"
+                value={noteInput}
+                onChange={(e) => setNoteInput(e.target.value)}
+              />
+              <Button
+                type="button"
+                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
+                onClick={(e) =>
+                  handleAddItem(
+                    e,
+                    noteInput,
+                    setNoteInput,
+                    notes,
+                    setNotes,
+                    "notes"
+                  )
+                }
+              >
+                <Plus className="w-3.5 h-3.5" /> Add
+              </Button>
+            </div>
+            <p className="text-slate-400 text-[11px] mt-2.5 font-medium">
+              {notes.length}/5 maximum note extraction rules configured
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Sticky Floating Save Bar */}
+      <div className="sticky bottom-6 z-30 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-slate-200/80 shadow-2xl flex items-center justify-between gap-4 mt-2">
+        <span className="text-xs sm:text-sm font-medium text-slate-500 hidden md:inline-block">
+          Test your agent to verify voice tone before saving updates to production.
+        </span>
+        <div className="flex items-center gap-3 ml-auto flex-wrap">
+          <button
+            type="button"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-100 transition-all duration-200 cursor-pointer active:scale-95"
+            onClick={() => navigate("/dashboard")}
+          >
+            <X className="w-4 h-4" />
+            Cancel
+          </button>
+          
+          <Button
+            type="button"
+            onClick={handleToggleCall}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-sm text-white transition-all duration-200 cursor-pointer active:scale-95 shadow-lg ${
+              isCalling
+                ? "bg-gradient-to-r from-red-500 to-rose-600 border-none shadow-red-500/35 hover:from-red-600 hover:to-rose-700 animate-pulse"
+                : "bg-gradient-to-r from-emerald-500 to-teal-600 border-none shadow-emerald-500/30 hover:from-emerald-600 hover:to-teal-700 hover:scale-[1.02]"
+            }`}
+          >
+            {isCalling ? (
+              <>
+                <Square className="w-4 h-4 fill-white" />
+                End Live Test
+              </>
+            ) : (
+              <>
+                <Play className="w-4 h-4 fill-white" />
+                Test Live Agent
+              </>
+            )}
+          </Button>
+
+          <Button
+            disabled={loading}
+            type="button"
+            onClick={(e) => {
+              handleSave(e);
+            }}
+            className="flex items-center gap-2 px-7 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-[#5222FF] via-[#6333FF] to-[#7B42FF] text-white shadow-lg shadow-purple-500/35 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60"
+          >
+            {loading ? (
+              <div role="status" className="flex items-center gap-2">
+                <svg
+                  aria-hidden="true"
+                  className="w-5 h-5 text-purple-200 animate-spin fill-white"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                </svg>
+                <span>Saving...</span>
+              </div>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                Save Settings
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
