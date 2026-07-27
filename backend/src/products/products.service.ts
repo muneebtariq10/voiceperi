@@ -76,31 +76,49 @@ export class ProductsService implements OnModuleInit {
     }
 
     try {
-      // Find products that match the query in name or category
-      const products = await this.productRepository.find({
-        where: [
-          { name: ILike(`%${query}%`) },
-          { category: ILike(`%${query}%`) },
-          { sku: ILike(`%${query}%`) },
-        ],
-        take: 5, // Return top 5 results
+      const cleanQuery = query.trim();
+      const normalizedQuery = cleanQuery.replace(/cheques?/gi, 'check').trim();
+      
+      const searchTerms = new Set<string>([cleanQuery, normalizedQuery]);
+      
+      // Extract significant individual words if multi-word query (e.g., "computer cheques" -> "computer", "check")
+      const words = normalizedQuery.split(/\s+/).filter((w) => w.length > 3);
+      for (const word of words) {
+        searchTerms.add(word);
+      }
+
+      const whereConditions: any[] = [];
+      for (const term of searchTerms) {
+        whereConditions.push(
+          { name: ILike(`%${term}%`) },
+          { category: ILike(`%${term}%`) },
+          { description: ILike(`%${term}%`) },
+          { sku: ILike(`%${term}%`) },
+        );
+      }
+
+      let products = await this.productRepository.find({
+        where: whereConditions,
+        take: 8,
       });
 
       if (products.length === 0) {
         return {
-          success: false,
-          message: `I couldn't find any products matching "${query}".`,
+          success: true,
+          message: `While we don't have an exact match under the query "${query}", PrintEZ carries a complete range of products including Computer Checks (QuickBooks & Quicken compatible), Blank Security Checks, Manual Business Checks, Custom Carbonless Forms, Invoice Books, Shipping Tags, and Promotional Items. Standard computer checks start at $28.99 with free custom printing, logo imprint, and MICR bank encoding.`,
+          products: [],
         };
       }
 
       return {
         success: true,
-        message: `Found ${products.length} product(s) matching your search.`,
+        message: `Found ${products.length} product(s) in the PrintEZ catalog matching "${query}".`,
         products: products.map((p) => ({
           name: p.name,
           price: p.price,
           category: p.category,
           sku: p.sku,
+          description: p.description,
         })),
       };
     } catch (error) {

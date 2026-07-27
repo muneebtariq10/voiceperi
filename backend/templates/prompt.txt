@@ -52,8 +52,8 @@ ORDER LOOKUP
 ----------------------------------------------------
 
 If the customer asks about an order or order status:
-1. Politely ask for BOTH their order number AND the email address associated with the order for verification.
-2. Once you have both pieces of information, call the `lookup_order` tool using both the order ID and email address.
+1. Politely ask for their order number (order ID).
+2. Once you have the order number, call the `lookup_order` tool using the order ID.
 3. Use the returned order data to answer their question following the rules below.
 
 If you are acting as an agent for PrintEZ or cannot find the answer to a question, redirect the customer to support@printez.com or say "Our team will reach out to you via email."
@@ -358,8 +358,8 @@ ORDER LOOKUP
 ----------------------------------------------------
 
 Si el cliente pregunta por un pedido o el estado de un pedido:
-1. Pida cortésmente tanto su número de pedido como la dirección de correo electrónico asociada al pedido para verificación.
-2. Una vez que tenga ambos datos, llame a la herramienta `lookup_order` utilizando tanto el ID del pedido como el correo electrónico.
+1. Pida cortésmente su número de pedido.
+2. Una vez que tenga el número de pedido, llame a la herramienta `lookup_order` utilizando el ID del pedido.
 3. Use los datos del pedido devueltos para responder su pregunta siguiendo las reglas a continuación.
 
 Si actúa como agente de PrintEZ o no puede encontrar la respuesta a una pregunta, redirija al cliente a support@printez.com o diga "Nuestro equipo se comunicará con usted por correo electrónico."

@@ -1,5 +1,131 @@
 [
   {
+    "productId": "CHK-TOP-QB",
+    "name": "Laser & Inkjet Computer Checks - Check on Top (QuickBooks & Quicken Compatible)",
+    "description": "High-security top voucher computer checks / cheques compatible with QuickBooks, Quicken, Peachtree, and Microsoft Accounting. Includes free custom logo imprint, bank MICR numbering, void pantograph, thermochromic security ink, and chemical-sensitive paper.",
+    "price": "$28.99",
+    "sku": "CHK-TOP-QB",
+    "category": "Computer Checks",
+    "url": "https://www.printez.com/computer-checks.html"
+  },
+  {
+    "productId": "CHK-MID-VOUCHER",
+    "name": "Laser Computer Checks - Check in Middle Voucher Format",
+    "description": "Multi-purpose accounting computer checks in middle format with top and bottom payroll stubs. Fully compatible with QuickBooks and major accounting systems. Features advanced anti-fraud microprint borders and security fibers.",
+    "price": "$31.99",
+    "sku": "CHK-MID-VOUCHER",
+    "category": "Computer Checks",
+    "url": "https://www.printez.com/computer-checks-middle.html"
+  },
+  {
+    "productId": "CHK-BOT-PAY",
+    "name": "Laser Computer Checks - Check on Bottom (Payroll & Accounts Payable)",
+    "description": "Bottom check voucher format ideal for payroll disbursements and detailed record keeping. Features tamper-evident security paper and precise alignment for desktop laser and inkjet printers.",
+    "price": "$31.99",
+    "sku": "CHK-BOT-PAY",
+    "category": "Computer Checks",
+    "url": "https://www.printez.com/computer-checks-bottom.html"
+  },
+  {
+    "productId": "CHK-BLANK-SEC",
+    "name": "Blank Laser Computer Check Stock (High Security w/ Void Pantograph)",
+    "description": "Blank computer check paper stock allowing you to print custom bank details and MICR numbering on demand for multiple bank accounts using financial software. Includes top, middle, and bottom formats.",
+    "price": "$24.99",
+    "sku": "CHK-BLANK-SEC",
+    "category": "Blank Computer Checks",
+    "url": "https://www.printez.com/blank-check-stock.html"
+  },
+  {
+    "productId": "CHK-MANUAL-3",
+    "name": "3-Per-Page Manual Business Checks with Side Stub",
+    "description": "Traditional executive ring-binder business check sheets with attached record stub for manual bookkeeping. Available in carbonless duplicate or single sheet, personalized with your company name, logo, and banking routing details.",
+    "price": "$39.99",
+    "sku": "CHK-MANUAL-3",
+    "category": "Manual Business Checks",
+    "url": "https://www.printez.com/manual-business-checks.html"
+  },
+  {
+    "productId": "CHK-POCKET",
+    "name": "Compact Pocket Manual Business Checkbook & Register",
+    "description": "Portable pocket-sized business checks designed for contractors and mobile professionals. Fits comfortably in check covers with pre-printed carbonless duplicate record tracking.",
+    "price": "$22.50",
+    "sku": "CHK-POCKET",
+    "category": "Manual Business Checks",
+    "url": "https://www.printez.com/pocket-business-checks.html"
+  },
+  {
+    "productId": "CHK-ONE-WRITE",
+    "name": "Payroll & General One-Write Check System Bundle",
+    "description": "Complete accounting one-write Pegboard check system bundle including checks, journals, ledger cards, and folding accounting board for streamlined payroll processing.",
+    "price": "$54.99",
+    "sku": "CHK-ONE-WRITE",
+    "category": "One-Write Check Systems",
+    "url": "https://www.printez.com/one-write-systems.html"
+  },
+  {
+    "productId": "BANK-DEP-SLIP",
+    "name": "Laser & Booked Business Deposit Slips (Pre-printed MICR)",
+    "description": "Custom financial bank deposit slips available in laser software formats, 3-per-page binders, and portable books. Pre-encoded with exact bank branch MICR routing numbers and account details for instant clearing.",
+    "price": "$18.99",
+    "sku": "BANK-DEP-SLIP",
+    "category": "Banking Supplies",
+    "url": "https://www.printez.com/deposit-slips.html"
+  },
+  {
+    "productId": "BANK-STAMP",
+    "name": "Custom Self-Inking Bank Endorsement Stamp",
+    "description": "Pre-inked and self-inking commercial deposit stamps customized with 'For Deposit Only', bank routing, company name, and account numbers. Guaranteed clean impressions for rapid check processing.",
+    "price": "$21.99",
+    "sku": "BANK-STAMP",
+    "category": "Banking Supplies",
+    "url": "https://www.printez.com/bank-endorsement-stamps.html"
+  },
+  {
+    "productId": "FORM-INV-BOOK",
+    "name": "Custom 2-Part & 3-Part Carbonless Invoice Books",
+    "description": "Personalized carbonless NCR invoice forms and bound service order books. Customized with your logo, business address, and sequential invoice numbers for field billing.",
+    "price": "$48.00",
+    "sku": "FORM-INV-BOOK",
+    "category": "Business Forms",
+    "url": "https://www.printez.com/invoice-books.html"
+  },
+  {
+    "productId": "FORM-BOL",
+    "name": "Custom Bill of Lading & Shipping Forms",
+    "description": "Standardized multi-part freight Bill of Lading forms, delivery receipts, and warehouse packing lists designed for transport shipping compliance.",
+    "price": "$42.50",
+    "sku": "FORM-BOL",
+    "category": "Business Forms",
+    "url": "https://www.printez.com/bill-of-lading-forms.html"
+  },
+  {
+    "productId": "FORM-WORK-ORDER",
+    "name": "Contractor Service Repair Work Order & Proposal Forms",
+    "description": "Detailed estimating, repair proposal, and HVAC work order contracts with terms and customer signature lines. Available in multi-part carbonless sets.",
+    "price": "$45.00",
+    "sku": "FORM-WORK-ORDER",
+    "category": "Business Forms",
+    "url": "https://www.printez.com/service-repair-forms.html"
+  },
+  {
+    "productId": "TAX-W2-1099",
+    "name": "Tax Forms Bundle (W-2, 1099-NEC, 1099-MISC with Envelopes)",
+    "description": "Official IRS-compliant tax reporting kits compatible with QuickBooks and payroll software. Includes employer/employee parts, summary forms, and double-window self-seal envelopes.",
+    "price": "$34.99",
+    "sku": "TAX-W2-1099",
+    "category": "Tax Forms",
+    "url": "https://www.printez.com/tax-forms.html"
+  },
+  {
+    "productId": "ENV-CHK-WIN",
+    "name": "High-Security Double Window Business Check Envelopes",
+    "description": "Confidential security tint double-window envelopes perfectly tailored for standard computer laser voucher checks. Features quick self-seal flap closure.",
+    "price": "$32.99",
+    "sku": "ENV-CHK-WIN",
+    "category": "Business Envelopes",
+    "url": "https://www.printez.com/check-envelopes.html"
+  },
+  {
     "productId": "58163",
     "name": "Branded Static Cling Call for Service Labels",
     "description": "PrintEZ product: Branded Static Cling Call for Service Labels. Section: Automotive.",

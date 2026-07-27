@@ -36,24 +36,12 @@ export class OrdersService {
           relations: ['products', 'history'],
         });
 
-    let emailMatches = false;
-    if (order && email) {
-      const normalizedInput = String(email).toLowerCase().trim().replace(/\s+/g, '');
-      const normalizedDb = (order.customerEmailNormalized || order.customerEmail || '')
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '');
-      if (normalizedInput && normalizedDb && normalizedInput === normalizedDb) {
-        emailMatches = true;
-      }
-    }
-
-    const verified = !!order && emailMatches;
+    const verified = !!order;
 
     // Save audit log
     await this.auditRepository.save({
       requestedOrderId: isNaN(numericOrderId) ? 0 : numericOrderId,
-      verificationMethod: email ? 'orderId+email' : 'orderId',
+      verificationMethod: email ? 'orderId+email_optional' : 'orderId',
       verificationSucceeded: verified,
       source: 'api',
       requestCorrelationId,
@@ -70,29 +58,6 @@ export class OrdersService {
       };
     }
 
-    if (!email) {
-      this.logger.warn(
-        `[${requestCorrelationId}] Order ${orderId} found, but email verification required`,
-      );
-      return {
-        found: true,
-        verified: false,
-        message:
-          'An email address is required to check the status of this order. Please politely ask the caller for their email address for verification.',
-      };
-    }
-
-    if (!emailMatches) {
-      this.logger.warn(
-        `[${requestCorrelationId}] Email verification failed for order ${orderId}`,
-      );
-      return {
-        found: true,
-        verified: false,
-        message:
-          'The email address provided does not match our records for this order number. Please ask the caller to double check their email address.',
-      };
-    }
 
     // Prepare latest issue from history
     let latestIssue: string | null = null;

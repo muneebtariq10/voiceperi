@@ -451,18 +451,14 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status of an order using the order ID and customer email address.',
+        description: 'Look up the status and tracking details of an order using the order ID.',
         url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID' },
-            email: {
-              type: 'string',
-              description: 'The email address associated with the order for verification',
-            },
+            orderId: { type: 'number', description: 'The order ID provided by the customer' },
           },
-          required: ['orderId', 'email'],
+          required: ['orderId'],
         },
       },
       {
@@ -853,18 +849,14 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status of an order using the order ID and customer email address.',
+        description: 'Look up the status and tracking details of an order using the order ID.',
         url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID' },
-            email: {
-              type: 'string',
-              description: 'The email address associated with the order for verification',
-            },
+            orderId: { type: 'number', description: 'The order ID provided by the customer' },
           },
-          required: ['orderId', 'email'],
+          required: ['orderId'],
         },
       },
       {
