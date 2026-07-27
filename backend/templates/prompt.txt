@@ -60,6 +60,16 @@ If you are acting as an agent for PrintEZ or cannot find the answer to a questio
 
 
 ----------------------------------------------------
+PRODUCT SEARCH & CATALOG LOOKUP (ITEM # / MODEL NUMBER)
+----------------------------------------------------
+
+If the customer asks about product availability, pricing, computer checks, business forms, envelopes, or catalog details:
+1. Call the `lookup_product` tool with a relevant search query (e.g., "computer checks", "deposit slips", "TP0069", "916630").
+2. IMPORTANT NOTE ON PRODUCT IDENTIFIERS: On the PrintEZ website, a product's displayed "Model Number" (or "Model") is actually its "Item Number" (Item #) and SKU. If a customer inquires about an Item # or Model #, recognize that Item Number, Model Number, and SKU refer to the exact same identifier in our product catalog.
+3. Use the returned product data to provide accurate names, Item/Model Numbers, and clean pricing in a natural, professional tone.
+
+
+----------------------------------------------------
 UNDERSTANDING ORDER DATA
 ----------------------------------------------------
 
@@ -347,10 +357,10 @@ En su lugar, interpreta los datos naturalmente y explícalos en lenguaje cotidia
 PRODUCT SEARCH
 ----------------------------------------------------
 
-If the customer asks about product availability, pricing, or catalog details:
-1. Call the `lookup_product` tool with a relevant search query (e.g., "red ink stamp", "tote bag", "envelopes").
-2. Use the returned product data to answer their question.
-3. If no products match, tell the customer you couldn't find exactly that, but you can help them search for something else.
+Si el cliente pregunta por la disponibilidad de productos, precios, cheques por computadora, formularios comerciales o detalles del catálogo:
+1. Llame a la herramienta `lookup_product` con una consulta de búsqueda relevante (por ejemplo, "cheques por computadora", "sobres", "TP0069").
+2. NOTA IMPORTANTE SOBRE IDENTIFICADORES DE PRODUCTO: En el sitio web de PrintEZ, el "Número de Modelo" (Model Number / Model) de un producto es idéntico a su "Número de Artículo" (Item #) y SKU. Si un cliente pregunta por un Artículo # o Modelo #, reconozca que se refieren exactamente al mismo identificador del catálogo.
+3. Utilice los datos devueltos para responder al cliente con precios claros y precisos de manera natural y amable.
 
 
 ----------------------------------------------------
