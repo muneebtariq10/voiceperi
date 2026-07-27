@@ -15,7 +15,7 @@ export class ProductsService implements OnModuleInit {
     private readonly productRepository: Repository<Product>,
   ) {}
 
-  async onModuleInit() {
+  onModuleInit() {
     this.loadProductsIntoMemory();
     // Run DB sync in background so server startup is not blocked
     this.syncProductsToDatabase().catch((err) =>
@@ -110,7 +110,11 @@ export class ProductsService implements OnModuleInit {
       const tokens = queryLower
         .split(/\s+/)
         .map((t) => t.replace(/[^a-z0-9]/gi, ''))
-        .filter((t) => t.length >= 2 && !['the', 'and', 'for', 'with', 'about'].includes(t));
+        .filter(
+          (t) =>
+            t.length >= 2 &&
+            !['the', 'and', 'for', 'with', 'about'].includes(t),
+        );
 
       const scoredProducts = catalog
         .map((p) => {
@@ -123,7 +127,11 @@ export class ProductsService implements OnModuleInit {
           // Exact or substring match on entire clean query
           if (id === queryLower || name === queryLower) {
             score += 100;
-          } else if (id.includes(queryLower) || name.includes(queryLower) || category.includes(queryLower)) {
+          } else if (
+            id.includes(queryLower) ||
+            name.includes(queryLower) ||
+            category.includes(queryLower)
+          ) {
             score += 50;
           }
 
@@ -176,4 +184,3 @@ export class ProductsService implements OnModuleInit {
     }
   }
 }
-
