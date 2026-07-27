@@ -46,6 +46,55 @@ async function scrapeProducts() {
   const visitedUrls = new Set<string>();
   const urlsToVisit: string[] = [
     BASE_URL,
+    `${BASE_URL}/business-forms.html`,
+    `${BASE_URL}/business-shipping-forms.html`,
+    `${BASE_URL}/bills-of-lading-forms.html`,
+    `${BASE_URL}/delivery-receipts.html`,
+    `${BASE_URL}/packing-lists-forms.html`,
+    `${BASE_URL}/accounting-forms.html`,
+    `${BASE_URL}/credit-memos.html`,
+    `${BASE_URL}/ledgers-forms.html`,
+    `${BASE_URL}/booked-forms.html`,
+    `${BASE_URL}/invoice-books.html`,
+    `${BASE_URL}/purchase-order-books.html`,
+    `${BASE_URL}/proposal-books.html`,
+    `${BASE_URL}/general-manual-forms.html`,
+    `${BASE_URL}/contracts.html`,
+    `${BASE_URL}/repair-order-forms.html`,
+    `${BASE_URL}/service-orders.html`,
+    `${BASE_URL}/repair-tags.html`,
+    `${BASE_URL}/work-order-forms.html`,
+    `${BASE_URL}/receipt-and-sales-books.html`,
+    `${BASE_URL}/business-checks.html`,
+    `${BASE_URL}/standard-manual-checks.html`,
+    `${BASE_URL}/deluxe-business-checks.html`,
+    `${BASE_URL}/personalize-size-checks.html`,
+    `${BASE_URL}/ez-compact-checks.html`,
+    `${BASE_URL}/computer-check.html`,
+    `${BASE_URL}/check-in-middle.html`,
+    `${BASE_URL}/check-on-top-cot.html`,
+    `${BASE_URL}/check-on-bottom-cob.html`,
+    `${BASE_URL}/one-write-checks.html`,
+    `${BASE_URL}/manual-deposit-slips.html`,
+    `${BASE_URL}/company-deposit-slips.html`,
+    `${BASE_URL}/booked-deposit-slips.html`,
+    `${BASE_URL}/quickbooks-deposit-slips.html`,
+    `${BASE_URL}/supplies-checks.html`,
+    `${BASE_URL}/bank-endorsement-stamps-checks.html`,
+    `${BASE_URL}/deposit-bags.html`,
+    `${BASE_URL}/banking-supplies-check-registers.html`,
+    `${BASE_URL}/quickbooks-checks-on-top-cat.html`,
+    `${BASE_URL}/quicken-checks-on-top-cat.html`,
+    `${BASE_URL}/mas90-checks-in-middle-cat.html`,
+    `${BASE_URL}/peachtree-checks-in-middle-cat.html`,
+    `${BASE_URL}/3-checks-per-page-3cpps.html`,
+    `${BASE_URL}/myob.html`,
+    `${BASE_URL}/quick-books-3-checks-cat.html`,
+    `${BASE_URL}/personal-wallet-checks.html`,
+    `${BASE_URL}/payroll-checks-on-bottom-cat.html`,
+    `${BASE_URL}/blank-computer-check.html`,
+    `${BASE_URL}/check-on-top-blank.html`,
+    `${BASE_URL}/check_in_middle_blank_cimb.html`,
     `${BASE_URL}/promotional-product.html`,
     `${BASE_URL}/tags.html`,
     `${BASE_URL}/service-repair-forms.html`,
@@ -71,7 +120,7 @@ async function scrapeProducts() {
               fullUrl.toLowerCase().includes(ignored),
             )
           ) {
-            if (!urlsToVisit.includes(fullUrl) && urlsToVisit.length < 50) {
+            if (!urlsToVisit.includes(fullUrl) && urlsToVisit.length < 250) {
               urlsToVisit.push(fullUrl.split('#')[0]);
             }
           }
@@ -179,7 +228,7 @@ async function scrapeProducts() {
             pageUrl &&
             pageUrl.startsWith('http') &&
             !visitedUrls.has(pageUrl) &&
-            urlsToVisit.length < 100
+            urlsToVisit.length < 300
           ) {
             if (!urlsToVisit.includes(pageUrl)) {
               urlsToVisit.push(pageUrl);
