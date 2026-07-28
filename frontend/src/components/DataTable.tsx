@@ -369,11 +369,11 @@ export function DataTable({
   const paginatedRows = table.getRowModel().rows;
   const totalPages = table.getPageCount();
 
-  const handleResetDemoData = async () => {
-    if (!window.confirm("Are you sure you want to completely clear all call history logs and test users from the database?")) return;
+  const handleClearCallHistory = async () => {
+    if (!window.confirm("Are you sure you want to clear all call history logs from the database?")) return;
     try {
       const authToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/users/reset-demo-data`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/users/clear-call-history-only`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -381,12 +381,11 @@ export function DataTable({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to clear call history");
-      localStorage.setItem("demoDataCleared", "true");
-      toast.success(data.message || "Call history and demo users cleared successfully!");
+      toast.success(data.message || "Call history cleared successfully!");
       setTimeout(() => window.location.reload(), 1500);
     } catch (err) {
-      console.error("Error clearing test data:", err);
-      toast.error((err as Error).message || "Failed to clear test data");
+      console.error("Error clearing call history:", err);
+      toast.error((err as Error).message || "Failed to clear call history");
     }
   };
 
@@ -399,15 +398,15 @@ export function DataTable({
             <p className="text-sm font-medium text-default-gray">
               Details of all the calls
             </p>
-            {/* {localStorage.getItem("demoDataCleared") !== "true" && (userRole === "super_admin" || userRole === "admin") && callHistoryData && callHistoryData.length > 0 && (
+            {(userRole === "super_admin" || userRole === "admin") && callHistoryData && callHistoryData.length > 0 && (
               <button
                 type="button"
-                onClick={handleResetDemoData}
+                onClick={handleClearCallHistory}
                 className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-semibold shadow transition-all duration-200"
               >
-                Clear Call History & Demo Data
+                Clear Call History
               </button>
-            )} */}
+            )}
           </div>
         </div>
 

@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/sidebar";
 import logo from "../assets/logo1.png";
 import { Link, NavLink } from "react-router-dom";
-import { PhoneCall, Logs } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
@@ -91,12 +91,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               icon: IconUsers,
               show: true,
             },
+            /* Temporarily hiding Call Logs
             {
               title: "Call Logs",
               url: "/dashboard/LogsHistory",
               icon: Logs,
               show: true,
             },
+            */
             /* Temporarily hiding Plans
             {
               title: "Plans",

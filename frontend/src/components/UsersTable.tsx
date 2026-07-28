@@ -53,6 +53,9 @@ export function UsersTable({
   const [agentNameFilter, setAgentNameFilter] = useState("");
   const [verifiedFilter, setVerifiedFilter] = useState(""); // ""
   const [statusFilter, setStatusFilter] = useState("");
+  const [isAddUserOpen, setAddUserOpen] = useState(false);
+  const [newUser, setNewUser] = useState({ firstname: "", lastname: "", email: "", password: "" });
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
 
   // const uniqueUserNames = useMemo(() => {
   //   const names = new Set<string>();
@@ -446,25 +449,34 @@ export function UsersTable({
     }
   }
 
-  const handleResetDemoData = async () => {
-    if (!window.confirm("Are you sure you want to completely delete all test users and clear all call history logs from the database?")) return;
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newUser.firstname || !newUser.lastname || !newUser.email || !newUser.password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    setIsCreatingUser(true);
     try {
       const authToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-      const res = await fetch(`${API_URL}api/users/reset-demo-data`, {
-        method: "DELETE",
+      const res = await fetch(`${API_URL}api/users/create-by-admin`, {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
+        body: JSON.stringify(newUser),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to reset demo data");
-      localStorage.setItem("demoDataCleared", "true");
-      toast.success(data.message || "Test users and call logs cleared successfully!");
-      setUsers((prev) => prev.filter((u) => u.role === "super_admin" || u.role === "admin" || u.email === "admin@voiceperi.com"));
-      setTimeout(() => window.location.reload(), 1500);
-    } catch (err) {
-      console.error("Error clearing test data:", err);
-      toast.error((err as Error).message || "Failed to clear test data");
+      if (!res.ok) throw new Error(data.message || "Failed to create user");
+      toast.success("New user created successfully!");
+      setAddUserOpen(false);
+      setNewUser({ firstname: "", lastname: "", email: "", password: "" });
+      setTimeout(() => window.location.reload(), 1000);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      toast.error((error as Error).message || "Failed to create user");
+    } finally {
+      setIsCreatingUser(false);
     }
   };
 
@@ -477,15 +489,15 @@ export function UsersTable({
             <p className="text-sm font-medium text-default-gray">
               Details of all the Users
             </p>
-            {/* {localStorage.getItem("demoDataCleared") !== "true" && (user?.role === "super_admin" || user?.role === "admin") && userData && userData.some((u: UserData) => u.role !== 'super_admin' && u.email !== 'admin@voiceperi.com') && (
+            {(user?.role === "super_admin" || user?.role === "admin") && (
               <button
                 type="button"
-                onClick={handleResetDemoData}
-                className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-semibold shadow transition-all duration-200"
+                onClick={() => setAddUserOpen(true)}
+                className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold shadow transition-all duration-200 flex items-center gap-1"
               >
-                Clear Demo Users & Call History
+                + Add New User
               </button>
-            )} */}
+            )}
           </div>
         </div>
 
@@ -687,6 +699,74 @@ export function UsersTable({
           }}
         />
       )}
+
+      {isAddUserOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 overflow-hidden transform transition-all border border-gray-100">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Create New User</h3>
+            <p className="text-sm text-gray-500 mb-6">Enter details to provision a new client account.</p>
+            <form onSubmit={handleCreateUser} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">First Name</label>
+                  <Input
+                    placeholder="John"
+                    value={newUser.firstname}
+                    onChange={(e) => setNewUser({ ...newUser, firstname: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Last Name</label>
+                  <Input
+                    placeholder="Doe"
+                    value={newUser.lastname}
+                    onChange={(e) => setNewUser({ ...newUser, lastname: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Email Address</label>
+                <Input
+                  type="email"
+                  placeholder="user@example.com"
+                  value={newUser.email}
+                  onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Password</label>
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  value={newUser.password}
+                  onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setAddUserOpen(false)}
+                  className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isCreatingUser}
+                  className="px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg shadow disabled:opacity-50 transition-all"
+                >
+                  {isCreatingUser ? "Creating..." : "Create Account"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

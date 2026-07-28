@@ -251,6 +251,32 @@ export class UsersService implements OnModuleInit {
     };
   }
 
+  async clearCallHistoryOnly(): Promise<{ message: string }> {
+    console.log('[UsersService] Admin triggered clear call history only...');
+    const manager = this.userRepo.manager;
+    try {
+      await manager.query(`DELETE FROM call_history;`);
+      console.log('[UsersService] Cleared call_history table.');
+    } catch (e) { console.warn('Could not clear call_history table: ' + e.message); }
+    try {
+      await manager.query(`DELETE FROM logs_call_history;`);
+      console.log('[UsersService] Cleared logs_call_history table.');
+    } catch (e) { console.warn('Could not clear logs_call_history table: ' + e.message); }
+    try {
+      const resetTs = Date.now();
+      await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message, "createdAt") VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Call history cleared', NOW());`);
+      console.log('[UsersService] Inserted reset marker timestamp.');
+    } catch (e) {
+      try {
+        const resetTs = Date.now();
+        await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message) VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Call history cleared');`);
+      } catch (err) {
+        console.warn('Could not insert reset marker: ' + err.message);
+      }
+    }
+    return { message: 'Call history cleared successfully without modifying user accounts!' };
+  }
+
   async resetDemoData(): Promise<{ message: string; deletedUsersCount: number }> {
     console.log('[UsersService] Admin triggered database cleanup for demo/test data...');
     const manager = this.userRepo.manager;

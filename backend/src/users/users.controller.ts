@@ -47,6 +47,22 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
+  @Delete('clear-call-history-only')
+  async clearCallHistoryOnly() {
+    return this.userService.clearCallHistoryOnly();
+  }
+
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
+  @Post('create-by-admin')
+  async createByAdmin(@Body() body: CreateUserDto) {
+    const created = await this.userService.createUser(body);
+    const user = await this.userService.findOneById(created.id);
+    return { message: 'User created successfully by admin', user };
+  }
+
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.SUPER_ADMIN)
   @Patch(':id/role')
   async updateUserRole(@Param('id') id: string, @Body('role') role: Role) {
