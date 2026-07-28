@@ -379,9 +379,11 @@ export class CallHistoryService {
   async historyAndSave(): Promise<CallHistory[]> {
     const lastCallTimeUpdated = await this.getLastUpdateTimeStamp();
     const lastLogTs = await this.logService.getLatestEndTimestamp();
-    const callTs = lastCallTimeUpdated?.start_timestamp ? Number(lastCallTimeUpdated.start_timestamp) + 1 : 0;
+    const callTs = lastCallTimeUpdated?.start_timestamp
+      ? Number(lastCallTimeUpdated.start_timestamp) + 1
+      : 0;
     const logTs = lastLogTs ? Number(lastLogTs) + 1 : 0;
-    const fallbackTs = Date.now() - (365 * 24 * 60 * 60 * 1000);
+    const fallbackTs = Date.now() - 365 * 24 * 60 * 60 * 1000;
     let lastTimeStamp = Math.max(callTs, logTs);
     if (!lastTimeStamp || isNaN(lastTimeStamp)) {
       lastTimeStamp = fallbackTs;
