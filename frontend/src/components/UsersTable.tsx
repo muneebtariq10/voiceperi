@@ -477,7 +477,7 @@ export function UsersTable({
             <p className="text-sm font-medium text-default-gray">
               Details of all the Users
             </p>
-            {localStorage.getItem("demoDataCleared") !== "true" && (user?.role === "super_admin" || user?.role === "admin") && userData && userData.some((u: UserData) => u.role !== 'super_admin' && u.email !== 'admin@voiceperi.com') && (
+            {/* {localStorage.getItem("demoDataCleared") !== "true" && (user?.role === "super_admin" || user?.role === "admin") && userData && userData.some((u: UserData) => u.role !== 'super_admin' && u.email !== 'admin@voiceperi.com') && (
               <button
                 type="button"
                 onClick={handleResetDemoData}
@@ -485,7 +485,7 @@ export function UsersTable({
               >
                 Clear Demo Users & Call History
               </button>
-            )}
+            )} */}
           </div>
         </div>
 

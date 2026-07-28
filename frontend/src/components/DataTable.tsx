@@ -399,7 +399,7 @@ export function DataTable({
             <p className="text-sm font-medium text-default-gray">
               Details of all the calls
             </p>
-            {localStorage.getItem("demoDataCleared") !== "true" && (userRole === "super_admin" || userRole === "admin") && callHistoryData && callHistoryData.length > 0 && (
+            {/* {localStorage.getItem("demoDataCleared") !== "true" && (userRole === "super_admin" || userRole === "admin") && callHistoryData && callHistoryData.length > 0 && (
               <button
                 type="button"
                 onClick={handleResetDemoData}
@@ -407,7 +407,7 @@ export function DataTable({
               >
                 Clear Call History & Demo Data
               </button>
-            )}
+            )} */}
           </div>
         </div>
 
