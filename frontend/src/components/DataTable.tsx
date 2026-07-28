@@ -381,6 +381,7 @@ export function DataTable({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to clear call history");
+      localStorage.setItem("demoDataCleared", "true");
       toast.success(data.message || "Call history and demo users cleared successfully!");
       setTimeout(() => window.location.reload(), 1500);
     } catch (err) {
@@ -398,7 +399,7 @@ export function DataTable({
             <p className="text-sm font-medium text-default-gray">
               Details of all the calls
             </p>
-            {(userRole === "super_admin" || userRole === "admin") && (
+            {localStorage.getItem("demoDataCleared") !== "true" && (userRole === "super_admin" || userRole === "admin") && callHistoryData && callHistoryData.length > 0 && (
               <button
                 type="button"
                 onClick={handleResetDemoData}

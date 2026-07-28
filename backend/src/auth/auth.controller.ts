@@ -145,8 +145,13 @@ export class AuthController {
       throw new NotFoundException('Target user not found');
     }
 
-    if (targetUser.role === Role.SUPER_ADMIN && admin.role !== Role.SUPER_ADMIN) {
-      throw new UnauthorizedException('Cannot impersonate a Super Admin account');
+    if (
+      targetUser.role === Role.SUPER_ADMIN &&
+      admin.role !== Role.SUPER_ADMIN
+    ) {
+      throw new UnauthorizedException(
+        'Cannot impersonate a Super Admin account',
+      );
     }
 
     const impersonationPayload = {

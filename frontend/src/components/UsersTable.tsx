@@ -458,8 +458,10 @@ export function UsersTable({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to reset demo data");
+      localStorage.setItem("demoDataCleared", "true");
       toast.success(data.message || "Test users and call logs cleared successfully!");
       setUsers((prev) => prev.filter((u) => u.role === "super_admin" || u.role === "admin" || u.email === "admin@voiceperi.com"));
+      setTimeout(() => window.location.reload(), 1500);
     } catch (err) {
       console.error("Error clearing test data:", err);
       toast.error((err as Error).message || "Failed to clear test data");
@@ -475,7 +477,7 @@ export function UsersTable({
             <p className="text-sm font-medium text-default-gray">
               Details of all the Users
             </p>
-            {(user?.role === "super_admin" || user?.role === "admin") && (
+            {localStorage.getItem("demoDataCleared") !== "true" && (user?.role === "super_admin" || user?.role === "admin") && userData && userData.some((u: UserData) => u.role !== 'super_admin' && u.email !== 'admin@voiceperi.com') && (
               <button
                 type="button"
                 onClick={handleResetDemoData}

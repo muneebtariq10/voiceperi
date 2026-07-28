@@ -262,6 +262,18 @@ export class UsersService implements OnModuleInit {
       await manager.query(`DELETE FROM logs_call_history;`);
       console.log('[UsersService] Cleared logs_call_history table.');
     } catch (e) { console.warn('Could not clear logs_call_history table: ' + e.message); }
+    try {
+      const resetTs = Date.now();
+      await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message, "createdAt") VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Demo data cleared', NOW());`);
+      console.log('[UsersService] Inserted reset marker timestamp.');
+    } catch (e) {
+      try {
+        const resetTs = Date.now();
+        await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message) VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Demo data cleared');`);
+      } catch (err) {
+        console.warn('Could not insert reset marker: ' + err.message);
+      }
+    }
 
     const deleteUsersRes = await manager.query(`
       SELECT id, email, role FROM users 

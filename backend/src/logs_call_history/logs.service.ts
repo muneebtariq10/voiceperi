@@ -49,4 +49,16 @@ export class LogService {
       throw new InternalServerErrorException('Failed to fetch call history.');
     }
   }
+
+  async getLatestEndTimestamp(): Promise<number | null> {
+    try {
+      const [latest] = await this.logRepository.find({
+        order: { end_timestamp: 'DESC' },
+        take: 1,
+      });
+      return latest && latest.end_timestamp ? Number(latest.end_timestamp) : null;
+    } catch (error) {
+      return null;
+    }
+  }
 }

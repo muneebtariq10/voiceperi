@@ -142,8 +142,6 @@ export class CallHistoryService {
     targetDate.setHours(0, 0, 0, 0);
 
     const timezone = 'Asia/Karachi';
-    let start: Date;
-    let end: Date;
     const where: any = {};
     let businessHours = { from: '00:00', to: '23:59' };
     let retell_agent: string | undefined;
@@ -156,7 +154,9 @@ export class CallHistoryService {
 
       const retell_agents = agents
         .map((a) => a.retell_agent)
-        .filter((id): id is string => typeof id === 'string' && id.trim() !== '');
+        .filter(
+          (id): id is string => typeof id === 'string' && id.trim() !== '',
+        );
 
       if (retell_agents.length === 0) {
         return {
@@ -176,7 +176,9 @@ export class CallHistoryService {
       });
 
       if (!business) {
-        console.warn(`[getAllStats] Business info not found for userId: ${userId}, defaulting to 24 hours`);
+        console.warn(
+          `[getAllStats] Business info not found for userId: ${userId}, defaulting to 24 hours`,
+        );
       } else {
         const businessHoursRaw = business.business_hours;
         const businessTimezone = business.timezone || timezone;
@@ -197,10 +199,10 @@ export class CallHistoryService {
     }
 
     // Always fetch all calls across the entire 24-hour day (00:00:00 to 23:59:59) so test calls and out-of-hours customer calls appear on the dashboard
-    start = new Date(targetDate);
+    const start = new Date(targetDate);
     start.setHours(0, 0, 0, 0);
 
-    end = new Date(targetDate);
+    const end = new Date(targetDate);
     end.setHours(23, 59, 59, 999);
 
     where.start_timestamp = Between(start.getTime(), end.getTime());
@@ -376,8 +378,14 @@ export class CallHistoryService {
 
   async historyAndSave(): Promise<CallHistory[]> {
     const lastCallTimeUpdated = await this.getLastUpdateTimeStamp();
-    const lastTimeStamp =
-      Number(lastCallTimeUpdated?.start_timestamp) + 1 || 1736081191000;
+    const lastLogTs = await this.logService.getLatestEndTimestamp();
+    const callTs = lastCallTimeUpdated?.start_timestamp ? Number(lastCallTimeUpdated.start_timestamp) + 1 : 0;
+    const logTs = lastLogTs ? Number(lastLogTs) + 1 : 0;
+    const fallbackTs = Date.now() - (365 * 24 * 60 * 60 * 1000);
+    let lastTimeStamp = Math.max(callTs, logTs);
+    if (!lastTimeStamp || isNaN(lastTimeStamp)) {
+      lastTimeStamp = fallbackTs;
+    }
     const upperThreshold = Date.now();
 
     try {
