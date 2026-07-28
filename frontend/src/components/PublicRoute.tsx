@@ -38,8 +38,9 @@ const PublicRoute = () => {
   const location = useLocation();
 
   const isGoogleSignup = location.pathname === "/signup";
+  const hasTokenParam = new URLSearchParams(location.search).has("token");
 
-  if (isAuthenticated() && !isGoogleSignup) {
+  if (isAuthenticated() && !isGoogleSignup && !hasTokenParam) {
     return <Navigate to="/dashboard" replace />;
   }
 

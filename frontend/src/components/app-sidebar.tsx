@@ -67,7 +67,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: "Voice agent",
         url: "/dashboard/voiceAgent",
         icon: IconUsers,
-        show: user?.role === "user",
+        show: true,
       },
       {
         title: "Call History",

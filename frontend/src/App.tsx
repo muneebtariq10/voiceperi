@@ -36,7 +36,7 @@ function App() {
     const tokenFromURL = urlParams.get("token");
     const isImpersonatingURL = urlParams.get("impersonating") === "true";
 
-    if (tokenFromURL && isImpersonatingURL && !sessionStorage.getItem("authToken")) {
+    if (tokenFromURL && isImpersonatingURL) {
       sessionStorage.setItem("authToken", tokenFromURL);
       sessionStorage.setItem("isImpersonating", "true");
       urlParams.delete("token");
@@ -80,6 +80,7 @@ function App() {
                 <Route element={<UserRoute />}>
                   <Route path="integrations" element={<Integrations />} />
                   <Route path="voiceAgent" element={<VoiceAgent />} />
+                  <Route path="businessInformation" element={<VoiceAgent />} />
                 </Route>
                 <Route element={<AdminRoute />}>
                   <Route path="logsHistory" element={<CallHistoryLogs />} />

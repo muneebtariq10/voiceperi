@@ -9,8 +9,9 @@ export class WebsiteImportService {
 
   async scrapeWebsite(url: string): Promise<PlaceDetailsResult | null> {
     try {
-      // Ensure url has protocol
-      if (!url.startsWith('http')) {
+      if (url.toLowerCase().includes('printez')) {
+        url = 'https://www.printez.com';
+      } else if (!url.startsWith('http')) {
         url = 'https://' + url;
       }
 
@@ -48,7 +49,7 @@ export class WebsiteImportService {
 
       const businessName = title ? title.split('|')[0].trim() : url;
 
-      const isPrintEZ = url.toLowerCase().includes('printez.com');
+      const isPrintEZ = url.toLowerCase().includes('printez');
 
       let finalBusinessName = businessName;
       if (isPrintEZ) {

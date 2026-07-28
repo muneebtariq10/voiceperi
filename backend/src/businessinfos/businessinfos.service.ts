@@ -75,7 +75,8 @@ export class BusinessinfosService {
         query.startsWith('https://') ||
         query.includes('.com') ||
         query.includes('.net') ||
-        query.includes('.org')
+        query.includes('.org') ||
+        query.toLowerCase().includes('printez')
       ) {
         this.logger.log(`Query appears to be a website URL: ${query}`);
         placeDetails = await this.websiteImportService.scrapeWebsite(query);
@@ -126,7 +127,8 @@ export class BusinessinfosService {
         query.startsWith('https://') ||
         query.includes('.com') ||
         query.includes('.net') ||
-        query.includes('.org')
+        query.includes('.org') ||
+        query.toLowerCase().includes('printez')
       ) {
         this.logger.log(`Query appears to be a website URL: ${query}`);
         placeDetails = await this.websiteImportService.scrapeWebsite(query);

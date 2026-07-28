@@ -156,11 +156,16 @@ export function LoginForm() {
       window.history.replaceState({}, document.title, window.location.pathname);
     } else if (urlToken || localToken) {
       if (urlToken) {
+        const isImpersonating = params.get("impersonating") === "true";
         sessionStorage.setItem("authToken", urlToken);
-        localStorage.setItem("authToken", urlToken);
+        if (isImpersonating) {
+          sessionStorage.setItem("isImpersonating", "true");
+        } else {
+          localStorage.setItem("authToken", urlToken);
+        }
       }
       setIsLoading(true);
-      toast.success("Signed in successfully");
+      toast.success(params.get("impersonating") === "true" ? "Logged in as user" : "Signed in successfully");
       navigate("/dashboard");
     }
   }, [navigate]);
