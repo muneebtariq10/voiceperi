@@ -299,10 +299,12 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     e.preventDefault();
     setLoading(true);
     try {
+      const fallbackLang = selectedLanguage || (languages && languages.length > 0 ? (languages.find((l: any) => l.code === "en" || l.name === "English") || languages[0]).id : null);
+      const fallbackVoice = selectedVoice || (voices && voices.length > 0 ? (voices.find((v: any) => v.voice_id === "11labs-Andrew" || v.voice_name === "Andrew") || voices[0]).voice_id : "11labs-Andrew");
       const payload = {
-        language_id: selectedLanguage,
-        voice_id: selectedVoice,
-        agent_name: agentName.trim(),
+        language_id: fallbackLang,
+        voice_id: fallbackVoice,
+        agent_name: (agentName || "PrintEZ Agent").trim(),
         message: welcomeMessage.trim(),
         ai_number: aiPhoneNumber,
         emails: emails,
@@ -334,8 +336,11 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       }
 
       if (!res.ok) {
-        toast.error("Failed to update voice and language settings");
-        throw new Error("Failed to update settings");
+        const errorData = await res.json().catch(() => null);
+        console.error("Agent saving failure details:", errorData);
+        const errMsg = errorData?.message || "Failed to update voice and language settings";
+        toast.error(typeof errMsg === "object" ? JSON.stringify(errMsg) : errMsg);
+        throw new Error(typeof errMsg === "string" ? errMsg : "Failed to update settings");
       }
       
       if (!agent || !agent.id) {
@@ -475,6 +480,17 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         });
         if (!res3.ok) {
           setAgent(null);
+          if (!selectedLanguage && languages && languages.length > 0) {
+            const enLang = languages.find((l: any) => l.code === "en" || l.name === "English") || languages[0];
+            if (enLang) {
+              setSelectedLanguage(enLang.id);
+              setLanguageCode(enLang.code);
+            }
+          }
+          if (!selectedVoice && voices && voices.length > 0) {
+            const defaultVoice = voices.find((v: any) => v.voice_id === "11labs-Andrew" || v.voice_name === "Andrew") || voices[0];
+            if (defaultVoice) setSelectedVoice(defaultVoice.voice_id);
+          }
           return;
         }
         const json3 = await res3.json();

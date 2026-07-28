@@ -418,19 +418,45 @@ export class AgentsService implements OnApplicationBootstrap {
     return vars;
   }
 
+  private async getOrCreateBusinessInfo(userId: string): Promise<BusinessInformation> {
+    let businessInfo = await this.businessInfoRepo.findOne({
+      where: { user_id: { id: userId } },
+    });
+    if (!businessInfo) {
+      const user = await this.usersService.findById(userId);
+      if (user) {
+        businessInfo = this.businessInfoRepo.create({
+          id: uuidv4(),
+          user_id: user,
+          name: 'PrintEZ',
+          address: '205 Bakertown Rd, Monroe, NY 10950, USA',
+          phone: '+1 845-782-5832',
+          websiteUrl: 'https://www.printez.com',
+          businessType: 'ecommerce',
+          overview: 'PrintEZ offers customizable business printing solutions, computer checks, tax forms, envelopes, deposit slips, and promotional products with guaranteed compatibility.',
+          services: [
+            'Custom business forms and laser printing',
+            'QuickBooks & banking compatible check printing',
+            'Logo printing and custom promotional office items',
+          ],
+          business_hours: ['Monday - Friday: 9:00am - 5:30pm', 'Saturday - Sunday: Closed'],
+        });
+        await this.businessInfoRepo.save(businessInfo);
+      }
+    }
+    if (!businessInfo) {
+      throw new NotFoundException(
+        `Business information could not be found or created for user ID ${userId}`,
+      );
+    }
+    return businessInfo;
+  }
+
   private async createRetellAgent(
     createAgentDto: CreateAgentDto,
     language: Language,
   ): Promise<any> {
-    const businessInfo = await this.businessInfoRepo.findOne({
-      where: { user_id: { id: createAgentDto.user_id } },
-    });
-
-    if (!businessInfo) {
-      throw new NotFoundException(
-        `Business information not found for user ID ${createAgentDto.user_id}`,
-      );
-    }
+    const businessInfo = await this.getOrCreateBusinessInfo(createAgentDto.user_id.toString());
 
     const variables = this.buildPromptVariables(createAgentDto, businessInfo);
 
@@ -576,14 +602,26 @@ export class AgentsService implements OnApplicationBootstrap {
   }
 
   async create(createAgentDto: CreateAgentDto): Promise<Agent> {
-    const language = await this.languageRepo.findOne({
-      where: { id: createAgentDto.language_id },
-    });
+    let language: Language | null = null;
+    if (createAgentDto.language_id) {
+      language = await this.languageRepo.findOne({
+        where: { id: createAgentDto.language_id },
+      });
+    }
 
     if (!language) {
-      throw new NotFoundException(
-        `Language with ID ${createAgentDto.language_id} not found`,
-      );
+      language = await this.languageRepo.findOne({ where: { code: 'en' } });
+      if (!language) {
+        language = await this.languageRepo.findOne({});
+      }
+    }
+
+    if (!language) {
+      throw new NotFoundException(`No valid language found in database`);
+    }
+
+    if (!createAgentDto.voice_id) {
+      createAgentDto.voice_id = '11labs-Andrew';
     }
     const id = createAgentDto.user_id;
 
@@ -805,15 +843,7 @@ export class AgentsService implements OnApplicationBootstrap {
     });
 
     // 🏢 Step 2: Load Business Info
-    const businessInfo = await this.businessInfoRepo.findOne({
-      where: { user_id: { id: user_id } },
-    });
-
-    if (!businessInfo) {
-      throw new NotFoundException(
-        `Business information not found for user ID ${user_id}`,
-      );
-    }
+    const businessInfo = await this.getOrCreateBusinessInfo(user_id);
 
     console.log('🏢 Business Info loaded:', {
       name: businessInfo.name,
@@ -976,11 +1006,17 @@ export class AgentsService implements OnApplicationBootstrap {
     let language = agent.language;
 
     if (updateAgentDto.language_id) {
-      const foundLanguage = await this.languageRepo.findOne({
+      let foundLanguage = await this.languageRepo.findOne({
         where: { id: updateAgentDto.language_id },
       });
-      const businessInfo =
+      if (!foundLanguage) {
+        foundLanguage = agent.language || (await this.languageRepo.findOne({ where: { code: 'en' } }));
+      }
+      let businessInfo =
         await this.businessInfosService.findOneByUserId(userId);
+      if (!businessInfo) {
+        businessInfo = await this.getOrCreateBusinessInfo(userId);
+      }
 
       if (businessInfo && businessInfo.businessType !== 'ecommerce') {
         const searchQuery = `${businessInfo?.name}, ${businessInfo?.address},`;
@@ -995,7 +1031,7 @@ export class AgentsService implements OnApplicationBootstrap {
           businessData || undefined,
         );
       }
-      console.log('📦 Business services:', businessInfo.services);
+      console.log('📦 Business services:', businessInfo?.services);
 
       if (!foundLanguage)
         throw new NotFoundException(
