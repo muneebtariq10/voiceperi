@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Post,
   Request,
   Param,
   Put,
@@ -12,6 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/entities/user';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -24,6 +26,12 @@ export class UsersController {
   @Get()
   getAllUsers() {
     return this.userService.getAllUsers();
+  }
+
+  @Public()
+  @Post('setup-admin')
+  async setupAdmin(@Body() body: CreateUserDto) {
+    return this.userService.setupInitialAdmin(body);
   }
 
   @Delete('/delete/:id')

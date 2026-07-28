@@ -66,6 +66,12 @@ export class AuthController {
   }
 
   @Public()
+  @Post('setup-admin')
+  async setupAdmin(@Body() body: CreateUserDto) {
+    return this.userService.setupInitialAdmin(body);
+  }
+
+  @Public()
   @Get('google/login')
   @UseGuards(GoogleAuthGuard)
   async googleAuth() {

@@ -13,7 +13,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user';
 import { BillingHistory } from 'src/entities/billing_history';
 import { PaymentPlan } from 'src/entities/payment_plans';
-import { AdminBootstrapService } from './admin-bootstrap.service';
 import { RolesGuard } from './guards/roles.guard';
 
 @Module({
@@ -39,7 +38,6 @@ import { RolesGuard } from './guards/roles.guard';
     JwtStrategy,
     LocalStrategy,
     GoogleStrategy,
-    AdminBootstrapService,
     RolesGuard,
   ],
   exports: [AuthService, RolesGuard],

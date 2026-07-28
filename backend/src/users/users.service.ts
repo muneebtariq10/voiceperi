@@ -138,10 +138,68 @@ export class UsersService {
     }
 
     // closed_lock_with_key JWT token
-    const payload = { email: savedUser.email, sub: savedUser.id };
+    const payload = {
+      email: savedUser.email,
+      sub: savedUser.id,
+      role: savedUser.role,
+    };
     const access_token = this.jwtService.sign(payload);
 
     return { access_token, id: savedUser.id };
+  }
+
+  async setupInitialAdmin(
+    dto: CreateUserDto,
+  ): Promise<{ access_token: string; id: string; message: string }> {
+    // 1) Enforce strictly one-time setup: check if ANY admin account exists in the database
+    const existingAdmins = await this.userRepo.count({
+      where: { role: Role.ADMIN },
+    });
+
+    if (existingAdmins > 0) {
+      throw new UnauthorizedException(
+        'Initial admin account has already been set up. No further admin registrations are allowed.',
+      );
+    }
+
+    const { firstname, lastname, email, password } = dto;
+
+    // 2) Check if user already exists
+    const userExists = await this.findByEmail(email);
+    if (userExists) {
+      throw new BadRequestException('User with this email already exists');
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // 3) Create initial admin account with Role.ADMIN
+    const user = this.userRepo.create({
+      id: uuidv4(),
+      firstname: firstname || 'System',
+      lastname: lastname || 'Admin',
+      email: email.trim().toLowerCase(),
+      password: hashedPassword,
+      role: Role.ADMIN,
+      verified: 1,
+      status: 1,
+    });
+
+    const savedUser = await this.userRepo.save(user);
+
+    const payload = {
+      email: savedUser.email,
+      sub: savedUser.id,
+      role: savedUser.role,
+    };
+    const access_token = this.jwtService.sign(payload);
+
+    return {
+      access_token,
+      id: savedUser.id,
+      message:
+        'Initial admin account created successfully. The one-time setup endpoint is now permanently sealed.',
+    };
   }
 
   // async getUserRelatedEntities(userId: string): Promise<{
