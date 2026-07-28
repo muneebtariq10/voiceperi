@@ -40,6 +40,13 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
+  @Delete('reset-demo-data')
+  async resetDemoData() {
+    return this.userService.resetDemoData();
+  }
+
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.SUPER_ADMIN)
   @Patch(':id/role')
   async updateUserRole(@Param('id') id: string, @Body('role') role: Role) {

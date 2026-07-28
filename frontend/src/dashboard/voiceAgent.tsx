@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { ComboboxDemo } from "@/components/timezone-selector";
-import { MapPin, Building2, Sliders, Briefcase, Clock, Save, X } from "lucide-react";
+import { MapPin, Building2, Sliders, Briefcase, Clock, Save, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const DEFAULT_WEEKDAYS = [
@@ -412,10 +412,16 @@ const VoiceAgent: React.FC = () => {
       setLocationData([]);
     }
   }
-  const handleBusinessInfo = async (userId?: string) => {
+  const handleBusinessInfo = async (userId?: string, customQuery?: string) => {
     // const selectedLanguage = languages?.find((lang) => lang.id == step1Data.language);
+    const searchQuery = customQuery || profile;
+    if (!searchQuery || !searchQuery.trim()) {
+      toast.error("Please enter a website URL, business name, or address first.");
+      return;
+    }
 
     try {
+      toast.loading("Autofilling business information...", { id: "autofill-toast" });
       const response = await fetch(`${API_URL}api/businessinfos/new-info`, {
         method: "POST",
         headers: {
@@ -424,7 +430,7 @@ const VoiceAgent: React.FC = () => {
         },
         body: JSON.stringify({
           user_id: userId,
-          query: profile,
+          query: searchQuery,
         }),
       });
 
@@ -435,11 +441,12 @@ const VoiceAgent: React.FC = () => {
 
       const data = await response.json();
       setBusinessInfo(data);
-      setName(data?.name);
-      setAddress(data?.formatted_address || "");
-      setPhone(data?.international_phone_number || "");
-      setOverview(data?.editorial_summary?.overview || "");
+      if (data?.name) setName(data.name);
+      if (data?.formatted_address) setAddress(data.formatted_address);
+      if (data?.international_phone_number) setPhone(data.international_phone_number);
+      setOverview(data?.overview || data?.editorial_summary?.overview || "");
 
+      toast.success("Business information autofilled successfully!", { id: "autofill-toast" });
       const filteredServices = (data?.types || []).filter(
         (type: string) =>
           type !== "point_of_interest" && type !== "establishment"
@@ -565,18 +572,39 @@ const VoiceAgent: React.FC = () => {
                   htmlFor="profile"
                   className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2"
                 >
-                  Search Business Information
+                  Search Business Information (or enter website URL)
                 </label>
-                <Input
-                  value={profile}
-                  onChange={(e) => {
-                    setProfile(e.target.value);
-                    handleCompleteLocation(e.target.value);
-                  }}
-                  id="profile"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
-                  placeholder="Enter your business name, address, or website"
-                />
+                <div className="flex w-full gap-2 items-center">
+                  <Input
+                    value={profile}
+                    onChange={(e) => {
+                      setProfile(e.target.value);
+                      handleCompleteLocation(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        setLocationData([]);
+                        handleBusinessInfo(userInfo?.sub, e.currentTarget.value);
+                      }
+                    }}
+                    id="profile"
+                    className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                    placeholder="Enter business name or website (e.g. printez.com)"
+                  />
+                  <Button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setLocationData([]);
+                      handleBusinessInfo(userInfo?.sub, profile);
+                    }}
+                    className="h-11 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium shadow-md transition-all flex items-center gap-1.5 shrink-0"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    <span>Autofill</span>
+                  </Button>
+                </div>
                 <div
                   className={`${
                     locationData?.length !== 0 ? "flex" : "hidden"
@@ -591,7 +619,7 @@ const VoiceAgent: React.FC = () => {
                       onClick={() => {
                         setProfile(item.description);
                         setLocationData([]);
-                        handleBusinessInfo(userInfo?.sub);
+                        handleBusinessInfo(userInfo?.sub, item.description);
                       }}
                       key={index}
                       className="w-full mt-1 px-3 py-2 rounded-lg cursor-pointer text-xs sm:text-sm font-medium hover:bg-purple-50 text-slate-700 hover:text-purple-700 transition-colors"

@@ -67,7 +67,7 @@ export class BusinessinfosService {
     this.apiKey = process.env.GOOGLE_PLACES_API_KEY || '';
   }
 
-  async getBusinessInfo(query: string, language: string, user_id?: string) {
+  async getBusinessInfo(query: string, language: string, user_id?: string, existingData?: any) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
       if (
@@ -95,25 +95,33 @@ export class BusinessinfosService {
 
     if (!user_id) {
       // If no user_id, return the place details only (no DB save)
-      return placeDetails;
+      return { ...placeDetails, ...(existingData || {}) };
     }
     const createBusinessinfoDto: CreateBusinessinfoDto = {
       user_id,
       query,
-      timezone: 'America/Detroit',
+      timezone: existingData?.timezone || 'America/Detroit',
     };
 
     if (!placeDetails) {
       // Fallback dummy place details if not found on Google Maps
       placeDetails = {
-        name: query,
-        website: query,
-        formatted_address: '',
-        international_phone_number: '',
-        types: [],
-        opening_hours: { weekday_text: [] },
-        editorial_summary: { overview: '' },
+        name: existingData?.name || query,
+        website: existingData?.profile || query,
+        formatted_address: existingData?.address || '',
+        international_phone_number: existingData?.phone || '',
+        types: existingData?.services || [],
+        opening_hours: { weekday_text: existingData?.business_hours || [] },
+        editorial_summary: { overview: existingData?.overview || '' },
       };
+    } else if (existingData) {
+      if (existingData.name) placeDetails.name = existingData.name;
+      if (existingData.address) placeDetails.formatted_address = existingData.address;
+      if (existingData.phone) placeDetails.international_phone_number = existingData.phone;
+      if (existingData.overview) placeDetails.overview = existingData.overview;
+      if (existingData.services) placeDetails.services = existingData.services;
+      if (existingData.business_hours) placeDetails.business_hours = existingData.business_hours;
+      if (existingData.profile) placeDetails.profile = existingData.profile;
     }
 
     return await this.create(createBusinessinfoDto, placeDetails);
@@ -313,18 +321,16 @@ export class BusinessinfosService {
       .slice(0, 5);
     const businessInfo = this.businessInfoRepo.create({
       id: uuidv4(),
-      profile: place.url ? place.url : place.website || '',
-      websiteUrl: place.website || (place.url ? place.url : ''),
-      businessType: place.types?.includes('ecommerce')
-        ? 'ecommerce'
-        : 'physical',
-      name: place.name,
-      address: place.formatted_address || 'Unknown',
-      phone: place.international_phone_number || '',
-      overview: place.editorial_summary?.overview || place.overview || '',
-      services: filteredTypes,
-      timezone: 'America/Detroit',
-      business_hours: place.opening_hours?.weekday_text || [],
+      profile: place.profile || place.url || place.website || '',
+      websiteUrl: place.websiteUrl || place.website || place.url || '',
+      businessType: place.businessType || (place.types?.includes('ecommerce') ? 'ecommerce' : 'physical'),
+      name: place.name || 'My Business',
+      address: place.address || place.formatted_address || 'Unknown',
+      phone: place.phone || place.international_phone_number || '',
+      overview: place.overview || place.editorial_summary?.overview || '',
+      services: place.services || filteredTypes,
+      timezone: place.timezone || createBusinessinfoDto.timezone || 'America/Detroit',
+      business_hours: place.business_hours || place.opening_hours?.weekday_text || [],
       user_id: user,
     });
 

@@ -446,14 +446,45 @@ export function UsersTable({
     }
   }
 
+  const handleResetDemoData = async () => {
+    if (!window.confirm("Are you sure you want to completely delete all test users and clear all call history logs from the database?")) return;
+    try {
+      const authToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+      const res = await fetch(`${API_URL}api/users/reset-demo-data`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to reset demo data");
+      toast.success(data.message || "Test users and call logs cleared successfully!");
+      setUsers((prev) => prev.filter((u) => u.role === "super_admin" || u.role === "admin" || u.email === "admin@voiceperi.com"));
+    } catch (err) {
+      console.error("Error clearing test data:", err);
+      toast.error((err as Error).message || "Failed to clear test data");
+    }
+  };
+
   return (
     <div className="flex flex-col px-[16px] md:px-7 bg-[#fafafb] col-7">
       <div className="flex flex-col md:flex-row justify-between items-center py-6 gap-x-2 md:row-gap-4">
-        <div className="w-full flex flex-row md:flex-col justify-between md:justify-center items-start mb-[10px] md:mb-0 gap-y-3">
+        <div className="w-full flex flex-row md:flex-col justify-between md:justify-center items-start mb-[10px] md:mb-0 gap-y-2">
           <h3 className="text-2xl font-semibold text-primary">Users</h3>
-          <p className="text-sm font-medium text-default-gray">
-            Details of all the Users
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-sm font-medium text-default-gray">
+              Details of all the Users
+            </p>
+            {(user?.role === "super_admin" || user?.role === "admin") && (
+              <button
+                type="button"
+                onClick={handleResetDemoData}
+                className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-semibold shadow transition-all duration-200"
+              >
+                Clear Demo Users & Call History
+              </button>
+            )}
+          </div>
         </div>
 
         <Input

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { toast } from "sonner";
 import { Popup } from "./detailpopup.tsx";
 import {
   Column,
@@ -368,14 +369,45 @@ export function DataTable({
   const paginatedRows = table.getRowModel().rows;
   const totalPages = table.getPageCount();
 
+  const handleResetDemoData = async () => {
+    if (!window.confirm("Are you sure you want to completely clear all call history logs and test users from the database?")) return;
+    try {
+      const authToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/users/reset-demo-data`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to clear call history");
+      toast.success(data.message || "Call history and demo users cleared successfully!");
+      setTimeout(() => window.location.reload(), 1500);
+    } catch (err) {
+      console.error("Error clearing test data:", err);
+      toast.error((err as Error).message || "Failed to clear test data");
+    }
+  };
+
   return (
     <div className="flex flex-col px-[16px] md:px-7 bg-[#fafafb]">
       <div className="flex flex-col md:flex-row justify-between items-center gap-x-2 py-6">
-        <div className="w-full flex flex-row md:flex-col justify-between md:justify-center items-start mb-[10px] md:mb-0 gap-y-3">
+        <div className="w-full flex flex-row md:flex-col justify-between md:justify-center items-start mb-[10px] md:mb-0 gap-y-2">
           <h3 className="text-2xl font-semibold text-primary">Call History</h3>
-          <p className="text-sm font-medium text-default-gray">
-            Details of all the calls
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-sm font-medium text-default-gray">
+              Details of all the calls
+            </p>
+            {(userRole === "super_admin" || userRole === "admin") && (
+              <button
+                type="button"
+                onClick={handleResetDemoData}
+                className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-semibold shadow transition-all duration-200"
+              >
+                Clear Call History & Demo Data
+              </button>
+            )}
+          </div>
         </div>
 
         {/* <Input

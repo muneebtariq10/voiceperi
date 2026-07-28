@@ -18,12 +18,21 @@ export class BusinessinfosController {
 
   @Post()
   async create(
-    @Body() body: { query: string; language: string; user_id: string },
+    @Body()
+    body: {
+      query?: string;
+      profile?: string;
+      name?: string;
+      language?: string;
+      user_id?: string;
+      [key: string]: any;
+    },
   ) {
     return await this.businessinfosService.getBusinessInfo(
-      body.query,
-      body.language,
+      body.query || body.profile || body.name || '',
+      body.language || 'en',
       body.user_id,
+      body,
     );
   }
 

@@ -251,6 +251,50 @@ export class UsersService implements OnModuleInit {
     };
   }
 
+  async resetDemoData(): Promise<{ message: string; deletedUsersCount: number }> {
+    console.log('[UsersService] Admin triggered database cleanup for demo/test data...');
+    const manager = this.userRepo.manager;
+    try {
+      await manager.query(`DELETE FROM call_history;`);
+      console.log('[UsersService] Cleared call_history table.');
+    } catch (e) { console.warn('Could not clear call_history table: ' + e.message); }
+    try {
+      await manager.query(`DELETE FROM logs_call_history;`);
+      console.log('[UsersService] Cleared logs_call_history table.');
+    } catch (e) { console.warn('Could not clear logs_call_history table: ' + e.message); }
+
+    const deleteUsersRes = await manager.query(`
+      SELECT id, email, role FROM users 
+      WHERE role NOT IN ('super_admin', 'admin') 
+      AND email != 'admin@voiceperi.com'
+    `);
+    const deleteUsers = deleteUsersRes || [];
+    let deletedUsersCount = 0;
+
+    if (deleteUsers.length > 0) {
+      const deleteIds = deleteUsers.map((u: any) => u.id);
+      const idList = deleteIds.map((id: string) => `'${id}'`).join(',');
+      const tablesToCheck = [
+        { table: 'agents', col: 'userId' },
+        { table: 'business_informations', col: 'userId' },
+        { table: 'feedbacks', col: 'userId' },
+        { table: 'billing_history', col: 'userId' },
+      ];
+      for (const t of tablesToCheck) {
+        try { await manager.query(`DELETE FROM "${t.table}" WHERE "${t.col}" IN (${idList});`); } catch (e) {}
+        try { await manager.query(`DELETE FROM "${t.table}" WHERE user_id IN (${idList});`); } catch (e) {}
+      }
+      const delRes = await manager.query(`DELETE FROM users WHERE id IN (${idList});`);
+      deletedUsersCount = delRes ? (delRes[1] ?? delRes.length ?? deleteUsers.length) : deleteUsers.length;
+    }
+
+    console.log(`[UsersService] Reset completed: removed ${deletedUsersCount} non-admin user(s) and cleared call history.`);
+    return {
+      message: 'Successfully wiped all test users and call history logs from the database.',
+      deletedUsersCount,
+    };
+  }
+
   // async getUserRelatedEntities(userId: string): Promise<{
   //   userId: string;
   //   agentId?: string;
