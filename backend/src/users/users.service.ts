@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User, Role } from 'src/entities/user';
@@ -27,7 +28,7 @@ import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
 import * as fs from 'fs';
 @Injectable()
-export class UsersService {
+export class UsersService implements OnModuleInit {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>,
     @InjectRepository(Agent) // white_check_mark Use InjectRepository here
@@ -148,12 +149,30 @@ export class UsersService {
     return { access_token, id: savedUser.id };
   }
 
+  async onModuleInit() {
+    try {
+      await this.userRepo.query("ALTER TYPE users_role_enum ADD VALUE IF NOT EXISTS 'super_admin'");
+    } catch (err) {
+      // Safe to ignore if postgres custom type does not exist or value already added
+    }
+    try {
+      const owner = await this.userRepo.findOne({ where: { email: 'admin@voiceperi.com' } });
+      if (owner && owner.role === Role.ADMIN) {
+        owner.role = Role.SUPER_ADMIN;
+        await this.userRepo.save(owner);
+        console.log('[UsersService] Upgraded primary owner (admin@voiceperi.com) to SUPER_ADMIN role.');
+      }
+    } catch (err) {
+      // Table might not exist on clean initialization
+    }
+  }
+
   async setupInitialAdmin(
     dto: CreateUserDto,
   ): Promise<{ access_token: string; id: string; message: string }> {
-    // 1) Enforce strictly one-time setup: check if ANY admin account exists in the database
+    // 1) Enforce strictly one-time setup: check if ANY admin or super_admin account exists in the database
     const existingAdmins = await this.userRepo.count({
-      where: { role: Role.ADMIN },
+      where: [{ role: Role.ADMIN }, { role: Role.SUPER_ADMIN }],
     });
 
     if (existingAdmins > 0) {
@@ -173,14 +192,14 @@ export class UsersService {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // 3) Create initial admin account with Role.ADMIN
+    // 3) Create initial admin account with Role.SUPER_ADMIN
     const user = this.userRepo.create({
       id: uuidv4(),
       firstname: firstname || 'System',
       lastname: lastname || 'Admin',
       email: email.trim().toLowerCase(),
       password: hashedPassword,
-      role: Role.ADMIN,
+      role: Role.SUPER_ADMIN,
       verified: 1,
       status: 1,
     });
@@ -198,7 +217,37 @@ export class UsersService {
       access_token,
       id: savedUser.id,
       message:
-        'Initial admin account created successfully. The one-time setup endpoint is now permanently sealed.',
+        'Initial Super Admin account created successfully. The one-time setup endpoint is now permanently sealed.',
+    };
+  }
+
+  async updateUserRole(
+    userId: string,
+    newRole: Role,
+  ): Promise<{ message: string; user: { id: string; email: string; role: Role } }> {
+    const targetUser = await this.userRepo.findOne({ where: { id: userId } });
+    if (!targetUser) {
+      throw new NotFoundException('Target user not found');
+    }
+
+    if (targetUser.role === Role.SUPER_ADMIN) {
+      throw new UnauthorizedException('Super Admin account permissions cannot be modified.');
+    }
+
+    if (newRole === Role.SUPER_ADMIN) {
+      throw new UnauthorizedException('Cannot promote standard users to Super Admin via UI.');
+    }
+
+    targetUser.role = newRole;
+    await this.userRepo.save(targetUser);
+
+    return {
+      message: `User role successfully updated to ${newRole}`,
+      user: {
+        id: targetUser.id,
+        email: targetUser.email,
+        role: targetUser.role,
+      },
     };
   }
 

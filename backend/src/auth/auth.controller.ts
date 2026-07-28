@@ -136,13 +136,17 @@ export class AuthController {
   // Do NOT use @Res — just return JSON
   @Post('login-as')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
   async loginAs(@Request() req, @Body() body: { userId: string }) {
     const admin = req.user;
 
     const targetUser = await this.userService.findOneById(body.userId);
     if (!targetUser) {
       throw new NotFoundException('Target user not found');
+    }
+
+    if (targetUser.role === Role.SUPER_ADMIN && admin.role !== Role.SUPER_ADMIN) {
+      throw new UnauthorizedException('Cannot impersonate a Super Admin account');
     }
 
     const impersonationPayload = {

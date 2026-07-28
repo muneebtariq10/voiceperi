@@ -13,6 +13,7 @@ import { BillingHistory } from './billing_history';
 export enum Role {
   USER = 'user',
   ADMIN = 'admin',
+  SUPER_ADMIN = 'super_admin',
 }
 
 @Entity({ name: 'users' })

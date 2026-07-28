@@ -22,6 +22,7 @@ export type UserData = {
     agent_name: string;
     id: string;
   }[];
+  role?: string;
   info: { name: string }[];
   createdAt: string;
   updatedAt: string;

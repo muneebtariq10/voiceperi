@@ -123,7 +123,7 @@ const Overview = () => {
     const fetchData = async () => {
       const params = new URLSearchParams();
 
-      if (user?.role !== "admin" && userInfo?.sub) {
+      if (user?.role !== "admin" && user?.role !== "super_admin" && userInfo?.sub) {
         params.append("user_id", userInfo?.sub);
       }
 
@@ -164,7 +164,7 @@ const Overview = () => {
     const fetchData = async () => {
       const params = new URLSearchParams();
 
-      if (user?.role !== "admin" && userInfo?.sub) {
+      if (user?.role !== "admin" && user?.role !== "super_admin" && userInfo?.sub) {
         params.append("user_id", userInfo?.sub);
       }
 
@@ -203,7 +203,7 @@ const Overview = () => {
     const fetchData = async () => {
       const params = new URLSearchParams();
 
-      if (user?.role !== "admin" && userInfo?.sub) {
+      if (user?.role !== "admin" && user?.role !== "super_admin" && userInfo?.sub) {
         params.append("user_id", userInfo?.sub);
       }
 
@@ -241,7 +241,7 @@ const Overview = () => {
     const fetchData = async () => {
       const params = new URLSearchParams();
 
-      if (user?.role !== "admin" && userInfo?.sub) {
+      if (user?.role !== "admin" && user?.role !== "super_admin" && userInfo?.sub) {
         params.append("user_id", userInfo?.sub);
       }
 
@@ -279,7 +279,7 @@ const Overview = () => {
     const fetchData = async () => {
       const params = new URLSearchParams();
 
-      if (user?.role !== "admin" && userInfo?.sub) {
+      if (user?.role !== "admin" && user?.role !== "super_admin" && userInfo?.sub) {
         params.append("user_id", userInfo?.sub);
       }
 

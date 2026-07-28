@@ -26,7 +26,7 @@ export class PaymentPlanController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
   async create(@Body() createDto: CreatePaymentPlanDto) {
     try {
       console.log('Received body:', createDto); // 👀
@@ -50,7 +50,7 @@ export class PaymentPlanController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDto: UpdatePaymentPlanDto,
@@ -60,7 +60,7 @@ export class PaymentPlanController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.paymentPlanService.remove(id);
   }

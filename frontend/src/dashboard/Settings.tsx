@@ -56,7 +56,7 @@ const Settings = () => {
               {activeTab === "account" ? <Account /> : <Account />}
             </div>
           )}
-          {user?.role === "admin" && (
+          {(user?.role === "admin" || user?.role === "super_admin") && (
             <div className="mt-11">
               {activeTab === "account" && <Account />}
             </div>

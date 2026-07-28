@@ -83,7 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       */
 
-      ...(user?.role === "admin"
+      ...(user?.role === "admin" || user?.role === "super_admin"
         ? [
             {
               title: "Users",

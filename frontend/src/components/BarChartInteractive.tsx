@@ -70,7 +70,7 @@ export function BarChartInteractive() {
   useEffect(() => {
     const fetchData = async () => {
       const params = new URLSearchParams();
-      if (user?.role !== "admin" && user?.id) {
+      if (user?.role !== "admin" && user?.role !== "super_admin" && user?.id) {
         params.append("userId", user?.id);
       }
       const apiDate = formatDateForApi(date);

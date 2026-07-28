@@ -4,20 +4,25 @@ import {
   Delete,
   Get,
   Post,
+  Patch,
   Request,
   Param,
   Put,
   UploadedFile,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { User } from 'src/entities/user';
+import { User, Role } from 'src/entities/user';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('users')
 export class UsersController {
@@ -34,10 +39,18 @@ export class UsersController {
     return this.userService.setupInitialAdmin(body);
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.SUPER_ADMIN)
+  @Patch(':id/role')
+  async updateUserRole(@Param('id') id: string, @Body('role') role: Role) {
+    return this.userService.updateUserRole(id, role);
+  }
+
   @Delete('/delete/:id')
   async deleteUserData(@Param('id') id: string, @Request() req: any) {
     const userId = id;
-    const isAdmin = req?.user?.role === 'admin';
+    const isAdmin =
+      req?.user?.role === 'admin' || req?.user?.role === 'super_admin';
 
     console.log('Delete Request by:', isAdmin ? 'Admin' : 'User');
     let deletionIds;

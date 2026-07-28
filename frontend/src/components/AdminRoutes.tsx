@@ -9,8 +9,8 @@ const AdminRoute = () => {
     return <Navigate to="/login" replace />;
   }
 
-  // Not admin
-  if (user.role !== "admin") {
+  // Not admin or super_admin
+  if (user.role !== "admin" && user.role !== "super_admin") {
     return <Navigate to="/unauthorized" replace />;
   }
 

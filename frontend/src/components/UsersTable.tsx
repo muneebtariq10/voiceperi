@@ -101,6 +101,41 @@ export function UsersTable({
     }
   };
 
+  const handleUpdateRole = async (
+    userId: string | number,
+    newRole: string
+  ) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}api/users/${userId}/role`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({ role: newRole }),
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to update user role");
+      }
+
+      toast.success(data.message || `User role updated to ${newRole}`);
+      setUsers((prev) =>
+        prev.map((u) =>
+          String(u.id) === String(userId) ? { ...u, role: newRole } : u
+        )
+      );
+    } catch (err: any) {
+      console.error("Update role failed:", err);
+      toast.error(err?.message || "Failed to update user role");
+    }
+  };
+
   // const filteredUserData = useMemo(() => {
   //   if (!globalFilter) return userData;
 
@@ -190,6 +225,7 @@ export function UsersTable({
       "firstname",
       "lastname",
       "email",
+      "role",
       "status",
       "verified",
       "createdAt",
@@ -209,6 +245,27 @@ export function UsersTable({
       ),
       cell: ({ row }: any) => {
         const value = row.getValue(key);
+        if (key === "role") {
+          const badgeColor =
+            value === "super_admin"
+              ? "bg-purple-100 text-purple-800 border-purple-300"
+              : value === "admin"
+              ? "bg-blue-100 text-blue-800 border-blue-300"
+              : "bg-gray-100 text-gray-700 border-gray-300";
+          const label =
+            value === "super_admin"
+              ? "Super Admin"
+              : value === "admin"
+              ? "Admin"
+              : "User";
+          return (
+            <div className="text-[14px] font-[600]">
+              <span className={`px-3 py-1 rounded-full border ${badgeColor}`}>
+                {label}
+              </span>
+            </div>
+          );
+        }
         if (key === "status")
           return (
             <div className="text-[16px] font-[500]">
@@ -298,8 +355,8 @@ export function UsersTable({
 
           {/* Delete Button */}
 
-          {/* ✅ Login As Button (admin only) */}
-          {user?.role === "admin" && (
+          {/* ✅ Login As Button (admin and super_admin only) */}
+          {(user?.role === "admin" || user?.role === "super_admin") && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -312,6 +369,43 @@ export function UsersTable({
           )}
         </div>
       ),
+    },
+    {
+      id: "roleAction",
+      header: "Role Action",
+      cell: ({ row }) => {
+        const targetRole = row.original.role || "user";
+        const targetId = row.original.id;
+        if (user?.role !== "super_admin") return null;
+
+        if (targetRole === "super_admin") {
+          return (
+            <span className="text-xs text-purple-600 font-semibold italic bg-purple-50 px-2 py-1 rounded border border-purple-200">
+              Protected Owner
+            </span>
+          );
+        }
+
+        const nextRole = targetRole === "admin" ? "user" : "admin";
+        const actionLabel =
+          targetRole === "admin" ? "Demote to User" : "Promote to Admin";
+        const btnColor =
+          targetRole === "admin"
+            ? "bg-amber-100 text-amber-800 hover:bg-amber-200 border-amber-300"
+            : "bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border-emerald-300";
+
+        return (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleUpdateRole(targetId, nextRole);
+            }}
+            className={`text-xs px-3 py-1.5 rounded font-bold border shadow-sm transition duration-150 ${btnColor}`}
+          >
+            {actionLabel}
+          </button>
+        );
+      },
     },
   ];
 

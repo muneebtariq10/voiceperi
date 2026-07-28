@@ -52,7 +52,7 @@ export class AgentsController {
 
   @Patch('admin/prompt-template')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
   updatePromptTemplate(@Body() body: { content: string }) {
     const filePath = path.join(process.cwd(), 'templates', 'prompt.txt');
     console.log('[PATCH] Writing prompt file to:', filePath);
