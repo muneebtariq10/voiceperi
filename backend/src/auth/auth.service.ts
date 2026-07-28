@@ -15,6 +15,7 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { BillingHistory } from 'src/entities/billing_history';
 import { PaymentPlan } from 'src/entities/payment_plans';
 import { PricingInterval } from 'src/entities/payment_plans_pricing';
+import { Role } from 'src/entities/user';
 
 @Injectable()
 export class AuthService {
@@ -96,6 +97,7 @@ export class AuthService {
       email: emails[0].value,
       image: photos[0].value,
       password: '',
+      role: Role.USER,
     });
 
     const savedUser = await this.userRepository.save(newUser);

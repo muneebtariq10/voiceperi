@@ -21,8 +21,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request as ARequest, Response } from 'express';
 import { MailService } from 'src/email/email.service';
 import { ForgetPasswordDto } from './dto/forget-password.dto';
-import { User } from 'src/entities/user';
+import { User, Role } from 'src/entities/user';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { Roles } from './decorators/roles.decorator';
+import { RolesGuard } from './guards/roles.guard';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -127,13 +129,10 @@ export class AuthController {
   }
   // Do NOT use @Res — just return JSON
   @Post('login-as')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN)
   async loginAs(@Request() req, @Body() body: { userId: string }) {
     const admin = req.user;
-
-    if (admin.role !== 'admin') {
-      throw new UnauthorizedException('Only admins can impersonate users');
-    }
 
     const targetUser = await this.userService.findOneById(body.userId);
     if (!targetUser) {

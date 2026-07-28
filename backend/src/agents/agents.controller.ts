@@ -10,12 +10,17 @@ import {
   Res,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { AgentsService } from './agents.service';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/entities/user';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -46,6 +51,8 @@ export class AgentsController {
   }
 
   @Patch('admin/prompt-template')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN)
   updatePromptTemplate(@Body() body: { content: string }) {
     const filePath = path.join(process.cwd(), 'templates', 'prompt.txt');
     console.log('[PATCH] Writing prompt file to:', filePath);

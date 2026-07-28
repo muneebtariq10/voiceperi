@@ -7,28 +7,27 @@ import {
   Delete,
   ParseIntPipe,
   Put,
-  //UseGuards,
+  UseGuards,
   HttpException,
   HttpStatus,
-  Req,
-  UnauthorizedException,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { PaymentPlanService } from './payment_plans.service';
 import { CreatePaymentPlanDto } from './dto/create-plan.dto';
 import { UpdatePaymentPlanDto } from './dto/update-plan.dto';
-//import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/entities/user';
 
 @Controller('payment-plans')
 export class PaymentPlanController {
   constructor(private readonly paymentPlanService: PaymentPlanService) {}
 
-  //@UseGuards(LocalAuthGuard)
   @Post()
-  async create(@Body() createDto: CreatePaymentPlanDto, @Req() req: any) {
-    if (req.user?.role !== 'admin') {
-      throw new UnauthorizedException('Only admins can create payment plans');
-    }
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN)
+  async create(@Body() createDto: CreatePaymentPlanDto) {
     try {
       console.log('Received body:', createDto); // 👀
       return await this.paymentPlanService.create(createDto);
@@ -38,38 +37,31 @@ export class PaymentPlanController {
   }
 
   @Public()
-  //@UseGuards(LocalAuthGuard)
   @Get()
   findAll() {
     return this.paymentPlanService.findAll();
   }
 
   @Public()
-  //@UseGuards(LocalAuthGuard)
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.paymentPlanService.findOne(id);
   }
 
-  //@UseGuards(LocalAuthGuard)
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDto: UpdatePaymentPlanDto,
-    @Req() req: any,
   ) {
-    if (req.user?.role !== 'admin') {
-      throw new UnauthorizedException('Only admins can update payment plans');
-    }
     return this.paymentPlanService.update(id, updateDto);
   }
 
-  //@UseGuards(LocalAuthGuard)
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
-    if (req.user?.role !== 'admin') {
-      throw new UnauthorizedException('Only admins can delete payment plans');
-    }
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN)
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.paymentPlanService.remove(id);
   }
 

@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities/user';
+import { User, Role } from 'src/entities/user';
 import { In, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
@@ -104,6 +104,7 @@ export class UsersService {
       lastname,
       email,
       password: hashedPassword,
+      role: Role.USER,
     });
 
     const savedUser = await this.userRepo.save(user);
