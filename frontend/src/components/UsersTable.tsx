@@ -365,7 +365,7 @@ export function UsersTable({
                 e.stopPropagation();
                 handleLoginAs(row.original.id);
               }}
-              className="text-sm px-3 py-1 bg-[#bfe2e3] text-[#46a79d] rounded hover:bg-[#bfe2e3]-200 font-semibold"
+              className="text-sm px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all duration-200 font-semibold shadow-sm hover:shadow"
             >
               Login As
             </button>

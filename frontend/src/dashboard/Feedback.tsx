@@ -105,9 +105,9 @@ const Feedback = () => {
 
   if (isSubmitted) {
     return (
-      <div className="p-6 md:p-8 w-full max-w-2xl mx-auto">
+      <div className="flex flex-col px-[16px] md:px-7 py-6 bg-[#fafafb] min-h-screen w-full">
         <div 
-          className="flex flex-col items-center justify-center py-16 px-8 rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50"
+          className="flex flex-col items-center justify-center py-16 px-8 rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 max-w-2xl"
           style={{ animation: 'fadeInUp 0.5s ease-out' }}
         >
           <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-5">
@@ -123,7 +123,7 @@ const Feedback = () => {
   }
 
   return (
-    <div className="p-6 md:p-8 w-full max-w-2xl mx-auto">
+    <div className="flex flex-col px-[16px] md:px-7 py-6 bg-[#fafafb] min-h-screen w-full">
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
@@ -136,16 +136,16 @@ const Feedback = () => {
         .category-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
       `}</style>
 
-      <div className="feedback-card">
+      <div className="feedback-card max-w-3xl">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#5222FF] to-[#7B5CF5] flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-3.5 mb-1">
+            <div className="w-11 h-11 rounded-xl bg-[#1c9c84] flex items-center justify-center shadow-sm">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Send Feedback</h1>
-              <p className="text-sm text-gray-500">Help us improve VoicePeri for your business</p>
+              <h1 className="text-2xl font-semibold text-primary">Send Feedback</h1>
+              <p className="text-sm font-medium text-default-gray">Help us improve VoicePeri for your business</p>
             </div>
           </div>
         </div>
@@ -220,8 +220,8 @@ const Feedback = () => {
                 {charCount}/{maxChars}
               </span>
             </div>
-            <div className={`rounded-xl border-2 overflow-hidden transition-colors ${
-              feedback.length > 0 ? `${activeCat.borderColor}` : 'border-gray-100 focus-within:border-[#5222FF]'
+            <div className={`rounded-xl border-2 overflow-hidden bg-white shadow-sm transition-colors ${
+              feedback.length > 0 ? `${activeCat.borderColor}` : 'border-gray-200 focus-within:border-[#1c9c84]'
             }`}>
               <Textarea 
                 placeholder={
@@ -248,7 +248,7 @@ const Feedback = () => {
           {/* Submit */}
           <Button 
             type="submit" 
-            className="w-full h-12 rounded-xl bg-gradient-to-r from-[#5222FF] to-[#7B5CF5] hover:from-[#4118DD] hover:to-[#6A4DE0] text-white font-semibold text-sm gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="w-full sm:w-auto px-8 h-12 rounded-xl bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold text-sm gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
             disabled={isSubmitting || !feedback.trim()}
           >
             {isSubmitting ? (

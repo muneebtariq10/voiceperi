@@ -532,7 +532,7 @@ const VoiceAgent: React.FC = () => {
             onClick={() => setShowForm1(true)}
             className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer ${
               showForm1
-                ? "bg-gradient-to-r from-[#5222FF] to-[#7B42FF] text-white shadow-md shadow-purple-500/25 scale-[1.02]"
+                ? "bg-[#1c9c84] text-white shadow-md shadow-teal-500/20 scale-[1.02]"
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
             }`}
           >
@@ -544,7 +544,7 @@ const VoiceAgent: React.FC = () => {
             onClick={() => setShowForm1(false)}
             className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer ${
               !showForm1
-                ? "bg-gradient-to-r from-[#5222FF] to-[#7B42FF] text-white shadow-md shadow-purple-500/25 scale-[1.02]"
+                ? "bg-[#1c9c84] text-white shadow-md shadow-teal-500/20 scale-[1.02]"
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
             }`}
           >
@@ -557,7 +557,7 @@ const VoiceAgent: React.FC = () => {
           {/* Company Details Card */}
           <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
-              <div className="p-3 bg-purple-50 rounded-xl text-[#5222FF] border border-purple-100/60">
+              <div className="p-3 bg-teal-50 rounded-xl text-[#1c9c84] border border-teal-100/60">
                 <Briefcase className="w-6 h-6" />
               </div>
               <div>
@@ -589,7 +589,7 @@ const VoiceAgent: React.FC = () => {
                       }
                     }}
                     id="profile"
-                    className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                    className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                     placeholder="Enter business name or website (e.g. printez.com)"
                   />
                   <Button
@@ -599,7 +599,7 @@ const VoiceAgent: React.FC = () => {
                       setLocationData([]);
                       handleBusinessInfo(userInfo?.sub, profile);
                     }}
-                    className="h-11 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium shadow-md transition-all flex items-center gap-1.5 shrink-0"
+                    className="h-11 px-4 bg-[#1c9c84] hover:bg-[#16806c] text-white rounded-xl font-semibold shadow-md transition-all flex items-center gap-1.5 shrink-0"
                   >
                     <Sparkles className="w-4 h-4" />
                     <span>Autofill</span>
@@ -622,10 +622,10 @@ const VoiceAgent: React.FC = () => {
                         handleBusinessInfo(userInfo?.sub, item.description);
                       }}
                       key={index}
-                      className="w-full mt-1 px-3 py-2 rounded-lg cursor-pointer text-xs sm:text-sm font-medium hover:bg-purple-50 text-slate-700 hover:text-purple-700 transition-colors"
+                      className="w-full mt-1 px-3 py-2 rounded-lg cursor-pointer text-xs sm:text-sm font-medium hover:bg-teal-50 text-slate-700 hover:text-[#1c9c84] transition-colors"
                     >
                       <span className="flex w-full items-center gap-2.5 whitespace-nowrap overflow-x-auto no-scrollbar">
-                        <span className="min-w-[18px] text-purple-600">
+                        <span className="min-w-[18px] text-[#1c9c84]">
                           <MapPin width={15} height={15} />
                         </span>
                         {item.description}
@@ -646,7 +646,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                   id="name"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                   placeholder="e.g. PrintEZ"
                 />
               </div>
@@ -662,7 +662,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                   id="address"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                   placeholder="3377 Wilshire Blvd #202, Los Angeles, CA 90010"
                 />
               </div>
@@ -678,7 +678,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setPhone(e.target.value)}
                   value={phone}
                   id="phone"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                   placeholder="+1 800-555-0199"
                 />
               </div>
@@ -694,7 +694,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setOverview(e.target.value)}
                   value={overview}
                   id="overview"
-                  className="resize-none w-full h-[200px] bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
+                  className="resize-none w-full h-[200px] bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
                   placeholder="Describe your primary services, company mission, policies, and special instructions..."
                 />
               </div>
@@ -748,7 +748,7 @@ const VoiceAgent: React.FC = () => {
                     <Switch
                       checked={!!businessHours[day]}
                       onCheckedChange={() => toggleDay(day)}
-                      className="data-[state=checked]:bg-purple-600 cursor-pointer shadow-sm"
+                      className="data-[state=checked]:bg-[#1c9c84] cursor-pointer shadow-sm"
                     />
                     <label className="text-sm sm:text-base font-bold text-slate-700 w-28">
                       {day}
@@ -763,7 +763,7 @@ const VoiceAgent: React.FC = () => {
                             businessHours[day]?.from === "00:00" &&
                             businessHours[day]?.to === "00:00"
                               ? "text-slate-400"
-                              : "text-purple-700"
+                              : "text-[#1c9c84]"
                           }`}
                           htmlFor={`${day}-from`}
                         >
@@ -799,7 +799,7 @@ const VoiceAgent: React.FC = () => {
                             businessHours[day]?.from === "00:00" &&
                             businessHours[day]?.to === "00:00"
                               ? "text-slate-400"
-                              : "text-purple-700"
+                              : "text-[#1c9c84]"
                           }`}
                           htmlFor={`${day}-to`}
                         >
@@ -875,13 +875,13 @@ const VoiceAgent: React.FC = () => {
                 type="button"
                 disabled={loading}
                 onClick={(e) => handleSubmit(e)}
-                className="flex items-center gap-2 px-7 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-[#5222FF] via-[#6333FF] to-[#7B42FF] text-white shadow-lg shadow-purple-500/35 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60"
+                className="flex items-center gap-2 px-7 py-2.5 rounded-xl font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60"
               >
                 {loading ? (
                   <div role="status" className="flex items-center gap-2">
                     <svg
                       aria-hidden="true"
-                      className="w-5 h-5 text-purple-200 animate-spin fill-white"
+                      className="w-5 h-5 text-blue-200 animate-spin fill-white"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"

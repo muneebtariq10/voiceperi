@@ -103,7 +103,7 @@ const quickLinks = [
     title: 'Voice Agent Setup', 
     description: 'Configure your AI agent\'s voice, language, and personality',
     link: '/dashboard/voiceAgent',
-    color: 'from-violet-500 to-purple-600'
+    color: 'from-[#1c9c84] to-teal-600'
   },
   { 
     icon: <Settings className="w-6 h-6" />, 
@@ -137,7 +137,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const categoryColors: Record<string, string> = {
-  'Getting Started': 'bg-purple-100 text-purple-700',
+  'Getting Started': 'bg-teal-100 text-teal-800',
   'Voice Agent': 'bg-blue-100 text-blue-700',
   'Phone & Calls': 'bg-green-100 text-green-700',
   'Business Info': 'bg-amber-100 text-amber-700',
@@ -160,7 +160,7 @@ const HelpCenter = () => {
   });
 
   return (
-    <div className="p-6 md:p-8 w-full max-w-4xl mx-auto">
+    <div className="flex flex-col px-[16px] md:px-7 py-6 bg-[#fafafb] min-h-screen w-full">
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(16px); }
@@ -184,24 +184,24 @@ const HelpCenter = () => {
 
       {/* Header */}
       <div className="help-animate mb-8">
-        <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#5222FF] to-[#7B5CF5] flex items-center justify-center">
-            <HelpCircle className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-3.5 mb-1">
+          <div className="w-11 h-11 rounded-xl bg-[#1c9c84] flex items-center justify-center shadow-sm">
+            <HelpCircle className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Help Center</h1>
-            <p className="text-sm text-gray-500">Everything you need to get the most out of VoicePeri</p>
+            <h1 className="text-2xl font-semibold text-primary">Help Center</h1>
+            <p className="text-sm font-medium text-default-gray">Everything you need to get the most out of VoicePeri</p>
           </div>
         </div>
       </div>
 
       {/* Search */}
-      <div className="help-animate mb-8">
+      <div className="help-animate mb-8 max-w-2xl">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
             placeholder="Search for help..."
-            className="pl-12 h-12 rounded-xl border-2 border-gray-100 focus-visible:border-[#5222FF] focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
+            className="pl-12 h-12 rounded-xl border-2 border-gray-100 focus-visible:border-[#1c9c84] focus-visible:ring-0 focus-visible:ring-offset-0 text-sm bg-white shadow-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -251,8 +251,8 @@ const HelpCenter = () => {
               onClick={() => setSelectedCategory(null)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                 !selectedCategory 
-                  ? 'bg-[#5222FF] text-white' 
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-[#1c9c84] text-white shadow-sm' 
+                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
               }`}
             >
               All
@@ -263,8 +263,8 @@ const HelpCenter = () => {
                 onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   selectedCategory === cat 
-                    ? 'bg-[#5222FF] text-white' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-[#1c9c84] text-white shadow-sm' 
+                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 {categoryIcons[cat]}
@@ -290,7 +290,7 @@ const HelpCenter = () => {
                 <div
                   key={globalIdx}
                   className={`border rounded-xl overflow-hidden transition-colors ${
-                    isOpen ? 'border-[#d4c5ff] bg-[#faf8ff]' : 'border-gray-100 bg-white hover:border-gray-200'
+                    isOpen ? 'border-teal-300 bg-teal-50/30 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'
                   }`}
                 >
                   <button
@@ -298,14 +298,14 @@ const HelpCenter = () => {
                     className="flex items-center justify-between w-full px-5 py-4 text-left"
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <span className={`flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold ${categoryColors[faq.category]}`}>
+                      <span className={`flex-shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${categoryColors[faq.category]}`}>
                         {faq.category}
                       </span>
-                      <span className={`text-sm font-medium truncate ${isOpen ? 'text-[#5222FF]' : 'text-gray-800'}`}>
+                      <span className={`text-sm font-medium truncate ${isOpen ? 'text-[#1c9c84]' : 'text-gray-800'}`}>
                         {faq.question}
                       </span>
                     </div>
-                    <ChevronDown className={`w-4 h-4 flex-shrink-0 ml-3 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#5222FF]' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 flex-shrink-0 ml-3 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#1c9c84]' : ''}`} />
                   </button>
                   <div className={`faq-answer ${isOpen ? 'open' : ''}`}>
                     <div className="px-5 pb-4 pt-0">
@@ -322,14 +322,14 @@ const HelpCenter = () => {
       </div>
 
       {/* Contact Support */}
-      <div className="help-animate-delay mt-10 bg-gradient-to-br from-[#f0ebff] to-[#e8f4f8] border border-[#d4c5ff] rounded-2xl p-6 md:p-8 text-center">
-        <MessageCircle className="w-8 h-8 text-[#5222FF] mx-auto mb-3" />
+      <div className="help-animate-delay mt-10 bg-gradient-to-br from-teal-50/80 to-blue-50/80 border border-teal-200/80 rounded-2xl p-6 md:p-8 text-center max-w-2xl">
+        <MessageCircle className="w-8 h-8 text-[#1c9c84] mx-auto mb-3" />
         <h3 className="text-lg font-bold text-gray-900 mb-1">Still need help?</h3>
         <p className="text-sm text-gray-500 mb-4 max-w-md mx-auto">
           Can't find what you're looking for? Send us a message and our team will get back to you.
         </p>
         <Link to="/dashboard/feedback">
-          <Button className="bg-[#5222FF] hover:bg-[#4118DD] text-white rounded-xl px-6 gap-2">
+          <Button className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold rounded-xl px-6 gap-2 shadow-md">
             <Mail className="w-4 h-4" />
             Contact Support
           </Button>
