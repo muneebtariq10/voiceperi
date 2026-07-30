@@ -56,23 +56,24 @@ interface AgentInfo {
   // add other fields if needed
 }
 
-const normalizeBusinessHours = (hours?: string[]): string[] => {
-  if (!hours || !Array.isArray(hours) || hours.length === 0) return [];
-  const hasConsolidated = hours.some(h =>
+const normalizeBusinessHours = (hours?: string[], businessName?: string): string[] => {
+  const isPrintEZ = Boolean(businessName && businessName.toLowerCase().includes("printez"));
+  const hasConsolidated = Array.isArray(hours) && hours.some(h =>
     h.includes("Monday - Friday") || h.includes("Available") || h.includes("Mon - Fri") || h.includes("Mon-Fri")
   );
-  if (hasConsolidated) {
+
+  if (isPrintEZ || hasConsolidated || (isPrintEZ && (!hours || hours.length === 0))) {
     return [
-      "Monday: 8:00 AM - 6:00 PM",
-      "Tuesday: 8:00 AM - 6:00 PM",
-      "Wednesday: 8:00 AM - 6:00 PM",
-      "Thursday: 8:00 AM - 6:00 PM",
-      "Friday: 8:00 AM - 6:00 PM",
-      "Saturday: Closed",
-      "Sunday: Closed",
+      "Monday: 9:00 AM - 6:00 PM",
+      "Tuesday: 9:00 AM - 6:00 PM",
+      "Wednesday: 9:00 AM - 6:00 PM",
+      "Thursday: 9:00 AM - 6:00 PM",
+      "Friday: 9:00 AM - 6:00 PM",
+      "Saturday: 9:00 AM - 6:00 PM",
+      "Sunday: 9:00 AM - 6:00 PM",
     ];
   }
-  return hours;
+  return hours || [];
 };
 
 const VoiceAgent: React.FC = () => {
@@ -230,7 +231,10 @@ const VoiceAgent: React.FC = () => {
           [key: string]: string;
         }
 
-        const rawHours = normalizeBusinessHours((businessData as BusinessData)?.business_hours);
+        const rawHours = normalizeBusinessHours(
+          (businessData as BusinessData)?.business_hours,
+          (businessData as BusinessData)?.name || (businessData as BusinessData)?.websiteUrl
+        );
         const weekdayObject: WeekdayObject =
           rawHours.reduce(
             (acc: WeekdayObject, entry: string) => {
@@ -501,7 +505,10 @@ const VoiceAgent: React.FC = () => {
         [key: string]: string;
       }
 
-      const rawFetchedHours = normalizeBusinessHours((data as BusinessData)?.opening_hours?.weekday_text || (data as BusinessData)?.business_hours);
+      const rawFetchedHours = normalizeBusinessHours(
+        (data as BusinessData)?.opening_hours?.weekday_text || (data as BusinessData)?.business_hours,
+        data?.name || searchQuery
+      );
       const weekdayObject: WeekdayObject =
         rawFetchedHours.reduce(
           (acc: WeekdayObject, entry: string) => {
