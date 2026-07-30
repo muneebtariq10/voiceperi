@@ -251,7 +251,7 @@ export function UsersTable({
         if (key === "role") {
           const badgeColor =
             value === "super_admin"
-              ? "bg-purple-100 text-purple-800 border-purple-300"
+              ? "bg-teal-100 text-teal-900 border-teal-300"
               : value === "admin"
               ? "bg-blue-100 text-blue-800 border-blue-300"
               : "bg-gray-100 text-gray-700 border-gray-300";
@@ -383,7 +383,7 @@ export function UsersTable({
 
         if (targetRole === "super_admin") {
           return (
-            <span className="text-xs text-purple-600 font-semibold italic bg-purple-50 px-2 py-1 rounded border border-purple-200">
+            <span className="text-xs text-[#1c9c84] font-semibold italic bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200">
               Protected Owner
             </span>
           );

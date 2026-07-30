@@ -554,7 +554,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       {/* Card 1: AI Persona & Voice Configuration */}
       <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
         <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
-          <div className="p-3 bg-purple-50 rounded-xl text-[#5222FF] border border-purple-100/60 shadow-sm">
+          <div className="p-3 bg-teal-50 rounded-xl text-[#1c9c84] border border-teal-100/60 shadow-sm">
             <Bot className="w-6 h-6" />
           </div>
           <div>
@@ -573,7 +573,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </label>
             <Input
               id="agentName"
-              className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+              className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
               placeholder="e.g. TestUser Agent"
               value={agentName}
               onChange={(e) => setAgentName(e.target.value)}
@@ -593,7 +593,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 setSelectedVoice("");
               }}
             >
-              <SelectTrigger className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl text-slate-800 font-medium">
+              <SelectTrigger className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl text-slate-800 font-medium">
                 <SelectValue placeholder="Select Language" />
               </SelectTrigger>
 
@@ -645,16 +645,16 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               >
                 Welcome Message
                 <TooltipWrapper tooltipText="The initial greeting your voice agent says as soon as the customer calls.">
-                  <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                  <AlertCircle className="w-4 h-4 text-[#1c9c84] cursor-pointer" />
                 </TooltipWrapper>
               </label>
-              <span className="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-100">
+              <span className="text-xs font-semibold text-[#1c9c84] bg-teal-50 px-2 py-0.5 rounded-full border border-teal-100">
                 First impression
               </span>
             </div>
             <Textarea
               id="welcomeMsg"
-              className="resize-none w-full h-28 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
+              className="resize-none w-full h-28 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
               placeholder="Hi, thanks for calling PrintEZ! How can I assist with your order or questions today?"
               value={welcomeMessage !== "null" ? welcomeMessage : ""}
               onChange={(e) => setWelcomeMessage(e.target.value)}
@@ -666,14 +666,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               <label
                 className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2"
               >
-                <Mic className="w-4 h-4 text-purple-600" />
+                <Mic className="w-4 h-4 text-[#1c9c84]" />
                 Voice & Vocal Tone
               </label>
               <Select
                 value={selectedVoice || ""}
                 onValueChange={(value) => setSelectedVoice(value)}
               >
-                <SelectTrigger className="w-full h-11 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl font-medium text-slate-800 shadow-sm">
+                <SelectTrigger className="w-full h-11 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl font-medium text-slate-800 shadow-sm">
                   <SelectValue placeholder="Select Voice & Tone" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl border-slate-200 shadow-xl">
@@ -777,14 +777,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <label className="flex gap-2 items-center text-sm font-semibold text-slate-700">
               Inbound Phone Number
               <TooltipWrapper tooltipText="Get an AI phone number, then forward your business line to it so customers call your existing number and the AI answers.">
-                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                <AlertCircle className="w-4 h-4 text-[#1c9c84] cursor-pointer" />
               </TooltipWrapper>
             </label>
             <a
               href="https://beta.retellai.com/dashboard"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-semibold text-purple-600 hover:text-purple-700 hover:underline flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-lg transition-colors border border-purple-100"
+              className="text-xs font-semibold text-[#1c9c84] hover:text-[#16806c] hover:underline flex items-center gap-1 bg-teal-50 px-3 py-1 rounded-lg transition-colors border border-teal-100"
             >
               Manage Billing on Retell AI <ExternalLink className="w-3 h-3" />
             </a>
@@ -794,7 +794,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <Input
               type="tel"
               placeholder="+1 (xxx) xxx-xxxx (Manually enter or get via Retell)"
-              className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 rounded-xl text-slate-800 font-mono text-sm placeholder:text-slate-400 placeholder:font-sans"
+              className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl text-slate-800 font-mono text-sm placeholder:text-slate-400 placeholder:font-sans"
               value={aiPhoneNumber}
               onChange={(e) => setAiPhoneNumber(e.target.value)}
             />
@@ -802,7 +802,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               type="button"
               onClick={handlePurchaseNumber}
               disabled={purchasingNumber}
-              className="w-full sm:w-auto px-6 h-11 bg-gradient-to-r from-[#5222FF] to-[#7B42FF] hover:from-[#3822ff] hover:to-[#6333FF] text-white font-semibold rounded-xl shadow-md shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-200 cursor-pointer whitespace-nowrap active:scale-95"
+              className="w-full sm:w-auto px-6 h-11 bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold rounded-xl shadow-md shadow-teal-500/20 hover:shadow-teal-500/35 transition-all duration-200 cursor-pointer whitespace-nowrap active:scale-95"
             >
               {purchasingNumber ? "Setting up..." : "Get via Retell"}
             </Button>
@@ -816,7 +816,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               className="flex items-center justify-between w-full px-6 py-4 hover:bg-slate-100/60 transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-3">
-                <div className="p-1.5 bg-purple-100 rounded-lg text-purple-700">
+                <div className="p-1.5 bg-teal-100 rounded-lg text-[#1c9c84]">
                   <Info className="w-4 h-4" />
                 </div>
                 <span className="font-bold text-sm text-slate-800">How to connect your existing business number (Call Forwarding Guide)</span>
@@ -831,23 +831,23 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#5222FF] to-[#7B42FF] text-white text-xs flex items-center justify-center font-bold shadow-sm">1</span>
+                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#1c9c84] text-white text-xs flex items-center justify-center font-bold shadow-sm">1</span>
                     <div>
                       <p className="text-sm font-bold text-slate-800">Open Phone Dialer</p>
                       <p className="text-xs text-slate-500 mt-1">On the office phone or mobile device that customers currently call.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#5222FF] to-[#7B42FF] text-white text-xs flex items-center justify-center font-bold shadow-sm">2</span>
+                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#1c9c84] text-white text-xs flex items-center justify-center font-bold shadow-sm">2</span>
                     <div>
                       <p className="text-sm font-bold text-slate-800">Dial Forwarding Code</p>
                       <p className="text-xs text-slate-500 mt-1">
-                        Dial <code className="bg-purple-50 border border-purple-100 px-1.5 py-0.5 rounded text-[#5222FF] font-mono font-bold">*72{aiPhoneNumber || "[AI_NUMBER]"}</code> & call.
+                        Dial <code className="bg-teal-50 border border-teal-100 px-1.5 py-0.5 rounded text-[#1c9c84] font-mono font-bold">*72{aiPhoneNumber || "[AI_NUMBER]"}</code> & call.
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
-                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-[#5222FF] to-[#7B42FF] text-white text-xs flex items-center justify-center font-bold shadow-sm">3</span>
+                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#1c9c84] text-white text-xs flex items-center justify-center font-bold shadow-sm">3</span>
                     <div>
                       <p className="text-sm font-bold text-slate-800">Wait for Tone</p>
                       <p className="text-xs text-slate-500 mt-1">Listen for a confirmation beep or message confirming forwarding is active.</p>
@@ -886,7 +886,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 <span className="text-xs text-slate-500">Automatically drop calls originating from 800/888 telemarketing prefixes.</span>
               </div>
               <Switch
-                className="data-[state=checked]:bg-purple-600 cursor-pointer scale-110 shadow-sm"
+                className="data-[state=checked]:bg-[#1c9c84] cursor-pointer scale-110 shadow-sm"
                 checked={block800Numbers}
                 onCheckedChange={(checked) => setBlock800Numbers(checked)}
               />
@@ -900,7 +900,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 <span className="text-xs text-slate-500">Instruct AI to politely terminate the line if a solicitation or robocall is identified.</span>
               </div>
               <Switch
-                className="data-[state=checked]:bg-purple-600 cursor-pointer scale-110 shadow-sm"
+                className="data-[state=checked]:bg-[#1c9c84] cursor-pointer scale-110 shadow-sm"
                 checked={hangupSalesCalls}
                 onCheckedChange={(checked) => setHangupSalesCalls(checked)}
               />
@@ -914,11 +914,11 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             >
               Blacklisted Phone Numbers
               <TooltipWrapper tooltipText="Enter phone numbers to block from calling your agent.">
-                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                <AlertCircle className="w-4 h-4 text-[#1c9c84] cursor-pointer" />
               </TooltipWrapper>
             </label>
             <div
-              className="border border-slate-200 bg-slate-50/50 focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-500/20 focus-within:border-purple-600 transition-all duration-200 rounded-xl p-3 w-full min-h-[120px] flex flex-wrap items-start gap-2 shadow-inner"
+              className="border border-slate-200 bg-slate-50/50 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#1c9c84]/20 focus-within:border-[#1c9c84] transition-all duration-200 rounded-xl p-3 w-full min-h-[120px] flex flex-wrap items-start gap-2 shadow-inner"
               id="blockedNumbersInput"
             >
               {blockedNumbers.map((number, index) => (
@@ -971,7 +971,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <label className="flex gap-2 items-center text-sm font-bold text-slate-800 mb-1">
               Email Notifications
               <TooltipWrapper tooltipText="Receive automated call summaries and recording links directly in your inbox.">
-                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                <AlertCircle className="w-4 h-4 text-[#1c9c84] cursor-pointer" />
               </TooltipWrapper>
             </label>
             <span className="text-xs text-slate-500 mb-4">Send full call transcript & analysis to up to 5 team emails.</span>
@@ -998,14 +998,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <div className="w-full flex items-center gap-2 mt-auto">
               <Input
                 placeholder="Enter team email address..."
-                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl text-xs"
+                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
                 type="email"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
               />
               <Button
                 type="button"
-                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
+                className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
                 onClick={(e) =>
                   handleAddItem(
                     e,
@@ -1030,7 +1030,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <label className="flex gap-2 items-center text-sm font-bold text-slate-800 mb-1">
               WhatsApp Notifications
               <TooltipWrapper tooltipText="Receive call summaries via WhatsApp (requires Twilio WhatsApp Business API).">
-                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                <AlertCircle className="w-4 h-4 text-[#1c9c84] cursor-pointer" />
               </TooltipWrapper>
             </label>
             <span className="text-xs text-slate-500 mb-4">Instant mobile text notifications for priority customer calls.</span>
@@ -1060,13 +1060,13 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               <Input
                 type="tel"
                 placeholder="+1234567890 (WhatsApp)..."
-                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl text-xs font-mono"
+                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs font-mono"
                 value={phoneInput}
                 onChange={(e) => setPhoneInput(e.target.value)}
               />
               <Button
                 type="button"
-                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
+                className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
                 onClick={(e) =>
                   handleAddItem(
                     e,
@@ -1082,7 +1082,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               </Button>
             </div>
             <div className="w-full text-slate-600 text-[11px] mt-3 bg-white p-3 rounded-xl border border-slate-200/80 shadow-xs">
-              <strong>Info:</strong> Requires an official <strong>WhatsApp Business API</strong> account (via <a href="https://www.twilio.com/whatsapp" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline font-bold">Twilio</a>).
+              <strong>Info:</strong> Requires an official <strong>WhatsApp Business API</strong> account (via <a href="https://www.twilio.com/whatsapp" target="_blank" rel="noopener noreferrer" className="text-[#1c9c84] hover:underline font-bold">Twilio</a>).
             </div>
           </div>
 
@@ -1091,7 +1091,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <label className="flex gap-2 items-center text-sm font-bold text-slate-800 mb-1">
               AI Note-Taking Questions
               <TooltipWrapper tooltipText="Instruct the AI to specifically ask for and note down these answers during conversation.">
-                <AlertCircle className="w-4 h-4 text-purple-500 cursor-pointer" />
+                <AlertCircle className="w-4 h-4 text-[#1c9c84] cursor-pointer" />
               </TooltipWrapper>
             </label>
             <span className="text-xs text-slate-500 mb-4">Define key qualification metrics for the AI to extract per call.</span>
@@ -1118,13 +1118,13 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <div className="w-full flex items-center gap-2 mt-auto">
               <Input
                 placeholder="e.g. What is their project budget?"
-                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-purple-500/20 rounded-xl text-xs"
+                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
                 value={noteInput}
                 onChange={(e) => setNoteInput(e.target.value)}
               />
               <Button
                 type="button"
-                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
+                className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold cursor-pointer rounded-xl px-3.5 h-10 flex items-center gap-1 text-xs shadow-sm active:scale-95 transition-all"
                 onClick={(e) =>
                   handleAddItem(
                     e,
@@ -1189,13 +1189,13 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             onClick={(e) => {
               handleSave(e);
             }}
-            className="flex items-center gap-2 px-7 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-[#5222FF] via-[#6333FF] to-[#7B42FF] text-white shadow-lg shadow-purple-500/35 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60"
+            className="flex items-center gap-2 px-7 py-2.5 rounded-xl font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60"
           >
             {loading ? (
               <div role="status" className="flex items-center gap-2">
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5 text-purple-200 animate-spin fill-white"
+                  className="w-5 h-5 text-blue-200 animate-spin fill-white"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

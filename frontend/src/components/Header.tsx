@@ -67,8 +67,8 @@ const Header = () => {
                 <img className="w-[40px]" src={logo} alt="logo" />
                 <span className="text-xl font-semibold text-primary">VoicePeri</span>
             </NavLink> */}
-      <NavLink to="/" className="flex items-center justify-between gap-x-3">
-        <img className="w-[40%] md:w-[30%]" src={logo} alt="logo" />
+      <NavLink to="/" className="flex items-center gap-x-3 shrink-0">
+        <img className="h-10 md:h-12 w-auto max-w-[220px] object-contain transition-transform duration-200 hover:scale-[1.02]" src={logo} alt="VoicePeri Logo" />
       </NavLink>
       <div className="hidden md:flex items-center gap-x-8">
         <NavigationMenu>

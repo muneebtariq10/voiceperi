@@ -77,9 +77,9 @@ const GetStarted = () => {
             </p>
           </div>
           <div>
-            <Link to="/dashboard/callHistory" className="block w-full">
+            <Link to="/dashboard/voiceAgent" className="block w-full">
               <Button className="w-full bg-amber-50 text-amber-600 hover:bg-amber-600 hover:text-white border-0 shadow-none font-semibold transition-colors duration-300 py-4 rounded-xl">
-                View History <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                Start Test Call <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>

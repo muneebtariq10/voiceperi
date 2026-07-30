@@ -82,7 +82,7 @@ export const Step2 = ({ voices, selectedVoice }: Step2Props) => {
                                 <AudioProgressBar audioRef={audioRef1 as React.RefObject<HTMLAudioElement>} />
                                 <Button
                                     onClick={togglePlay1}
-                                    className="w-10 h-10 p-0 cursor-pointer rounded-full bg-default-purple hover:bg-[#5a2be0] text-white flex items-center justify-center"
+                                    className="w-10 h-10 p-0 cursor-pointer rounded-full bg-default-purple hover:bg-[#389288] text-white flex items-center justify-center"
                                 >
                                     {playing1 ? <Pause size={20} /> : <Play size={20} />}
                                 </Button>
@@ -106,7 +106,7 @@ export const Step2 = ({ voices, selectedVoice }: Step2Props) => {
                                 <AudioProgressBar audioRef={audioRef2 as React.RefObject<HTMLAudioElement>} />
                                 <Button
                                     onClick={togglePlay2}
-                                    className="w-10 h-10 p-0 cursor-pointer rounded-full bg-default-purple hover:bg-[#5a2be0] text-white flex items-center justify-center"
+                                    className="w-10 h-10 p-0 cursor-pointer rounded-full bg-default-purple hover:bg-[#389288] text-white flex items-center justify-center"
                                 >
                                     {playing2 ? <Pause size={20} /> : <Play size={20} />}
                                 </Button>

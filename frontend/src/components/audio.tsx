@@ -42,7 +42,7 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
       <button
         type="button"
         onClick={handlePlayPause}
-        className="p-3 flex items-center justify-center bg-[#5222FF] text-white rounded-full "
+        className="p-3 flex items-center justify-center bg-[#1c9c84] hover:bg-[#16806c] text-white rounded-full transition-colors shadow-sm"
       >
         {isPlaying ? <Pause size={20} className="fill-white" /> : <Play size={20} className="fill-white" />}
       </button>
@@ -57,7 +57,7 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
         className="w-full h-2 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer 
   [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
   [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full 
-  [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#5222FF] 
+  [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#1c9c84] 
   [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:bg-white 
   [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white"
       />

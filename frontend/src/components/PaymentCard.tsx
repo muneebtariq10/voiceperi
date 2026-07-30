@@ -103,7 +103,7 @@ export default function PaymentPlanCard({ title, Monthlyprice, Yearlyprice, feat
                     variant={isActive ? "default" : "outline"}
                     className={`cursor-pointer w-[200px] rounded-[10px]
                 ${isActive && planType === selectedPlan ? "bg-secondary text-primary hover:bg-secondary" : "bg-default-purple text-white hover:bg-blue-700 hover:text-white"}  
-                ${isFeatured ? "bg-[#8461ff] text-white border-none hover:bg-[#6F4BE6]" : ""}`}
+                ${isFeatured ? "bg-blue-600 text-white border-none hover:bg-blue-700" : ""}`}
                 >
                     {isActive && planType === selectedPlan ? "Current Plan" : "Choose Plan"}
                 </Button>

@@ -193,7 +193,7 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, userInfo }) => {
                 setError(false);
                 handleGetEvents(key); // optional: reset loading
               }}
-              className="w-[100px] rounded-[8px] cursor-pointer bg-[#5222FF] hover:bg-[#2261ff]"
+              className="w-[100px] rounded-[8px] cursor-pointer bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold"
             >
               {isLoading ? (
                 <div role="status">
@@ -256,7 +256,7 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, userInfo }) => {
                 setError(false);
                 handleSaveEvents(selectedEvents); // optional: reset loading
               }}
-              className="w-[100px] rounded-[8px] cursor-pointer bg-[#5222FF] hover:bg-[#2261ff]"
+              className="w-[100px] rounded-[8px] cursor-pointer bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold"
             >
               {isLoading ? (
                 <div role="status">

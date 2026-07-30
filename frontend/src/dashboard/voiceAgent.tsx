@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import VoiceAgentSettings from "@/components/VoiceAgentSettings";
 import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ComboboxDemo } from "@/components/timezone-selector";
 import { MapPin, Building2, Sliders, Briefcase, Clock, Save, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -56,11 +56,21 @@ interface AgentInfo {
   // add other fields if needed
 }
 const VoiceAgent: React.FC = () => {
+  const location = useLocation();
+  const [showForm1, setShowForm1] = useState(!location.pathname.includes("voiceAgent"));
+
+  useEffect(() => {
+    if (location.pathname.includes("voiceAgent")) {
+      setShowForm1(false);
+    } else if (location.pathname.includes("businessInformation")) {
+      setShowForm1(true);
+    }
+  }, [location.pathname]);
+
   const [voices, setVoices] = useState<any>(null);
   const [languages, setLanguages] = useState<any>(null);
   const [businessInfo, setBusinessInfo] = useState<any>(null);
   const [businessInfo2, setBusinessInfo2] = useState<any>(null);
-  const [showForm1, setShowForm1] = useState(true);
   const [userInfo, setUserInfo] = useState<DecodedToken | null>(null);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -529,7 +539,10 @@ const VoiceAgent: React.FC = () => {
         <div className="flex items-center gap-3 p-1.5 bg-slate-200/60 backdrop-blur-md rounded-2xl w-fit mb-8 shadow-inner border border-slate-300/40">
           <button
             type="button"
-            onClick={() => setShowForm1(true)}
+            onClick={() => {
+              setShowForm1(true);
+              navigate("/dashboard/businessInformation");
+            }}
             className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer ${
               showForm1
                 ? "bg-[#1c9c84] text-white shadow-md shadow-teal-500/20 scale-[1.02]"
@@ -541,7 +554,10 @@ const VoiceAgent: React.FC = () => {
           </button>
           <button
             type="button"
-            onClick={() => setShowForm1(false)}
+            onClick={() => {
+              setShowForm1(false);
+              navigate("/dashboard/voiceAgent");
+            }}
             className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer ${
               !showForm1
                 ? "bg-[#1c9c84] text-white shadow-md shadow-teal-500/20 scale-[1.02]"

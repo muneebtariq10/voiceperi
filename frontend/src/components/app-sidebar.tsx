@@ -327,7 +327,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <NavLink to="/" className="flex pl-0 justify-start h-full ">
+              <NavLink to="/dashboard" className="flex pl-0 justify-start h-full ">
                 <img className="w-[90%]" src={logo} alt="" />
                 {/* <span className="text-base font-semibold">VoicePeri</span> */}
               </NavLink>

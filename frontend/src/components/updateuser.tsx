@@ -166,7 +166,7 @@ export const Popup: React.FC<PopupProps> = ({
               Cancel
             </Button>
             <Button
-              className="bg-[#5222FF] hover:bg-[#225dff]"
+              className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold rounded-xl"
               onClick={handleSubmit}
             >
               Save Changes

@@ -28,7 +28,7 @@ export default function PaymentPlanCard2({ title, Monthlyprice, Yearlyprice, fea
 
     return (
         <Card
-            className={`flex md:w-[285px] h-auto flex-col gap-4 border-2 !gradient-to-t !from-[#5222FF] !to-[#fff]  
+            className={`flex md:w-[285px] h-auto flex-col gap-4 border-2 !gradient-to-t !from-[#1c9c84] !to-[#fff]  
         ${isFeatured ? "bg-default-purple text-white" : ""} 
         border-gray-200 shadow-md rounded-[12px] p-4`}
         >
@@ -86,7 +86,7 @@ export default function PaymentPlanCard2({ title, Monthlyprice, Yearlyprice, fea
                 <Link to='/signup'>
                     <Button
                         variant="outline"
-                        className={`cursor-pointer rounded-[10px] w-[200px] bg-default-purple text-white ${isFeatured ? "bg-[#8461ff] text-white border-none" : ""}`}
+                        className={`cursor-pointer rounded-[10px] w-[200px] bg-default-purple text-white ${isFeatured ? "bg-blue-600 text-white border-none hover:bg-blue-700" : ""}`}
                     >
                         Start Free Trial <ArrowUpRight className='w-6 h-6' />
                     </Button>

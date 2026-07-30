@@ -33,7 +33,7 @@ export default function AudioPlayer1({ src }: AudioPlayerProps) {
       <button
         type="button"
         onClick={handlePlayPause}
-        className="p-3 flex items-center cursor-pointer justify-center bg-[#5222FF] text-white rounded-full "
+        className="p-3 flex items-center cursor-pointer justify-center bg-[#1c9c84] hover:bg-[#16806c] text-white rounded-full shadow-md transition-all duration-200"
       >
         {isPlaying ? (
           <Pause size={20} className="fill-white" />

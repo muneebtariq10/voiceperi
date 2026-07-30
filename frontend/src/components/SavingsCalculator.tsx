@@ -120,10 +120,10 @@ export default function SavingsCalculator() {
       <div className="rounded-[30px] mt-10 xl:mt-0 bg-gradient-to-t from-[#142073] to-[#020A42] w-12/12 lg:w-5/12 relative overflow-hidden pt-10 h-full ">
         <div className="h-full">
             <p className="text-[25px] font-semibold text-white">Savings</p>
-            <h1 className="text-[80px] md:text-[100px] h-auto leading-[100%] font-bold my-2 text-transparent bg-clip-text bg-gradient-to-b from-[#5222FF] to-[#C7B7FF] ">1500</h1>
+            <h1 className="text-[80px] md:text-[100px] h-auto leading-[100%] font-bold my-2 text-transparent bg-clip-text bg-gradient-to-b from-[#1c9c84] to-[#43e6c8] ">1500</h1>
 
             <p className="text-[25px] font-semibold text-white">Annual Savings</p>
-            <h1 className="text-[80px] md:text-[100px] h-auto leading-[100%] font-bold my-2 text-transparent bg-clip-text bg-gradient-to-b from-[#5222FF] to-[#C7B7FF] ">${annualSavings}</h1>
+            <h1 className="text-[80px] md:text-[100px] h-auto leading-[100%] font-bold my-2 text-transparent bg-clip-text bg-gradient-to-b from-[#1c9c84] to-[#43e6c8] ">${annualSavings}</h1>
             
             <p className="mt-4 text-[16px] text-[#C3C3C3] w-95 mx-auto">
             Discover the impact VoicePeri can have on your bottom line. Reduce overhead costs and maximize efficiency with our AI solutions.
@@ -131,9 +131,9 @@ export default function SavingsCalculator() {
         </div>
         
         <div className="h-65 w-full ">
-            <div className="bg-gradient-to-t from-[#5222FF] to-[#C7B7FF] w-full  opacity-10 rounded-full aspect-square flex absolute right-0 left-0 bottom-[-32%] md:bottom-[-45%]">
+            <div className="bg-gradient-to-t from-[#1c9c84] to-[#43e6c8] w-full  opacity-10 rounded-full aspect-square flex absolute right-0 left-0 bottom-[-32%] md:bottom-[-45%]">
             </div>
-            <div className="bg-gradient-to-t from-[#5222FF] to-[#C7B7FF] opacity-10 w-[80%] rounded-full aspect-square mx-auto right-0 left-0 absolute bottom-[-27%] md:bottom-[-40%]">
+            <div className="bg-gradient-to-t from-[#1c9c84] to-[#43e6c8] opacity-10 w-[80%] rounded-full aspect-square mx-auto right-0 left-0 absolute bottom-[-27%] md:bottom-[-40%]">
                 
             </div>
             <div className="flex items-center gap-3 right-0 left-0 absolute bottom-[50px] justify-center text-[26.34px] text-white font-semibold"><img className="w-[140px] opacity-100" src={logo} alt="logo" /></div>

@@ -182,21 +182,22 @@ const HelpCenter = () => {
         .quick-link:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
       `}</style>
 
-      {/* Header */}
-      <div className="help-animate mb-8">
-        <div className="flex items-center gap-3.5 mb-1">
-          <div className="w-11 h-11 rounded-xl bg-[#1c9c84] flex items-center justify-center shadow-sm">
-            <HelpCircle className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-semibold text-primary">Help Center</h1>
-            <p className="text-sm font-medium text-default-gray">Everything you need to get the most out of VoicePeri</p>
+      <div className="w-full bg-white p-6 md:p-8 border border-slate-200/80 rounded-2xl shadow-sm mb-6">
+        {/* Header */}
+        <div className="help-animate mb-8 pb-6 border-b border-slate-100">
+          <div className="flex items-center gap-3.5">
+            <div className="p-3 bg-teal-50 rounded-xl text-[#1c9c84] border border-teal-100/60 shadow-sm flex items-center justify-center">
+              <HelpCircle className="w-6 h-6 text-[#1c9c84]" />
+            </div>
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Help Center</h1>
+              <p className="text-xs md:text-sm text-slate-500 mt-0.5">Everything you need to get the most out of VoicePeri</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Search */}
-      <div className="help-animate mb-8 max-w-2xl">
+        {/* Search */}
+        <div className="help-animate mb-8 w-full">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
@@ -321,19 +322,20 @@ const HelpCenter = () => {
         </div>
       </div>
 
-      {/* Contact Support */}
-      <div className="help-animate-delay mt-10 bg-gradient-to-br from-teal-50/80 to-blue-50/80 border border-teal-200/80 rounded-2xl p-6 md:p-8 text-center max-w-2xl">
-        <MessageCircle className="w-8 h-8 text-[#1c9c84] mx-auto mb-3" />
-        <h3 className="text-lg font-bold text-gray-900 mb-1">Still need help?</h3>
-        <p className="text-sm text-gray-500 mb-4 max-w-md mx-auto">
-          Can't find what you're looking for? Send us a message and our team will get back to you.
-        </p>
-        <Link to="/dashboard/feedback">
-          <Button className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold rounded-xl px-6 gap-2 shadow-md">
-            <Mail className="w-4 h-4" />
-            Contact Support
-          </Button>
-        </Link>
+        {/* Contact Support */}
+        <div className="help-animate-delay mt-10 w-full bg-gradient-to-br from-teal-50/80 to-blue-50/80 border border-teal-200/80 rounded-2xl p-6 md:p-8 text-center">
+          <MessageCircle className="w-8 h-8 text-[#1c9c84] mx-auto mb-3" />
+          <h3 className="text-lg font-bold text-gray-900 mb-1">Still need help?</h3>
+          <p className="text-sm text-gray-500 mb-4 max-w-md mx-auto">
+            Can't find what you're looking for? Send us a message and our team will get back to you.
+          </p>
+          <Link to="/dashboard/feedback">
+            <Button className="bg-[#1c9c84] hover:bg-[#16806c] text-white font-semibold rounded-xl px-6 gap-2 shadow-md">
+              <Mail className="w-4 h-4" />
+              Contact Support
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

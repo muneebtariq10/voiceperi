@@ -846,7 +846,7 @@ export const SignUpForm = () => {
                       <div
                         className={`font-bold step-title ${
                           index <= activeStep
-                            ? "text-[#5222FF] font-bold"
+                            ? "text-[#1c9c84] font-bold"
                             : "text-[#2B3674] font-normal"
                         }`}
                       >
@@ -859,7 +859,7 @@ export const SignUpForm = () => {
                       <div
                         key={`bar-${index}`}
                         className={`flex-1 w-full h-[2px] mx-2 ${
-                          index < activeStep ? "bg-[#5222FF]" : "bg-[#94A3B8]"
+                          index < activeStep ? "bg-[#1c9c84]" : "bg-[#94A3B8]"
                         }`}
                       ></div>
                     )}
@@ -951,7 +951,7 @@ export const SignUpForm = () => {
                   <div
                     key={index}
                     className={`h-[13px] w-1/3 rounded-2xl ${
-                      index <= activeStep ? "bg-[#5222FF]" : "bg-[#F5F6F9]"
+                      index <= activeStep ? "bg-[#1c9c84]" : "bg-[#F5F6F9]"
                     }`}
                   ></div>
                 ))}
