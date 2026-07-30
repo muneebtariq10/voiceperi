@@ -439,7 +439,15 @@ export class AgentsService implements OnApplicationBootstrap {
             'QuickBooks & banking compatible check printing',
             'Logo printing and custom promotional office items',
           ],
-          business_hours: ['Monday - Friday: 9:00am - 5:30pm', 'Saturday - Sunday: Closed'],
+          business_hours: [
+            'Monday: 8:00 AM - 6:00 PM',
+            'Tuesday: 8:00 AM - 6:00 PM',
+            'Wednesday: 8:00 AM - 6:00 PM',
+            'Thursday: 8:00 AM - 6:00 PM',
+            'Friday: 8:00 AM - 6:00 PM',
+            'Saturday: Closed',
+            'Sunday: Closed',
+          ],
         });
         await this.businessInfoRepo.save(businessInfo);
       }

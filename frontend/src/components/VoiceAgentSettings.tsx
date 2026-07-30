@@ -72,14 +72,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
   console.log("info", businessInfovoice);
   const navigate = useNavigate();
   const handleAddItem = (
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: React.SyntheticEvent | undefined,
     inputValue: string,
     setInputValue: React.Dispatch<React.SetStateAction<string>>,
     array: string[],
     setArray: React.Dispatch<React.SetStateAction<string[]>>,
     type: "emails" | "phoneNumbers" | "notes"
   ) => {
-    e.preventDefault();
+    e?.preventDefault();
     const trimmedValue = inputValue.trim();
     if (!trimmedValue) return;
 
@@ -301,16 +301,49 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     try {
       const fallbackLang = selectedLanguage || (languages && languages.length > 0 ? (languages.find((l: any) => l.code === "en" || l.name === "English") || languages[0]).id : null);
       const fallbackVoice = selectedVoice || (voices && voices.length > 0 ? (voices.find((v: any) => v.voice_id === "11labs-Andrew" || v.voice_name === "Andrew") || voices[0]).voice_id : "11labs-Andrew");
+
+      let finalEmails = [...emails];
+      if (emailInput.trim() && !finalEmails.includes(emailInput.trim()) && finalEmails.length < 5) {
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.trim())) {
+          finalEmails.push(emailInput.trim());
+          setEmails(finalEmails);
+          setEmailInput("");
+        }
+      }
+
+      let finalPhones = [...phoneNumbers];
+      if (phoneInput.trim() && !finalPhones.includes(phoneInput.trim()) && finalPhones.length < 3) {
+        if (/^\+?\d{10,15}$/.test(phoneInput.trim())) {
+          finalPhones.push(phoneInput.trim());
+          setPhoneNumbers(finalPhones);
+          setPhoneInput("");
+        }
+      }
+
+      let finalNotes = [...notes];
+      if (noteInput.trim() && !finalNotes.includes(noteInput.trim()) && finalNotes.length < 5) {
+        finalNotes.push(noteInput.trim());
+        setNotes(finalNotes);
+        setNoteInput("");
+      }
+
+      let finalBlocked = [...blockedNumbers];
+      if (blockedInput.trim() && !finalBlocked.includes(blockedInput.trim())) {
+        finalBlocked.push(blockedInput.trim());
+        setBlockedNumbers(finalBlocked);
+        setBlockedInput("");
+      }
+
       const payload = {
         language_id: fallbackLang,
         voice_id: fallbackVoice,
         agent_name: (agentName || "PrintEZ Agent").trim(),
         message: welcomeMessage.trim(),
         ai_number: aiPhoneNumber,
-        emails: emails,
-        phone_numbers: phoneNumbers,
-        notes: notes,
-        blocked_numbers: blockedNumbers,
+        emails: finalEmails,
+        phone_numbers: finalPhones,
+        notes: finalNotes,
+        blocked_numbers: finalBlocked,
         block_800_number: block800Numbers,
         hangup_if_call_detected: hangupSalesCalls,
       };
@@ -1002,6 +1035,12 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 type="email"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleAddItem(e, emailInput, setEmailInput, emails, setEmails, "emails");
+                  }
+                }}
               />
               <Button
                 type="button"
@@ -1063,6 +1102,12 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs font-mono"
                 value={phoneInput}
                 onChange={(e) => setPhoneInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleAddItem(e, phoneInput, setPhoneInput, phoneNumbers, setPhoneNumbers, "phoneNumbers");
+                  }
+                }}
               />
               <Button
                 type="button"
@@ -1121,6 +1166,12 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
                 value={noteInput}
                 onChange={(e) => setNoteInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleAddItem(e, noteInput, setNoteInput, notes, setNotes, "notes");
+                  }
+                }}
               />
               <Button
                 type="button"

@@ -66,7 +66,15 @@ export class WebsiteImportService {
         types: ['ecommerce'],
         opening_hours: {
           weekday_text: isPrintEZ
-            ? ['Available Monday - Friday 8AM - 6PM EST']
+            ? [
+                'Monday: 8:00 AM - 6:00 PM',
+                'Tuesday: 8:00 AM - 6:00 PM',
+                'Wednesday: 8:00 AM - 6:00 PM',
+                'Thursday: 8:00 AM - 6:00 PM',
+                'Friday: 8:00 AM - 6:00 PM',
+                'Saturday: Closed',
+                'Sunday: Closed',
+              ]
             : [],
         },
         overview:

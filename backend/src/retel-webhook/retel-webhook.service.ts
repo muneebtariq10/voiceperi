@@ -81,14 +81,18 @@ export class RetelWebhookService {
       businessName = business?.name;
     }
 
-    const agentEmails = agent?.emails || [];
+    const agentEmails = Array.isArray(agent?.emails)
+      ? agent.emails.filter((e) => e && e.trim() !== '')
+      : [];
 
     const userEmails =
       typeof agent?.user?.email === 'string'
-        ? agent?.user.email.split(',').map((email) => email.trim())
+        ? agent?.user.email.split(',').map((email) => email.trim()).filter(Boolean)
         : [];
 
-    const allEmails = [...agentEmails, ...userEmails];
+    // Explicit Configuration Precedence: if custom recipient emails are defined, only send to them; otherwise fallback to primary account email
+    const rawEmails = agentEmails.length > 0 ? agentEmails : userEmails;
+    const allEmails = Array.from(new Set(rawEmails));
 
     if (!agent) {
       console.log('agent id not found');

@@ -55,6 +55,26 @@ interface AgentInfo {
   };
   // add other fields if needed
 }
+
+const normalizeBusinessHours = (hours?: string[]): string[] => {
+  if (!hours || !Array.isArray(hours) || hours.length === 0) return [];
+  const hasConsolidated = hours.some(h =>
+    h.includes("Monday - Friday") || h.includes("Available") || h.includes("Mon - Fri") || h.includes("Mon-Fri")
+  );
+  if (hasConsolidated) {
+    return [
+      "Monday: 8:00 AM - 6:00 PM",
+      "Tuesday: 8:00 AM - 6:00 PM",
+      "Wednesday: 8:00 AM - 6:00 PM",
+      "Thursday: 8:00 AM - 6:00 PM",
+      "Friday: 8:00 AM - 6:00 PM",
+      "Saturday: Closed",
+      "Sunday: Closed",
+    ];
+  }
+  return hours;
+};
+
 const VoiceAgent: React.FC = () => {
   const location = useLocation();
   const [showForm1, setShowForm1] = useState(!location.pathname.includes("voiceAgent"));
@@ -210,8 +230,9 @@ const VoiceAgent: React.FC = () => {
           [key: string]: string;
         }
 
+        const rawHours = normalizeBusinessHours((businessData as BusinessData)?.business_hours);
         const weekdayObject: WeekdayObject =
-          (businessData as BusinessData)?.business_hours?.reduce(
+          rawHours.reduce(
             (acc: WeekdayObject, entry: string) => {
               const [day, times] = entry
                 .split(":")
@@ -227,7 +248,7 @@ const VoiceAgent: React.FC = () => {
         setWeekdays(weekdayKeys.length > 0 ? weekdayKeys : DEFAULT_WEEKDAYS);
 
         const parsedHours = weekdayKeys?.reduce((acc, day) => {
-          const legacyEntry = businessData.business_hours?.find((h: string) =>
+          const legacyEntry = rawHours.find((h: string) =>
             h.startsWith(day)
           );
           // const modernEntry = businessData.week_days?.[day];
@@ -480,8 +501,9 @@ const VoiceAgent: React.FC = () => {
         [key: string]: string;
       }
 
+      const rawFetchedHours = normalizeBusinessHours((data as BusinessData)?.opening_hours?.weekday_text || (data as BusinessData)?.business_hours);
       const weekdayObject: WeekdayObject =
-        (data as BusinessData)?.opening_hours?.weekday_text?.reduce(
+        rawFetchedHours.reduce(
           (acc: WeekdayObject, entry: string) => {
             const [day, times] = entry.split(":").map((s: string) => s.trim());
             acc[day] = times;
@@ -495,7 +517,7 @@ const VoiceAgent: React.FC = () => {
       setWeekdays(weekdayKeys.length > 0 ? weekdayKeys : DEFAULT_WEEKDAYS);
 
       const parsedHours = weekdayKeys?.reduce((acc, day) => {
-        const legacyEntry = data.opening_hours?.weekday_text?.find(
+        const legacyEntry = rawFetchedHours.find(
           (h: string) => h.startsWith(day)
         );
         // const modernEntry = data.week_days?.[day];
@@ -511,7 +533,7 @@ const VoiceAgent: React.FC = () => {
               to: "00:00",
             };
           } else {
-            const match = legacyEntry.match(/: (.+?)\s*–\s*(.+)$/);
+            const match = legacyEntry.match(/: (.+?)\s*[–—-]\s*(.+)$/);
             if (match) {
               acc[day] = {
                 from: convertTo24Hour(match[1]),
