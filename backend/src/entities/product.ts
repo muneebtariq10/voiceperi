@@ -32,6 +32,15 @@ export class Product {
   @Column({ type: 'varchar', nullable: true })
   url: string;
 
+  @Column({ type: 'boolean', nullable: true, default: false })
+  priceFrom: boolean;
+
+  @Column({ type: 'int', nullable: true, default: 1 })
+  minimumQuantity: number;
+
+  @Column({ type: 'boolean', nullable: true, default: false })
+  descriptionTruncated: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

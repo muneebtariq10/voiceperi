@@ -105,6 +105,9 @@ export class ProductsService implements OnModuleInit {
             sku: sku,
             category: category,
             url: item.url || '',
+            priceFrom: Boolean(item.price_from),
+            minimumQuantity: item.minimum_quantity || 1,
+            descriptionTruncated: Boolean(item.description_truncated),
           });
         }
 
@@ -146,6 +149,9 @@ export class ProductsService implements OnModuleInit {
             sku: record.sku || record.productId,
             category: record.category || '',
             url: record.url || '',
+            priceFrom: Boolean(record.priceFrom),
+            minimumQuantity: record.minimumQuantity || 1,
+            descriptionTruncated: Boolean(record.descriptionTruncated),
           });
           newProducts.push(product);
         }
@@ -245,28 +251,45 @@ export class ProductsService implements OnModuleInit {
 
       const topResults = scoredProducts.slice(0, 8).map((item) => {
         const p = item.product;
+        const rawPrice = parseFloat(p.price) || 0;
+        const isPriceFrom = Boolean(p.priceFrom);
+        let displayPrice: string;
+
+        if (rawPrice <= 0) {
+          displayPrice =
+            'Pricing varies based on your selections (quantity, size, customization). Visit the product page or ask me for the link.';
+        } else if (isPriceFrom) {
+          displayPrice = `Starting from $${rawPrice.toFixed(2)}`;
+        } else {
+          displayPrice = `$${rawPrice.toFixed(2)}`;
+        }
+
         return {
           name: p.name,
-          price: p.price,
+          price: displayPrice,
           category: p.category,
           productId: p.productId,
           sku: p.sku || p.productId,
           description: p.description,
           url: p.url || '',
+          minimumQuantity: p.minimumQuantity || 1,
+          note: p.descriptionTruncated
+            ? 'Full product details including available options, colors, and sizes can be found on the product page.'
+            : '',
         };
       });
 
       if (topResults.length === 0) {
         return {
           success: true,
-          message: `While we couldn't find an exact match for "${query}" in our instant lookup, PrintEZ carries a complete catalog of over 1,200 commercial printing items including QuickBooks Computer Checks, Manual Checks, Custom Carbonless Forms, Deposit Slips, Invoice Books, and Envelopes. Standard checks start at $28.99 with free logo imprint and bank encoding.`,
+          message: `While we couldn't find an exact match for "${query}" in our instant lookup, PrintEZ carries a complete catalog of over 4,200 commercial printing items including QuickBooks Computer Checks, Manual Checks, Custom Carbonless Forms, Deposit Slips, Invoice Books, and Envelopes. Standard checks start at $28.99 with free logo imprint and bank encoding. Would you like me to help you search with different keywords?`,
           products: [],
         };
       }
 
       return {
         success: true,
-        message: `Found ${topResults.length} matching product(s) in the PrintEZ catalog for "${query}".`,
+        message: `Found ${topResults.length} matching product(s) in the PrintEZ catalog for "${query}". Each result includes a direct product page link where the customer can see all available options, colors, and sizes.`,
         products: topResults,
       };
     } catch (error) {
