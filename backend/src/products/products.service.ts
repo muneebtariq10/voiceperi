@@ -238,6 +238,13 @@ export class ProductsService implements OnModuleInit {
           for (const token of tokens) {
             if (id === token || sku === token) score += 40;
             else if (id.includes(token) || sku.includes(token)) score += 25;
+            else if (
+              token.length >= 3 &&
+              (id.startsWith(token.slice(0, 3)) ||
+                sku.startsWith(token.slice(0, 3)))
+            ) {
+              score += 15; // Handle speech-to-text SKU typos like "919g" for "9191g"
+            }
 
             if (name.includes(token)) score += 15;
             if (category.includes(token)) score += 10;
@@ -249,7 +256,7 @@ export class ProductsService implements OnModuleInit {
         .filter((item) => item.score > 0)
         .sort((a, b) => b.score - a.score);
 
-      const topResults = scoredProducts.slice(0, 8).map((item) => {
+      const topResults = scoredProducts.slice(0, 3).map((item) => {
         const p = item.product;
         const rawPrice = parseFloat(p.price) || 0;
         const isPriceFrom = Boolean(p.priceFrom);
@@ -264,13 +271,18 @@ export class ProductsService implements OnModuleInit {
           displayPrice = `$${rawPrice.toFixed(2)}`;
         }
 
+        let cleanDesc = p.description || '';
+        if (cleanDesc.length > 350) {
+          cleanDesc = cleanDesc.substring(0, 350) + '...';
+        }
+
         return {
           name: p.name,
           price: displayPrice,
           category: p.category,
           productId: p.productId,
           sku: p.sku || p.productId,
-          description: p.description,
+          description: cleanDesc,
           url: p.url || '',
           minimumQuantity: p.minimumQuantity || 1,
           note: p.descriptionTruncated
