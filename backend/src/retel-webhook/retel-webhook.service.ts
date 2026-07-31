@@ -87,7 +87,10 @@ export class RetelWebhookService {
 
     const userEmails =
       typeof agent?.user?.email === 'string'
-        ? agent?.user.email.split(',').map((email) => email.trim()).filter(Boolean)
+        ? agent?.user.email
+            .split(',')
+            .map((email) => email.trim())
+            .filter(Boolean)
         : [];
 
     // Explicit Configuration Precedence: if custom recipient emails are defined, only send to them; otherwise fallback to primary account email

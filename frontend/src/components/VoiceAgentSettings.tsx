@@ -302,7 +302,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       const fallbackLang = selectedLanguage || (languages && languages.length > 0 ? (languages.find((l: any) => l.code === "en" || l.name === "English") || languages[0]).id : null);
       const fallbackVoice = selectedVoice || (voices && voices.length > 0 ? (voices.find((v: any) => v.voice_id === "11labs-Andrew" || v.voice_name === "Andrew") || voices[0]).voice_id : "11labs-Andrew");
 
-      let finalEmails = [...emails];
+      const finalEmails = [...emails];
       if (emailInput.trim() && !finalEmails.includes(emailInput.trim()) && finalEmails.length < 5) {
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.trim())) {
           finalEmails.push(emailInput.trim());
@@ -311,7 +311,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         }
       }
 
-      let finalPhones = [...phoneNumbers];
+      const finalPhones = [...phoneNumbers];
       if (phoneInput.trim() && !finalPhones.includes(phoneInput.trim()) && finalPhones.length < 3) {
         if (/^\+?\d{10,15}$/.test(phoneInput.trim())) {
           finalPhones.push(phoneInput.trim());
@@ -320,14 +320,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
         }
       }
 
-      let finalNotes = [...notes];
+      const finalNotes = [...notes];
       if (noteInput.trim() && !finalNotes.includes(noteInput.trim()) && finalNotes.length < 5) {
         finalNotes.push(noteInput.trim());
         setNotes(finalNotes);
         setNoteInput("");
       }
 
-      let finalBlocked = [...blockedNumbers];
+      const finalBlocked = [...blockedNumbers];
       if (blockedInput.trim() && !finalBlocked.includes(blockedInput.trim())) {
         finalBlocked.push(blockedInput.trim());
         setBlockedNumbers(finalBlocked);
@@ -555,6 +555,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
     if (userInfo?.sub) {
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo?.sub, API_URL, languages, voices, token]);
   console.log("agent", agent);
   // const text = `Hi, my name is ${agentName}, and I'm here to assist you. How can I help you today?`;

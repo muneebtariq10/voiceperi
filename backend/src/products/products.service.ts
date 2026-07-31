@@ -2,13 +2,17 @@ import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from '../entities/product';
-import * as fs from 'fs';
-import * as path from 'path';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
   private readonly logger = new Logger(ProductsService.name);
   private productsCache: any[] = [];
+  private readonly apiUrl =
+    'https://www.printez.com/index.php?route=agentapi/product|list';
+  private readonly apiHeader = {
+    Authorization:
+      'Bearer 5c4faefcfc742ee848f1aa2f385f237aec5e70c6fcd7d5b3c8e082e426c51b54',
+  };
 
   constructor(
     @InjectRepository(Product)
@@ -16,62 +20,149 @@ export class ProductsService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.loadProductsIntoMemory();
-    // Run DB sync in background so server startup is not blocked
-    this.syncProductsToDatabase().catch((err) =>
-      this.logger.error('Background DB sync failed', err),
+    this.initializeProducts().catch((err) =>
+      this.logger.error('Background product initialization failed', err),
     );
   }
 
-  private loadProductsIntoMemory() {
+  private async initializeProducts() {
     try {
-      const dataPath = path.join(
-        process.cwd(),
-        'data',
-        'printez-products.json',
-      );
-      if (fs.existsSync(dataPath)) {
-        const fileContent = fs.readFileSync(dataPath, 'utf8');
-        this.productsCache = JSON.parse(fileContent);
+      // Step 1: Load existing DB products into memory immediately for instant voice agent responses
+      const dbProducts = await this.productRepository.find();
+      if (dbProducts.length > 0) {
+        this.productsCache = dbProducts;
         this.logger.log(
-          `🚀 Loaded ${this.productsCache.length} products directly into fast memory cache!`,
+          `⚡ Loaded ${dbProducts.length} existing products from database into fast memory cache.`,
         );
-      } else {
-        this.logger.warn('printez-products.json not found for memory loading.');
+      }
+
+      // Step 2: Fetch fresh product catalog directly from PrintEZ API in background
+      const liveProducts = await this.fetchAllApiProducts();
+      if (liveProducts && liveProducts.length > 0) {
+        this.productsCache = liveProducts;
+        this.logger.log(
+          `🚀 Updated fast memory cache with ${liveProducts.length} live products from PrintEZ API!`,
+        );
+        await this.syncProductsToDatabase();
       }
     } catch (error) {
-      this.logger.error('Failed to load products into memory', error.stack);
+      this.logger.error('Failed to initialize products catalog', error?.stack);
+    }
+  }
+
+  private async fetchAllApiProducts(): Promise<any[]> {
+    const allProducts: any[] = [];
+    let page = 1;
+    const limit = 500;
+    let hasMore = true;
+
+    this.logger.log(
+      '🌐 Starting live product catalog sync from PrintEZ API...',
+    );
+    try {
+      while (hasMore) {
+        const url = `${this.apiUrl}&limit=${limit}&page=${page}`;
+        const response = await fetch(url, { headers: this.apiHeader });
+        if (!response.ok) {
+          this.logger.warn(
+            `Failed fetching PrintEZ API page ${page}: HTTP ${response.status}`,
+          );
+          break;
+        }
+
+        const data = await response.json();
+        if (
+          !data ||
+          !Array.isArray(data.products) ||
+          data.products.length === 0
+        ) {
+          break;
+        }
+
+        for (const item of data.products) {
+          const rawDesc = item.description || '';
+          const cleanDesc = rawDesc
+            .replace(/<[^>]*>?/gm, ' ') // Strip HTML tags for clean AI voice rendering
+            .replace(/&amp;/g, '&')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/&quot;/g, '"')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+          const category =
+            item.category_path ||
+            (Array.isArray(item.breadcrumb) && item.breadcrumb.length > 0
+              ? item.breadcrumb.map((b: any) => b.name).join(' > ')
+              : '');
+
+          const prodId = String(item.product_id || item.model || '').trim();
+          const sku = String(item.model || item.product_id || '').trim();
+          allProducts.push({
+            productId: prodId,
+            name: (item.title || '').trim(),
+            description: cleanDesc,
+            price: String(item.price ?? ''),
+            sku: sku,
+            category: category,
+            url: item.url || '',
+          });
+        }
+
+        hasMore =
+          Boolean(data?.pagination?.has_more) && data.products.length > 0;
+        page++;
+        if (page > 200) break; // Safety cap against infinite loops (supports up to 20,000 items)
+      }
+      this.logger.log(
+        `✅ Completed PrintEZ API fetch. Retrieved ${allProducts.length} total products across ${page - 1} pages.`,
+      );
+      return allProducts;
+    } catch (error) {
+      this.logger.error(
+        'Error fetching products from PrintEZ API',
+        error?.stack,
+      );
+      return allProducts;
     }
   }
 
   private async syncProductsToDatabase() {
     if (this.productsCache.length === 0) return;
     try {
-      let importedCount = 0;
-      for (const record of this.productsCache) {
-        const existing = await this.productRepository.findOne({
-          where: { productId: record.productId },
-        });
+      const allExisting = await this.productRepository.find({
+        select: ['productId'],
+      });
+      const existingIds = new Set(allExisting.map((p) => p.productId));
 
-        if (!existing) {
+      const newProducts: Product[] = [];
+      for (const record of this.productsCache) {
+        if (!existingIds.has(record.productId) && record.productId) {
+          existingIds.add(record.productId); // Prevent duplicates within the API response
           const product = this.productRepository.create({
             productId: record.productId,
             name: record.name,
             description: record.description || '',
-            price: record.price,
-            sku: record.productId,
+            price: String(record.price ?? ''),
+            sku: record.sku || record.productId,
             category: record.category || '',
             url: record.url || '',
           });
-          await this.productRepository.save(product);
-          importedCount++;
+          newProducts.push(product);
         }
       }
-      if (importedCount > 0) {
-        this.logger.log(`Synced ${importedCount} new products into database.`);
+
+      if (newProducts.length > 0) {
+        // Save in chunks of 500 for maximum performance
+        for (let i = 0; i < newProducts.length; i += 500) {
+          const batch = newProducts.slice(i, i + 500);
+          await this.productRepository.save(batch);
+        }
+        this.logger.log(
+          `Synced ${newProducts.length} brand new products into database.`,
+        );
       }
     } catch (error) {
-      this.logger.error('Failed syncing products to DB', error.stack);
+      this.logger.error('Failed syncing products to DB', error?.stack);
     }
   }
 
@@ -121,14 +212,16 @@ export class ProductsService implements OnModuleInit {
           let score = 0;
           const name = (p.name || '').toLowerCase();
           const id = (p.productId || '').toLowerCase();
+          const sku = (p.sku || '').toLowerCase();
           const category = (p.category || '').toLowerCase();
           const desc = (p.description || '').toLowerCase();
 
           // Exact or substring match on entire clean query
-          if (id === queryLower || name === queryLower) {
+          if (id === queryLower || sku === queryLower || name === queryLower) {
             score += 100;
           } else if (
             id.includes(queryLower) ||
+            sku.includes(queryLower) ||
             name.includes(queryLower) ||
             category.includes(queryLower)
           ) {
@@ -137,8 +230,8 @@ export class ProductsService implements OnModuleInit {
 
           // Individual token relevancy
           for (const token of tokens) {
-            if (id === token) score += 40;
-            else if (id.includes(token)) score += 25;
+            if (id === token || sku === token) score += 40;
+            else if (id.includes(token) || sku.includes(token)) score += 25;
 
             if (name.includes(token)) score += 15;
             if (category.includes(token)) score += 10;
@@ -157,8 +250,9 @@ export class ProductsService implements OnModuleInit {
           price: p.price,
           category: p.category,
           productId: p.productId,
-          sku: p.productId,
+          sku: p.sku || p.productId,
           description: p.description,
+          url: p.url || '',
         };
       });
 

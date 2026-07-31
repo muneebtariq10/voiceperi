@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import axios from "axios";
 import { toast } from "sonner";
+import type { UserData } from "@/dashboard/Users";
 
 type PopupProps = {
   isOpen: boolean;
@@ -27,7 +28,7 @@ type PopupProps = {
     verified: number;
     id: string;
   };
-  onSubmit: (updatedData: any) => void;
+  onSubmit: (updatedData: UserData) => void;
 };
 
 export const Popup: React.FC<PopupProps> = ({
