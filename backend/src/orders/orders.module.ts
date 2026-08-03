@@ -11,6 +11,7 @@ import { OrderStatusMappingService } from './order-status-mapping.service';
 import { OrdersImportService } from './orders-import.service';
 import { ReorderService } from './reorder.service';
 import { OpenCartOrderAdapter } from '../integrations/adapters';
+import { ProductsModule } from '../products/products.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { OpenCartOrderAdapter } from '../integrations/adapters';
       OrderHistory,
       OrderLookupAudit,
     ]),
+    ProductsModule,
   ],
   controllers: [OrdersController, ReorderController],
   providers: [

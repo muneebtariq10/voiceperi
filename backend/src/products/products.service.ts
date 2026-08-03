@@ -229,4 +229,47 @@ export class ProductsService implements OnModuleInit {
       };
     }
   }
+
+  async resolveInternalProductId(
+    productIdOrSku?: string,
+    productName?: string,
+  ): Promise<number | undefined> {
+    const combined =
+      `${productIdOrSku || ''} ${productName || ''}`.toLowerCase();
+    if (combined.includes('dlt103') || combined.includes('check on top')) {
+      return 29233;
+    }
+
+    if (productIdOrSku && /^\d{4,6}$/.test(String(productIdOrSku).trim())) {
+      const directId = parseInt(String(productIdOrSku).trim(), 10);
+      if (!isNaN(directId) && directId > 0) return directId;
+    }
+
+    const queries: string[] = [];
+    if (productIdOrSku && String(productIdOrSku).trim() !== '') {
+      queries.push(String(productIdOrSku).trim());
+    }
+    if (productName && String(productName).trim() !== '') {
+      queries.push(String(productName).trim());
+    }
+
+    for (const q of queries) {
+      const result = await this.lookupProduct(q);
+      if (result.success && result.products && result.products.length > 0) {
+        for (const p of result.products) {
+          if (p.productId && !isNaN(parseInt(String(p.productId), 10))) {
+            const resolvedId = parseInt(String(p.productId), 10);
+            if (resolvedId > 0) {
+              this.logger.log(
+                `🎯 Successfully resolved "${q}" to live OpenCart product_id: ${resolvedId} (${p.name})`,
+              );
+              return resolvedId;
+            }
+          }
+        }
+      }
+    }
+
+    return undefined;
+  }
 }

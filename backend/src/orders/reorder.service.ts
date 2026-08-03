@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { OpenCartOrderAdapter } from '../integrations/adapters';
+import { ProductsService } from '../products/products.service';
 
 export interface ReorderRequest {
   productId?: string;
@@ -31,6 +32,7 @@ export class ReorderService {
   constructor(
     private readonly mailerService: MailerService,
     private readonly orderAdapter: OpenCartOrderAdapter,
+    private readonly productsService: ProductsService,
   ) {}
 
   async captureReorder(request: ReorderRequest): Promise<ReorderResult> {
@@ -83,15 +85,32 @@ export class ReorderService {
         );
       }
     }
-    // 2. Otherwise, attempt Live Order Insertion API if we can resolve a numeric product ID (agentapi/order|insert)
-    else if (request.productId && /\d+/.test(String(request.productId))) {
-      const numericProductId = parseInt(
-        String(request.productId).replace(/\D/g, ''),
-        10,
-      );
-      if (!isNaN(numericProductId) && numericProductId > 0) {
+    // 2. Otherwise, resolve real OpenCart numeric database product ID and execute Live Order Insertion (agentapi/order|insert)
+    else {
+      let numericProductId: number | undefined;
+      try {
+        numericProductId = await this.productsService.resolveInternalProductId(
+          request.productId,
+          request.productName,
+        );
+      } catch (err) {
+        this.logger.warn(
+          `Failed resolving product ID for ${request.productId}: ${err?.message}`,
+        );
+      }
+
+      if (
+        !numericProductId &&
+        request.productId &&
+        /^\d+$/.test(String(request.productId).trim())
+      ) {
+        const fallbackId = parseInt(String(request.productId).trim(), 10);
+        if (!isNaN(fallbackId) && fallbackId > 0) numericProductId = fallbackId;
+      }
+
+      if (numericProductId && numericProductId > 0) {
         this.logger.log(
-          `🛒 Numeric Product ID (${numericProductId}) detected! Executing live PrintEZ Agent Order Insertion API...`,
+          `🛒 Resolved OpenCart Product ID (${numericProductId}) for "${request.productName || request.productId}"! Executing live PrintEZ Agent Order Insertion API...`,
         );
 
         // PrintEZ requires firstname and lastname when creating a new customer account via email
