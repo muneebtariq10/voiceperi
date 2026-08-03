@@ -4,6 +4,9 @@ export {
   OrderData,
   OrderProductData,
   OrderListResult,
+  CreateOrderPayload,
+  CreateOrderResult,
+  ReorderOperationResult,
 } from './order-provider.interface';
 export { IProductProvider, ProductRecord } from './product-provider.interface';
 export {

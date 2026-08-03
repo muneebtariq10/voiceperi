@@ -66,6 +66,67 @@ export interface OrderListResult {
   message?: string;
 }
 
+export interface CreateOrderPayload {
+  customer?: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    telephone?: string;
+  };
+  customer_id?: number;
+  products: Array<{
+    product_id: number;
+    quantity?: number;
+    options?: Array<{
+      product_option_id: number;
+      product_option_value_id: number;
+    }>;
+  }>;
+  payment_address?: {
+    address_1?: string;
+    city?: string;
+    postcode?: string;
+    country_id?: number;
+    zone_id?: number;
+    [key: string]: any;
+  };
+  shipping_address?: {
+    address_1?: string;
+    city?: string;
+    postcode?: string;
+    country_id?: number;
+    zone_id?: number;
+    [key: string]: any;
+  };
+  comment?: string;
+}
+
+export interface CreateOrderResult {
+  success: boolean;
+  order?: OrderData;
+  error?: {
+    code: string;
+    message: string;
+  };
+  message?: string;
+}
+
+export interface ReorderOperationResult {
+  success: boolean;
+  order?: OrderData & {
+    source_order_id?: number | string;
+    skipped_products?: Array<{
+      product_id: number | string;
+      quantity: number;
+    }>;
+  };
+  error?: {
+    code: string;
+    message: string;
+  };
+  message?: string;
+}
+
 export interface IOrderProvider {
   /**
    * Look up a single order by its ID.
@@ -77,6 +138,20 @@ export interface IOrderProvider {
    * Returns a summary list of recent orders.
    */
   getOrdersByEmail(email: string): Promise<OrderListResult>;
+
+  /**
+   * Create a brand new order in the e-commerce engine (e.g. agentapi/order|insert).
+   */
+  createOrder(payload: CreateOrderPayload): Promise<CreateOrderResult>;
+
+  /**
+   * Reorder a previous order by duplicating its line items at current live catalog prices (e.g. agentapi/order|reorder).
+   */
+  reorderPastOrder(
+    sourceOrderId: number | string,
+    comment?: string,
+    customerId?: number,
+  ): Promise<ReorderOperationResult>;
 
   /**
    * Check if the provider is available (API reachable).
