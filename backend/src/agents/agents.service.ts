@@ -707,11 +707,31 @@ export class AgentsService implements OnApplicationBootstrap {
       },
       language: language.locale,
       post_call_analysis_model: 'gpt-4o-mini',
-      post_call_analysis_data: Array.from({ length: 5 }).map((_, i) => ({
-        type: 'string',
-        name: `custom_var_${i + 1}`,
-        description: `Answer ${i + 1} given by customer.`,
-      })),
+      post_call_analysis_data: [
+        {
+          type: 'string',
+          name: 'user_name',
+          description:
+            'The full name of the caller or customer if mentioned during the call.',
+        },
+        {
+          type: 'string',
+          name: 'user_email_address',
+          description:
+            'The email address of the caller or customer if mentioned during the call.',
+        },
+        {
+          type: 'string',
+          name: 'service_interest',
+          description:
+            'The services, products, or order IDs the customer showed interest in or inquired about.',
+        },
+        ...Array.from({ length: 5 }).map((_, i) => ({
+          type: 'string',
+          name: `custom_var_${i + 1}`,
+          description: `Answer ${i + 1} given by customer.`,
+        })),
+      ],
       webhook_url: process.env.RETELL_WEBHOOK_URL,
     };
 
@@ -1317,47 +1337,34 @@ export class AgentsService implements OnApplicationBootstrap {
       payload.webhook_url = process.env.RETELL_WEBHOOK_URL;
     }
 
+    const effectiveNotes = updateAgentDto.notes || agent.notes || [];
     payload.post_call_analysis_data = [
-      // {
-      //   type: 'string',
-      //   name: 'user_name',
-      //   description: 'The name of the customer.',
-      // },
-      // {
-      //   type: 'string',
-      //   name: 'user_email_address',
-      //   description: 'The email address of the customer.',
-      // },
-      // {
-      //   type: 'string',
-      //   name: 'service_interest',
-      //   description: 'The services customer showed interest in.',
-      // },
       {
         type: 'string',
-        name: 'custom_var_1',
-        description: 'Answer 1 given by customer.',
+        name: 'user_name',
+        description:
+          'The full name of the caller or customer if mentioned during the call.',
       },
       {
         type: 'string',
-        name: 'custom_var_2',
-        description: 'Answer 2 given by customer.',
+        name: 'user_email_address',
+        description:
+          'The email address of the caller or customer if mentioned during the call.',
       },
       {
         type: 'string',
-        name: 'custom_var_3',
-        description: 'Answer 3 given by customer.',
+        name: 'service_interest',
+        description:
+          'The services, products, or order IDs the customer showed interest in or inquired about.',
       },
-      {
+      ...Array.from({ length: 5 }).map((_, i) => ({
         type: 'string',
-        name: 'custom_var_4',
-        description: 'Answer 4 given by customer.',
-      },
-      {
-        type: 'string',
-        name: 'custom_var_5',
-        description: 'Answer 5 given by customer.',
-      },
+        name: `custom_var_${i + 1}`,
+        description:
+          effectiveNotes[i] && effectiveNotes[i].trim() !== ''
+            ? `The customer's answer to question ${i + 1}: "${effectiveNotes[i].trim()}"`
+            : `Answer ${i + 1} given by customer.`,
+      })),
     ];
 
     // Step 4: Call Retell API to update the agent
