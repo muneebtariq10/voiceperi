@@ -86,6 +86,87 @@ export class RetelWebhookService {
       customData?.custom_var_5,
     ];
 
+    // Helper dictionaries and classifiers for intelligent semantic detection
+    const productKeywords = [
+      'book',
+      'receipt',
+      'card',
+      'check',
+      'form',
+      'order',
+      'print',
+      'sales',
+      'catalog',
+      'laser',
+      'carbonless',
+      'booked',
+      'banner',
+      'flyer',
+      'brochure',
+      'service',
+      'item',
+      'customization',
+      'invoice',
+      'folder',
+      'label',
+      'envelope',
+      'stationery',
+      'package',
+      'bundle',
+    ];
+    const companyKeywords = [
+      'corporation',
+      'corp',
+      'inc',
+      'llc',
+      'ltd',
+      'company',
+      'enterprises',
+      'solutions',
+      'business',
+      'industries',
+      'group',
+      'associates',
+      'partners',
+      'studio',
+      'agency',
+      'holdings',
+    ];
+
+    const isEmailString = (s: string) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
+    const isPriceString = (s: string) =>
+      /^\$[\d,]+(\.\d{2})?$/.test(s.trim()) ||
+      /^(\d{1,5}\.\d{2})/.test(s.trim()) ||
+      s.toLowerCase().includes('dollar') ||
+      s.toLowerCase().includes('price');
+    const isCompanyString = (s: string) =>
+      companyKeywords.some((kw) => s.toLowerCase().includes(kw));
+    const isProductString = (s: string) =>
+      productKeywords.some((kw) => s.toLowerCase().includes(kw));
+    const isPlausibleHumanName = (s: string) => {
+      const trimmed = s.trim();
+      if (trimmed.length < 3 || trimmed.length > 35) return false;
+      if (
+        /\d/.test(trimmed) ||
+        trimmed.includes('@') ||
+        trimmed.toLowerCase().includes('http')
+      )
+        return false;
+      if (
+        isProductString(trimmed) ||
+        isCompanyString(trimmed) ||
+        isPriceString(trimmed)
+      )
+        return false;
+      const wordCount = trimmed.split(/\s+/).length;
+      return (
+        wordCount >= 1 &&
+        wordCount <= 4 &&
+        !/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]+/.test(trimmed)
+      );
+    };
+
     // Smart Email Fallback: If user_email_address is missing, find any email string in custom variables
     let callerEmail = customData?.user_email_address;
     if (
@@ -94,14 +175,19 @@ export class RetelWebhookService {
       !callerEmail.includes('@')
     ) {
       const emailMatch = customVars.find(
-        (val) =>
-          typeof val === 'string' &&
-          /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()),
+        (val) => typeof val === 'string' && isEmailString(val),
       );
       if (emailMatch) callerEmail = emailMatch.trim();
     }
 
-    // Smart Name Fallback: If user_name is missing, find a plausible name string
+    // Smart Company Detection:
+    let callerCompany: string | null = null;
+    const companyMatch = customVars.find(
+      (val) => typeof val === 'string' && isCompanyString(val),
+    );
+    if (companyMatch) callerCompany = companyMatch.trim();
+
+    // Smart Name Fallback:
     let callerName = customData?.user_name;
     if (
       !callerName ||
@@ -111,12 +197,42 @@ export class RetelWebhookService {
       const nameMatch = customVars.find(
         (val) =>
           typeof val === 'string' &&
-          val.trim().length > 2 &&
-          !val.includes('@') &&
-          !/\d/.test(val) &&
-          !val.toLowerCase().includes('http'),
+          isPlausibleHumanName(val) &&
+          val !== callerEmail &&
+          val !== callerCompany,
       );
-      if (nameMatch && nameMatch !== callerEmail) callerName = nameMatch.trim();
+      if (nameMatch) callerName = nameMatch.trim();
+    }
+    // Prevent product or company titles from leaking into Customer Name field
+    if (
+      callerName &&
+      !isPlausibleHumanName(callerName) &&
+      !customData?.user_name
+    ) {
+      callerName = null;
+    }
+
+    // Smart Product / Service Interest Fallback:
+    let callerInterest = customData?.service_interest;
+    if (
+      !callerInterest ||
+      typeof callerInterest !== 'string' ||
+      callerInterest.trim() === '' ||
+      callerInterest === 'General Consultation & Catalog Order'
+    ) {
+      const productMatches = customVars.filter(
+        (val) =>
+          typeof val === 'string' &&
+          isProductString(val) &&
+          val !== callerCompany &&
+          !isPriceString(val),
+      );
+      if (productMatches.length > 0) {
+        // Pick the most detailed product description captured
+        callerInterest = productMatches
+          .sort((a, b) => (b?.length || 0) - (a?.length || 0))[0]
+          ?.trim();
+      }
     }
 
     const durationSeconds =
@@ -129,14 +245,14 @@ export class RetelWebhookService {
           : null;
 
     const callerInfo = {
-      callerName: callerName || 'Not specified',
+      callerName: callerName || 'Not specified in audio',
       callerEmail: callerEmail || 'Not provided',
       callerPhone:
         payload.call?.from_number ||
         payload.call?.to_number ||
         'Web / App Audio',
-      callerInterest:
-        customData?.service_interest || 'General Consultation & Catalog Order',
+      callerCompany: callerCompany || null,
+      callerInterest: callerInterest || 'General Consultation & Catalog Order',
       callSummary:
         callAnalysis?.call_summary || 'No conversation summary generated.',
       callerSentiment: callAnalysis?.user_sentiment || 'Neutral',
@@ -150,23 +266,46 @@ export class RetelWebhookService {
       recordingUrl: payload.call?.recording_url || null,
     };
 
-    // Pair custom variables with configured question titles
+    // Pair custom variables with configured question titles or intelligently auto-label them
     const pairedQuestions: { question: string; answer: string }[] = [];
+    const usedLabels = new Set<string>();
+
     customVars.forEach((val, i) => {
       if (val && typeof val === 'string' && val.trim() !== '') {
-        const questionText =
+        const cleanVal = val.trim();
+        let questionText =
           configuredQuestions[i] && configuredQuestions[i].trim() !== ''
             ? configuredQuestions[i].trim()
-            : `Extracted Insight #${i + 1}`;
-        pairedQuestions.push({ question: questionText, answer: val.trim() });
+            : null;
+
+        // Semantic Auto-Labeling for extracted insights when custom question title is empty
+        if (!questionText) {
+          if (isEmailString(cleanVal)) {
+            questionText = '✉️ Customer Email Address';
+          } else if (isPriceString(cleanVal)) {
+            questionText = '💰 Quoted Price / Estimate';
+          } else if (isCompanyString(cleanVal)) {
+            questionText = '🏢 Company / Business Name';
+          } else if (isProductString(cleanVal)) {
+            questionText = usedLabels.has('🎯 Requested Product / Service')
+              ? '📦 Catalog Option Selected'
+              : '🎯 Requested Product / Service';
+          } else if (isPlausibleHumanName(cleanVal)) {
+            questionText = '👤 Customer Name Mentioned';
+          } else {
+            questionText = `📌 Extracted Detail #${i + 1}`;
+          }
+        }
+        usedLabels.add(questionText);
+        pairedQuestions.push({ question: questionText, answer: cleanVal });
       }
     });
 
     let textQuestionsSection = '';
     if (pairedQuestions.length > 0) {
-      textQuestionsSection = `\nCustomer Questions & Extracted Answers:\n${pairedQuestions
-        .map((qa, i) => `  ${i + 1}. Q: ${qa.question}\n     A: ${qa.answer}`)
-        .join('\n\n')}\n`;
+      textQuestionsSection = `\nCustomer Q&A & Extracted Insights:\n${pairedQuestions
+        .map((qa, i) => `  ${i + 1}. ${qa.question}: ${qa.answer}`)
+        .join('\n')}\n`;
     }
 
     let htmlQuestionsSection = '';
@@ -202,7 +341,7 @@ export class RetelWebhookService {
     const callerIdentifier =
       callerInfo.callerEmail !== 'Not provided'
         ? callerInfo.callerEmail
-        : callerInfo.callerName !== 'Not specified'
+        : callerInfo.callerName !== 'Not specified in audio'
           ? callerInfo.callerName
           : callerInfo.callerPhone;
 
@@ -238,7 +377,7 @@ A new voice consultation has just been completed. Here is the executive summary 
 
 👤 Caller Information:
   • Name: ${callerInfo.callerName}
-  • Email: ${callerInfo.callerEmail}
+  • Email: ${callerInfo.callerEmail}${callerInfo.callerCompany ? `\n  • Company: ${callerInfo.callerCompany}` : ''}
   • Phone: ${callerInfo.callerPhone}
   • Interest/Product: ${callerInfo.callerInterest}
   • Call Outcome: ${callerInfo.callStatus}
@@ -313,6 +452,14 @@ VoicePeri Platform`;
               }
             </td>
           </tr>
+          ${
+            callerInfo.callerCompany
+              ? `<tr>
+            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; font-weight: 500;">🏢 Company / Business</td>
+            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600; color: #4f46e5;">${callerInfo.callerCompany}</td>
+          </tr>`
+              : ''
+          }
           <tr>
             <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; font-weight: 500;">📱 Phone Number</td>
             <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600; color: #374151;">${callerInfo.callerPhone}</td>
