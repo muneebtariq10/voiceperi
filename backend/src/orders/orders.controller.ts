@@ -69,4 +69,30 @@ export class OrdersController {
       rawEmail,
     );
   }
+
+  @Public()
+  @Post('lookup-by-email')
+  @HttpCode(HttpStatus.OK)
+  async lookupByEmail(@Body() body: any) {
+    const email =
+      body?.email ??
+      body?.customerEmail ??
+      body?.customer_email ??
+      body?.args?.email ??
+      body?.args?.customerEmail ??
+      body?.arguments?.email ??
+      body?.arguments?.customerEmail ??
+      undefined;
+
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return {
+        found: false,
+        message:
+          'Could you please provide your email address so I can look up your account?',
+      };
+    }
+
+    const correlationId = Math.random().toString(36).substring(7);
+    return await this.ordersService.lookupOrdersByEmail(email, correlationId);
+  }
 }

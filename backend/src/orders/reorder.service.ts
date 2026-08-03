@@ -11,6 +11,9 @@ export interface ReorderRequest {
   customerPhone?: string;
   previousOrderId?: string | number;
   notes?: string;
+  color?: string;
+  parts?: string;
+  shippingAddress?: string;
 }
 
 export interface ReorderResult {
@@ -99,6 +102,23 @@ export class ReorderService {
         const lastname =
           nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'Order';
 
+        // Build comprehensive order comment with all collected details
+        const commentParts: string[] = [];
+        commentParts.push(
+          request.notes ||
+            `Phone order placed by AI concierge for ${request.productName}`,
+        );
+        if (request.parts) commentParts.push(`Parts: ${request.parts}`);
+        if (request.color) commentParts.push(`Color: ${request.color}`);
+        if (request.shippingAddress)
+          commentParts.push(`Shipping Address: ${request.shippingAddress}`);
+        const orderComment = commentParts.join(' | ');
+
+        // Parse shipping address into structured fields if provided
+        const shippingPayload = request.shippingAddress
+          ? { address_1: request.shippingAddress }
+          : undefined;
+
         try {
           const createRes = await this.orderAdapter.createOrder({
             customer: {
@@ -116,9 +136,8 @@ export class ReorderService {
                     : 1,
               },
             ],
-            comment:
-              request.notes ||
-              `Phone order placed by AI concierge for ${request.productName}`,
+            ...(shippingPayload ? { shipping_address: shippingPayload } : {}),
+            comment: orderComment,
           });
 
           if (createRes.success && createRes.order) {
@@ -211,10 +230,13 @@ export class ReorderService {
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Customer Email</td><td style="padding: 8px; border: 1px solid #ddd;">${request.customerEmail}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Customer Phone</td><td style="padding: 8px; border: 1px solid #ddd;">${request.customerPhone || 'Not provided'}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Previous Order ID</td><td style="padding: 8px; border: 1px solid #ddd;">${request.previousOrderId || 'N/A (new order)'}</td></tr>
+        ${request.parts ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Parts</td><td style="padding: 8px; border: 1px solid #ddd;">${request.parts}</td></tr>` : ''}
+        ${request.color ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Color</td><td style="padding: 8px; border: 1px solid #ddd;">${request.color}</td></tr>` : ''}
+        ${request.shippingAddress ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Shipping Address</td><td style="padding: 8px; border: 1px solid #ddd;">${request.shippingAddress}</td></tr>` : ''}
         ${skippedHtml}
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Notes</td><td style="padding: 8px; border: 1px solid #ddd;">${request.notes || 'None'}</td></tr>
       </table>
-      <p style="margin-top: 16px; color: #666;">This reorder was captured by the VoicePeri AI Voice Agent during a live customer call. Please ensure the customer completes payment via their secure checkout link.</p>
+      <p style="margin-top: 16px; color: #666;">This order was captured by the VoicePeri AI Voice Agent during a live customer call. Please ensure the customer completes payment via their secure checkout link.</p>
     `;
 
     await this.mailerService.sendMail({
@@ -242,6 +264,9 @@ export class ReorderService {
       <p><strong>Official Order/Reference ID:</strong> #${referenceId}</p>
       <p><strong>Product:</strong> ${request.productName}</p>
       <p><strong>Quantity:</strong> ${request.quantity || '1'}</p>
+      ${request.parts ? `<p><strong>Parts:</strong> ${request.parts}</p>` : ''}
+      ${request.color ? `<p><strong>Color:</strong> ${request.color}</p>` : ''}
+      ${request.shippingAddress ? `<p><strong>Shipping Address:</strong> ${request.shippingAddress}</p>` : ''}
       <hr style="border: none; border-top: 1px solid #eee; my: 16px;" />
       <p>Our order processing engine will verify your order options and forward your secure payment link directly to your inbox so you can finalize checkout.</p>
       <p>If you have questions, simply reply to this email or call us at <strong>+1 845-782-5832</strong>.</p>

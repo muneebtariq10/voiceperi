@@ -86,6 +86,22 @@ export class ReorderController {
     const notes =
       body?.notes ?? body?.args?.notes ?? body?.arguments?.notes ?? undefined;
 
+    const color =
+      body?.color ?? body?.args?.color ?? body?.arguments?.color ?? undefined;
+
+    const parts =
+      body?.parts ?? body?.args?.parts ?? body?.arguments?.parts ?? undefined;
+
+    const shippingAddress =
+      body?.shippingAddress ??
+      body?.shipping_address ??
+      body?.address ??
+      body?.args?.shippingAddress ??
+      body?.args?.shipping_address ??
+      body?.arguments?.shippingAddress ??
+      body?.arguments?.shipping_address ??
+      undefined;
+
     // Validate required fields
     if (!customerEmail) {
       return {
@@ -116,6 +132,9 @@ export class ReorderController {
       customerPhone,
       previousOrderId,
       notes,
+      color,
+      parts,
+      shippingAddress,
     });
   }
 }

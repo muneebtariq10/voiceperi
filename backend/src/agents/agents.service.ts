@@ -506,6 +506,23 @@ export class AgentsService implements OnApplicationBootstrap {
       },
       {
         type: 'custom',
+        name: 'lookup_orders_by_email',
+        description:
+          'Check if a customer has previous orders in the system using their email address before placing a brand new order. Allows detecting existing accounts to offer quick reorders or modifications.',
+        url: this.getOrderLookupByEmailUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string',
+              description: 'The email address provided by the customer',
+            },
+          },
+          required: ['email'],
+        },
+      },
+      {
+        type: 'custom',
         name: 'lookup_product',
         description:
           'Searches the PrintEZ product catalog to answer questions about pricing, availability, computer checks, business forms, item numbers, and model details.',
@@ -526,7 +543,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'capture_reorder',
         description:
-          'Captures a customer reorder request. Call this after collecting the product name, quantity, and customer email. Sends a confirmation to the customer and notifies the PrintEZ operations team.',
+          'Captures a customer brand new order or reorder request for any catalog product (e.g., forms, receipts, checks). Call this after collecting the product name, options (parts, color, quantity), customer name, email, and shipping address. Instantly creates a live order and triggers a checkout confirmation email.',
         url: this.getReorderUrl(),
         parameters: {
           type: 'object',
@@ -534,7 +551,7 @@ export class AgentsService implements OnApplicationBootstrap {
             productName: {
               type: 'string',
               description:
-                'The name of the product the customer wants to reorder',
+                'The name of the product the customer wants to order or reorder',
             },
             productId: {
               type: 'string',
@@ -544,6 +561,26 @@ export class AgentsService implements OnApplicationBootstrap {
             quantity: {
               type: 'number',
               description: 'The quantity the customer wants to order',
+            },
+            color: {
+              type: 'string',
+              description:
+                'The selected color option (e.g. blue, green, maroon)',
+            },
+            parts: {
+              type: 'string',
+              description:
+                'The selected carbonless parts option (e.g. 1-Part, 2-Part, 3-Part)',
+            },
+            shippingAddress: {
+              type: 'string',
+              description:
+                'The full shipping street address, city, state, and zip code',
+            },
+            notes: {
+              type: 'string',
+              description:
+                'Any customization instructions, starting check number, or imprint details mentioned by the caller',
             },
             customerEmail: {
               type: 'string',
@@ -1044,6 +1081,23 @@ export class AgentsService implements OnApplicationBootstrap {
       },
       {
         type: 'custom',
+        name: 'lookup_orders_by_email',
+        description:
+          'Check if a customer has previous orders in the system using their email address before placing a brand new order. Allows detecting existing accounts to offer quick reorders or modifications.',
+        url: this.getOrderLookupByEmailUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string',
+              description: 'The email address provided by the customer',
+            },
+          },
+          required: ['email'],
+        },
+      },
+      {
+        type: 'custom',
         name: 'lookup_product',
         description:
           'Searches the PrintEZ product catalog to answer questions about pricing, availability, computer checks, business forms, item numbers, and model details.',
@@ -1064,7 +1118,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'capture_reorder',
         description:
-          'Captures a customer reorder request. Call this after collecting the product name, quantity, and customer email. Sends a confirmation to the customer and notifies the PrintEZ operations team.',
+          'Captures a customer brand new order or reorder request for any catalog product (e.g., forms, receipts, checks). Call this after collecting the product name, options (parts, color, quantity), customer name, email, and shipping address. Instantly creates a live order and triggers a checkout confirmation email.',
         url: this.getReorderUrl(),
         parameters: {
           type: 'object',
@@ -1072,7 +1126,7 @@ export class AgentsService implements OnApplicationBootstrap {
             productName: {
               type: 'string',
               description:
-                'The name of the product the customer wants to reorder',
+                'The name of the product the customer wants to order or reorder',
             },
             productId: {
               type: 'string',
@@ -1082,6 +1136,26 @@ export class AgentsService implements OnApplicationBootstrap {
             quantity: {
               type: 'number',
               description: 'The quantity the customer wants to order',
+            },
+            color: {
+              type: 'string',
+              description:
+                'The selected color option (e.g. blue, green, maroon)',
+            },
+            parts: {
+              type: 'string',
+              description:
+                'The selected carbonless parts option (e.g. 1-Part, 2-Part, 3-Part)',
+            },
+            shippingAddress: {
+              type: 'string',
+              description:
+                'The full shipping street address, city, state, and zip code',
+            },
+            notes: {
+              type: 'string',
+              description:
+                'Any customization instructions, starting check number, or imprint details mentioned by the caller',
             },
             customerEmail: {
               type: 'string',
@@ -1759,5 +1833,20 @@ export class AgentsService implements OnApplicationBootstrap {
     }
     const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
     return `${cleanBase}/api/knowledge/query`;
+  }
+
+  private getOrderLookupByEmailUrl(): string {
+    let baseUrl = 'https://dev.voiceperi.com/api';
+    if (process.env.RETELL_WEBHOOK_URL) {
+      const cleaned = process.env.RETELL_WEBHOOK_URL.replace(
+        /\/retell?-webhook\/?$/i,
+        '',
+      ).replace(/\/webhook\/?$/i, '');
+      if (cleaned.startsWith('http')) {
+        baseUrl = cleaned;
+      }
+    }
+    const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
+    return `${cleanBase}/api/orders/lookup-by-email`;
   }
 }
