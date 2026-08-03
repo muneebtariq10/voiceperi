@@ -2,21 +2,17 @@ import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from '../entities/product';
+import { OpenCartProductAdapter } from '../integrations/adapters';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
   private readonly logger = new Logger(ProductsService.name);
   private productsCache: any[] = [];
-  private readonly apiUrl =
-    'https://www.printez.com/index.php?route=agentapi/product|list';
-  private readonly apiHeader = {
-    Authorization:
-      'Bearer 5c4faefcfc742ee848f1aa2f385f237aec5e70c6fcd7d5b3c8e082e426c51b54',
-  };
 
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    private readonly productAdapter: OpenCartProductAdapter,
   ) {}
 
   onModuleInit() {
@@ -36,8 +32,8 @@ export class ProductsService implements OnModuleInit {
         );
       }
 
-      // Step 2: Fetch fresh product catalog directly from PrintEZ API in background
-      const liveProducts = await this.fetchAllApiProducts();
+      // Step 2: Fetch fresh product catalog via the Integration Layer adapter
+      const liveProducts = await this.productAdapter.fetchAllProducts();
       if (liveProducts && liveProducts.length > 0) {
         this.productsCache = liveProducts;
         this.logger.log(
@@ -50,84 +46,7 @@ export class ProductsService implements OnModuleInit {
     }
   }
 
-  private async fetchAllApiProducts(): Promise<any[]> {
-    const allProducts: any[] = [];
-    let page = 1;
-    const limit = 500;
-    let hasMore = true;
 
-    this.logger.log(
-      '🌐 Starting live product catalog sync from PrintEZ API...',
-    );
-    try {
-      while (hasMore) {
-        const url = `${this.apiUrl}&limit=${limit}&page=${page}`;
-        const response = await fetch(url, { headers: this.apiHeader });
-        if (!response.ok) {
-          this.logger.warn(
-            `Failed fetching PrintEZ API page ${page}: HTTP ${response.status}`,
-          );
-          break;
-        }
-
-        const data = await response.json();
-        if (
-          !data ||
-          !Array.isArray(data.products) ||
-          data.products.length === 0
-        ) {
-          break;
-        }
-
-        for (const item of data.products) {
-          const rawDesc = item.description || '';
-          const cleanDesc = rawDesc
-            .replace(/<[^>]*>?/gm, ' ') // Strip HTML tags for clean AI voice rendering
-            .replace(/&amp;/g, '&')
-            .replace(/&nbsp;/g, ' ')
-            .replace(/&quot;/g, '"')
-            .replace(/\s+/g, ' ')
-            .trim();
-
-          const category =
-            item.category_path ||
-            (Array.isArray(item.breadcrumb) && item.breadcrumb.length > 0
-              ? item.breadcrumb.map((b: any) => b.name).join(' > ')
-              : '');
-
-          const prodId = String(item.product_id || item.model || '').trim();
-          const sku = String(item.model || item.product_id || '').trim();
-          allProducts.push({
-            productId: prodId,
-            name: (item.title || '').trim(),
-            description: cleanDesc,
-            price: String(item.price ?? ''),
-            sku: sku,
-            category: category,
-            url: item.url || '',
-            priceFrom: Boolean(item.price_from),
-            minimumQuantity: item.minimum_quantity || 1,
-            descriptionTruncated: Boolean(item.description_truncated),
-          });
-        }
-
-        hasMore =
-          Boolean(data?.pagination?.has_more) && data.products.length > 0;
-        page++;
-        if (page > 200) break; // Safety cap against infinite loops (supports up to 20,000 items)
-      }
-      this.logger.log(
-        `✅ Completed PrintEZ API fetch. Retrieved ${allProducts.length} total products across ${page - 1} pages.`,
-      );
-      return allProducts;
-    } catch (error) {
-      this.logger.error(
-        'Error fetching products from PrintEZ API',
-        error?.stack,
-      );
-      return allProducts;
-    }
-  }
 
   private async syncProductsToDatabase() {
     if (this.productsCache.length === 0) return;

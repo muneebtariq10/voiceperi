@@ -513,6 +513,47 @@ export class AgentsService implements OnApplicationBootstrap {
           required: ['query'],
         },
       },
+      {
+        type: 'custom',
+        name: 'capture_reorder',
+        description:
+          'Captures a customer reorder request. Call this after collecting the product name, quantity, and customer email. Sends a confirmation to the customer and notifies the PrintEZ operations team.',
+        url: this.getReorderUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            productName: {
+              type: 'string',
+              description: 'The name of the product the customer wants to reorder',
+            },
+            productId: {
+              type: 'string',
+              description: 'The item number, model number, or SKU of the product (e.g. DLT103, 634CR)',
+            },
+            quantity: {
+              type: 'number',
+              description: 'The quantity the customer wants to order',
+            },
+            customerEmail: {
+              type: 'string',
+              description: 'The customer email address for order confirmation',
+            },
+            customerName: {
+              type: 'string',
+              description: 'The customer full name',
+            },
+            customerPhone: {
+              type: 'string',
+              description: 'The customer phone number (optional)',
+            },
+            previousOrderId: {
+              type: 'string',
+              description: 'The previous order ID if this is a reorder of an existing order (optional)',
+            },
+          },
+          required: ['productName', 'customerEmail', 'customerName'],
+        },
+      },
     ];
 
     if (
@@ -913,6 +954,47 @@ export class AgentsService implements OnApplicationBootstrap {
             },
           },
           required: ['query'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'capture_reorder',
+        description:
+          'Captures a customer reorder request. Call this after collecting the product name, quantity, and customer email. Sends a confirmation to the customer and notifies the PrintEZ operations team.',
+        url: this.getReorderUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            productName: {
+              type: 'string',
+              description: 'The name of the product the customer wants to reorder',
+            },
+            productId: {
+              type: 'string',
+              description: 'The item number, model number, or SKU of the product (e.g. DLT103, 634CR)',
+            },
+            quantity: {
+              type: 'number',
+              description: 'The quantity the customer wants to order',
+            },
+            customerEmail: {
+              type: 'string',
+              description: 'The customer email address for order confirmation',
+            },
+            customerName: {
+              type: 'string',
+              description: 'The customer full name',
+            },
+            customerPhone: {
+              type: 'string',
+              description: 'The customer phone number (optional)',
+            },
+            previousOrderId: {
+              type: 'string',
+              description: 'The previous order ID if this is a reorder of an existing order (optional)',
+            },
+          },
+          required: ['productName', 'customerEmail', 'customerName'],
         },
       },
     ];
@@ -1468,5 +1550,20 @@ export class AgentsService implements OnApplicationBootstrap {
     }
     const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
     return `${cleanBase}/api/products/lookup`;
+  }
+
+  private getReorderUrl(): string {
+    let baseUrl = 'https://dev.voiceperi.com/api';
+    if (process.env.RETELL_WEBHOOK_URL) {
+      const cleaned = process.env.RETELL_WEBHOOK_URL.replace(
+        /\/retell?-webhook\/?$/i,
+        '',
+      ).replace(/\/webhook\/?$/i, '');
+      if (cleaned.startsWith('http')) {
+        baseUrl = cleaned;
+      }
+    }
+    const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
+    return `${cleanBase}/api/orders/reorder`;
   }
 }
