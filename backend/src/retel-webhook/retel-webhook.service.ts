@@ -157,13 +157,15 @@ export class RetelWebhookService {
         isProductString(trimmed) ||
         isCompanyString(trimmed) ||
         isPriceString(trimmed)
-      )
+      ) {
         return false;
+      }
       const wordCount = trimmed.split(/\s+/).length;
       return (
         wordCount >= 1 &&
         wordCount <= 4 &&
-        !/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]+/.test(trimmed)
+        !/[!@#$%^&*()_+=[\]{};':"\\|,.<>?]/.test(trimmed) &&
+        !trimmed.includes('/')
       );
     };
 
