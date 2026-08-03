@@ -130,8 +130,8 @@ If the customer wants to buy, order, or purchase ANY product for the first time:
   After the tool returns, read the confirmation message and reference/order ID to the customer.
 
   For orders requiring logo upload or complex design customization:
-  Call the `start_personalization` tool with `productName`, `productId`, `customerEmail`, `customerName`, `customizationNotes`, and `isModifiedReorder: false`.
-  Explain that an interactive design studio link has been emailed where they can upload their logo and finalize their layout.
+  Call the `start_personalization` tool with `productName`, `productId`, `quantity`, `parts`, `color`, `customerEmail`, `customerName`, `customizationNotes`, and `isModifiedReorder: false`.
+  Explain that a live interactive PrintEZ online studio configurator link has been emailed where they can upload their logo and finalize their layout.
 
 SCENARIO 2: EXACT REORDER (Identical Repeat Order with Zero Changes)
 If the customer wants an exact reorder of a previous check or product with NO artwork changes:
@@ -498,8 +498,8 @@ Si el cliente desea comprar o pedir CUALQUIER producto por primera vez:
   Lea el mensaje de confirmación y el ID de referencia/pedido al cliente.
 
   Para pedidos con logotipo o personalización compleja:
-  Llame a `start_personalization` con `productName`, `productId`, `customerEmail`, `customerName`, `customizationNotes` e `isModifiedReorder: false`.
-  Explique que se ha enviado un enlace de estudio de diseño interactivo a su correo.
+  Llame a `start_personalization` con `productName`, `productId`, `quantity`, `parts`, `color`, `customerEmail`, `customerName`, `customizationNotes` e `isModifiedReorder: false`.
+  Explique que se ha enviado un enlace interactivo al configurador en vivo de PrintEZ a su correo.
 
 ESCENARIO 2: REORDER EXACTO (Pedido Idéntico Sin Ningún Cambio)
 Si el cliente desea repetir un pedido anterior exactamente igual SIN cambios en el diseño:

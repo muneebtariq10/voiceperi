@@ -64,14 +64,15 @@ export class B2CPersonalizationAdapter implements IPersonalizationProvider {
       }
     }
 
-    // Dynamic fallback for live conversational AI test calls and production readiness
+    // Dynamic fallback generating live PrintEZ interactive configurator studio link
     const uniqueHash = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const designId = `DSN-${productId}-${uniqueHash}`;
+    const cleanProd = (productId || 'DLT103')
+      .trim()
+      .toUpperCase()
+      .split(' ')[0];
+    const designId = `DSN-${cleanProd}-${uniqueHash}`;
     const sessionToken = `TOKEN-${Date.now()}`;
-    const encodedEmail = encodeURIComponent(
-      customerEmail || 'guest@printez.com',
-    );
-    const editUrl = `${this.designStudioBaseUrl}?product=${productId}&design_id=${designId}&user=${encodedEmail}`;
+    const editUrl = this.buildLiveConfiguratorUrl(productId, customizations);
 
     return {
       success: true,
@@ -115,9 +116,9 @@ export class B2CPersonalizationAdapter implements IPersonalizationProvider {
     );
 
     const cleanPrefix =
-      previousDesignId.replace(/^DSN-/, '').split('-')[0] || 'CHECK';
+      previousDesignId.replace(/^DSN-/, '').split('-')[0] || 'DLT103';
     const newDesignId = `DSN-${cleanPrefix}-REV${Math.floor(100 + Math.random() * 900)}`;
-    const editUrl = `${this.designStudioBaseUrl}?design_id=${newDesignId}&source_design=${previousDesignId}&mode=reorder_edit`;
+    const editUrl = this.buildLiveConfiguratorUrl(cleanPrefix);
 
     return Promise.resolve({
       success: true,
@@ -126,6 +127,37 @@ export class B2CPersonalizationAdapter implements IPersonalizationProvider {
       editUrl,
       message: `Design successfully cloned from ${previousDesignId} to ${newDesignId}.`,
     });
+  }
+
+  private buildLiveConfiguratorUrl(
+    rawProductId: string,
+    customizations?: Record<string, any>,
+  ): string {
+    const cleanProductId = (rawProductId || 'DLT103')
+      .trim()
+      .toUpperCase()
+      .split(' ')[0]
+      .replace(/-\d+$/, '');
+
+    // Determine part digit for SKU (e.g. DLT103-1 for 1-part, DLT103-2 for 2-part, DLT103-3 for 3-part)
+    let partDigit = '1';
+    if (customizations?.parts) {
+      const match = String(customizations.parts).match(/\d/);
+      if (match) partDigit = match[0];
+    }
+    const skuId = `${cleanProductId}-${partDigit}`;
+
+    // Determine quantity (default to 1000 which is PrintEZ Recommended volume for free shipping)
+    const qtyInput =
+      customizations?.quantity || customizations?.qty
+        ? Number(customizations.quantity || customizations.qty)
+        : 1000;
+    const finalQty = !isNaN(qtyInput) && qtyInput > 0 ? qtyInput : 1000;
+
+    // Generate unique numerical session ID matching PrintEZ format (e.g. 88888)
+    const sessionId = Math.floor(10000 + Math.random() * 90000);
+
+    return `https://www.printez.com/configurator.php?skuId=${encodeURIComponent(skuId)}&productId=${encodeURIComponent(cleanProductId)}&qty=${finalQty}&sessionId=${sessionId}&brandId=203&rec=&recSkuId=`;
   }
 
   isAvailable(): Promise<boolean> {

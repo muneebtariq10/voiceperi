@@ -645,6 +645,21 @@ export class AgentsService implements OnApplicationBootstrap {
               description:
                 'Any specific instructions or text the customer mentioned wanting to print',
             },
+            quantity: {
+              type: 'number',
+              description:
+                'The selected check volume or package count (e.g. 100, 500, 1000)',
+            },
+            parts: {
+              type: 'string',
+              description:
+                'The carbonless part option (e.g. 1-part, 2-part, 3-part)',
+            },
+            color: {
+              type: 'string',
+              description:
+                'The preferred check color style (e.g. blue, green, maroon, tan)',
+            },
           },
           required: ['productName', 'customerEmail', 'customerName'],
         },
@@ -1219,6 +1234,21 @@ export class AgentsService implements OnApplicationBootstrap {
               type: 'string',
               description:
                 'Any specific instructions or text the customer mentioned wanting to print',
+            },
+            quantity: {
+              type: 'number',
+              description:
+                'The selected check volume or package count (e.g. 100, 500, 1000)',
+            },
+            parts: {
+              type: 'string',
+              description:
+                'The carbonless part option (e.g. 1-part, 2-part, 3-part)',
+            },
+            color: {
+              type: 'string',
+              description:
+                'The preferred check color style (e.g. blue, green, maroon, tan)',
             },
           },
           required: ['productName', 'customerEmail', 'customerName'],

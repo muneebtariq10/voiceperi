@@ -88,6 +88,24 @@ export class PersonalizationController {
       body?.arguments?.customizationNotes ??
       undefined;
 
+    const rawQuantity =
+      body?.quantity ??
+      body?.qty ??
+      body?.args?.quantity ??
+      body?.args?.qty ??
+      body?.arguments?.quantity ??
+      body?.arguments?.qty ??
+      undefined;
+    const quantity = rawQuantity
+      ? parseInt(String(rawQuantity), 10)
+      : undefined;
+
+    const parts =
+      body?.parts ?? body?.args?.parts ?? body?.arguments?.parts ?? undefined;
+
+    const color =
+      body?.color ?? body?.args?.color ?? body?.arguments?.color ?? undefined;
+
     if (!customerEmail) {
       return {
         success: false,
@@ -110,6 +128,9 @@ export class PersonalizationController {
         ? String(previousOrderOrDesignId)
         : undefined,
       customizationNotes,
+      quantity: !isNaN(quantity as any) ? quantity : undefined,
+      parts,
+      color,
     });
   }
 }

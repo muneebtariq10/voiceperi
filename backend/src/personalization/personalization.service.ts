@@ -10,6 +10,9 @@ export interface PersonalizationRequest {
   isModifiedReorder?: boolean;
   previousOrderOrDesignId?: string;
   customizationNotes?: string;
+  quantity?: number;
+  parts?: string;
+  color?: string;
 }
 
 export interface PersonalizationResponse {
@@ -49,7 +52,12 @@ export class PersonalizationService {
       sessionResult = await this.b2cAdapter.createSession(
         targetProductId,
         request.customerEmail,
-        { notes: request.customizationNotes },
+        {
+          notes: request.customizationNotes,
+          quantity: request.quantity,
+          parts: request.parts,
+          color: request.color,
+        },
       );
     }
 
@@ -106,12 +114,15 @@ export class PersonalizationService {
       <h2>Hello ${request.customerName}, your custom design workspace is ready!</h2>
       <p>Thank you for speaking with our AI voice concierge about ordering <strong>${request.productName}</strong>.</p>
       <div style="background-color: #f4f4f4; padding: 15px; border-left: 5px solid #0056b3; margin: 20px 0;">
-        <p style="margin: 0; font-size: 16px;"><strong>Design Reference ID:</strong> ${designId}</p>
+        <p style="margin: 0 0 8px 0; font-size: 16px;"><strong>Design Reference ID:</strong> ${designId}</p>
+        ${request.quantity ? `<p style="margin: 0 0 4px 0;"><strong>Selected Quantity:</strong> ${request.quantity}</p>` : ''}
+        ${request.parts ? `<p style="margin: 0 0 4px 0;"><strong>Parts Option:</strong> ${request.parts}</p>` : ''}
+        ${request.color ? `<p style="margin: 0 0 4px 0;"><strong>Selected Color:</strong> ${request.color}</p>` : ''}
       </div>
-      <p>You can review your check layout, imprint business name, customize formatting, and securely complete your checkout by clicking below:</p>
+      <p>Your interactive PrintEZ studio configurator has been loaded with your exact options. You can review your layout, upload logos, imprint business name, and securely complete your checkout by clicking below:</p>
       <p style="margin: 25px 0;">
-        <a href="${editUrl}" style="background-color: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
-          Open Interactive Design Studio
+        <a href="${editUrl}" style="background-color: #d9381e; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          Personalize Now &amp; Checkout
         </a>
       </p>
       <p style="color: #666; font-size: 12px;">If the button above does not open, copy and paste this URL into your browser:<br/>${editUrl}</p>
