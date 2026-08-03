@@ -46,8 +46,6 @@ export class ProductsService implements OnModuleInit {
     }
   }
 
-
-
   private async syncProductsToDatabase() {
     if (this.productsCache.length === 0) return;
     try {

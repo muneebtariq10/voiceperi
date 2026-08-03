@@ -19,7 +19,9 @@ export class OrdersService {
     requestCorrelationId: string,
     email?: string,
   ) {
-    this.logger.log(`[${requestCorrelationId}] Looking up order ${orderId} with email: ${email || 'not provided'}`);
+    this.logger.log(
+      `[${requestCorrelationId}] Looking up order ${orderId} with email: ${email || 'not provided'}`,
+    );
 
     // Delegate to the Integration Layer adapter
     const result = await this.orderAdapter.getOrderById(orderId);
@@ -45,7 +47,9 @@ export class OrdersService {
       return {
         found: false,
         verified: false,
-        message: result.message || 'We could not find an order with the provided order ID.',
+        message:
+          result.message ||
+          'We could not find an order with the provided order ID.',
       };
     }
 
@@ -60,11 +64,10 @@ export class OrdersService {
     };
   }
 
-  async lookupOrdersByEmail(
-    email: string,
-    requestCorrelationId: string,
-  ) {
-    this.logger.log(`[${requestCorrelationId}] Looking up orders for email: ${email}`);
+  async lookupOrdersByEmail(email: string, requestCorrelationId: string) {
+    this.logger.log(
+      `[${requestCorrelationId}] Looking up orders for email: ${email}`,
+    );
 
     const result = await this.orderAdapter.getOrdersByEmail(email);
 

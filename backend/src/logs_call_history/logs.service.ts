@@ -56,7 +56,9 @@ export class LogService {
         order: { end_timestamp: 'DESC' },
         take: 1,
       });
-      return latest && latest.end_timestamp ? Number(latest.end_timestamp) : null;
+      return latest && latest.end_timestamp
+        ? Number(latest.end_timestamp)
+        : null;
     } catch (error) {
       return null;
     }

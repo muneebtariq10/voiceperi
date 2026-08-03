@@ -126,7 +126,9 @@ async function scrapeProducts() {
         }
       });
     } catch (err: unknown) {
-      console.warn('⚠️ Could not connect to homepage for link discovery, continuing with starter seeds...');
+      console.warn(
+        '⚠️ Could not connect to homepage for link discovery, continuing with starter seeds...',
+      );
     }
 
     console.log(`📋 Found ${urlsToVisit.length} catalog pages to index.`);
@@ -137,9 +139,7 @@ async function scrapeProducts() {
       if (visitedUrls.has(url)) continue;
       visitedUrls.add(url);
 
-      console.log(
-        `[${i + 1}/${urlsToVisit.length}] Indexing page: ${url}`,
-      );
+      console.log(`[${i + 1}/${urlsToVisit.length}] Indexing page: ${url}`);
       try {
         const response = await axios.get(url, {
           timeout: 15000,
@@ -166,9 +166,7 @@ async function scrapeProducts() {
           const $el = $(el);
 
           // Clean duplicate titles by taking ONLY the first anchor/title element
-          const titleElement = $el
-            .find('.name a, h4 a, h2 a, h3 a')
-            .first();
+          const titleElement = $el.find('.name a, h4 a, h2 a, h3 a').first();
           const name = titleElement.text().replace(/\s+/g, ' ').trim();
           let productUrl = titleElement.attr('href') || url;
           if (!productUrl.startsWith('http')) {

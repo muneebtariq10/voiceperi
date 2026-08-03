@@ -418,7 +418,9 @@ export class AgentsService implements OnApplicationBootstrap {
     return vars;
   }
 
-  private async getOrCreateBusinessInfo(userId: string): Promise<BusinessInformation> {
+  private async getOrCreateBusinessInfo(
+    userId: string,
+  ): Promise<BusinessInformation> {
     let businessInfo = await this.businessInfoRepo.findOne({
       where: { user_id: { id: userId } },
     });
@@ -433,7 +435,8 @@ export class AgentsService implements OnApplicationBootstrap {
           phone: '+1 845-782-5832',
           websiteUrl: 'https://www.printez.com',
           businessType: 'ecommerce',
-          overview: 'PrintEZ offers customizable business printing solutions, computer checks, tax forms, envelopes, deposit slips, and promotional products with guaranteed compatibility.',
+          overview:
+            'PrintEZ offers customizable business printing solutions, computer checks, tax forms, envelopes, deposit slips, and promotional products with guaranteed compatibility.',
           services: [
             'Custom business forms and laser printing',
             'QuickBooks & banking compatible check printing',
@@ -464,7 +467,9 @@ export class AgentsService implements OnApplicationBootstrap {
     createAgentDto: CreateAgentDto,
     language: Language,
   ): Promise<any> {
-    const businessInfo = await this.getOrCreateBusinessInfo(createAgentDto.user_id.toString());
+    const businessInfo = await this.getOrCreateBusinessInfo(
+      createAgentDto.user_id.toString(),
+    );
 
     const variables = this.buildPromptVariables(createAgentDto, businessInfo);
 
@@ -485,12 +490,16 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status and tracking details of an order using the order ID.',
+        description:
+          'Look up the status and tracking details of an order using the order ID.',
         url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID provided by the customer' },
+            orderId: {
+              type: 'number',
+              description: 'The order ID provided by the customer',
+            },
           },
           required: ['orderId'],
         },
@@ -524,11 +533,13 @@ export class AgentsService implements OnApplicationBootstrap {
           properties: {
             productName: {
               type: 'string',
-              description: 'The name of the product the customer wants to reorder',
+              description:
+                'The name of the product the customer wants to reorder',
             },
             productId: {
               type: 'string',
-              description: 'The item number, model number, or SKU of the product (e.g. DLT103, 634CR)',
+              description:
+                'The item number, model number, or SKU of the product (e.g. DLT103, 634CR)',
             },
             quantity: {
               type: 'number',
@@ -548,10 +559,79 @@ export class AgentsService implements OnApplicationBootstrap {
             },
             previousOrderId: {
               type: 'string',
-              description: 'The previous order ID if this is a reorder of an existing order (optional)',
+              description:
+                'The previous order ID if this is a reorder of an existing order (optional)',
             },
           },
           required: ['productName', 'customerEmail', 'customerName'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'start_personalization',
+        description:
+          'Starts a B2C design studio customization session for brand new check printing (Scenario 1) or modified reorders where the customer wants to change printed details like business name, address, or phone (Scenario 3). Sends an instant interactive edit link directly to the customer email.',
+        url: this.getPersonalizationUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            productName: {
+              type: 'string',
+              description:
+                'The product title or check type the customer wants to customize or re-design',
+            },
+            productId: {
+              type: 'string',
+              description: 'The item number or model code (e.g. DLT103, 634CR)',
+            },
+            customerEmail: {
+              type: 'string',
+              description:
+                'The customer email address where the design studio link will be delivered',
+            },
+            customerName: {
+              type: 'string',
+              description: 'The customer full name',
+            },
+            isModifiedReorder: {
+              type: 'boolean',
+              description:
+                'Set to true if this is a repeat order/reorder but the customer wants to modify previous artwork or printed text',
+            },
+            previousOrderOrDesignId: {
+              type: 'string',
+              description:
+                'The previous order ID or design reference code if duplicating a previous order template',
+            },
+            customizationNotes: {
+              type: 'string',
+              description:
+                'Any specific instructions or text the customer mentioned wanting to print',
+            },
+          },
+          required: ['productName', 'customerEmail', 'customerName'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'query_knowledge_base',
+        description:
+          'Searches the PrintEZ corporate policy engine and technical knowledge base to answer questions about check shipping turnarounds, MICR ink bank compatibility, logo file upload formats, business hours, and return/reprint guarantees.',
+        url: this.getKnowledgeUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            topic: {
+              type: 'string',
+              description:
+                "The general policy topic or check specification being inquired about (e.g. 'shipping turnaround', 'MICR ink QuickBooks compatibility', 'logo vector file format', 'reprint guarantee')",
+            },
+            question: {
+              type: 'string',
+              description: 'The exact question asked by the customer',
+            },
+          },
+          required: ['topic'],
         },
       },
     ];
@@ -928,12 +1008,16 @@ export class AgentsService implements OnApplicationBootstrap {
       {
         type: 'custom',
         name: 'lookup_order',
-        description: 'Look up the status and tracking details of an order using the order ID.',
+        description:
+          'Look up the status and tracking details of an order using the order ID.',
         url: this.getOrderLookupUrl(),
         parameters: {
           type: 'object',
           properties: {
-            orderId: { type: 'number', description: 'The order ID provided by the customer' },
+            orderId: {
+              type: 'number',
+              description: 'The order ID provided by the customer',
+            },
           },
           required: ['orderId'],
         },
@@ -967,11 +1051,13 @@ export class AgentsService implements OnApplicationBootstrap {
           properties: {
             productName: {
               type: 'string',
-              description: 'The name of the product the customer wants to reorder',
+              description:
+                'The name of the product the customer wants to reorder',
             },
             productId: {
               type: 'string',
-              description: 'The item number, model number, or SKU of the product (e.g. DLT103, 634CR)',
+              description:
+                'The item number, model number, or SKU of the product (e.g. DLT103, 634CR)',
             },
             quantity: {
               type: 'number',
@@ -991,10 +1077,79 @@ export class AgentsService implements OnApplicationBootstrap {
             },
             previousOrderId: {
               type: 'string',
-              description: 'The previous order ID if this is a reorder of an existing order (optional)',
+              description:
+                'The previous order ID if this is a reorder of an existing order (optional)',
             },
           },
           required: ['productName', 'customerEmail', 'customerName'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'start_personalization',
+        description:
+          'Starts a B2C design studio customization session for brand new check printing (Scenario 1) or modified reorders where the customer wants to change printed details like business name, address, or phone (Scenario 3). Sends an instant interactive edit link directly to the customer email.',
+        url: this.getPersonalizationUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            productName: {
+              type: 'string',
+              description:
+                'The product title or check type the customer wants to customize or re-design',
+            },
+            productId: {
+              type: 'string',
+              description: 'The item number or model code (e.g. DLT103, 634CR)',
+            },
+            customerEmail: {
+              type: 'string',
+              description:
+                'The customer email address where the design studio link will be delivered',
+            },
+            customerName: {
+              type: 'string',
+              description: 'The customer full name',
+            },
+            isModifiedReorder: {
+              type: 'boolean',
+              description:
+                'Set to true if this is a repeat order/reorder but the customer wants to modify previous artwork or printed text',
+            },
+            previousOrderOrDesignId: {
+              type: 'string',
+              description:
+                'The previous order ID or design reference code if duplicating a previous order template',
+            },
+            customizationNotes: {
+              type: 'string',
+              description:
+                'Any specific instructions or text the customer mentioned wanting to print',
+            },
+          },
+          required: ['productName', 'customerEmail', 'customerName'],
+        },
+      },
+      {
+        type: 'custom',
+        name: 'query_knowledge_base',
+        description:
+          'Searches the PrintEZ corporate policy engine and technical knowledge base to answer questions about check shipping turnarounds, MICR ink bank compatibility, logo file upload formats, business hours, and return/reprint guarantees.',
+        url: this.getKnowledgeUrl(),
+        parameters: {
+          type: 'object',
+          properties: {
+            topic: {
+              type: 'string',
+              description:
+                "The general policy topic or check specification being inquired about (e.g. 'shipping turnaround', 'MICR ink QuickBooks compatibility', 'logo vector file format', 'reprint guarantee')",
+            },
+            question: {
+              type: 'string',
+              description: 'The exact question asked by the customer',
+            },
+          },
+          required: ['topic'],
         },
       },
     ];
@@ -1100,7 +1255,9 @@ export class AgentsService implements OnApplicationBootstrap {
         where: { id: updateAgentDto.language_id },
       });
       if (!foundLanguage) {
-        foundLanguage = agent.language || (await this.languageRepo.findOne({ where: { code: 'en' } }));
+        foundLanguage =
+          agent.language ||
+          (await this.languageRepo.findOne({ where: { code: 'en' } }));
       }
       let businessInfo =
         await this.businessInfosService.findOneByUserId(userId);
@@ -1565,5 +1722,35 @@ export class AgentsService implements OnApplicationBootstrap {
     }
     const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
     return `${cleanBase}/api/orders/reorder`;
+  }
+
+  private getPersonalizationUrl(): string {
+    let baseUrl = 'https://dev.voiceperi.com/api';
+    if (process.env.RETELL_WEBHOOK_URL) {
+      const cleaned = process.env.RETELL_WEBHOOK_URL.replace(
+        /\/retell?-webhook\/?$/i,
+        '',
+      ).replace(/\/webhook\/?$/i, '');
+      if (cleaned.startsWith('http')) {
+        baseUrl = cleaned;
+      }
+    }
+    const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
+    return `${cleanBase}/api/personalization/start`;
+  }
+
+  private getKnowledgeUrl(): string {
+    let baseUrl = 'https://dev.voiceperi.com/api';
+    if (process.env.RETELL_WEBHOOK_URL) {
+      const cleaned = process.env.RETELL_WEBHOOK_URL.replace(
+        /\/retell?-webhook\/?$/i,
+        '',
+      ).replace(/\/webhook\/?$/i, '');
+      if (cleaned.startsWith('http')) {
+        baseUrl = cleaned;
+      }
+    }
+    const cleanBase = baseUrl.replace(/\/api\/?$/i, '').replace(/\/$/, '');
+    return `${cleanBase}/api/knowledge/query`;
   }
 }

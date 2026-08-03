@@ -24,6 +24,8 @@ import { IntegrationModule } from './integrations/integration.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
+import { PersonalizationModule } from './personalization/personalization.module';
+import { KnowledgeModule } from './knowledge/knowledge.module';
 
 @Module({
   imports: [
@@ -73,6 +75,8 @@ import { ProductsModule } from './products/products.module';
     FeedbackModule,
     OrdersModule,
     ProductsModule,
+    PersonalizationModule,
+    KnowledgeModule,
   ],
   controllers: [AppController],
   providers: [

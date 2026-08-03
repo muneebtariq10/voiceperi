@@ -84,10 +84,7 @@ export class ReorderController {
       undefined;
 
     const notes =
-      body?.notes ??
-      body?.args?.notes ??
-      body?.arguments?.notes ??
-      undefined;
+      body?.notes ?? body?.args?.notes ?? body?.arguments?.notes ?? undefined;
 
     // Validate required fields
     if (!customerEmail) {

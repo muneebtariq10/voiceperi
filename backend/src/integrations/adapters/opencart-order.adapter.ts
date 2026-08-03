@@ -225,9 +225,7 @@ export class OpenCartOrderAdapter implements IOrderProvider {
           : null,
       shippingCompany: order.shippingCompany || null,
       billingAddress:
-        billingAddressParts.length > 0
-          ? billingAddressParts.join(', ')
-          : null,
+        billingAddressParts.length > 0 ? billingAddressParts.join(', ') : null,
       billingName:
         order.billingFirstName && order.billingLastName
           ? `${order.billingFirstName} ${order.billingLastName}`

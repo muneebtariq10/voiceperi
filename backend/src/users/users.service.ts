@@ -151,16 +151,22 @@ export class UsersService implements OnModuleInit {
 
   async onModuleInit() {
     try {
-      await this.userRepo.query("ALTER TYPE users_role_enum ADD VALUE IF NOT EXISTS 'super_admin'");
+      await this.userRepo.query(
+        "ALTER TYPE users_role_enum ADD VALUE IF NOT EXISTS 'super_admin'",
+      );
     } catch (err) {
       // Safe to ignore if postgres custom type does not exist or value already added
     }
     try {
-      const owner = await this.userRepo.findOne({ where: { email: 'admin@voiceperi.com' } });
+      const owner = await this.userRepo.findOne({
+        where: { email: 'admin@voiceperi.com' },
+      });
       if (owner && owner.role === Role.ADMIN) {
         owner.role = Role.SUPER_ADMIN;
         await this.userRepo.save(owner);
-        console.log('[UsersService] Upgraded primary owner (admin@voiceperi.com) to SUPER_ADMIN role.');
+        console.log(
+          '[UsersService] Upgraded primary owner (admin@voiceperi.com) to SUPER_ADMIN role.',
+        );
       }
     } catch (err) {
       // Table might not exist on clean initialization
@@ -224,18 +230,25 @@ export class UsersService implements OnModuleInit {
   async updateUserRole(
     userId: string,
     newRole: Role,
-  ): Promise<{ message: string; user: { id: string; email: string; role: Role } }> {
+  ): Promise<{
+    message: string;
+    user: { id: string; email: string; role: Role };
+  }> {
     const targetUser = await this.userRepo.findOne({ where: { id: userId } });
     if (!targetUser) {
       throw new NotFoundException('Target user not found');
     }
 
     if (targetUser.role === Role.SUPER_ADMIN) {
-      throw new UnauthorizedException('Super Admin account permissions cannot be modified.');
+      throw new UnauthorizedException(
+        'Super Admin account permissions cannot be modified.',
+      );
     }
 
     if (newRole === Role.SUPER_ADMIN) {
-      throw new UnauthorizedException('Cannot promote standard users to Super Admin via UI.');
+      throw new UnauthorizedException(
+        'Cannot promote standard users to Super Admin via UI.',
+      );
     }
 
     targetUser.role = newRole;
@@ -257,45 +270,69 @@ export class UsersService implements OnModuleInit {
     try {
       await manager.query(`DELETE FROM call_history;`);
       console.log('[UsersService] Cleared call_history table.');
-    } catch (e) { console.warn('Could not clear call_history table: ' + e.message); }
+    } catch (e) {
+      console.warn('Could not clear call_history table: ' + e.message);
+    }
     try {
       await manager.query(`DELETE FROM logs_call_history;`);
       console.log('[UsersService] Cleared logs_call_history table.');
-    } catch (e) { console.warn('Could not clear logs_call_history table: ' + e.message); }
+    } catch (e) {
+      console.warn('Could not clear logs_call_history table: ' + e.message);
+    }
     try {
       const resetTs = Date.now();
-      await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message, "createdAt") VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Call history cleared', NOW());`);
+      await manager.query(
+        `INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message, "createdAt") VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Call history cleared', NOW());`,
+      );
       console.log('[UsersService] Inserted reset marker timestamp.');
     } catch (e) {
       try {
         const resetTs = Date.now();
-        await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message) VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Call history cleared');`);
+        await manager.query(
+          `INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message) VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Call history cleared');`,
+        );
       } catch (err) {
         console.warn('Could not insert reset marker: ' + err.message);
       }
     }
-    return { message: 'Call history cleared successfully without modifying user accounts!' };
+    return {
+      message:
+        'Call history cleared successfully without modifying user accounts!',
+    };
   }
 
-  async resetDemoData(): Promise<{ message: string; deletedUsersCount: number }> {
-    console.log('[UsersService] Admin triggered database cleanup for demo/test data...');
+  async resetDemoData(): Promise<{
+    message: string;
+    deletedUsersCount: number;
+  }> {
+    console.log(
+      '[UsersService] Admin triggered database cleanup for demo/test data...',
+    );
     const manager = this.userRepo.manager;
     try {
       await manager.query(`DELETE FROM call_history;`);
       console.log('[UsersService] Cleared call_history table.');
-    } catch (e) { console.warn('Could not clear call_history table: ' + e.message); }
+    } catch (e) {
+      console.warn('Could not clear call_history table: ' + e.message);
+    }
     try {
       await manager.query(`DELETE FROM logs_call_history;`);
       console.log('[UsersService] Cleared logs_call_history table.');
-    } catch (e) { console.warn('Could not clear logs_call_history table: ' + e.message); }
+    } catch (e) {
+      console.warn('Could not clear logs_call_history table: ' + e.message);
+    }
     try {
       const resetTs = Date.now();
-      await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message, "createdAt") VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Demo data cleared', NOW());`);
+      await manager.query(
+        `INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message, "createdAt") VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Demo data cleared', NOW());`,
+      );
       console.log('[UsersService] Inserted reset marker timestamp.');
     } catch (e) {
       try {
         const resetTs = Date.now();
-        await manager.query(`INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message) VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Demo data cleared');`);
+        await manager.query(
+          `INSERT INTO logs_call_history (log_id, start_timestamp, end_timestamp, records_loaded, status, error_message) VALUES ('${uuidv4()}', ${resetTs}, ${resetTs}, 0, 'RESET', 'Demo data cleared');`,
+        );
       } catch (err) {
         console.warn('Could not insert reset marker: ' + err.message);
       }
@@ -319,16 +356,31 @@ export class UsersService implements OnModuleInit {
         { table: 'billing_history', col: 'userId' },
       ];
       for (const t of tablesToCheck) {
-        try { await manager.query(`DELETE FROM "${t.table}" WHERE "${t.col}" IN (${idList});`); } catch (e) {}
-        try { await manager.query(`DELETE FROM "${t.table}" WHERE user_id IN (${idList});`); } catch (e) {}
+        try {
+          await manager.query(
+            `DELETE FROM "${t.table}" WHERE "${t.col}" IN (${idList});`,
+          );
+        } catch (e) {}
+        try {
+          await manager.query(
+            `DELETE FROM "${t.table}" WHERE user_id IN (${idList});`,
+          );
+        } catch (e) {}
       }
-      const delRes = await manager.query(`DELETE FROM users WHERE id IN (${idList});`);
-      deletedUsersCount = delRes ? (delRes[1] ?? delRes.length ?? deleteUsers.length) : deleteUsers.length;
+      const delRes = await manager.query(
+        `DELETE FROM users WHERE id IN (${idList});`,
+      );
+      deletedUsersCount = delRes
+        ? (delRes[1] ?? delRes.length ?? deleteUsers.length)
+        : deleteUsers.length;
     }
 
-    console.log(`[UsersService] Reset completed: removed ${deletedUsersCount} non-admin user(s) and cleared call history.`);
+    console.log(
+      `[UsersService] Reset completed: removed ${deletedUsersCount} non-admin user(s) and cleared call history.`,
+    );
     return {
-      message: 'Successfully wiped all test users and call history logs from the database.',
+      message:
+        'Successfully wiped all test users and call history logs from the database.',
       deletedUsersCount,
     };
   }

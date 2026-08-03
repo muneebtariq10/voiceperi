@@ -67,7 +67,12 @@ export class BusinessinfosService {
     this.apiKey = process.env.GOOGLE_PLACES_API_KEY || '';
   }
 
-  async getBusinessInfo(query: string, language: string, user_id?: string, existingData?: any) {
+  async getBusinessInfo(
+    query: string,
+    language: string,
+    user_id?: string,
+    existingData?: any,
+  ) {
     let placeDetails: PlaceDetailsResult | null = null;
     try {
       if (
@@ -116,11 +121,14 @@ export class BusinessinfosService {
       };
     } else if (existingData) {
       if (existingData.name) placeDetails.name = existingData.name;
-      if (existingData.address) placeDetails.formatted_address = existingData.address;
-      if (existingData.phone) placeDetails.international_phone_number = existingData.phone;
+      if (existingData.address)
+        placeDetails.formatted_address = existingData.address;
+      if (existingData.phone)
+        placeDetails.international_phone_number = existingData.phone;
       if (existingData.overview) placeDetails.overview = existingData.overview;
       if (existingData.services) placeDetails.services = existingData.services;
-      if (existingData.business_hours) placeDetails.business_hours = existingData.business_hours;
+      if (existingData.business_hours)
+        placeDetails.business_hours = existingData.business_hours;
       if (existingData.profile) placeDetails.profile = existingData.profile;
     }
 
@@ -323,14 +331,18 @@ export class BusinessinfosService {
       id: uuidv4(),
       profile: place.profile || place.url || place.website || '',
       websiteUrl: place.websiteUrl || place.website || place.url || '',
-      businessType: place.businessType || (place.types?.includes('ecommerce') ? 'ecommerce' : 'physical'),
+      businessType:
+        place.businessType ||
+        (place.types?.includes('ecommerce') ? 'ecommerce' : 'physical'),
       name: place.name || 'My Business',
       address: place.address || place.formatted_address || 'Unknown',
       phone: place.phone || place.international_phone_number || '',
       overview: place.overview || place.editorial_summary?.overview || '',
       services: place.services || filteredTypes,
-      timezone: place.timezone || createBusinessinfoDto.timezone || 'America/Detroit',
-      business_hours: place.business_hours || place.opening_hours?.weekday_text || [],
+      timezone:
+        place.timezone || createBusinessinfoDto.timezone || 'America/Detroit',
+      business_hours:
+        place.business_hours || place.opening_hours?.weekday_text || [],
       user_id: user,
     });
 
