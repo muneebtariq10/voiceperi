@@ -313,29 +313,41 @@ export class RetelWebhookService {
     let htmlQuestionsSection = '';
     if (pairedQuestions.length > 0) {
       htmlQuestionsSection = `
-      <div style="margin-top: 28px;">
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: #1e1b4b; text-transform: uppercase; letter-spacing: 0.5px;">Customer Q&A & Extracted Insights</h3>
-        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: separate; border-spacing: 0; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: #ffffff;">
-          ${pairedQuestions
-            .map(
-              (qa, i) => `
-            <tr style="background-color: ${i % 2 === 0 ? '#ffffff' : '#f9fafb'};">
-              <td style="padding: 14px 18px; border-bottom: ${
-                i === pairedQuestions.length - 1 ? 'none' : '1px solid #e5e7eb'
-              }; width: 45%; font-weight: 600; color: #374151; font-size: 14px; vertical-align: top;">
-                ${qa.question}
-              </td>
-              <td style="padding: 14px 18px; border-bottom: ${
-                i === pairedQuestions.length - 1 ? 'none' : '1px solid #e5e7eb'
-              }; color: #1e40af; font-size: 14px; vertical-align: top;">
-                <span style="background-color: #eff6ff; padding: 4px 10px; border-radius: 6px; font-weight: 500; display: inline-block; border: 1px solid #dbeafe;">
-                  ${qa.answer}
-                </span>
-              </td>
+      <div style="margin-top: 36px;">
+        <div style="font-size: 13px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">📊 Extracted AI Insights &amp; Q&amp;A Grid</div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: separate; border-spacing: 0; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; background: #ffffff; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);">
+          <thead>
+            <tr style="background-color: #f1f5f9;">
+              <th style="padding: 12px 18px; border-bottom: 1px solid #cbd5e1; text-align: left; font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.6px; width: 45%;">Extracted Parameter</th>
+              <th style="padding: 12px 18px; border-bottom: 1px solid #cbd5e1; text-align: left; font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.6px;">Customer Response / Value</th>
             </tr>
-          `,
-            )
-            .join('')}
+          </thead>
+          <tbody>
+            ${pairedQuestions
+              .map(
+                (qa, i) => `
+              <tr style="background-color: ${i % 2 === 0 ? '#ffffff' : '#f8fafc'};">
+                <td style="padding: 14px 18px; border-bottom: ${
+                  i === pairedQuestions.length - 1
+                    ? 'none'
+                    : '1px solid #e2e8f0'
+                }; font-weight: 600; color: #1e293b; font-size: 14px; vertical-align: middle;">
+                  ${qa.question}
+                </td>
+                <td style="padding: 14px 18px; border-bottom: ${
+                  i === pairedQuestions.length - 1
+                    ? 'none'
+                    : '1px solid #e2e8f0'
+                }; vertical-align: middle;">
+                  <span style="background-color: #eff6ff; color: #1e40af; padding: 5px 12px; border-radius: 6px; font-weight: 600; font-size: 14px; display: inline-block; border: 1px solid #bfdbfe; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);">
+                    ${qa.answer}
+                  </span>
+                </td>
+              </tr>
+            `,
+              )
+              .join('')}
+          </tbody>
         </table>
       </div>`;
     }
@@ -349,28 +361,42 @@ export class RetelWebhookService {
 
     const emailSubject = `📞 Call Insight from ${callerIdentifier} | ${businessName} Concierge`;
 
-    const sentimentColor = callerInfo.callerSentiment
+    const isPositive = callerInfo.callerSentiment
       ?.toLowerCase()
-      .includes('positive')
+      .includes('positive');
+    const isNegative = callerInfo.callerSentiment
+      ?.toLowerCase()
+      .includes('negative');
+    const sentimentColor = isPositive
       ? '#059669'
-      : callerInfo.callerSentiment?.toLowerCase().includes('negative')
+      : isNegative
         ? '#dc2626'
-        : '#4b5563';
-    const sentimentBg = callerInfo.callerSentiment
-      ?.toLowerCase()
-      .includes('positive')
+        : '#475569';
+    const sentimentBg = isPositive
       ? '#ecfdf5'
-      : callerInfo.callerSentiment?.toLowerCase().includes('negative')
+      : isNegative
         ? '#fef2f2'
-        : '#f3f4f6';
+        : '#f1f5f9';
+    const sentimentBorder = isPositive
+      ? '#a7f3d0'
+      : isNegative
+        ? '#fca5a5'
+        : '#cbd5e1';
+    const sentimentIcon = isPositive ? '😊 ' : isNegative ? '😟 ' : '😐 ';
 
-    const outcomeColor =
-      callerInfo.callStatus === 'Successful' ? '#059669' : '#d97706';
-    const outcomeBg =
-      callerInfo.callStatus === 'Successful' ? '#ecfdf5' : '#fffbeb';
+    const isSuccess = callerInfo.callStatus === 'Successful';
+    const outcomeColor = isSuccess ? '#059669' : '#d97706';
+    const outcomeBg = isSuccess ? '#ecfdf5' : '#fffbeb';
+    const outcomeBorder = isSuccess ? '#a7f3d0' : '#fde68a';
+    const outcomeIcon = isSuccess ? '✨ ' : '⏳ ';
 
     const recordingCta = callerInfo.recordingUrl
-      ? `<div style="margin-top: 28px; text-align: center;"><a href="${callerInfo.recordingUrl}" target="_blank" style="display: inline-block; background-color: #4338ca; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 4px 6px -1px rgba(67, 56, 202, 0.25);">🎧 Listen to Full Call Recording</a></div>`
+      ? `
+      <div style="margin-top: 36px; background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 30px 20px; text-align: center; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.02);">
+        <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">🎙️ Complete Call Audio Recording</div>
+        <div style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Listen to lossless interactive telephony streaming directly from our secure vault.</div>
+        <a href="${callerInfo.recordingUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); color: #ffffff; padding: 15px 34px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.35), 0 4px 6px -2px rgba(79, 70, 229, 0.2); letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.1);">▶ Open &amp; Play Full Recording</a>
+      </div>`
       : '';
 
     const textContent = `Hi ${businessName},
@@ -398,35 +424,40 @@ VoicePeri Platform`;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Call Executive Summary</title>
 </head>
-<body style="margin: 0; padding: 20px; background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02); border: 1px solid #e5e7eb;">
-    <!-- Header Banner -->
+<body style="margin: 0; padding: 25px 15px; background-color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 660px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); border: 1px solid #cbd5e1;">
+    <!-- Modern AI Dark Accent Header -->
     <tr>
-      <td style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 30px 36px; color: #ffffff;">
-        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #a5b4fc; margin-bottom: 6px;">VoicePeri AI Concierge</div>
-        <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: #ffffff;">Executive Call Summary</h1>
-        <p style="margin: 6px 0 0 0; font-size: 14px; color: #e0e7ff;">New interaction analysis for <strong>${businessName}</strong></p>
+      <td style="background: linear-gradient(135deg, #0b0f19 0%, #1e1b4b 55%, #312e81 100%); padding: 36px 40px; color: #ffffff;">
+        <div>
+          <span style="display: inline-block; background-color: rgba(165, 180, 252, 0.15); border: 1px solid rgba(165, 180, 252, 0.35); color: #c7d2fe; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.8px; margin-bottom: 14px;">✨ INTELLIGENT VOICE ANALYTICS</span>
+        </div>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">Executive Call Synthesis</h1>
+        <p style="margin: 8px 0 0 0; font-size: 15px; color: #cbd5e1; font-weight: 400;">Real-time consultation assessment for <strong style="color: #ffffff;">${businessName}</strong></p>
       </td>
     </tr>
 
-    <!-- Metrics Bar -->
+    <!-- KPI Metrics Dashboard Bar -->
     <tr>
-      <td style="background-color: #f8fafc; padding: 16px 36px; border-bottom: 1px solid #e2e8f0;">
+      <td style="background-color: #f8fafc; padding: 20px 40px; border-bottom: 1px solid #e2e8f0;">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <td style="font-size: 13px; color: #64748b;">
-              <strong>Outcome:</strong> 
-              <span style="background-color: ${outcomeBg}; color: ${outcomeColor}; padding: 3px 8px; border-radius: 9999px; font-weight: 600; font-size: 12px; margin-left: 4px;">${callerInfo.callStatus}</span>
+            <td width="33%" style="text-align: left; vertical-align: middle;">
+              <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Call Outcome</div>
+              <span style="display: inline-block; background-color: ${outcomeBg}; color: ${outcomeColor}; border: 1px solid ${outcomeBorder}; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 13px;">${outcomeIcon}${callerInfo.callStatus}</span>
             </td>
-            <td style="font-size: 13px; color: #64748b; text-align: center;">
-              <strong>Sentiment:</strong> 
-              <span style="background-color: ${sentimentBg}; color: ${sentimentColor}; padding: 3px 8px; border-radius: 9999px; font-weight: 600; font-size: 12px; margin-left: 4px;">${callerInfo.callerSentiment}</span>
+            <td width="34%" style="text-align: center; vertical-align: middle; border-left: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; padding: 0 10px;">
+              <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Caller Sentiment</div>
+              <span style="display: inline-block; background-color: ${sentimentBg}; color: ${sentimentColor}; border: 1px solid ${sentimentBorder}; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 13px;">${sentimentIcon}${callerInfo.callerSentiment}</span>
             </td>
             ${
               callerInfo.durationSeconds
-                ? `<td style="font-size: 13px; color: #64748b; text-align: right;"><strong>Duration:</strong> <span style="color: #334155; font-weight: 600; margin-left: 4px;">${Math.floor(
-                    callerInfo.durationSeconds / 60,
-                  )}m ${callerInfo.durationSeconds % 60}s</span></td>`
+                ? `<td width="33%" style="text-align: right; vertical-align: middle;">
+              <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Audio Duration</div>
+              <span style="display: inline-block; background-color: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 13px;">⏱️ ${Math.floor(
+                callerInfo.durationSeconds / 60,
+              )}m ${callerInfo.durationSeconds % 60}s</span>
+            </td>`
                 : ''
             }
           </tr>
@@ -436,45 +467,50 @@ VoicePeri Platform`;
 
     <!-- Main Body Content -->
     <tr>
-      <td style="padding: 36px;">
-        <!-- Caller Profile Card -->
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: #1e1b4b; text-transform: uppercase; letter-spacing: 0.5px;">Caller Identification & Profile</h3>
-        <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; background-color: #fafafa; margin-bottom: 28px;">
+      <td style="padding: 40px;">
+        <!-- CRM Caller Intelligence Profile Card -->
+        <div style="font-size: 13px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">👤 CRM Intelligence Profile</div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e2e8f0; border-radius: 10px; background: #fafafa; margin-bottom: 36px; overflow: hidden; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);">
           <tr>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; width: 35%; font-size: 13px; color: #6b7280; font-weight: 500;">👤 Customer Name</td>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600; color: #111827;">${callerInfo.callerName}</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; width: 35%; font-size: 13px; color: #64748b; font-weight: 600;">Customer Name</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 15px; font-weight: 700; color: #0f172a;">${callerInfo.callerName}</td>
           </tr>
           <tr>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; font-weight: 500;">✉️ Email Address</td>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600; color: #2563eb;">
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #64748b; font-weight: 600;">Email Address</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 15px; font-weight: 600; color: #2563eb;">
               ${
                 callerInfo.callerEmail !== 'Not provided'
-                  ? `<a href="mailto:${callerInfo.callerEmail}" style="color: #2563eb; text-decoration: none;">${callerInfo.callerEmail}</a>`
-                  : '<span style="color: #9ca3af; font-weight: 400;">Not captured in audio</span>'
+                  ? `<a href="mailto:${callerInfo.callerEmail}" style="color: #2563eb; text-decoration: underline;">${callerInfo.callerEmail}</a>`
+                  : '<span style="color: #94a3b8; font-weight: 400; font-style: italic;">Not captured in audio</span>'
               }
             </td>
           </tr>
           ${
             callerInfo.callerCompany
               ? `<tr>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; font-weight: 500;">🏢 Company / Business</td>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600; color: #4f46e5;">${callerInfo.callerCompany}</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #64748b; font-weight: 600;">Company / Business</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 15px;">
+              <span style="background-color: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; padding: 4px 10px; border-radius: 6px; font-weight: 700; display: inline-block;">🏢 ${callerInfo.callerCompany}</span>
+            </td>
           </tr>`
               : ''
           }
           <tr>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; font-weight: 500;">📱 Phone Number</td>
-            <td style="padding: 12px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600; color: #374151;">${callerInfo.callerPhone}</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #64748b; font-weight: 600;">Phone Number</td>
+            <td style="padding: 14px 20px; border-bottom: 1px solid #e2e8f0; font-size: 15px; font-weight: 600; color: #334155;">📱 ${callerInfo.callerPhone}</td>
           </tr>
           <tr>
-            <td style="padding: 12px 18px; font-size: 13px; color: #6b7280; font-weight: 500;">🎯 Product / Service Interest</td>
-            <td style="padding: 12px 18px; font-size: 14px; font-weight: 600; color: #059669;">${callerInfo.callerInterest}</td>
+            <td style="padding: 14px 20px; font-size: 13px; color: #64748b; font-weight: 600;">Product Interest</td>
+            <td style="padding: 14px 20px; font-size: 15px;">
+              <span style="background-color: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 4px 10px; border-radius: 6px; font-weight: 700; display: inline-block;">🎯 ${callerInfo.callerInterest}</span>
+            </td>
           </tr>
         </table>
 
-        <!-- Call Summary -->
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: #1e1b4b; text-transform: uppercase; letter-spacing: 0.5px;">Executive Conversation Summary</h3>
-        <div style="padding: 20px; background-color: #f8fafc; border-left: 4px solid #4338ca; border-radius: 6px; font-size: 15px; color: #334155; line-height: 1.6; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);">
+        <!-- AI Executive Briefing (Call Summary) -->
+        <div style="font-size: 13px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">🧠 AI Conversation Synthesis</div>
+        <div style="padding: 24px; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); border-left: 4px solid #6366f1; border-top: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; border-radius: 8px; font-size: 15px; color: #1e293b; line-height: 1.7; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);">
+          <div style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Executive Briefing</div>
           ${callerInfo.callSummary}
         </div>
 
@@ -486,11 +522,12 @@ VoicePeri Platform`;
       </td>
     </tr>
 
-    <!-- Footer -->
+    <!-- Ultra-Modern Dark Slate Footer -->
     <tr>
-      <td style="background-color: #f8fafc; padding: 24px 36px; border-top: 1px solid #e2e8f0; text-align: center;">
-        <p style="margin: 0; font-size: 13px; color: #64748b; font-weight: 500;">VoicePeri AI Concierge Platform &bull; Intelligent Call Analytics</p>
-        <p style="margin: 6px 0 0 0; font-size: 12px; color: #94a3b8;">You are receiving this instant notification because your AI receptionist just completed a conversation for <strong>${businessName}</strong>.</p>
+      <td style="background-color: #0b0f19; padding: 28px 40px; text-align: center;">
+        <p style="margin: 0; font-size: 14px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px;">VoicePeri AI Concierge Platform</p>
+        <p style="margin: 6px 0 0 0; font-size: 12px; color: #94a3b8;">Automated Post-Call Intelligence &amp; Telephony Analytics</p>
+        <p style="margin: 16px 0 0 0; font-size: 11px; color: #475569; border-top: 1px solid #1e293b; padding-top: 16px;">This executive summary was generated instantly upon conversation completion for <strong style="color: #94a3b8;">${businessName}</strong>.</p>
       </td>
     </tr>
   </table>
