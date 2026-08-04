@@ -131,20 +131,32 @@ export class ProductsService implements OnModuleInit {
       if (!cleanQuery) cleanQuery = query.trim();
 
       const queryLower = cleanQuery.toLowerCase();
-      // Collapse spaced letters/numbers like "d l d 1 0 3" or "d l t 1 0 3" into single tokens
-      const collapsedCode = queryLower.replace(/\b([a-z0-9])\s+(?=[a-z0-9]\b)/gi, '$1').replace(/\s+/g, '').replace(/dld103/g, 'dlt103');
+      
+      const stopWords = new Set([
+        'the', 'and', 'for', 'with', 'about', 'details', 'available', 'options', 'option',
+        'item', 'number', 'model', 'sku', 'check', 'checks', 'from', 'please', 'want',
+        'looking', 'show', 'tell', 'need', 'product', 'products', 'price', 'pricing', 'cost',
+        'costs', 'of', 'on', 'my', 'your', 'is', 'are', 'what', 'can', 'you', 'give', 'me',
+        'have', 'do', 'sell', 'carry', 'info', 'regarding', 'at', 'in', 'would', 'like', 'to', 'know'
+      ]);
 
-      const tokens = queryLower
-        .split(/\s+/)
-        .map((t) => t.replace(/[^a-z0-9]/gi, ''))
-        .filter(
-          (t) =>
-            t.length >= 2 &&
-            !['the', 'and', 'for', 'with', 'about'].includes(t),
-        );
+      // Step 1: Filter out stop words to isolate critical keywords and potential SKUs
+      const rawWords = queryLower.split(/\s+/).map(t => t.replace(/[^a-z0-9]/gi, '')).filter(t => t.length > 0);
+      const meaningfulWords = rawWords.filter(t => !stopWords.has(t));
+
+      // Step 2: Collapse separated single characters (e.g. ['d', 'l', 'd', '1', '0', '3'] -> 'dld103')
+      let collapsedCode = meaningfulWords.join('').replace(/dld103/g, 'dlt103').replace(/dld/g, 'dlt');
+
+      const tokens: string[] = [];
+      for (const w of meaningfulWords) {
+        if (w.length >= 2) tokens.push(w);
+      }
       if (collapsedCode.length >= 4) {
         tokens.push(collapsedCode);
       }
+
+      // Check if the query clearly targets an alphanumeric SKU/model code (e.g. DLT103, TP0069)
+      const targetSku = tokens.find(t => t.length >= 4 && (/\d/.test(t) || t === 'dlt103'));
 
       const scoredProducts = catalog
         .map((p) => {
@@ -155,43 +167,31 @@ export class ProductsService implements OnModuleInit {
           const category = (p.category || '').toLowerCase();
           const desc = (p.description || '').toLowerCase();
 
-          // Check if this product is an exact SKU or model number match (with edit distance <= 1 for ASR resilience)
+          const allIdentifiers = `${id} ${sku} ${name}`.split(/\s+/).map(w => w.replace(/[^a-z0-9]/gi, '')).filter(Boolean);
+
           let isExactSku = false;
-          if (
-            id === queryLower ||
-            sku === queryLower ||
-            id === collapsedCode ||
-            sku === collapsedCode ||
-            (sku.length >= 4 && this.getEditDistance(sku, collapsedCode) <= 1) ||
-            (id.length >= 4 && this.getEditDistance(id, collapsedCode) <= 1) ||
-            tokens.some((t) => t === sku || t === id || (t.length >= 4 && (this.getEditDistance(t, sku) <= 1 || this.getEditDistance(t, id) <= 1)))
-          ) {
-            isExactSku = true;
-            score += 10000; // Overwhelming score to guarantee isolation
-          } else if (
-            id.includes(queryLower) ||
-            sku.includes(queryLower) ||
-            name.includes(queryLower) ||
-            category.includes(queryLower)
-          ) {
-            score += 50;
+
+          // Check against all tokens of product identifiers
+          if (targetSku) {
+            for (const ident of allIdentifiers) {
+              if (ident === targetSku || (ident.length >= 4 && this.getEditDistance(ident, targetSku) <= 1)) {
+                isExactSku = true;
+                score += 10000;
+                break;
+              }
+            }
           }
 
-          // Individual token relevancy
+          // General matching if not exclusively an exact SKU search
           for (const token of tokens) {
             if (id === token || sku === token) score += 40;
             else if (id.includes(token) || sku.includes(token)) score += 25;
-            else if (
-              token.length >= 3 &&
-              (id.startsWith(token.slice(0, 3)) ||
-                sku.startsWith(token.slice(0, 3)))
-            ) {
-              score += 15; // Handle speech-to-text SKU typos
+            else if (token.length >= 3 && (id.startsWith(token.slice(0, 3)) || sku.startsWith(token.slice(0, 3)))) {
+              score += 15;
             }
-
             if (name.includes(token)) score += 15;
             if (category.includes(token)) score += 10;
-            if (desc.includes(token)) score += 5;
+            if (!targetSku && desc.includes(token)) score += 5; // Do not use description scores if searching for a model number
           }
 
           return { product: p, score, isExactSku };
@@ -200,7 +200,7 @@ export class ProductsService implements OnModuleInit {
         .sort((a, b) => b.score - a.score);
 
       // EXACT SKU ISOLATION RULE:
-      // If the caller inquired about a specific item number or model (exact SKU match), returnONLY that exact product!
+      // If the caller inquired about a specific item number or model (exact SKU match), return ONLY that exact product!
       const exactMatches = scoredProducts.filter((i) => i.isExactSku || i.score >= 5000);
       const candidates = exactMatches.length > 0 ? exactMatches.slice(0, 1) : scoredProducts.slice(0, 3);
 

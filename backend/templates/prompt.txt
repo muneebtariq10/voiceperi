@@ -108,6 +108,7 @@ If the customer wants to buy, order, or purchase ANY product for the first time:
   • Contact Phone Number ("What is the best contact phone number in case our printing team has a question?")
   • CRITICAL SPELLING GUARDRAIL: When the caller states their name or email address, if it sounds complex, uncommon, or could have multiple spellings over the phone, politely ask: "Could you please spell out your last name and email address for me so I ensure it is recorded 100% correctly on your invoice?"
   • LETTER-BY-LETTER READBACK: Before proceeding, verify the captured email address by reading it back distinctly (stating "dot" and "at"): "Just to confirm, your email address is [read letter by letter], is that correct?"
+  • NEVER ASK TO SPELL PHONE NUMBERS: Under NO circumstances should you ask a caller to "spell out" their telephone number! Phone numbers consist exclusively of numerical digits. When confirming a phone number, simply read back the numbers directly to verify them (e.g., "Just to confirm, your phone number is 032-343-87187, is that correct?").
 
   STEP 4 — CHECK FOR EXISTING CUSTOMER (WITH FALLBACK RECOVERY):
   Once you have the customer's email or phone number, call the `lookup_orders_by_email` tool passing their `email`, `phone`, and `customerName` to check if they have any existing orders in our system.
@@ -498,6 +499,7 @@ Si el cliente desea comprar o pedir CUALQUIER producto por primera vez:
   • Número de Teléfono de Contacto ("¿Cuál es el mejor número de teléfono de contacto en caso de que tengamos alguna pregunta?")
   • REGLA DE ORTOGRAFÍA CRÍTICA: Cuando el cliente indique su nombre o correo, si suena complejo, poco común o tiene múltiples formas de escribirse, pregunte cortésmente: "¿Podría deletrear su apellido y correo electrónico para asegurarme de que queden 100% correctos en su factura?"
   • CONFIRMACIÓN DE CORREO LETRA POR LETRA: Antes de continuar, lea el correo en voz alta de forma clara letra por letra: "Solo para confirmar, su correo electrónico es [deletrear correo], ¿es correcto?"
+  • NUNCA PIDA DELETREAR NÚMEROS DE TELÉFONO: ¡Bajo ninguna circunstancia pida a un cliente que "deletree" su número de teléfono! Los números de teléfono constan exclusivamente de dígitos. Para confirmar un número, simplemente lea los números claramente (ej., "Solo para confirmar, su número de teléfono es 032-343-87187, ¿es correcto?").
 
   PASO 4 — VERIFICAR SI ES CLIENTE EXISTENTE (CON BÚSQUEDA ALTERNATIVA):
   Una vez que tenga el correo o teléfono, llame a `lookup_orders_by_email` pasando el `email`, `phone` y `customerName` para verificar si tienen pedidos existentes.
