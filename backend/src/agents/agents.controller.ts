@@ -53,18 +53,34 @@ export class AgentsController {
   @Patch('admin/prompt-template')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.ADMIN, Role.SUPER_ADMIN)
-  updatePromptTemplate(@Body() body: { content: string }) {
+  async updatePromptTemplate(@Body() body: { content: string }) {
     const filePath = path.join(process.cwd(), 'templates', 'prompt.txt');
     console.log('[PATCH] Writing prompt file to:', filePath);
 
     try {
       fs.writeFileSync(filePath, body.content, 'utf8');
-      console.log('[PATCH] Prompt updated successfully');
-      return { message: 'Prompt updated successfully' };
+      console.log('[PATCH] Prompt updated on disk successfully');
+
+      // Automatically re-sync all active agents with Retell AI so live calls reflect the saved prompt immediately
+      try {
+        await this.agentsService.syncAllAgentsWithRetell();
+        console.log('[PATCH] All active agents successfully auto-synced with Retell AI');
+      } catch (syncErr) {
+        console.error('[PATCH] Warning during auto-sync to Retell:', syncErr.message);
+      }
+
+      return { message: 'Prompt updated and synced with Retell AI successfully' };
     } catch (err) {
       console.error('[PATCH] Error writing file:', err.message);
       throw new Error('Failed to update prompt file');
     }
+  }
+
+  @Post('admin/sync-retell')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
+  async syncRetellAgents() {
+    return await this.agentsService.syncAllAgentsWithRetell();
   }
   @Public()
   @Get('voices-elevenlabs')

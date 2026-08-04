@@ -1498,6 +1498,32 @@ export class AgentsService implements OnApplicationBootstrap {
     return updateRes.data;
   }
 
+  async syncAllAgentsWithRetell(): Promise<{ count: number; message: string }> {
+    console.log('🔄 [AutoSync] Initiating system-wide synchronization of all agents with Retell AI...');
+    const agents = await this.agentRepo.find({ relations: ['user'] });
+    let synced = 0;
+
+    for (const agent of agents) {
+      if (agent.user?.id) {
+        try {
+          console.log(`🔄 [AutoSync] Syncing LLM prompt and tool definitions for agent: ${agent.agent_name || agent.id} (User: ${agent.user.id})`);
+          await this.updateLlm(agent.user.id);
+          if (agent.retell_agent) {
+            console.log(`🔄 [AutoSync] Syncing ASR boost words and configuration for Retell agent: ${agent.retell_agent}`);
+            await this.update(agent.user.id, { agent_name: agent.agent_name || '' } as any);
+          }
+          synced++;
+        } catch (err) {
+          console.error(`❌ [AutoSync] Warning: Failed syncing agent ${agent.id} (${agent.agent_name || 'unnamed'}):`, err.message);
+        }
+      }
+    }
+
+    const resultMsg = `Successfully auto-synced ${synced} of ${agents.length} agents with Retell AI cloud infrastructure.`;
+    console.log(`✅ [AutoSync] ${resultMsg}`);
+    return { count: synced, message: resultMsg };
+  }
+
   findAll() {
     return `This action returns all agents`;
   }
