@@ -508,17 +508,28 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_orders_by_email',
         description:
-          'Check if a customer has previous orders in the system using their email address before placing a brand new order. Allows detecting existing accounts to offer quick reorders or modifications.',
+          'Check if a customer has previous orders in the system using their email address, contact phone number, or name before placing a brand new order. Supports fallback searching by phone number or customer name in case an email address was slightly misspelled over telephone audio.',
         url: this.getOrderLookupByEmailUrl(),
         parameters: {
           type: 'object',
           properties: {
             email: {
               type: 'string',
-              description: 'The email address provided by the customer',
+              description:
+                'The email address provided by the customer (optional if phone or name is provided)',
+            },
+            phone: {
+              type: 'string',
+              description:
+                'The contact phone number provided by the customer (highly accurate over voice audio)',
+            },
+            customerName: {
+              type: 'string',
+              description:
+                'The full name or business company name of the customer as a backup search key',
             },
           },
-          required: ['email'],
+          required: [],
         },
       },
       {
@@ -834,6 +845,7 @@ export class AgentsService implements OnApplicationBootstrap {
         })),
       ],
       webhook_url: process.env.RETELL_WEBHOOK_URL,
+      boost_words: this.getRetellBoostWords(),
     };
 
     const agentResponse = await firstValueFrom(
@@ -849,6 +861,30 @@ export class AgentsService implements OnApplicationBootstrap {
     );
 
     return agentResponse.data;
+  }
+
+  private getRetellBoostWords(): string[] {
+    return [
+      'PrintEZ',
+      'DLT103',
+      'MICR',
+      'VersaCheck',
+      'Peachtree',
+      'QuickBooks',
+      'Muneeb',
+      'Tariq',
+      'Carbonless',
+      'Incomplete',
+      'Reorder',
+      'configurator',
+      'Envelopes',
+      'imprint',
+      'ACH',
+      'gmail',
+      'yahoo',
+      'outlook',
+      'hotmail',
+    ];
   }
 
   async create(createAgentDto: CreateAgentDto): Promise<Agent> {
@@ -1147,17 +1183,28 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'lookup_orders_by_email',
         description:
-          'Check if a customer has previous orders in the system using their email address before placing a brand new order. Allows detecting existing accounts to offer quick reorders or modifications.',
+          'Check if a customer has previous orders in the system using their email address, contact phone number, or name before placing a brand new order. Supports fallback searching by phone number or customer name in case an email address was slightly misspelled over telephone audio.',
         url: this.getOrderLookupByEmailUrl(),
         parameters: {
           type: 'object',
           properties: {
             email: {
               type: 'string',
-              description: 'The email address provided by the customer',
+              description:
+                'The email address provided by the customer (optional if phone or name is provided)',
+            },
+            phone: {
+              type: 'string',
+              description:
+                'The contact phone number provided by the customer (highly accurate over voice audio)',
+            },
+            customerName: {
+              type: 'string',
+              description:
+                'The full name or business company name of the customer as a backup search key',
             },
           },
-          required: ['email'],
+          required: [],
         },
       },
       {
@@ -1538,6 +1585,7 @@ export class AgentsService implements OnApplicationBootstrap {
     if (process.env.RETELL_WEBHOOK_URL) {
       payload.webhook_url = process.env.RETELL_WEBHOOK_URL;
     }
+    payload.boost_words = this.getRetellBoostWords();
 
     const effectiveNotes = updateAgentDto.notes || agent.notes || [];
     payload.post_call_analysis_data = [

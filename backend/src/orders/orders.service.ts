@@ -64,17 +64,26 @@ export class OrdersService {
     };
   }
 
-  async lookupOrdersByEmail(email: string, requestCorrelationId: string) {
+  async lookupOrdersByEmail(
+    email: string | undefined,
+    requestCorrelationId: string,
+    phone?: string,
+    name?: string,
+  ) {
     this.logger.log(
-      `[${requestCorrelationId}] Looking up orders for email: ${email}`,
+      `[${requestCorrelationId}] Looking up orders - Email: ${email || 'N/A'}, Phone: ${phone || 'N/A'}, Name: ${name || 'N/A'}`,
     );
 
-    const result = await this.orderAdapter.getOrdersByEmail(email);
+    const result = await this.orderAdapter.getOrdersByCustomer(
+      email,
+      phone,
+      name,
+    );
 
     // Save audit log
     await this.auditRepository.save({
       requestedOrderId: 0,
-      verificationMethod: 'email',
+      verificationMethod: email ? 'email' : phone ? 'phone' : 'name',
       verificationSucceeded: result.found,
       source: 'api',
       requestCorrelationId,

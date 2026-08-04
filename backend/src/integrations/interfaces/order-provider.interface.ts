@@ -140,6 +140,16 @@ export interface IOrderProvider {
   getOrdersByEmail(email: string): Promise<OrderListResult>;
 
   /**
+   * Look up orders by customer email address, telephone number, or customer name.
+   * Supports fallback searching when voice ASR transcription causes slight email typos.
+   */
+  getOrdersByCustomer(
+    email?: string,
+    phone?: string,
+    name?: string,
+  ): Promise<OrderListResult>;
+
+  /**
    * Create a brand new order in the e-commerce engine (e.g. agentapi/order|insert).
    */
   createOrder(payload: CreateOrderPayload): Promise<CreateOrderResult>;

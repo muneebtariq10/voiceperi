@@ -263,28 +263,85 @@ export class OpenCartOrderAdapter implements IOrderProvider {
     }
   }
 
-  async getOrdersByEmail(email: string): Promise<OrderListResult> {
-    if (!email || !email.includes('@')) {
+  async getOrdersByCustomer(
+    email?: string,
+    phone?: string,
+    name?: string,
+  ): Promise<OrderListResult> {
+    if (!email && !phone && !name) {
       return {
         found: false,
-        message: 'Please provide a valid email address.',
+        message:
+          'Please provide an email address, contact phone number, or customer name to search for orders.',
       };
     }
 
-    const normalizedEmail = email.toLowerCase().trim();
+    const qb = this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.products', 'products')
+      .orderBy('order.dateAdded', 'DESC')
+      .take(10);
 
-    // Fallback: query local database
-    const orders = await this.orderRepository.find({
-      where: { customerEmailNormalized: normalizedEmail },
-      order: { dateAdded: 'DESC' },
-      take: 10,
-      relations: ['products'],
-    });
+    const conditions: string[] = [];
+    const parameters: Record<string, any> = {};
+
+    if (email && email.trim().length >= 3) {
+      const normalizedEmail = email
+        .toLowerCase()
+        .trim()
+        .replace(/\s+at\s+/g, '@')
+        .replace(/\s+dot\s+/g, '.');
+      conditions.push('order.customerEmailNormalized = :email');
+      parameters.email = normalizedEmail;
+
+      const localPart = normalizedEmail.split('@')[0];
+      if (localPart && localPart.length >= 4) {
+        conditions.push('LOWER(order.customerEmail) LIKE :emailPrefix');
+        parameters.emailPrefix = `${localPart.slice(0, 4)}%`;
+      }
+    }
+
+    if (phone) {
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length >= 4) {
+        const last4 = digits.slice(-4);
+        conditions.push(
+          '(order.customerPhoneLast4 = :last4 OR order.customerPhone LIKE :phonePattern)',
+        );
+        parameters.last4 = last4;
+        parameters.phonePattern = `%${last4}%`;
+      }
+    }
+
+    if (name && name.trim().length >= 3) {
+      const cleanName = name.trim().toLowerCase();
+      const words = cleanName.split(/\s+/).filter((w) => w.length >= 3);
+      words.forEach((word, idx) => {
+        const paramName = `nameWord_${idx}`;
+        conditions.push(
+          `(LOWER(order.customerFirstName) LIKE :${paramName} OR LOWER(order.customerLastName) LIKE :${paramName} OR LOWER(order.shippingCompany) LIKE :${paramName})`,
+        );
+        parameters[paramName] = `%${word}%`;
+      });
+    }
+
+    if (conditions.length === 0) {
+      return {
+        found: false,
+        message:
+          'Please provide a valid email, phone number (at least 4 digits), or customer name.',
+      };
+    }
+
+    qb.where(`(${conditions.join(' OR ')})`, parameters);
+
+    const orders = await qb.getMany();
 
     if (!orders || orders.length === 0) {
       return {
         found: false,
-        message: 'No orders found for this email address.',
+        message:
+          'No previous orders found matching the provided email, phone number, or customer name.',
       };
     }
 
@@ -304,6 +361,10 @@ export class OpenCartOrderAdapter implements IOrderProvider {
             .join(', ') || 'No products listed',
       })),
     };
+  }
+
+  async getOrdersByEmail(email: string): Promise<OrderListResult> {
+    return this.getOrdersByCustomer(email);
   }
 
   async isAvailable(): Promise<boolean> {

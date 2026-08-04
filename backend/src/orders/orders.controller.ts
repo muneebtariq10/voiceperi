@@ -84,15 +84,40 @@ export class OrdersController {
       body?.arguments?.customerEmail ??
       undefined;
 
-    if (!email || typeof email !== 'string' || !email.includes('@')) {
+    const phone =
+      body?.phone ??
+      body?.customerPhone ??
+      body?.telephone ??
+      body?.args?.phone ??
+      body?.args?.customerPhone ??
+      body?.arguments?.phone ??
+      body?.arguments?.customerPhone ??
+      undefined;
+
+    const name =
+      body?.customerName ??
+      body?.name ??
+      body?.company ??
+      body?.args?.customerName ??
+      body?.args?.name ??
+      body?.arguments?.customerName ??
+      body?.arguments?.name ??
+      undefined;
+
+    if (!email && !phone && !name) {
       return {
         found: false,
         message:
-          'Could you please provide your email address so I can look up your account?',
+          'Could you please provide your email address, phone number, or name so I can look up your account?',
       };
     }
 
     const correlationId = Math.random().toString(36).substring(7);
-    return await this.ordersService.lookupOrdersByEmail(email, correlationId);
+    return await this.ordersService.lookupOrdersByEmail(
+      email,
+      correlationId,
+      phone,
+      name,
+    );
   }
 }
