@@ -65,22 +65,14 @@ export class OpenCartProductAdapter implements IProductProvider {
 
           const prodId = String(item.product_id || item.model || '').trim();
           const rawModel = String(item.model || item.product_id || '').trim();
-          const imageUrl = String(item.image || '');
           const prodUrl = String(item.url || '');
-          // Extract SKU codes from image filename or url (e.g., DLT103.jpg -> DLT103)
-          const imgMatch = imageUrl.match(/\/([A-Za-z0-9_-]+)\.[a-z]{3,4}$/i);
-          const urlMatch = prodUrl.match(/\/([A-Za-z0-9_-]+)(\.html)?$/i);
-          const extraSku = [rawModel, imgMatch?.[1], urlMatch?.[1]]
-            .filter(Boolean)
-            .join(' ')
-            .trim();
 
           allProducts.push({
             productId: prodId,
             name: (item.title || '').trim(),
             description: cleanDesc,
             price: String(item.price ?? ''),
-            sku: extraSku || rawModel,
+            sku: rawModel,
             category: category,
             url: prodUrl,
             priceFrom: Boolean(item.price_from),

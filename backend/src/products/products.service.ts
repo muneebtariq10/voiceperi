@@ -204,40 +204,47 @@ export class ProductsService implements OnModuleInit {
       const exactMatches = scoredProducts.filter((i) => i.isExactSku || i.score >= 5000);
       const candidates = exactMatches.length > 0 ? exactMatches.slice(0, 1) : scoredProducts.slice(0, 3);
 
-      const topResults = candidates.map((item) => {
-        const p = item.product;
-        const rawPrice = parseFloat(p.price) || 0;
-        const isPriceFrom = Boolean(p.priceFrom);
-        let displayPrice: string;
+      const topResults = await Promise.all(
+        candidates.map(async (item) => {
+          const p = item.product;
+          const rawPrice = parseFloat(p.price) || 0;
+          const isPriceFrom = Boolean(p.priceFrom);
+          let displayPrice: string;
 
-        if (rawPrice <= 0) {
-          displayPrice =
-            'Pricing varies based on your selections (quantity, size, customization). Visit the product page or ask me for the link.';
-        } else if (isPriceFrom) {
-          displayPrice = `Starting from $${rawPrice.toFixed(2)}`;
-        } else {
-          displayPrice = `$${rawPrice.toFixed(2)}`;
-        }
+          if (rawPrice <= 0) {
+            displayPrice =
+              'Pricing varies based on your selections (quantity, size, customization). Visit the product page or ask me for the link.';
+          } else if (isPriceFrom) {
+            displayPrice = `Starting from $${rawPrice.toFixed(2)}`;
+          } else {
+            displayPrice = `$${rawPrice.toFixed(2)}`;
+          }
 
-        let cleanDesc = p.description || '';
-        if (cleanDesc.length > 350) {
-          cleanDesc = cleanDesc.substring(0, 350) + '...';
-        }
+          let cleanDesc = p.description || '';
+          if (cleanDesc.length > 350) {
+            cleanDesc = cleanDesc.substring(0, 350) + '...';
+          }
 
-        return {
-          name: p.name,
-          price: displayPrice,
-          category: p.category,
-          productId: p.productId,
-          sku: p.sku || p.productId,
-          description: cleanDesc,
-          url: p.url || '',
-          minimumQuantity: p.minimumQuantity || 1,
-          note: p.descriptionTruncated
-            ? 'Full product details including available options, colors, and sizes can be found on the product page.'
-            : '',
-        };
-      });
+          const tieredPricingOptions = await this.fetchProductOptionPricing(p.productId);
+          const applicablePromo = this.resolveApplicablePromo(p.category || '', p.name || '');
+
+          return {
+            name: p.name,
+            price: displayPrice,
+            category: p.category,
+            productId: p.productId,
+            sku: p.sku || p.productId,
+            description: cleanDesc,
+            url: p.url || '',
+            minimumQuantity: p.minimumQuantity || 1,
+            tieredPricingOptions,
+            applicablePromo,
+            note: p.descriptionTruncated
+              ? 'Full product details including available options, colors, and sizes can be found on the product page.'
+              : '',
+          };
+        }),
+      );
 
       if (topResults.length === 0) {
         return {
@@ -261,16 +268,72 @@ export class ProductsService implements OnModuleInit {
     }
   }
 
+  private async fetchProductOptionPricing(productId: string): Promise<string> {
+    if (!productId) return 'Standard catalog pricing applies.';
+    try {
+      const res = await fetch(
+        `https://www.printez.com/index.php?route=agentapi/product|get&product_id=${productId}`,
+        {
+          headers: {
+            Authorization:
+              'Bearer 5c4faefcfc742ee848f1aa2f385f237aec5e70c6fcd7d5b3c8e082e426c51b54',
+          },
+        },
+      );
+      if (!res.ok) return 'Standard catalog pricing applies.';
+      const data: any = await res.json();
+      if (!data?.product?.options || !Array.isArray(data.product.options)) {
+        return 'Standard catalog pricing applies.';
+      }
+      const summaries: string[] = [];
+      for (const opt of data.product.options) {
+        if (Array.isArray(opt.values) && opt.values.length > 0) {
+          const tiers = opt.values
+            .slice(0, 6)
+            .map((v: any) => `${v.name || v.quantity || ''} for $${Number(v.price || 0).toFixed(2)}`)
+            .filter((s: string) => !s.startsWith(' for '))
+            .join(', ');
+          if (tiers) {
+            summaries.push(`${opt.name}: [${tiers}]`);
+          }
+        }
+      }
+      return summaries.length > 0
+        ? `Tiered Option Pricing: ${summaries.join(' | ')}`
+        : 'Standard catalog pricing applies.';
+    } catch (err) {
+      this.logger.warn(`Failed fetching option pricing for product ${productId}: ${err?.message}`);
+      return 'Standard catalog pricing applies.';
+    }
+  }
+
+  private resolveApplicablePromo(category: string, name: string): string {
+    const combined = `${category || ''} ${name || ''}`.toLowerCase();
+    if (combined.includes('computer check') || combined.includes('check on top') || combined.includes('quickbooks check') || combined.includes('laser check')) {
+      return '🔥 Best Deal: 10% Discount on Computer Checks! Use promo code HCC10 at checkout.';
+    }
+    if (combined.includes('business check') || combined.includes('manual check') || combined.includes('voucher check') || combined.includes('wallet check')) {
+      return '🔥 Best Deal: 10% Discount on Business Checks! Use promo code HBC10 at checkout.';
+    }
+    if (combined.includes('form') || combined.includes('invoice') || combined.includes('receipt') || combined.includes('clinical') || combined.includes('history update')) {
+      return '🔥 Best Deal: 10% Discount on Business Forms! Use promo code HBF10 at checkout.';
+    }
+    if (combined.includes('envelope') || combined.includes('mailer')) {
+      return '🔥 Best Deal: 10% Discount on Envelopes! Use promo code HBE10 at checkout.';
+    }
+    if (combined.includes('banner') || combined.includes('sign')) {
+      return '🔥 Best Deal: 10% Discount on Banners! Use promo code HBA10 at checkout.';
+    }
+    if (combined.includes('pen') || combined.includes('promotional') || combined.includes('gift') || combined.includes('stamp') || combined.includes('label')) {
+      return '🔥 Best Deal: 5% Discount on Pens & Promotional Office Items! Use promo code HPEN10 at checkout.';
+    }
+    return 'Check printez.com for current seasonal promotions and volume free-shipping offers!';
+  }
+
   async resolveInternalProductId(
     productIdOrSku?: string,
     productName?: string,
   ): Promise<number | undefined> {
-    const combined =
-      `${productIdOrSku || ''} ${productName || ''}`.toLowerCase();
-    if (combined.includes('dlt103') || combined.includes('check on top')) {
-      return 29233;
-    }
-
     if (productIdOrSku && /^\d{4,6}$/.test(String(productIdOrSku).trim())) {
       const directId = parseInt(String(productIdOrSku).trim(), 10);
       if (!isNaN(directId) && directId > 0) return directId;
