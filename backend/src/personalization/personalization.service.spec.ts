@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing';
 import { MailerService } from '@nestjs-modules/mailer';
 import { PersonalizationService } from './personalization.service';
@@ -40,7 +41,9 @@ describe('PersonalizationService', () => {
 
       expect(result.success).toBe(true);
       expect(result.designId).toContain('DSN-4021-');
-      expect(result.editUrl).toContain('https://www.printez.com/customize');
+      expect(result.editUrl).toContain(
+        'https://www.printez.com/configurator.php?skuId=4021-1&productId=4021',
+      );
       expect(mailerService.sendMail).toHaveBeenCalledTimes(1);
       expect(mailerService.sendMail).toHaveBeenCalledWith(
         expect.objectContaining({

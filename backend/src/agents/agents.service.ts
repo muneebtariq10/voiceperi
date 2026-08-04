@@ -572,10 +572,59 @@ export class AgentsService implements OnApplicationBootstrap {
               description:
                 'The selected carbonless parts option (e.g. 1-Part, 2-Part, 3-Part)',
             },
+            company: {
+              type: 'string',
+              description:
+                "The customer's business or company name (e.g. PrintC Corporation, Chesapeake Turf)",
+            },
             shippingAddress: {
               type: 'string',
               description:
-                'The full shipping street address, city, state, and zip code',
+                'The full combined shipping address if structured fields are not provided',
+            },
+            streetAddress: {
+              type: 'string',
+              description:
+                'The street address for shipping (e.g. 123 Main Street, Suite 4B)',
+            },
+            city: {
+              type: 'string',
+              description: 'The shipping city (e.g. Austin, Salisbury)',
+            },
+            state: {
+              type: 'string',
+              description: 'The shipping state or province (e.g. Texas, MD)',
+            },
+            zipCode: {
+              type: 'string',
+              description: 'The shipping ZIP or postal code (e.g. 78701)',
+            },
+            billingStreetAddress: {
+              type: 'string',
+              description:
+                'The billing street address if different from shipping address',
+            },
+            billingCity: {
+              type: 'string',
+              description: 'The billing city if different from shipping city',
+            },
+            billingState: {
+              type: 'string',
+              description: 'The billing state if different from shipping state',
+            },
+            billingZipCode: {
+              type: 'string',
+              description: 'The billing ZIP code if different from shipping ZIP code',
+            },
+            shippingMethod: {
+              type: 'string',
+              description:
+                'The preferred shipping method (e.g. Standard Ground, Expedited Rush)',
+            },
+            paymentMethod: {
+              type: 'string',
+              description:
+                'The preferred checkout payment method (e.g. Pay With Square, Credit Card, ACH)',
             },
             notes: {
               type: 'string',
@@ -1162,10 +1211,59 @@ export class AgentsService implements OnApplicationBootstrap {
               description:
                 'The selected carbonless parts option (e.g. 1-Part, 2-Part, 3-Part)',
             },
+            company: {
+              type: 'string',
+              description:
+                "The customer's business or company name (e.g. PrintC Corporation, Chesapeake Turf)",
+            },
             shippingAddress: {
               type: 'string',
               description:
-                'The full shipping street address, city, state, and zip code',
+                'The full combined shipping address if structured fields are not provided',
+            },
+            streetAddress: {
+              type: 'string',
+              description:
+                'The street address for shipping (e.g. 123 Main Street, Suite 4B)',
+            },
+            city: {
+              type: 'string',
+              description: 'The shipping city (e.g. Austin, Salisbury)',
+            },
+            state: {
+              type: 'string',
+              description: 'The shipping state or province (e.g. Texas, MD)',
+            },
+            zipCode: {
+              type: 'string',
+              description: 'The shipping ZIP or postal code (e.g. 78701)',
+            },
+            billingStreetAddress: {
+              type: 'string',
+              description:
+                'The billing street address if different from shipping address',
+            },
+            billingCity: {
+              type: 'string',
+              description: 'The billing city if different from shipping city',
+            },
+            billingState: {
+              type: 'string',
+              description: 'The billing state if different from shipping state',
+            },
+            billingZipCode: {
+              type: 'string',
+              description: 'The billing ZIP code if different from shipping ZIP code',
+            },
+            shippingMethod: {
+              type: 'string',
+              description:
+                'The preferred shipping method (e.g. Standard Ground, Expedited Rush)',
+            },
+            paymentMethod: {
+              type: 'string',
+              description:
+                'The preferred checkout payment method (e.g. Pay With Square, Credit Card, ACH)',
             },
             notes: {
               type: 'string',

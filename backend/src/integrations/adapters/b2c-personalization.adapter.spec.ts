@@ -28,7 +28,9 @@ describe('B2CPersonalizationAdapter', () => {
       expect(result).toBeDefined();
       expect(result.success).toBe(true);
       expect(result.designId).toContain(`DSN-${productId}-`);
-      expect(result.editUrl).toContain('https://www.printez.com/customize');
+      expect(result.editUrl).toContain(
+        'https://www.printez.com/configurator.php?skuId=PROD-1&productId=PROD',
+      );
       expect(result.sessionToken).toContain('TOKEN-');
       expect(result.message).toContain(
         `We have generated your custom design workspace for product ${productId}`,
@@ -56,7 +58,9 @@ describe('B2CPersonalizationAdapter', () => {
       expect(result).toBeDefined();
       expect(result.success).toBe(true);
       expect(result.designId).toContain('DSN-CHECK-REV');
-      expect(result.editUrl).toContain('mode=reorder_edit');
+      expect(result.editUrl).toContain(
+        'https://www.printez.com/configurator.php?skuId=CHECK-1&productId=CHECK',
+      );
       expect(result.message).toContain(
         `Your previous design (${previousDesignId}) has been cloned into new workspace`,
       );
@@ -68,7 +72,9 @@ describe('B2CPersonalizationAdapter', () => {
       expect(cloneResult.success).toBe(true);
       expect(cloneResult.previousDesignId).toBe('DSN-FORM-8899');
       expect(cloneResult.newDesignId).toContain('DSN-FORM-REV');
-      expect(cloneResult.editUrl).toContain('source_design=DSN-FORM-8899');
+      expect(cloneResult.editUrl).toContain(
+        'https://www.printez.com/configurator.php?skuId=FORM-1&productId=FORM',
+      );
     });
   });
 

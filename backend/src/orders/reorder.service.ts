@@ -15,6 +15,17 @@ export interface ReorderRequest {
   color?: string;
   parts?: string;
   shippingAddress?: string;
+  company?: string;
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  billingStreetAddress?: string;
+  billingCity?: string;
+  billingState?: string;
+  billingZipCode?: string;
+  shippingMethod?: string;
+  paymentMethod?: string;
 }
 
 export interface ReorderResult {
@@ -127,16 +138,73 @@ export class ReorderService {
           request.notes ||
             `Phone order placed by AI concierge for ${request.productName}`,
         );
+        if (request.company) commentParts.push(`Company: ${request.company}`);
         if (request.parts) commentParts.push(`Parts: ${request.parts}`);
         if (request.color) commentParts.push(`Color: ${request.color}`);
-        if (request.shippingAddress)
-          commentParts.push(`Shipping Address: ${request.shippingAddress}`);
+        if (request.shippingMethod)
+          commentParts.push(`Shipping Method: ${request.shippingMethod}`);
+        if (request.paymentMethod)
+          commentParts.push(`Payment Method: ${request.paymentMethod}`);
+
+        const fullShipAddress =
+          [
+            request.streetAddress || request.shippingAddress,
+            request.city,
+            request.state,
+            request.zipCode,
+          ]
+            .filter(Boolean)
+            .join(', ') ||
+          request.shippingAddress ||
+          '';
+        if (fullShipAddress)
+          commentParts.push(`Shipping Address: ${fullShipAddress}`);
+
+        const fullBillAddress = [
+          request.billingStreetAddress,
+          request.billingCity,
+          request.billingState,
+          request.billingZipCode,
+        ]
+          .filter(Boolean)
+          .join(', ');
+        if (fullBillAddress && fullBillAddress !== fullShipAddress) {
+          commentParts.push(`Billing Address: ${fullBillAddress}`);
+        }
+
         const orderComment = commentParts.join(' | ');
 
-        // Parse shipping address into structured fields if provided
-        const shippingPayload = request.shippingAddress
-          ? { address_1: request.shippingAddress }
+        // Construct structured OpenCart shipping and payment addresses
+        const shippingPayload = fullShipAddress
+          ? {
+              firstname,
+              lastname,
+              company: request.company || '',
+              address_1:
+                request.streetAddress ||
+                request.shippingAddress ||
+                fullShipAddress,
+              city: request.city || '',
+              postcode: request.zipCode || '',
+              zone: request.state || '',
+              country_id: 223,
+            }
           : undefined;
+
+        const paymentPayload = {
+          firstname,
+          lastname,
+          company: request.company || '',
+          address_1:
+            request.billingStreetAddress ||
+            request.streetAddress ||
+            request.shippingAddress ||
+            fullShipAddress,
+          city: request.billingCity || request.city || '',
+          postcode: request.billingZipCode || request.zipCode || '',
+          zone: request.billingState || request.state || '',
+          country_id: 223,
+        };
 
         try {
           const createRes = await this.orderAdapter.createOrder({
@@ -156,8 +224,9 @@ export class ReorderService {
               },
             ],
             ...(shippingPayload ? { shipping_address: shippingPayload } : {}),
+            payment_address: paymentPayload,
             comment: orderComment,
-          });
+          } as any);
 
           if (createRes.success && createRes.order) {
             liveOrderId = createRes.order.orderId;
@@ -246,12 +315,16 @@ export class ReorderService {
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Item/Model #</td><td style="padding: 8px; border: 1px solid #ddd;">${request.productId || 'Not specified'}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Quantity</td><td style="padding: 8px; border: 1px solid #ddd;">${request.quantity || 'Not specified'}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Customer Name</td><td style="padding: 8px; border: 1px solid #ddd;">${request.customerName}</td></tr>
+        ${request.company ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company</td><td style="padding: 8px; border: 1px solid #ddd;">${request.company}</td></tr>` : ''}
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Customer Email</td><td style="padding: 8px; border: 1px solid #ddd;">${request.customerEmail}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Customer Phone</td><td style="padding: 8px; border: 1px solid #ddd;">${request.customerPhone || 'Not provided'}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Previous Order ID</td><td style="padding: 8px; border: 1px solid #ddd;">${request.previousOrderId || 'N/A (new order)'}</td></tr>
         ${request.parts ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Parts</td><td style="padding: 8px; border: 1px solid #ddd;">${request.parts}</td></tr>` : ''}
         ${request.color ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Color</td><td style="padding: 8px; border: 1px solid #ddd;">${request.color}</td></tr>` : ''}
-        ${request.shippingAddress ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Shipping Address</td><td style="padding: 8px; border: 1px solid #ddd;">${request.shippingAddress}</td></tr>` : ''}
+        ${request.shippingMethod ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Shipping Method</td><td style="padding: 8px; border: 1px solid #ddd;">${request.shippingMethod}</td></tr>` : ''}
+        ${request.paymentMethod ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Payment Method</td><td style="padding: 8px; border: 1px solid #ddd;">${request.paymentMethod}</td></tr>` : ''}
+        ${request.streetAddress || request.shippingAddress ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Shipping Address</td><td style="padding: 8px; border: 1px solid #ddd;">${[request.streetAddress || request.shippingAddress, request.city, request.state, request.zipCode].filter(Boolean).join(', ')}</td></tr>` : ''}
+        ${request.billingStreetAddress ? `<tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Billing Address</td><td style="padding: 8px; border: 1px solid #ddd;">${[request.billingStreetAddress, request.billingCity, request.billingState, request.billingZipCode].filter(Boolean).join(', ')}</td></tr>` : ''}
         ${skippedHtml}
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Notes</td><td style="padding: 8px; border: 1px solid #ddd;">${request.notes || 'None'}</td></tr>
       </table>
@@ -283,9 +356,13 @@ export class ReorderService {
       <p><strong>Official Order/Reference ID:</strong> #${referenceId}</p>
       <p><strong>Product:</strong> ${request.productName}</p>
       <p><strong>Quantity:</strong> ${request.quantity || '1'}</p>
+      ${request.company ? `<p><strong>Company:</strong> ${request.company}</p>` : ''}
       ${request.parts ? `<p><strong>Parts:</strong> ${request.parts}</p>` : ''}
       ${request.color ? `<p><strong>Color:</strong> ${request.color}</p>` : ''}
-      ${request.shippingAddress ? `<p><strong>Shipping Address:</strong> ${request.shippingAddress}</p>` : ''}
+      ${request.shippingMethod ? `<p><strong>Shipping Method:</strong> ${request.shippingMethod}</p>` : ''}
+      ${request.paymentMethod ? `<p><strong>Payment Method:</strong> ${request.paymentMethod}</p>` : ''}
+      ${request.streetAddress || request.shippingAddress ? `<p><strong>Shipping Address:</strong> ${[request.streetAddress || request.shippingAddress, request.city, request.state, request.zipCode].filter(Boolean).join(', ')}</p>` : ''}
+      ${request.billingStreetAddress ? `<p><strong>Billing Address:</strong> ${[request.billingStreetAddress, request.billingCity, request.billingState, request.billingZipCode].filter(Boolean).join(', ')}</p>` : ''}
       <hr style="border: none; border-top: 1px solid #eee; my: 16px;" />
       <p>Our order processing engine will verify your order options and forward your secure payment link directly to your inbox so you can finalize checkout.</p>
       <p>If you have questions, simply reply to this email or call us at <strong>+1 845-782-5832</strong>.</p>

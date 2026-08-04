@@ -102,6 +102,31 @@ export class ReorderController {
       body?.arguments?.shipping_address ??
       undefined;
 
+    const company =
+      body?.company ?? body?.args?.company ?? body?.arguments?.company ?? undefined;
+    const streetAddress =
+      body?.streetAddress ?? body?.street_address ?? body?.args?.streetAddress ?? body?.arguments?.streetAddress ?? undefined;
+    const city =
+      body?.city ?? body?.args?.city ?? body?.arguments?.city ?? undefined;
+    const state =
+      body?.state ?? body?.args?.state ?? body?.arguments?.state ?? undefined;
+    const zipCode =
+      body?.zipCode ?? body?.zip_code ?? body?.postcode ?? body?.args?.zipCode ?? body?.arguments?.zipCode ?? undefined;
+
+    const billingStreetAddress =
+      body?.billingStreetAddress ?? body?.billing_street_address ?? body?.args?.billingStreetAddress ?? body?.arguments?.billingStreetAddress ?? undefined;
+    const billingCity =
+      body?.billingCity ?? body?.billing_city ?? body?.args?.billingCity ?? body?.arguments?.billingCity ?? undefined;
+    const billingState =
+      body?.billingState ?? body?.billing_state ?? body?.args?.billingState ?? body?.arguments?.billingState ?? undefined;
+    const billingZipCode =
+      body?.billingZipCode ?? body?.billing_zip_code ?? body?.args?.billingZipCode ?? body?.arguments?.billingZipCode ?? undefined;
+
+    const shippingMethod =
+      body?.shippingMethod ?? body?.shipping_method ?? body?.args?.shippingMethod ?? body?.arguments?.shippingMethod ?? undefined;
+    const paymentMethod =
+      body?.paymentMethod ?? body?.payment_method ?? body?.args?.paymentMethod ?? body?.arguments?.paymentMethod ?? undefined;
+
     // Validate required fields
     if (!customerEmail) {
       return {
@@ -135,6 +160,17 @@ export class ReorderController {
       color,
       parts,
       shippingAddress,
+      company,
+      streetAddress,
+      city,
+      state,
+      zipCode,
+      billingStreetAddress,
+      billingCity,
+      billingState,
+      billingZipCode,
+      shippingMethod,
+      paymentMethod,
     });
   }
 }
