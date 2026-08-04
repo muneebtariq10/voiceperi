@@ -226,7 +226,7 @@ export class ProductsService implements OnModuleInit {
           }
 
           const tieredPricingOptions = await this.fetchProductOptionPricing(p.productId);
-          const applicablePromo = this.resolveApplicablePromo(p.category || '', p.name || '');
+          // const applicablePromo = this.resolveApplicablePromo(p.category || '', p.name || '');
 
           return {
             name: p.name,
@@ -238,7 +238,7 @@ export class ProductsService implements OnModuleInit {
             url: p.url || '',
             minimumQuantity: p.minimumQuantity || 1,
             tieredPricingOptions,
-            applicablePromo,
+            // applicablePromo,
             note: p.descriptionTruncated
               ? 'Full product details including available options, colors, and sizes can be found on the product page.'
               : '',
@@ -307,6 +307,7 @@ export class ProductsService implements OnModuleInit {
     }
   }
 
+  /*
   private resolveApplicablePromo(category: string, name: string): string {
     const combined = `${category || ''} ${name || ''}`.toLowerCase();
     if (combined.includes('computer check') || combined.includes('check on top') || combined.includes('quickbooks check') || combined.includes('laser check')) {
@@ -329,6 +330,7 @@ export class ProductsService implements OnModuleInit {
     }
     return 'Check printez.com for current seasonal promotions and volume free-shipping offers!';
   }
+  */
 
   async resolveInternalProductId(
     productIdOrSku?: string,
