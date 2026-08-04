@@ -131,21 +131,73 @@ export class ProductsService implements OnModuleInit {
       if (!cleanQuery) cleanQuery = query.trim();
 
       const queryLower = cleanQuery.toLowerCase();
-      
+
       const stopWords = new Set([
-        'the', 'and', 'for', 'with', 'about', 'details', 'available', 'options', 'option',
-        'item', 'number', 'model', 'sku', 'check', 'checks', 'from', 'please', 'want',
-        'looking', 'show', 'tell', 'need', 'product', 'products', 'price', 'pricing', 'cost',
-        'costs', 'of', 'on', 'my', 'your', 'is', 'are', 'what', 'can', 'you', 'give', 'me',
-        'have', 'do', 'sell', 'carry', 'info', 'regarding', 'at', 'in', 'would', 'like', 'to', 'know'
+        'the',
+        'and',
+        'for',
+        'with',
+        'about',
+        'details',
+        'available',
+        'options',
+        'option',
+        'item',
+        'number',
+        'model',
+        'sku',
+        'check',
+        'checks',
+        'from',
+        'please',
+        'want',
+        'looking',
+        'show',
+        'tell',
+        'need',
+        'product',
+        'products',
+        'price',
+        'pricing',
+        'cost',
+        'costs',
+        'of',
+        'on',
+        'my',
+        'your',
+        'is',
+        'are',
+        'what',
+        'can',
+        'you',
+        'give',
+        'me',
+        'have',
+        'do',
+        'sell',
+        'carry',
+        'info',
+        'regarding',
+        'at',
+        'in',
+        'would',
+        'like',
+        'to',
+        'know',
       ]);
 
       // Step 1: Filter out stop words to isolate critical keywords and potential SKUs
-      const rawWords = queryLower.split(/\s+/).map(t => t.replace(/[^a-z0-9]/gi, '')).filter(t => t.length > 0);
-      const meaningfulWords = rawWords.filter(t => !stopWords.has(t));
+      const rawWords = queryLower
+        .split(/\s+/)
+        .map((t) => t.replace(/[^a-z0-9]/gi, ''))
+        .filter((t) => t.length > 0);
+      const meaningfulWords = rawWords.filter((t) => !stopWords.has(t));
 
       // Step 2: Collapse separated single characters (e.g. ['d', 'l', 'd', '1', '0', '3'] -> 'dld103')
-      let collapsedCode = meaningfulWords.join('').replace(/dld103/g, 'dlt103').replace(/dld/g, 'dlt');
+      const collapsedCode = meaningfulWords
+        .join('')
+        .replace(/dld103/g, 'dlt103')
+        .replace(/dld/g, 'dlt');
 
       const tokens: string[] = [];
       for (const w of meaningfulWords) {
@@ -156,7 +208,9 @@ export class ProductsService implements OnModuleInit {
       }
 
       // Check if the query clearly targets an alphanumeric SKU/model code (e.g. DLT103, TP0069)
-      const targetSku = tokens.find(t => t.length >= 4 && (/\d/.test(t) || t === 'dlt103'));
+      const targetSku = tokens.find(
+        (t) => t.length >= 4 && (/\d/.test(t) || t === 'dlt103'),
+      );
 
       const scoredProducts = catalog
         .map((p) => {
@@ -167,14 +221,21 @@ export class ProductsService implements OnModuleInit {
           const category = (p.category || '').toLowerCase();
           const desc = (p.description || '').toLowerCase();
 
-          const allIdentifiers = `${id} ${sku} ${name}`.split(/\s+/).map(w => w.replace(/[^a-z0-9]/gi, '')).filter(Boolean);
+          const allIdentifiers = `${id} ${sku} ${name}`
+            .split(/\s+/)
+            .map((w) => w.replace(/[^a-z0-9]/gi, ''))
+            .filter(Boolean);
 
           let isExactSku = false;
 
           // Check against all tokens of product identifiers
           if (targetSku) {
             for (const ident of allIdentifiers) {
-              if (ident === targetSku || (ident.length >= 4 && this.getEditDistance(ident, targetSku) <= 1)) {
+              if (
+                ident === targetSku ||
+                (ident.length >= 4 &&
+                  this.getEditDistance(ident, targetSku) <= 1)
+              ) {
                 isExactSku = true;
                 score += 10000;
                 break;
@@ -186,7 +247,11 @@ export class ProductsService implements OnModuleInit {
           for (const token of tokens) {
             if (id === token || sku === token) score += 40;
             else if (id.includes(token) || sku.includes(token)) score += 25;
-            else if (token.length >= 3 && (id.startsWith(token.slice(0, 3)) || sku.startsWith(token.slice(0, 3)))) {
+            else if (
+              token.length >= 3 &&
+              (id.startsWith(token.slice(0, 3)) ||
+                sku.startsWith(token.slice(0, 3)))
+            ) {
               score += 15;
             }
             if (name.includes(token)) score += 15;
@@ -201,8 +266,13 @@ export class ProductsService implements OnModuleInit {
 
       // EXACT SKU ISOLATION RULE:
       // If the caller inquired about a specific item number or model (exact SKU match), return ONLY that exact product!
-      const exactMatches = scoredProducts.filter((i) => i.isExactSku || i.score >= 5000);
-      const candidates = exactMatches.length > 0 ? exactMatches.slice(0, 1) : scoredProducts.slice(0, 3);
+      const exactMatches = scoredProducts.filter(
+        (i) => i.isExactSku || i.score >= 5000,
+      );
+      const candidates =
+        exactMatches.length > 0
+          ? exactMatches.slice(0, 1)
+          : scoredProducts.slice(0, 3);
 
       const topResults = await Promise.all(
         candidates.map(async (item) => {
@@ -225,7 +295,9 @@ export class ProductsService implements OnModuleInit {
             cleanDesc = cleanDesc.substring(0, 350) + '...';
           }
 
-          const tieredPricingOptions = await this.fetchProductOptionPricing(p.productId);
+          const tieredPricingOptions = await this.fetchProductOptionPricing(
+            p.productId,
+          );
           // const applicablePromo = this.resolveApplicablePromo(p.category || '', p.name || '');
 
           return {
@@ -290,7 +362,10 @@ export class ProductsService implements OnModuleInit {
         if (Array.isArray(opt.values) && opt.values.length > 0) {
           const tiers = opt.values
             .slice(0, 6)
-            .map((v: any) => `${v.name || v.quantity || ''} for $${Number(v.price || 0).toFixed(2)}`)
+            .map(
+              (v: any) =>
+                `${v.name || v.quantity || ''} for $${Number(v.price || 0).toFixed(2)}`,
+            )
             .filter((s: string) => !s.startsWith(' for '))
             .join(', ');
           if (tiers) {
@@ -302,7 +377,9 @@ export class ProductsService implements OnModuleInit {
         ? `Tiered Option Pricing: ${summaries.join(' | ')}`
         : 'Standard catalog pricing applies.';
     } catch (err) {
-      this.logger.warn(`Failed fetching option pricing for product ${productId}: ${err?.message}`);
+      this.logger.warn(
+        `Failed fetching option pricing for product ${productId}: ${err?.message}`,
+      );
       return 'Standard catalog pricing applies.';
     }
   }
