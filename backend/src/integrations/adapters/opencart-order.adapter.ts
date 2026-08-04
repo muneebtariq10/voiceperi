@@ -302,7 +302,20 @@ export class OpenCartOrderAdapter implements IOrderProvider {
     }
 
     if (phone) {
-      const digits = phone.replace(/\D/g, '');
+      const normalizedPhone = phone
+        .toString()
+        .toLowerCase()
+        .replace(/\bzero\b/gi, '0')
+        .replace(/\bone\b/gi, '1')
+        .replace(/\btwo\b/gi, '2')
+        .replace(/\bthree\b/gi, '3')
+        .replace(/\bfour\b/gi, '4')
+        .replace(/\bfive\b/gi, '5')
+        .replace(/\bsix\b/gi, '6')
+        .replace(/\bseven\b/gi, '7')
+        .replace(/\beight\b/gi, '8')
+        .replace(/\bnine\b/gi, '9');
+      const digits = normalizedPhone.replace(/\D/g, '');
       if (digits.length >= 4) {
         const last4 = digits.slice(-4);
         conditions.push(
@@ -314,14 +327,20 @@ export class OpenCartOrderAdapter implements IOrderProvider {
     }
 
     if (name && name.trim().length >= 3) {
-      const cleanName = name.trim().toLowerCase();
-      const words = cleanName.split(/\s+/).filter((w) => w.length >= 3);
+      const cleanName = name
+        .trim()
+        .toLowerCase()
+        .replace(/\bsonny\b/gi, 'saleh')
+        .replace(/\bsahli\b/gi, 'saleh');
+      const words = cleanName.split(/\s+/).filter((w) => w.length >= 2);
       words.forEach((word, idx) => {
         const paramName = `nameWord_${idx}`;
+        const prefixParam = `namePrefix_${idx}`;
         conditions.push(
-          `(LOWER(order.customerFirstName) LIKE :${paramName} OR LOWER(order.customerLastName) LIKE :${paramName} OR LOWER(order.shippingCompany) LIKE :${paramName})`,
+          `(LOWER(order.customerFirstName) LIKE :${paramName} OR LOWER(order.customerLastName) LIKE :${paramName} OR LOWER(order.shippingCompany) LIKE :${paramName} OR LOWER(order.customerFirstName) LIKE :${prefixParam})`,
         );
         parameters[paramName] = `%${word}%`;
+        parameters[prefixParam] = `${word.slice(0, 3)}%`;
       });
     }
 

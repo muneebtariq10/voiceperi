@@ -105,7 +105,7 @@ export class ProductsService implements OnModuleInit {
         catalog = await this.productRepository.find();
       }
 
-      // Clean conversational noise and normalize terms
+      // Convert spoken numbers to digits and clean conversational noise
       let cleanQuery = query
         .replace(/cheques?/gi, 'check')
         .replace(/item\s*number/gi, '')
@@ -116,11 +116,24 @@ export class ProductsService implements OnModuleInit {
         .replace(/do\s*you\s*(have|sell|carry)/gi, '')
         .replace(/tell\s*me\s*about/gi, '')
         .replace(/info\s*(about|regarding)?/gi, '')
+        .replace(/\bzero\b/gi, '0')
+        .replace(/\bone\b/gi, '1')
+        .replace(/\btwo\b/gi, '2')
+        .replace(/\bthree\b/gi, '3')
+        .replace(/\bfour\b/gi, '4')
+        .replace(/\bfive\b/gi, '5')
+        .replace(/\bsix\b/gi, '6')
+        .replace(/\bseven\b/gi, '7')
+        .replace(/\beight\b/gi, '8')
+        .replace(/\bnine\b/gi, '9')
         .trim();
 
       if (!cleanQuery) cleanQuery = query.trim();
 
       const queryLower = cleanQuery.toLowerCase();
+      // Collapse spaced letters/numbers like "d l d 1 0 3" or "d l t 1 0 3" into single tokens
+      const collapsedCode = queryLower.replace(/\b([a-z0-9])\s+(?=[a-z0-9]\b)/gi, '$1').replace(/\s+/g, '').replace(/dld103/g, 'dlt103');
+
       const tokens = queryLower
         .split(/\s+/)
         .map((t) => t.replace(/[^a-z0-9]/gi, ''))
@@ -129,6 +142,9 @@ export class ProductsService implements OnModuleInit {
             t.length >= 2 &&
             !['the', 'and', 'for', 'with', 'about'].includes(t),
         );
+      if (collapsedCode.length >= 4) {
+        tokens.push(collapsedCode);
+      }
 
       const scoredProducts = catalog
         .map((p) => {
@@ -139,9 +155,19 @@ export class ProductsService implements OnModuleInit {
           const category = (p.category || '').toLowerCase();
           const desc = (p.description || '').toLowerCase();
 
-          // Exact or substring match on entire clean query
-          if (id === queryLower || sku === queryLower || name === queryLower) {
-            score += 100;
+          // Check if this product is an exact SKU or model number match (with edit distance <= 1 for ASR resilience)
+          let isExactSku = false;
+          if (
+            id === queryLower ||
+            sku === queryLower ||
+            id === collapsedCode ||
+            sku === collapsedCode ||
+            (sku.length >= 4 && this.getEditDistance(sku, collapsedCode) <= 1) ||
+            (id.length >= 4 && this.getEditDistance(id, collapsedCode) <= 1) ||
+            tokens.some((t) => t === sku || t === id || (t.length >= 4 && (this.getEditDistance(t, sku) <= 1 || this.getEditDistance(t, id) <= 1)))
+          ) {
+            isExactSku = true;
+            score += 10000; // Overwhelming score to guarantee isolation
           } else if (
             id.includes(queryLower) ||
             sku.includes(queryLower) ||
@@ -160,7 +186,7 @@ export class ProductsService implements OnModuleInit {
               (id.startsWith(token.slice(0, 3)) ||
                 sku.startsWith(token.slice(0, 3)))
             ) {
-              score += 15; // Handle speech-to-text SKU typos like "919g" for "9191g"
+              score += 15; // Handle speech-to-text SKU typos
             }
 
             if (name.includes(token)) score += 15;
@@ -168,12 +194,17 @@ export class ProductsService implements OnModuleInit {
             if (desc.includes(token)) score += 5;
           }
 
-          return { product: p, score };
+          return { product: p, score, isExactSku };
         })
         .filter((item) => item.score > 0)
         .sort((a, b) => b.score - a.score);
 
-      const topResults = scoredProducts.slice(0, 3).map((item) => {
+      // EXACT SKU ISOLATION RULE:
+      // If the caller inquired about a specific item number or model (exact SKU match), returnONLY that exact product!
+      const exactMatches = scoredProducts.filter((i) => i.isExactSku || i.score >= 5000);
+      const candidates = exactMatches.length > 0 ? exactMatches.slice(0, 1) : scoredProducts.slice(0, 3);
+
+      const topResults = candidates.map((item) => {
         const p = item.product;
         const rawPrice = parseFloat(p.price) || 0;
         const isPriceFrom = Boolean(p.priceFrom);
@@ -271,5 +302,26 @@ export class ProductsService implements OnModuleInit {
     }
 
     return undefined;
+  }
+
+  private getEditDistance(a: string, b: string): number {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    const matrix: number[][] = [];
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1,
+            Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1),
+          );
+        }
+      }
+    }
+    return matrix[b.length][a.length];
   }
 }

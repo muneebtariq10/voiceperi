@@ -162,7 +162,7 @@ export class OrdersImportService implements OnModuleInit {
         // Save phone last 4 digits for verification
         const phone = record.customer?.telephone;
         if (phone) {
-          const digits = phone.replace(/\\D/g, '');
+          const digits = phone.replace(/\D/g, '');
           order.customerPhoneLast4 =
             digits.length >= 4 ? digits.slice(-4) : digits;
         }
@@ -170,7 +170,7 @@ export class OrdersImportService implements OnModuleInit {
         const postcode = record.shipping_address?.postcode;
         if (postcode) {
           order.shippingPostcodeNormalized = postcode
-            .replace(/\\s/g, '')
+            .replace(/\s/g, '')
             .toUpperCase();
         }
 

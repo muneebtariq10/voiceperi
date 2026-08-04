@@ -554,7 +554,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'capture_reorder',
         description:
-          'Captures a customer brand new order or reorder request for any catalog product (e.g., forms, receipts, checks). Call this after collecting the product name, options (parts, color, quantity), customer name, email, and shipping address. Instantly creates a live order and triggers a checkout confirmation email.',
+          "Captures a brand new order or repeat reorder request. CRITICAL CONSTRAINT: You are strictly forbidden from executing this tool immediately after gathering customer details! You MUST first recite a complete verbal summary of all order details and wait for explicit customer approval ('Yes', 'Correct') in a separate conversation turn BEFORE calling this tool!",
         url: this.getReorderUrl(),
         parameters: {
           type: 'object',
@@ -867,12 +867,19 @@ export class AgentsService implements OnApplicationBootstrap {
     return [
       'PrintEZ',
       'DLT103',
+      'DLT104',
+      'SDLT159',
       'MICR',
       'VersaCheck',
       'Peachtree',
       'QuickBooks',
       'Muneeb',
       'Tariq',
+      'Saleh',
+      'Ahmed',
+      'Khurram',
+      'NVT',
+      'Square',
       'Carbonless',
       'Incomplete',
       'Reorder',
@@ -1229,7 +1236,7 @@ export class AgentsService implements OnApplicationBootstrap {
         type: 'custom',
         name: 'capture_reorder',
         description:
-          'Captures a customer brand new order or reorder request for any catalog product (e.g., forms, receipts, checks). Call this after collecting the product name, options (parts, color, quantity), customer name, email, and shipping address. Instantly creates a live order and triggers a checkout confirmation email.',
+          "Captures a brand new order or repeat reorder request. CRITICAL CONSTRAINT: You are strictly forbidden from executing this tool immediately after gathering customer details! You MUST first recite a complete verbal summary of all order details and wait for explicit customer approval ('Yes', 'Correct') in a separate conversation turn BEFORE calling this tool!",
         url: this.getReorderUrl(),
         parameters: {
           type: 'object',
