@@ -295,10 +295,8 @@ export class ProductsService implements OnModuleInit {
             cleanDesc = cleanDesc.substring(0, 350) + '...';
           }
 
-          const tieredPricingOptions = await this.fetchProductOptionPricing(
-            p.productId,
-          );
-          // const applicablePromo = this.resolveApplicablePromo(p.category || '', p.name || '');
+          const liveDetails = await this.fetchLiveProductOptions(p.productId);
+          const minQty = liveDetails.minQuantity || p.minimumQuantity || (p.category?.toLowerCase().includes('check') || p.category?.toLowerCase().includes('form') ? 100 : 1);
 
           return {
             name: p.name,
@@ -308,9 +306,15 @@ export class ProductsService implements OnModuleInit {
             sku: p.sku || p.productId,
             description: cleanDesc,
             url: p.url || '',
-            minimumQuantity: p.minimumQuantity || 1,
-            tieredPricingOptions,
-            // applicablePromo,
+            minimumOrderQuantity: minQty,
+            availableQuantities:
+              liveDetails.availableQuantities.length > 0
+                ? liveDetails.availableQuantities
+                : [100, 250, 500, 1000, 2000],
+            availableOptions: liveDetails.availableOptions,
+            tieredPricingOptions: liveDetails.tieredPricingOptions,
+            agentInstruction:
+              'CRITICAL GUARDRAIL: You must strictly enforce the minimumOrderQuantity and availableQuantities/availableOptions. If the user asks for a quantity or option NOT listed above (e.g. asking for 5 or 50 checks when min is 100), DO NOT add it. Politely state that the requested quantity or option is unavailable, and clearly present the allowable choices.',
             note: p.descriptionTruncated
               ? 'Full product details including available options, colors, and sizes can be found on the product page.'
               : '',
@@ -328,7 +332,7 @@ export class ProductsService implements OnModuleInit {
 
       return {
         success: true,
-        message: `Found ${topResults.length} matching product(s) in the PrintEZ catalog for "${query}". Each result includes a direct product page link where the customer can see all available options, colors, and sizes.`,
+        message: `Found ${topResults.length} matching product(s) in the PrintEZ catalog for "${query}". Each result includes exact available lot quantities, minimum order thresholds, and customization options directly from our live catalog API.`,
         products: topResults,
       };
     } catch (error) {
@@ -340,8 +344,19 @@ export class ProductsService implements OnModuleInit {
     }
   }
 
-  private async fetchProductOptionPricing(productId: string): Promise<string> {
-    if (!productId) return 'Standard catalog pricing applies.';
+  private async fetchLiveProductOptions(productId: string): Promise<{
+    tieredPricingOptions: string;
+    availableOptions: string[];
+    availableQuantities: number[];
+    minQuantity?: number;
+  }> {
+    const fallback = {
+      tieredPricingOptions: 'Standard catalog pricing applies.',
+      availableOptions: [],
+      availableQuantities: [],
+      minQuantity: undefined,
+    };
+    if (!productId) return fallback;
     try {
       const res = await fetch(
         `https://www.printez.com/index.php?route=agentapi/product|get&product_id=${productId}`,
@@ -352,20 +367,28 @@ export class ProductsService implements OnModuleInit {
           },
         },
       );
-      if (!res.ok) return 'Standard catalog pricing applies.';
+      if (!res.ok) return fallback;
       const data: any = await res.json();
       if (!data?.product?.options || !Array.isArray(data.product.options)) {
-        return 'Standard catalog pricing applies.';
+        return fallback;
       }
+
       const summaries: string[] = [];
+      const optionNames: string[] = [];
+      const quantitySet = new Set<number>();
+
       for (const opt of data.product.options) {
+        if (opt.name) optionNames.push(String(opt.name));
         if (Array.isArray(opt.values) && opt.values.length > 0) {
           const tiers = opt.values
-            .slice(0, 6)
-            .map(
-              (v: any) =>
-                `${v.name || v.quantity || ''} for $${Number(v.price || 0).toFixed(2)}`,
-            )
+            .slice(0, 8)
+            .map((v: any) => {
+              const qty = Number(v.quantity || v.name);
+              if (!isNaN(qty) && qty > 0 && Number.isInteger(qty)) {
+                quantitySet.add(qty);
+              }
+              return `${v.name || v.quantity || ''} for $${Number(v.price || 0).toFixed(2)}`;
+            })
             .filter((s: string) => !s.startsWith(' for '))
             .join(', ');
           if (tiers) {
@@ -373,14 +396,25 @@ export class ProductsService implements OnModuleInit {
           }
         }
       }
-      return summaries.length > 0
-        ? `Tiered Option Pricing: ${summaries.join(' | ')}`
-        : 'Standard catalog pricing applies.';
+
+      const sortedQuantities = Array.from(quantitySet).sort((a, b) => a - b);
+      const computedMin =
+        sortedQuantities.length > 0 ? sortedQuantities[0] : undefined;
+
+      return {
+        tieredPricingOptions:
+          summaries.length > 0
+            ? `Tiered Option Pricing & Lot Sizes: ${summaries.join(' | ')}`
+            : 'Standard catalog pricing applies.',
+        availableOptions: optionNames,
+        availableQuantities: sortedQuantities,
+        minQuantity: computedMin,
+      };
     } catch (err) {
       this.logger.warn(
-        `Failed fetching option pricing for product ${productId}: ${err?.message}`,
+        `Failed fetching live options for product ${productId}: ${err?.message}`,
       );
-      return 'Standard catalog pricing applies.';
+      return fallback;
     }
   }
 

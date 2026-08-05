@@ -25,14 +25,14 @@ async function testOpenCartPayloads() {
     },
     products: [
       {
-        product_id: 24019, // Purchase Order Book
-        quantity: 5,
-        price: 45.00,
-        total: 225.00,
+        product_id: 24019, // Purchase Order Book (GEN0087)
+        quantity: 100,
+        price: 85.99,
+        total: 85.99,
         options: [
-          { name: 'Parts', value: '3-Part', option_name: 'Parts', option_value: '3-Part', type: 'select' }
+          { name: '2-Parts/Duplicate', value: '100', option_name: '2-Parts/Duplicate', option_value: '100', type: 'select' }
         ],
-        parts: '3-Part'
+        parts: '2-Parts/Duplicate'
       }
     ],
     shipping_address: {
@@ -55,12 +55,12 @@ async function testOpenCartPayloads() {
     payment_method: 'Credit Card',
     ip: '198.51.100.42',
     user_agent: 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
-    comment: 'Estimated Total: $225.00 (5 unit(s) @ $45.00) | Company: Vance Industries | Parts: 3-Part | Shipping Method: Ground | Payment Method: Credit Card | Shipping Address: 100 Innovation Way, Austin, Texas, 78701',
-    sub_total: 225.00,
-    total: 225.00,
+    comment: 'Estimated Total: $85.99 (100 unit lot @ $85.99) | Company: Vance Industries | Parts: 2-Parts/Duplicate | Shipping Method: Ground | Payment Method: Credit Card | Shipping Address: 100 Innovation Way, Austin, Texas, 78701',
+    sub_total: 85.99,
+    total: 85.99,
     totals: [
-      { code: 'sub_total', title: 'Sub-Total', value: 225.00, sort_order: 1 },
-      { code: 'total', title: 'Total', value: 225.00, sort_order: 2 }
+      { code: 'sub_total', title: 'Sub-Total', value: 85.99, sort_order: 1 },
+      { code: 'total', title: 'Total', value: 85.99, sort_order: 2 }
     ]
   };
 
