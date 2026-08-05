@@ -78,6 +78,9 @@ export class ReorderService {
           request.previousOrderId,
           request.notes ||
             `Reorder via AI voice concierge for ${request.productName}`,
+          undefined,
+          request.ip,
+          request.userAgent,
         );
 
         if (reorderRes.success && reorderRes.order) {
@@ -184,8 +187,10 @@ export class ReorderService {
         }
 
         const orderComment = commentParts.join(' | ');
+        const cleanShippingMethod = request.shippingMethod || 'Ground';
+        const cleanPaymentMethod = request.paymentMethod || 'Credit Card';
 
-        // Construct structured OpenCart shipping and payment addresses
+        // Construct structured OpenCart shipping and payment addresses with embedded method names
         const shippingPayload = fullShipAddress
           ? {
               firstname,
@@ -199,6 +204,7 @@ export class ReorderService {
               postcode: request.zipCode || '',
               zone: request.state || '',
               country_id: 223,
+              shipping_method: cleanShippingMethod,
             }
           : undefined;
 
@@ -215,10 +221,9 @@ export class ReorderService {
           postcode: request.billingZipCode || request.zipCode || '',
           zone: request.billingState || request.state || '',
           country_id: 223,
+          payment_method: cleanPaymentMethod,
         };
 
-        const cleanShippingMethod = request.shippingMethod || 'Ground';
-        const cleanPaymentMethod = request.paymentMethod || 'Credit Card';
         const numericQuantity =
           request.quantity && request.quantity > 0
             ? Number(request.quantity)
@@ -229,17 +234,35 @@ export class ReorderService {
             : parseInt(String(request.previousOrderId).replace(/\D/g, ''), 10)
           : undefined;
 
-        // Build rich product options array so OpenCart records parts, color, and customization notes
-        const productOptions: Array<{ name: string; value: string }> = [];
-        if (request.parts)
-          productOptions.push({ name: 'Parts', value: String(request.parts) });
-        if (request.color)
-          productOptions.push({ name: 'Color', value: String(request.color) });
-        if (request.notes)
+        // Build rich product options array with dual-key representation so OpenCart records options in oc_order_option
+        const productOptions: Array<Record<string, any>> = [];
+        if (request.parts) {
+          productOptions.push({
+            name: 'Parts',
+            value: String(request.parts),
+            option_name: 'Parts',
+            option_value: String(request.parts),
+            type: 'select',
+          });
+        }
+        if (request.color) {
+          productOptions.push({
+            name: 'Color',
+            value: String(request.color),
+            option_name: 'Color',
+            option_value: String(request.color),
+            type: 'select',
+          });
+        }
+        if (request.notes) {
           productOptions.push({
             name: 'Customization Notes',
             value: String(request.notes),
+            option_name: 'Customization Notes',
+            option_value: String(request.notes),
+            type: 'text',
           });
+        }
 
         try {
           const createRes = await this.orderAdapter.createOrder({

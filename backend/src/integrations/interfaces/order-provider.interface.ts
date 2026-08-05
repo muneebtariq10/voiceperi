@@ -176,6 +176,8 @@ export interface IOrderProvider {
     sourceOrderId: number | string,
     comment?: string,
     customerId?: number,
+    ip?: string,
+    userAgent?: string,
   ): Promise<ReorderOperationResult>;
 
   /**

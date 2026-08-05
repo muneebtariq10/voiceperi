@@ -180,6 +180,8 @@ export class OpenCartOrderAdapter implements IOrderProvider {
     sourceOrderId: number | string,
     comment?: string,
     customerId?: number,
+    ip?: string,
+    userAgent?: string,
   ): Promise<ReorderOperationResult> {
     const numericSourceId =
       typeof sourceOrderId === 'number'
@@ -194,6 +196,8 @@ export class OpenCartOrderAdapter implements IOrderProvider {
       source_order_id: numericSourceId,
       comment:
         comment || 'Repeat order placed via VoicePeri AI voice concierge',
+      ip: ip || '127.0.0.1',
+      user_agent: userAgent || 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
     };
 
     if (customerId && !isNaN(customerId)) {
