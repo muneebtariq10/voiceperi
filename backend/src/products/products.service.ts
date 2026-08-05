@@ -446,6 +446,44 @@ export class ProductsService implements OnModuleInit {
     return undefined;
   }
 
+  async resolveProductPricing(
+    productIdOrSku?: string,
+    productName?: string,
+  ): Promise<{ id?: number; price?: number; name?: string }> {
+    const res: { id?: number; price?: number; name?: string } = {};
+    if (productIdOrSku && /^\d{4,6}$/.test(String(productIdOrSku).trim())) {
+      const directId = parseInt(String(productIdOrSku).trim(), 10);
+      if (!isNaN(directId) && directId > 0) res.id = directId;
+    }
+
+    const queries: string[] = [];
+    if (productIdOrSku && String(productIdOrSku).trim() !== '') {
+      queries.push(String(productIdOrSku).trim());
+    }
+    if (productName && String(productName).trim() !== '') {
+      queries.push(String(productName).trim());
+    }
+
+    for (const q of queries) {
+      const result = await this.lookupProduct(q);
+      if (result.success && result.products && result.products.length > 0) {
+        for (const p of result.products) {
+          if (p.productId && !isNaN(parseInt(String(p.productId), 10))) {
+            const resolvedId = parseInt(String(p.productId), 10);
+            if (resolvedId > 0) {
+              if (!res.id) res.id = resolvedId;
+              res.name = p.name;
+              const rawPrice = parseFloat(p.price);
+              if (!isNaN(rawPrice) && rawPrice > 0) res.price = rawPrice;
+              return res;
+            }
+          }
+        }
+      }
+    }
+    return res;
+  }
+
   private getEditDistance(a: string, b: string): number {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;

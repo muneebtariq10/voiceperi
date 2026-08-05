@@ -113,14 +113,17 @@ export class ReorderService {
     // 2. If it is a new order, modified reorder, or if reorderPastOrder fallback was triggered, execute Live Order Insertion (agentapi/order|insert)
     if (!liveReorderSucceeded) {
       let numericProductId: number | undefined;
+      let catalogUnitPrice: number | undefined;
       try {
-        numericProductId = await this.productsService.resolveInternalProductId(
+        const pricingRes = await this.productsService.resolveProductPricing(
           request.productId,
           request.productName,
         );
+        numericProductId = pricingRes.id;
+        catalogUnitPrice = pricingRes.price;
       } catch (err) {
         this.logger.warn(
-          `Failed resolving product ID for ${request.productId}: ${err?.message}`,
+          `Failed resolving product ID/pricing for ${request.productId}: ${err?.message}`,
         );
       }
 
@@ -138,6 +141,17 @@ export class ReorderService {
           `🛒 Resolved OpenCart Product ID (${numericProductId}) for "${request.productName || request.productId}"! Executing live PrintEZ Agent Order Insertion API...`,
         );
 
+        const numericQuantity =
+          request.quantity && request.quantity > 0
+            ? Number(request.quantity)
+            : 1;
+
+        // Calculate checkout pricing estimations
+        let calcTotal: number | undefined = undefined;
+        if (catalogUnitPrice && catalogUnitPrice > 0) {
+          calcTotal = Number((catalogUnitPrice * numericQuantity).toFixed(2));
+        }
+
         // PrintEZ requires firstname and lastname when creating a new customer account via email
         const nameParts = (request.customerName || 'Valued Customer')
           .trim()
@@ -146,12 +160,17 @@ export class ReorderService {
         const lastname =
           nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'Order';
 
-        // Build comprehensive order comment with all collected details
+        // Build comprehensive order comment with all collected details and calculated checkout pricing
         const commentParts: string[] = [];
         commentParts.push(
           request.notes ||
             `Phone order placed by AI concierge for ${request.productName}`,
         );
+        if (calcTotal !== undefined && catalogUnitPrice !== undefined) {
+          commentParts.push(
+            `Estimated Total: $${calcTotal.toFixed(2)} (${numericQuantity} unit(s) @ $${catalogUnitPrice.toFixed(2)})`,
+          );
+        }
         if (request.company) commentParts.push(`Company: ${request.company}`);
         if (request.parts) commentParts.push(`Parts: ${request.parts}`);
         if (request.color) commentParts.push(`Color: ${request.color}`);
@@ -224,10 +243,6 @@ export class ReorderService {
           payment_method: cleanPaymentMethod,
         };
 
-        const numericQuantity =
-          request.quantity && request.quantity > 0
-            ? Number(request.quantity)
-            : 1;
         const numericPreviousId = request.previousOrderId
           ? typeof request.previousOrderId === 'number'
             ? request.previousOrderId
@@ -276,6 +291,9 @@ export class ReorderService {
               {
                 product_id: numericProductId,
                 quantity: numericQuantity,
+                ...(catalogUnitPrice !== undefined
+                  ? { price: catalogUnitPrice, total: calcTotal }
+                  : {}),
                 options: productOptions,
                 parts: request.parts || undefined,
                 color: request.color || undefined,
@@ -285,6 +303,26 @@ export class ReorderService {
             payment_address: paymentPayload,
             shipping_method: cleanShippingMethod,
             payment_method: cleanPaymentMethod,
+            ...(calcTotal !== undefined
+              ? {
+                  sub_total: calcTotal,
+                  total: calcTotal,
+                  totals: [
+                    {
+                      code: 'sub_total',
+                      title: 'Sub-Total',
+                      value: calcTotal,
+                      sort_order: 1,
+                    },
+                    {
+                      code: 'total',
+                      title: 'Total',
+                      value: calcTotal,
+                      sort_order: 2,
+                    },
+                  ],
+                }
+              : {}),
             ip: request.ip || '127.0.0.1',
             user_agent:
               request.userAgent ||
@@ -302,9 +340,13 @@ export class ReorderService {
           if (createRes.success && createRes.order) {
             liveOrderId = createRes.order.orderId;
             referenceId = String(liveOrderId);
+            const priceText =
+              calcTotal !== undefined
+                ? ` with an estimated total of $${calcTotal.toFixed(2)} (${numericQuantity} @ $${catalogUnitPrice?.toFixed(2)} each)`
+                : '';
             customMessage = request.previousOrderId
-              ? `Great news! Your repeat order (based on previous order #${request.previousOrderId}) has been registered in our live PrintEZ catalog under official Order ID #${liveOrderId}. Your pricing and tax are being computed by our checkout engine, and our team will email your secure checkout link to ${request.customerEmail}!`
-              : `Excellent! Your order for ${request.productName} has been directly registered in our live PrintEZ catalog under official Order ID #${liveOrderId}. Your pricing and tax are being computed by our checkout engine, and our team will email your secure checkout link to ${request.customerEmail}!`;
+              ? `Great news! Your repeat order (based on previous order #${request.previousOrderId}) has been registered in our live PrintEZ catalog under official Order ID #${liveOrderId}${priceText}. Our team will email your secure checkout link directly to ${request.customerEmail}!`
+              : `Excellent! Your order for ${request.productName} has been directly registered in our live PrintEZ catalog under official Order ID #${liveOrderId}${priceText}. Our team will email your secure checkout link directly to ${request.customerEmail}!`;
             this.logger.log(
               `🎉 Live New Order insertion successful! Generated Order ID: ${liveOrderId} (Reorder Source: ${numericPreviousId || 'none'})`,
             );
