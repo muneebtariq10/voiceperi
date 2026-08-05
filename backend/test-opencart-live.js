@@ -14,19 +14,20 @@ async function testOpenCartPayloads() {
     'Content-Type': 'application/json'
   };
 
-  const testEmail = `alex.vance.${Date.now()}@printez-test.com`;
+  const testEmail = 'salehahmedkhurram@gmail.com';
 
   const payload = {
     customer: {
-      firstname: 'Alexander',
-      lastname: 'Vance',
+      customer_id: 16667,
+      firstname: 'Saleh',
+      lastname: 'Ahmed',
       email: testEmail,
-      telephone: '555-8899'
+      telephone: '03234387187'
     },
     products: [
       {
         product_id: 24030, // Statement, Unlined (GEN0495)
-        quantity: 100,
+        quantity: 1, // MUST BE 1 (represents 1 lot/package of the option tier below)
         price: 55.99,
         total: 55.99,
         options: [
@@ -37,18 +38,18 @@ async function testOpenCartPayloads() {
       }
     ],
     shipping_address: {
-      firstname: 'Alexander', lastname: 'Vance',
-      company: 'Vance Industries',
-      address_1: '100 Innovation Way',
-      city: 'Austin', postcode: '78701', zone: 'Texas',
+      firstname: 'Saleh', lastname: 'Ahmed',
+      company: 'NVT',
+      address_1: '388 N Phase 6 DHA',
+      city: '54000', postcode: '54000', zone: 'Ohio',
       country_id: 223,
       shipping_method: 'Ground'
     },
     payment_address: {
-      firstname: 'Alexander', lastname: 'Vance',
-      company: 'Vance Industries',
-      address_1: '100 Innovation Way',
-      city: 'Austin', postcode: '78701', zone: 'Texas',
+      firstname: 'Saleh', lastname: 'Ahmed',
+      company: 'NVT',
+      address_1: '139 Hunza',
+      city: '54000', postcode: '54000', zone: 'Ohio',
       country_id: 223,
       payment_method: 'Credit Card'
     },
@@ -56,7 +57,7 @@ async function testOpenCartPayloads() {
     payment_method: 'Credit Card',
     ip: '198.51.100.42',
     user_agent: 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
-    comment: 'Estimated Total: $55.99 (100 unit lot @ $55.99) | Company: Vance Industries | Parts: 2 Part | Shipping Method: Ground | Payment Method: Credit Card | Shipping Address: 100 Innovation Way, Austin, Texas, 78701',
+    comment: 'Estimated Total: $55.99 (1 package of 100-unit option @ $55.99) | Company: NVT | Parts: 2 Part | Shipping Method: Ground | Payment Method: Credit Card',
     sub_total: 55.99,
     total: 55.99,
     totals: [
