@@ -23,6 +23,7 @@ import { Buffer } from 'buffer';
 import { BusinessinfosService } from 'src/businessinfos/businessinfos.service';
 import { readFile } from 'fs/promises';
 
+// Core service responsible for managing AI agent lifecycle, tool binding, and synchronization with Retell AI
 export interface PlaceDetailsResult {
   place_id: string;
   name: string;
