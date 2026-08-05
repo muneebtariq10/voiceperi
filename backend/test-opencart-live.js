@@ -30,7 +30,8 @@ async function testOpenCartPayloads() {
         price: 85.99,
         total: 85.99,
         options: [
-          { name: '2-Parts/Duplicate', value: '100', option_name: '2-Parts/Duplicate', option_value: '100', type: 'select' }
+          { name: '2-Parts/Duplicate', value: '2218568', product_option_id: 155149, product_option_value_id: 2218568, type: 'select' },
+          { name: '3-Parts/Triplicate', value: '2218573', product_option_id: 155150, product_option_value_id: 2218573, type: 'select' }
         ],
         parts: '2-Parts/Duplicate'
       }
