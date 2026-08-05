@@ -1484,17 +1484,33 @@ export class AgentsService implements OnApplicationBootstrap {
       body.begin_message = agent.message;
     }
 
-    const updateRes = await firstValueFrom(
-      this.httpService.patch(
-        `${process.env.RETELL_AI_API_URL}update-retell-llm/${agent.llm_id}`,
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+    let updateRes: any;
+    try {
+      updateRes = await firstValueFrom(
+        this.httpService.patch(
+          `${process.env.RETELL_AI_API_URL}update-retell-llm/${agent.llm_id}`,
+          body,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+            },
           },
-        },
-      ),
-    );
+        ),
+      );
+    } catch (error: any) {
+      if (
+        error?.response?.status === 404 ||
+        JSON.stringify(error?.response?.data || '')
+          .toLowerCase()
+          .includes('not found')
+      ) {
+        console.log(
+          `🔄 [Auto-Recovery] Retell LLM ID ${agent.llm_id} not found on current account! Calling full agent update/recovery...`,
+        );
+        return await this.update(agent.user.id, {} as any);
+      }
+      throw error;
+    }
 
     console.log('✅ Retell update response:', updateRes.data);
 
@@ -1681,12 +1697,45 @@ export class AgentsService implements OnApplicationBootstrap {
         ),
       );
       retellResponse = response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         'Error updating agent on Retell:',
         error?.response?.data || error.message,
       );
-      throw new Error('Failed to update agent on Retell API');
+      if (
+        error?.response?.status === 404 ||
+        JSON.stringify(error?.response?.data || '')
+          .toLowerCase()
+          .includes('not found')
+      ) {
+        console.log(
+          `🔄 [Auto-Recovery] Agent ${agent.retell_agent} not found on Retell account (likely due to API key change). Re-creating agent automatically...`,
+        );
+        const createDto: any = {
+          agent_name:
+            updateAgentDto.agent_name || agent.agent_name || 'PrintEZ AI Agent',
+          voice_id:
+            updateAgentDto.voice_id || agent.voice_id || '11labs-Andrew',
+          message: updateAgentDto.message || agent.message || '',
+          notes: updateAgentDto.notes || agent.notes || [],
+          user_id: userId,
+          language_id: language?.id,
+        };
+        const newRetell = await this.createRetellAgent(
+          createDto,
+          language ||
+            (await this.languageRepo.findOne({ where: { code: 'en' } })) ||
+            (await this.languageRepo.findOne({})),
+        );
+        agent.retell_agent = newRetell?.agent_id;
+        agent.llm_id = newRetell?.response_engine?.llm_id;
+        retellResponse = newRetell;
+        console.log(
+          `✅ [Auto-Recovery] Successfully re-created agent on Retell! New Agent ID: ${agent.retell_agent}`,
+        );
+      } else {
+        throw new Error('Failed to update agent on Retell API');
+      }
     }
 
     // Step 5: Update only the fields that were sent in the request
@@ -1721,6 +1770,7 @@ export class AgentsService implements OnApplicationBootstrap {
   async createWebCall(agent_id: string) {
     const agent = await this.agentRepo.findOne({
       where: { id: agent_id },
+      relations: ['user'],
     });
 
     if (!agent || !agent.retell_agent) {
@@ -1741,7 +1791,39 @@ export class AgentsService implements OnApplicationBootstrap {
         ),
       );
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      if (
+        error?.response?.status === 404 ||
+        JSON.stringify(error?.response?.data || '')
+          .toLowerCase()
+          .includes('not found')
+      ) {
+        console.log(
+          `🔄 [Auto-Recovery] Agent ID ${agent.retell_agent} not found during web call. Auto-recovering agent on Retell...`,
+        );
+        if (agent.user && agent.user.id) {
+          await this.update(agent.user.id, {} as any);
+          const recoveredAgent = await this.agentRepo.findOne({
+            where: { id: agent_id },
+          });
+          if (recoveredAgent && recoveredAgent.retell_agent) {
+            const retryRes = await firstValueFrom(
+              this.httpService.post(
+                `${process.env.RETELL_AI_API_URL}v2/create-web-call`,
+                { agent_id: recoveredAgent.retell_agent },
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${process.env.RETELL_AI_API_KEY}`,
+                  },
+                },
+              ),
+            );
+            return retryRes.data;
+          }
+        }
+      }
+
       const errDetails = error?.response?.data || error.message;
       console.error('Error creating web call:', errDetails);
       const statusCode =
