@@ -626,7 +626,8 @@ export class AgentsService implements OnApplicationBootstrap {
             },
             billingZipCode: {
               type: 'string',
-              description: 'The billing ZIP code if different from shipping ZIP code',
+              description:
+                'The billing ZIP code if different from shipping ZIP code',
             },
             shippingMethod: {
               type: 'string',
@@ -1308,7 +1309,8 @@ export class AgentsService implements OnApplicationBootstrap {
             },
             billingZipCode: {
               type: 'string',
-              description: 'The billing ZIP code if different from shipping ZIP code',
+              description:
+                'The billing ZIP code if different from shipping ZIP code',
             },
             shippingMethod: {
               type: 'string',
@@ -1500,22 +1502,33 @@ export class AgentsService implements OnApplicationBootstrap {
   }
 
   async syncAllAgentsWithRetell(): Promise<{ count: number; message: string }> {
-    console.log('🔄 [AutoSync] Initiating system-wide synchronization of all agents with Retell AI...');
+    console.log(
+      '🔄 [AutoSync] Initiating system-wide synchronization of all agents with Retell AI...',
+    );
     const agents = await this.agentRepo.find({ relations: ['user'] });
     let synced = 0;
 
     for (const agent of agents) {
       if (agent.user?.id) {
         try {
-          console.log(`🔄 [AutoSync] Syncing LLM prompt and tool definitions for agent: ${agent.agent_name || agent.id} (User: ${agent.user.id})`);
+          console.log(
+            `🔄 [AutoSync] Syncing LLM prompt and tool definitions for agent: ${agent.agent_name || agent.id} (User: ${agent.user.id})`,
+          );
           await this.updateLlm(agent.user.id);
           if (agent.retell_agent) {
-            console.log(`🔄 [AutoSync] Syncing ASR boost words and configuration for Retell agent: ${agent.retell_agent}`);
-            await this.update(agent.user.id, { agent_name: agent.agent_name || '' } as any);
+            console.log(
+              `🔄 [AutoSync] Syncing ASR boost words and configuration for Retell agent: ${agent.retell_agent}`,
+            );
+            await this.update(agent.user.id, {
+              agent_name: agent.agent_name || '',
+            } as any);
           }
           synced++;
         } catch (err) {
-          console.error(`❌ [AutoSync] Warning: Failed syncing agent ${agent.id} (${agent.agent_name || 'unnamed'}):`, err.message);
+          console.error(
+            `❌ [AutoSync] Warning: Failed syncing agent ${agent.id} (${agent.agent_name || 'unnamed'}):`,
+            err.message,
+          );
         }
       }
     }
