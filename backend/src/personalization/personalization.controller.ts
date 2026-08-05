@@ -21,90 +21,85 @@ export class PersonalizationController {
   @Post('start')
   @HttpCode(HttpStatus.OK)
   async startPersonalization(@Body() body: any) {
+    const args = body?.args || body?.arguments || body || {};
+
     const productName =
+      args.productName ??
+      args.product_name ??
       body?.productName ??
       body?.product_name ??
-      body?.args?.productName ??
-      body?.args?.product_name ??
-      body?.arguments?.productName ??
-      body?.arguments?.product_name ??
       'Custom Printed Item';
 
     const productId =
+      args.productId ??
+      args.product_id ??
+      args.itemNumber ??
+      args.item_number ??
       body?.productId ??
       body?.product_id ??
-      body?.itemNumber ??
-      body?.item_number ??
-      body?.args?.productId ??
-      body?.args?.product_id ??
-      body?.arguments?.productId ??
-      body?.arguments?.product_id ??
       undefined;
 
     const customerEmail =
+      args.customerEmail ??
+      args.customer_email ??
+      args.email ??
       body?.customerEmail ??
       body?.customer_email ??
       body?.email ??
-      body?.args?.customerEmail ??
-      body?.args?.email ??
-      body?.arguments?.customerEmail ??
-      body?.arguments?.email ??
       undefined;
 
+    // CRITICAL: avoid checking body.name since Retell passes function name in body.name
     const customerName =
+      args.customerName ??
+      args.customer_name ??
+      args.name ??
       body?.customerName ??
       body?.customer_name ??
-      body?.name ??
-      body?.args?.customerName ??
-      body?.args?.name ??
-      body?.arguments?.customerName ??
-      body?.arguments?.name ??
       'Valued Customer';
 
     const rawModified =
+      args.isModifiedReorder ??
+      args.is_modified_reorder ??
+      args.modifiedReorder ??
       body?.isModifiedReorder ??
       body?.is_modified_reorder ??
       body?.modifiedReorder ??
-      body?.args?.isModifiedReorder ??
-      body?.arguments?.isModifiedReorder ??
       false;
     const isModifiedReorder =
       String(rawModified).toLowerCase() === 'true' || rawModified === true;
 
     const previousOrderOrDesignId =
+      args.previousOrderOrDesignId ??
+      args.previous_order_or_design_id ??
+      args.previousDesignId ??
+      args.previousOrderId ??
       body?.previousOrderOrDesignId ??
       body?.previous_order_or_design_id ??
       body?.previousDesignId ??
       body?.previousOrderId ??
-      body?.args?.previousOrderOrDesignId ??
-      body?.arguments?.previousOrderOrDesignId ??
       undefined;
 
     const customizationNotes =
+      args.customizationNotes ??
+      args.customization_notes ??
+      args.notes ??
       body?.customizationNotes ??
       body?.customization_notes ??
       body?.notes ??
-      body?.args?.customizationNotes ??
-      body?.arguments?.customizationNotes ??
       undefined;
 
     const rawQuantity =
+      args.quantity ??
+      args.qty ??
       body?.quantity ??
       body?.qty ??
-      body?.args?.quantity ??
-      body?.args?.qty ??
-      body?.arguments?.quantity ??
-      body?.arguments?.qty ??
       undefined;
     const quantity = rawQuantity
       ? parseInt(String(rawQuantity), 10)
       : undefined;
 
-    const parts =
-      body?.parts ?? body?.args?.parts ?? body?.arguments?.parts ?? undefined;
-
-    const color =
-      body?.color ?? body?.args?.color ?? body?.arguments?.color ?? undefined;
+    const parts = args.parts ?? body?.parts ?? undefined;
+    const color = args.color ?? body?.color ?? undefined;
 
     if (!customerEmail) {
       return {
@@ -115,7 +110,7 @@ export class PersonalizationController {
     }
 
     this.logger.log(
-      `📥 Webhook invoked for personalization: ${productName} (Modified: ${isModifiedReorder}) by ${customerEmail}`,
+      `📥 Webhook invoked for personalization: ${productName} (Modified: ${isModifiedReorder}) by ${customerName} (${customerEmail})`,
     );
 
     return this.personalizationService.handlePersonalizationRequest({

@@ -26,6 +26,8 @@ export interface ReorderRequest {
   billingZipCode?: string;
   shippingMethod?: string;
   paymentMethod?: string;
+  ip?: string;
+  userAgent?: string;
 }
 
 export interface ReorderResult {
@@ -56,13 +58,20 @@ export class ReorderService {
     }> = [];
 
     this.logger.log(
-      `📦 Processing order/reorder capture: ${request.productName} x${request.quantity || 1} for ${request.customerName} (${request.customerEmail})`,
+      `📦 Processing order/reorder capture: ${request.productName} x${request.quantity || 1} for ${request.customerName} (${request.customerEmail}) via IP ${request.ip || 'unknown'}`,
     );
 
-    // 1. Attempt Live Reorder API if a previousOrderId is provided (agentapi/order|reorder)
-    if (request.previousOrderId) {
+    let liveReorderSucceeded = false;
+
+    // 1. Attempt Live Reorder API if a previousOrderId is provided and it is an un-modified identical reorder (agentapi/order|reorder)
+    if (
+      request.previousOrderId &&
+      !request.quantity &&
+      !request.shippingMethod &&
+      !request.streetAddress
+    ) {
       this.logger.log(
-        `🔄 Previous Order #${request.previousOrderId} detected! Executing live PrintEZ Agent reorder API...`,
+        `🔄 Identical Previous Order #${request.previousOrderId} detected! Executing live PrintEZ Agent reorder API...`,
       );
       try {
         const reorderRes = await this.orderAdapter.reorderPastOrder(
@@ -75,6 +84,7 @@ export class ReorderService {
           liveOrderId = reorderRes.order.orderId;
           referenceId = String(liveOrderId);
           skippedProducts = reorderRes.order.skipped_products || [];
+          liveReorderSucceeded = true;
 
           let skippedMsg = '';
           if (skippedProducts.length > 0) {
@@ -87,17 +97,18 @@ export class ReorderService {
           );
         } else {
           this.logger.warn(
-            `Live Reorder API returned error (${reorderRes.error?.code}): ${reorderRes.error?.message}. Falling back to manual operations capture...`,
+            `Live Reorder API returned error (${reorderRes.error?.code}): ${reorderRes.error?.message}. Falling back to live order insertion with reorder_id...`,
           );
         }
       } catch (err) {
         this.logger.warn(
-          `Error invoking live reorder API: ${err?.message}. Falling back to manual capture.`,
+          `Error invoking live reorder API: ${err?.message}. Falling back to live order insertion with reorder_id...`,
         );
       }
     }
-    // 2. Otherwise, resolve real OpenCart numeric database product ID and execute Live Order Insertion (agentapi/order|insert)
-    else {
+
+    // 2. If it is a new order, modified reorder, or if reorderPastOrder fallback was triggered, execute Live Order Insertion (agentapi/order|insert)
+    if (!liveReorderSucceeded) {
       let numericProductId: number | undefined;
       try {
         numericProductId = await this.productsService.resolveInternalProductId(
@@ -206,6 +217,30 @@ export class ReorderService {
           country_id: 223,
         };
 
+        const cleanShippingMethod = request.shippingMethod || 'Ground';
+        const cleanPaymentMethod = request.paymentMethod || 'Credit Card';
+        const numericQuantity =
+          request.quantity && request.quantity > 0
+            ? Number(request.quantity)
+            : 1;
+        const numericPreviousId = request.previousOrderId
+          ? typeof request.previousOrderId === 'number'
+            ? request.previousOrderId
+            : parseInt(String(request.previousOrderId).replace(/\D/g, ''), 10)
+          : undefined;
+
+        // Build rich product options array so OpenCart records parts, color, and customization notes
+        const productOptions: Array<{ name: string; value: string }> = [];
+        if (request.parts)
+          productOptions.push({ name: 'Parts', value: String(request.parts) });
+        if (request.color)
+          productOptions.push({ name: 'Color', value: String(request.color) });
+        if (request.notes)
+          productOptions.push({
+            name: 'Customization Notes',
+            value: String(request.notes),
+          });
+
         try {
           const createRes = await this.orderAdapter.createOrder({
             customer: {
@@ -217,23 +252,38 @@ export class ReorderService {
             products: [
               {
                 product_id: numericProductId,
-                quantity:
-                  request.quantity && request.quantity > 0
-                    ? request.quantity
-                    : 1,
+                quantity: numericQuantity,
+                options: productOptions,
+                parts: request.parts || undefined,
+                color: request.color || undefined,
               },
             ],
             ...(shippingPayload ? { shipping_address: shippingPayload } : {}),
             payment_address: paymentPayload,
+            shipping_method: cleanShippingMethod,
+            payment_method: cleanPaymentMethod,
+            ip: request.ip || '127.0.0.1',
+            user_agent:
+              request.userAgent ||
+              'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
+            ...(numericPreviousId && !isNaN(numericPreviousId)
+              ? {
+                  reorder_id: numericPreviousId,
+                  source_order_id: numericPreviousId,
+                  previous_order_id: numericPreviousId,
+                }
+              : {}),
             comment: orderComment,
           } as any);
 
           if (createRes.success && createRes.order) {
             liveOrderId = createRes.order.orderId;
             referenceId = String(liveOrderId);
-            customMessage = `Excellent! Your order for ${request.productName} has been directly registered in our live PrintEZ catalog under official Order ID #${liveOrderId}. Your pricing and tax are being computed by our checkout engine, and our team will email your secure checkout link to ${request.customerEmail}!`;
+            customMessage = request.previousOrderId
+              ? `Great news! Your repeat order (based on previous order #${request.previousOrderId}) has been registered in our live PrintEZ catalog under official Order ID #${liveOrderId}. Your pricing and tax are being computed by our checkout engine, and our team will email your secure checkout link to ${request.customerEmail}!`
+              : `Excellent! Your order for ${request.productName} has been directly registered in our live PrintEZ catalog under official Order ID #${liveOrderId}. Your pricing and tax are being computed by our checkout engine, and our team will email your secure checkout link to ${request.customerEmail}!`;
             this.logger.log(
-              `🎉 Live New Order insertion successful! Generated Order ID: ${liveOrderId}`,
+              `🎉 Live New Order insertion successful! Generated Order ID: ${liveOrderId} (Reorder Source: ${numericPreviousId || 'none'})`,
             );
           } else {
             this.logger.warn(

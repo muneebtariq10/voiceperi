@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Body,
+  Req,
   HttpCode,
   HttpStatus,
   Logger,
@@ -18,114 +19,105 @@ export class ReorderController {
   @Public()
   @Post('reorder')
   @HttpCode(HttpStatus.OK)
-  async captureReorder(@Body() body: any) {
-    // Extract fields from various possible Retell tool payload formats
+  async captureReorder(@Body() body: any, @Req() req: any) {
+    // Extract fields prioritizing body.args/body.arguments to prevent tool metadata (e.g. body.name = 'capture_reorder') from overriding arguments
+    const args = body?.args || body?.arguments || body || {};
+
     const productId =
+      args.productId ??
+      args.product_id ??
+      args.itemNumber ??
+      args.item_number ??
       body?.productId ??
       body?.product_id ??
-      body?.itemNumber ??
-      body?.item_number ??
-      body?.args?.productId ??
-      body?.args?.product_id ??
-      body?.arguments?.productId ??
-      body?.arguments?.product_id ??
       undefined;
 
     const productName =
+      args.productName ??
+      args.product_name ??
       body?.productName ??
       body?.product_name ??
-      body?.args?.productName ??
-      body?.args?.product_name ??
-      body?.arguments?.productName ??
-      body?.arguments?.product_name ??
       'Unknown Product';
 
     const quantity =
+      args.quantity ??
+      args.qty ??
       body?.quantity ??
       body?.qty ??
-      body?.args?.quantity ??
-      body?.arguments?.quantity ??
       undefined;
 
     const customerEmail =
+      args.customerEmail ??
+      args.customer_email ??
+      args.email ??
       body?.customerEmail ??
       body?.customer_email ??
       body?.email ??
-      body?.args?.customerEmail ??
-      body?.args?.email ??
-      body?.arguments?.customerEmail ??
-      body?.arguments?.email ??
       undefined;
 
+    // CRITICAL: Avoid falling back to body.name as Retell sends function tool name (e.g. 'capture_reorder') in body.name
     const customerName =
+      args.customerName ??
+      args.customer_name ??
+      args.name ??
       body?.customerName ??
       body?.customer_name ??
-      body?.name ??
-      body?.args?.customerName ??
-      body?.args?.name ??
-      body?.arguments?.customerName ??
-      body?.arguments?.name ??
-      'Not provided';
+      'Valued Customer';
 
     const customerPhone =
+      args.customerPhone ??
+      args.customer_phone ??
+      args.phone ??
       body?.customerPhone ??
       body?.customer_phone ??
       body?.phone ??
-      body?.args?.customerPhone ??
-      body?.arguments?.customerPhone ??
       undefined;
 
     const previousOrderId =
+      args.previousOrderId ??
+      args.previous_order_id ??
+      args.reorderId ??
+      args.reorder_id ??
       body?.previousOrderId ??
       body?.previous_order_id ??
       body?.reorderId ??
-      body?.args?.previousOrderId ??
-      body?.arguments?.previousOrderId ??
+      body?.reorder_id ??
       undefined;
 
-    const notes =
-      body?.notes ?? body?.args?.notes ?? body?.arguments?.notes ?? undefined;
-
-    const color =
-      body?.color ?? body?.args?.color ?? body?.arguments?.color ?? undefined;
-
-    const parts =
-      body?.parts ?? body?.args?.parts ?? body?.arguments?.parts ?? undefined;
+    const notes = args.notes ?? body?.notes ?? undefined;
+    const color = args.color ?? body?.color ?? undefined;
+    const parts = args.parts ?? body?.parts ?? undefined;
 
     const shippingAddress =
+      args.shippingAddress ??
+      args.shipping_address ??
+      args.address ??
       body?.shippingAddress ??
       body?.shipping_address ??
       body?.address ??
-      body?.args?.shippingAddress ??
-      body?.args?.shipping_address ??
-      body?.arguments?.shippingAddress ??
-      body?.arguments?.shipping_address ??
       undefined;
 
-    const company =
-      body?.company ?? body?.args?.company ?? body?.arguments?.company ?? undefined;
-    const streetAddress =
-      body?.streetAddress ?? body?.street_address ?? body?.args?.streetAddress ?? body?.arguments?.streetAddress ?? undefined;
-    const city =
-      body?.city ?? body?.args?.city ?? body?.arguments?.city ?? undefined;
-    const state =
-      body?.state ?? body?.args?.state ?? body?.arguments?.state ?? undefined;
-    const zipCode =
-      body?.zipCode ?? body?.zip_code ?? body?.postcode ?? body?.args?.zipCode ?? body?.arguments?.zipCode ?? undefined;
+    const company = args.company ?? body?.company ?? undefined;
+    const streetAddress = args.streetAddress ?? args.street_address ?? body?.streetAddress ?? body?.street_address ?? undefined;
+    const city = args.city ?? body?.city ?? undefined;
+    const state = args.state ?? body?.state ?? undefined;
+    const zipCode = args.zipCode ?? args.zip_code ?? args.postcode ?? body?.zipCode ?? body?.zip_code ?? body?.postcode ?? undefined;
 
-    const billingStreetAddress =
-      body?.billingStreetAddress ?? body?.billing_street_address ?? body?.args?.billingStreetAddress ?? body?.arguments?.billingStreetAddress ?? undefined;
-    const billingCity =
-      body?.billingCity ?? body?.billing_city ?? body?.args?.billingCity ?? body?.arguments?.billingCity ?? undefined;
-    const billingState =
-      body?.billingState ?? body?.billing_state ?? body?.args?.billingState ?? body?.arguments?.billingState ?? undefined;
-    const billingZipCode =
-      body?.billingZipCode ?? body?.billing_zip_code ?? body?.args?.billingZipCode ?? body?.arguments?.billingZipCode ?? undefined;
+    const billingStreetAddress = args.billingStreetAddress ?? args.billing_street_address ?? body?.billingStreetAddress ?? body?.billing_street_address ?? undefined;
+    const billingCity = args.billingCity ?? args.billing_city ?? body?.billingCity ?? body?.billing_city ?? undefined;
+    const billingState = args.billingState ?? args.billing_state ?? body?.billingState ?? body?.billing_state ?? undefined;
+    const billingZipCode = args.billingZipCode ?? args.billing_zip_code ?? body?.billingZipCode ?? body?.billing_zip_code ?? undefined;
 
-    const shippingMethod =
-      body?.shippingMethod ?? body?.shipping_method ?? body?.args?.shippingMethod ?? body?.arguments?.shippingMethod ?? undefined;
-    const paymentMethod =
-      body?.paymentMethod ?? body?.payment_method ?? body?.args?.paymentMethod ?? body?.arguments?.paymentMethod ?? undefined;
+    const shippingMethod = args.shippingMethod ?? args.shipping_method ?? body?.shippingMethod ?? body?.shipping_method ?? undefined;
+    const paymentMethod = args.paymentMethod ?? args.payment_method ?? body?.paymentMethod ?? body?.payment_method ?? undefined;
+
+    const ip =
+      req?.headers?.['x-forwarded-for']?.split(',')[0]?.trim() ||
+      req?.headers?.['x-real-ip'] ||
+      req?.socket?.remoteAddress ||
+      '127.0.0.1';
+
+    const userAgent = 'VoicePeri AI Telephony Concierge / PrintEZ Assistant';
 
     // Validate required fields
     if (!customerEmail) {
@@ -145,13 +137,13 @@ export class ReorderController {
     }
 
     this.logger.log(
-      `Reorder request received: ${productName} (${productId || 'no ID'}) for ${customerEmail}`,
+      `Reorder request received: ${productName} (${productId || 'no ID'}) for ${customerName} (${customerEmail}) via IP ${ip}`,
     );
 
     return this.reorderService.captureReorder({
       productId,
       productName,
-      quantity: quantity ? parseInt(String(quantity), 10) : undefined,
+      quantity: quantity ? parseInt(String(quantity), 10) : 1,
       customerEmail,
       customerName,
       customerPhone,
@@ -171,6 +163,8 @@ export class ReorderController {
       billingZipCode,
       shippingMethod,
       paymentMethod,
+      ip,
+      userAgent,
     });
   }
 }

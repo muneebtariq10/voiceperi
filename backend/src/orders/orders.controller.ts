@@ -35,14 +35,15 @@ export class OrdersController {
       }
     }
 
+    const args = body?.args || body?.arguments || body || {};
+
     const rawOrderId =
+      args.orderId ??
+      args.order_id ??
+      args.order ??
       body?.orderId ??
       body?.order_id ??
       body?.order ??
-      body?.args?.orderId ??
-      body?.args?.order_id ??
-      body?.arguments?.orderId ??
-      body?.arguments?.order_id ??
       (typeof body === 'number' || typeof body === 'string' ? body : undefined);
 
     if (rawOrderId === undefined || rawOrderId === null) {
@@ -54,12 +55,10 @@ export class OrdersController {
     }
 
     const rawEmail =
+      args.email ??
+      args.customerEmail ??
       body?.email ??
       body?.customerEmail ??
-      body?.args?.email ??
-      body?.args?.customerEmail ??
-      body?.arguments?.email ??
-      body?.arguments?.customerEmail ??
       undefined;
 
     const correlationId = Math.random().toString(36).substring(7);
@@ -74,34 +73,33 @@ export class OrdersController {
   @Post('lookup-by-email')
   @HttpCode(HttpStatus.OK)
   async lookupByEmail(@Body() body: any) {
+    const args = body?.args || body?.arguments || body || {};
+
     const email =
+      args.email ??
+      args.customerEmail ??
+      args.customer_email ??
       body?.email ??
       body?.customerEmail ??
       body?.customer_email ??
-      body?.args?.email ??
-      body?.args?.customerEmail ??
-      body?.arguments?.email ??
-      body?.arguments?.customerEmail ??
       undefined;
 
     const phone =
+      args.phone ??
+      args.customerPhone ??
+      args.telephone ??
       body?.phone ??
       body?.customerPhone ??
       body?.telephone ??
-      body?.args?.phone ??
-      body?.args?.customerPhone ??
-      body?.arguments?.phone ??
-      body?.arguments?.customerPhone ??
       undefined;
 
+    // CRITICAL: Avoid falling back to body.name as Retell sends function tool name in body.name
     const name =
+      args.customerName ??
+      args.name ??
+      args.company ??
       body?.customerName ??
-      body?.name ??
       body?.company ??
-      body?.args?.customerName ??
-      body?.args?.name ??
-      body?.arguments?.customerName ??
-      body?.arguments?.name ??
       undefined;
 
     if (!email && !phone && !name) {

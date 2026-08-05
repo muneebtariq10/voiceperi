@@ -78,9 +78,16 @@ export interface CreateOrderPayload {
     product_id: number;
     quantity?: number;
     options?: Array<{
-      product_option_id: number;
-      product_option_value_id: number;
+      product_option_id?: number;
+      product_option_value_id?: number;
+      name?: string;
+      value?: string;
+      [key: string]: any;
     }>;
+    parts?: string;
+    color?: string;
+    model?: string;
+    [key: string]: any;
   }>;
   payment_address?: {
     address_1?: string;
@@ -98,7 +105,15 @@ export interface CreateOrderPayload {
     zone_id?: number;
     [key: string]: any;
   };
+  shipping_method?: string;
+  payment_method?: string;
+  ip?: string;
+  user_agent?: string;
+  reorder_id?: number | string;
+  source_order_id?: number | string;
+  previous_order_id?: number | string;
   comment?: string;
+  [key: string]: any;
 }
 
 export interface CreateOrderResult {
