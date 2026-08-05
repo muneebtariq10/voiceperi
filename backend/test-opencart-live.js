@@ -25,15 +25,15 @@ async function testOpenCartPayloads() {
     },
     products: [
       {
-        product_id: 24019, // Purchase Order Book (GEN0087)
+        product_id: 24030, // Statement, Unlined (GEN0495)
         quantity: 100,
-        price: 85.99,
-        total: 85.99,
+        price: 55.99,
+        total: 55.99,
         options: [
-          { name: '2-Parts/Duplicate', value: '2218568', product_option_id: 155149, product_option_value_id: 2218568, type: 'select' },
-          { name: '3-Parts/Triplicate', value: '2218573', product_option_id: 155150, product_option_value_id: 2218573, type: 'select' }
+          { name: '2 Part', value: '524748', product_option_id: 82750, product_option_value_id: 524748, type: 'select' },
+          { name: '3 Part', value: '524753', product_option_id: 82751, product_option_value_id: 524753, type: 'select' }
         ],
-        parts: '2-Parts/Duplicate'
+        parts: '2 Part'
       }
     ],
     shipping_address: {
@@ -56,12 +56,12 @@ async function testOpenCartPayloads() {
     payment_method: 'Credit Card',
     ip: '198.51.100.42',
     user_agent: 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
-    comment: 'Estimated Total: $85.99 (100 unit lot @ $85.99) | Company: Vance Industries | Parts: 2-Parts/Duplicate | Shipping Method: Ground | Payment Method: Credit Card | Shipping Address: 100 Innovation Way, Austin, Texas, 78701',
-    sub_total: 85.99,
-    total: 85.99,
+    comment: 'Estimated Total: $55.99 (100 unit lot @ $55.99) | Company: Vance Industries | Parts: 2 Part | Shipping Method: Ground | Payment Method: Credit Card | Shipping Address: 100 Innovation Way, Austin, Texas, 78701',
+    sub_total: 55.99,
+    total: 55.99,
     totals: [
-      { code: 'sub_total', title: 'Sub-Total', value: 85.99, sort_order: 1 },
-      { code: 'total', title: 'Total', value: 85.99, sort_order: 2 }
+      { code: 'sub_total', title: 'Sub-Total', value: 55.99, sort_order: 1 },
+      { code: 'total', title: 'Total', value: 55.99, sort_order: 2 }
     ]
   };
 
