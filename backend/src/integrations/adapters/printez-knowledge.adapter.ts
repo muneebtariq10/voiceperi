@@ -43,9 +43,13 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
         'express',
         'overnight',
         'delivery',
+        'tax',
+        'sales tax',
+        'two-day',
+        'next day',
       ],
       answer:
-        'PrintEZ offers FREE standard Ground Shipping on all orders over $150! Standard check and form production takes 24 to 48 business hours once confirmed, followed by 3 to 5 business days transit time via reliable carriers (UPS, FedEx, USPS). For orders under $150, standard carrier rates apply at checkout without guessing numbers.',
+        'PrintEZ offers FREE Ground Shipping on all orders over $150! For orders under $150, Ground shipping is calculated at 17% of item subtotal ($11.99 minimum). Two-Day Air is 65% ($55.00 minimum) and Next Day Air is 80% ($79.99 minimum). Store sales tax applies only to select commercial nexus states; out-of-state shipments across most U.S. jurisdictions are exempt (0% tax).',
       url: 'https://www.printez.com/shipping-policy.html',
     },
     {

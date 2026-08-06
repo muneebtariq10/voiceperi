@@ -1,32 +1,56 @@
-# PrintEZ Official Shipping Methods & Delivery Policy
+# PrintEZ Official Shipping Methods, Rate Calculations & Tax Policy
 
-This document serves as the authoritative source of truth for PrintEZ shipping methods, production turnarounds, and free shipping rules. AI Voice Concierge agents and backend order processing services must strictly adhere to these verified rules without deriving or inventing numbers.
-
----
-
-## 1. Free Shipping Threshold
-
-* **Official Rule:** **Free Ground Shipping on all orders over $150.00** (based on cart item subtotal before taxes or promotional discounts).
-* **Eligibility:** Automatically applied to standard Ground shipments across the continental United States whenever the order subtotal reaches or exceeds $150.00.
-* **AI Concierge Guidance:** Whenever an order subtotal approaches or exceeds $150.00, enthusiastically announce to the customer: *"Good news! Because your order subtotal is over $150, you qualify for completely free standard Ground shipping!"*
+This document serves as the authoritative source of truth for PrintEZ shipping options, mathematical rate percentages, minimum carrier fees, and store sales tax calculations. AI Voice Concierge agents and backend checkout services must strictly apply these formulas when computing order estimates.
 
 ---
 
-## 2. Available Shipping Methods
+## 1. Free Shipping Threshold (Ground Shipping Only)
 
-PrintEZ relies on trusted commercial delivery networks (UPS, FedEx, and USPS) to deliver custom printing orders safely and on time:
-
-| Method Code | Shipping Method Name | Production & Transit Time | Cost / Eligibility |
-| :--- | :--- | :--- | :--- |
-| `free` | **Free Ground Shipping** | 3 to 5 business days transit (plus 24-48 hrs custom production) | **$0.00** (Applicable to orders with subtotal ≥ $150.00) |
-| `ground` | **Standard Ground** | 3 to 5 business days transit (plus 24-48 hrs custom production) | Standard calculated carrier rate (For orders under $150.00) |
-| `expedited` | **Expedited / Priority Air** | 1 to 2 business days transit (plus rush processing options) | Calculated real-time during secure checkout |
+* **Official Rule:** **Free Ground Shipping ($0.00) on all orders with an item subtotal of $150.00 or more** (before taxes or promotional discounts).
+* **Eligibility:** Automatically replaces standard Ground shipping rates for continental U.S. delivery whenever the cart subtotal reaches or exceeds `$150.00`.
+* **AI Concierge Script:** *"Good news! Because your order subtotal is over $150, you qualify for completely free standard Ground shipping!"*
 
 ---
 
-## 3. Operating Guidelines for AI Telephony Concierge
+## 2. Shipping Rate Calculation Matrix & Percentage Formulas
 
-1. **Promote Value Volume:** Always mention the **$150 Free Shipping threshold** when advising callers on order quantities (such as 1,000 check packages or multi-part form bundles) to help customers maximize value and unlock free shipping.
-2. **Production Turnaround Awareness:** Remind customers that custom checks, invoice books, and printed business forms require **24 to 48 business hours** for factory printing and MICR quality verification before leaving our facility.
-3. **No Hallucinated Rates:** For shipments under $150, explain clearly that standard Ground shipping applies and exact carrier delivery fees will be displayed on their secure invoice link. Under NO circumstances should you guess, estimate, or invent a specific dollar figure for delivery freight!
-4. **Knowledge Lookup:** If a caller asks detailed shipping questions, call the `lookup_knowledge` tool with query `"shipping methods"` to retrieve these exact terms.
+PrintEZ calculates live shipping delivery fees based on an item subtotal percentage with a mandatory minimum carrier cost. For any given shipping method, the price is calculated as:
+$$\text{Shipping Fee} = \max(\text{Minimum Cost}, \text{Subtotal} \times \text{Rate \%})$$
+
+| Shipping Method | Rate (%) of Subtotal | Minimum Cost ($) | Sort Order | Calculation Formula & Rules |
+| :--- | :--- | :--- | :--- | :--- |
+| **Free Shipping** | **0%** | **$0.00** | 1 | Applicable automatically when Subtotal $\ge$ **$150.00** |
+| **Ground** | **17%** | **$11.99** | 2 | Fee is **17% of Subtotal** or **$11.99 minimum** (for orders under $150.00) |
+| **Two-Day** | **65%** | **$55.00** | 3 | Fee is **65% of Subtotal** or **$55.00 minimum** (whichever is greater) |
+| **Next Day** | **80%** | **$79.99** | 4 | Fee is **80% of Subtotal** or **$79.99 minimum** (whichever is greater) |
+
+### Practical Calculation Examples for AI Agents & Backend Staging
+
+* **Example 1 ($55.99 Order via Ground):**
+  * Subtotal is `$55.99` (Under $150 Free Shipping threshold).
+  * $17\%$ of $\$55.99 = \$9.52$. Because $\$9.52$ is below the minimum carrier cost, **Ground Shipping is capped at the $\$11.99$ minimum**.
+  * Estimated Total = $\$55.99 + \$11.99 = \mathbf{\$67.98}$.
+* **Example 2 ($120.00 Order via Ground):**
+  * $17\%$ of $\$120.00 = \$20.40$. Because $\$20.40$ exceeds the $\$11.99$ minimum, **Ground Shipping is $\$20.40$**.
+  * Estimated Total = $\$120.00 + \$20.40 = \mathbf{\$140.40}$.
+* **Example 3 ($200.00 Order via Ground vs. Next Day):**
+  * **If Ground:** Subtotal is over $150, so Ground Shipping is **$0.00 (Free Shipping)**. Total = **$200.00**.
+  * **If Next Day Air:** Expedited shipping does not qualify for free promotion. $80\%$ of $\$200.00 = \$160.00$. Next Day Air is **$160.00**. Total = **$360.00**.
+
+---
+
+## 3. Store Sales Tax Policy & Percentage Calculation
+
+* **Applicability:** Store sales tax is **only applicable to orders shipped within select physical nexus states** (such as commercial operational facilities in New York, New Jersey, or designated local warehouse jurisdictions).
+* **Out-of-State Exemptions:** Orders shipping out-of-state across the vast majority of U.S. jurisdictions, or ordered by verified tax-exempt corporate entities, qualify for **0% ($0.00) sales tax**.
+* **Calculation Formula:** For applicable taxable destination states, sales tax is computed strictly on the item subtotal (and taxable shipping fees where required by state law):
+  $$\text{Estimated Tax} = \text{Taxable Amount} \times \text{Applicable State Sales Tax \%}$$
+* **AI Concierge Guidance:** If a customer asks about taxes, respond: *"Sales tax is only applicable to select state destinations where we maintain a physical presence. If your shipping address is in an exempt jurisdiction or if you hold a valid corporate tax exemption certificate, your sales tax will be $0.00 upon checkout!"*
+
+---
+
+## 4. Operating Instructions for AI Voice Concierge
+
+1. **Calculate Accurate Live Quotes:** When reciting estimated pricing to callers, explicitly apply the **17% Ground / $11.99 Minimum** formula for orders under $150, or promote **$0.00 Free Shipping** for orders $150 and above.
+2. **Explain Expedited Tiers Clearly:** If a caller requires urgent delivery, quote the Two-Day (65% / $55 min) or Next Day (80% / $79.99 min) formulas accurately without guessing.
+3. **Transparent Tax Guidance:** State clearly that sales tax is automatically applied during secure link checkout based on state nexus laws, remaining $0.00 for exempt jurisdictions.
