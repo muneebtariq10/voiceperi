@@ -296,7 +296,13 @@ export class ProductsService implements OnModuleInit {
           }
 
           const liveDetails = await this.fetchLiveProductOptions(p.productId);
-          const minQty = liveDetails.minQuantity || p.minimumQuantity || (p.category?.toLowerCase().includes('check') || p.category?.toLowerCase().includes('form') ? 100 : 1);
+          const minQty =
+            liveDetails.minQuantity ||
+            p.minimumQuantity ||
+            (p.category?.toLowerCase().includes('check') ||
+            p.category?.toLowerCase().includes('form')
+              ? 100
+              : 1);
 
           return {
             name: p.name,

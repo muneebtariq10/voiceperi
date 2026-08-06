@@ -40,11 +40,7 @@ export class ReorderController {
       'Unknown Product';
 
     const quantity =
-      args.quantity ??
-      args.qty ??
-      body?.quantity ??
-      body?.qty ??
-      undefined;
+      args.quantity ?? args.qty ?? body?.quantity ?? body?.qty ?? undefined;
 
     const customerEmail =
       args.customerEmail ??
@@ -98,18 +94,60 @@ export class ReorderController {
       undefined;
 
     const company = args.company ?? body?.company ?? undefined;
-    const streetAddress = args.streetAddress ?? args.street_address ?? body?.streetAddress ?? body?.street_address ?? undefined;
+    const streetAddress =
+      args.streetAddress ??
+      args.street_address ??
+      body?.streetAddress ??
+      body?.street_address ??
+      undefined;
     const city = args.city ?? body?.city ?? undefined;
     const state = args.state ?? body?.state ?? undefined;
-    const zipCode = args.zipCode ?? args.zip_code ?? args.postcode ?? body?.zipCode ?? body?.zip_code ?? body?.postcode ?? undefined;
+    const zipCode =
+      args.zipCode ??
+      args.zip_code ??
+      args.postcode ??
+      body?.zipCode ??
+      body?.zip_code ??
+      body?.postcode ??
+      undefined;
 
-    const billingStreetAddress = args.billingStreetAddress ?? args.billing_street_address ?? body?.billingStreetAddress ?? body?.billing_street_address ?? undefined;
-    const billingCity = args.billingCity ?? args.billing_city ?? body?.billingCity ?? body?.billing_city ?? undefined;
-    const billingState = args.billingState ?? args.billing_state ?? body?.billingState ?? body?.billing_state ?? undefined;
-    const billingZipCode = args.billingZipCode ?? args.billing_zip_code ?? body?.billingZipCode ?? body?.billing_zip_code ?? undefined;
+    const billingStreetAddress =
+      args.billingStreetAddress ??
+      args.billing_street_address ??
+      body?.billingStreetAddress ??
+      body?.billing_street_address ??
+      undefined;
+    const billingCity =
+      args.billingCity ??
+      args.billing_city ??
+      body?.billingCity ??
+      body?.billing_city ??
+      undefined;
+    const billingState =
+      args.billingState ??
+      args.billing_state ??
+      body?.billingState ??
+      body?.billing_state ??
+      undefined;
+    const billingZipCode =
+      args.billingZipCode ??
+      args.billing_zip_code ??
+      body?.billingZipCode ??
+      body?.billing_zip_code ??
+      undefined;
 
-    const shippingMethod = args.shippingMethod ?? args.shipping_method ?? body?.shippingMethod ?? body?.shipping_method ?? undefined;
-    const paymentMethod = args.paymentMethod ?? args.payment_method ?? body?.paymentMethod ?? body?.payment_method ?? undefined;
+    const shippingMethod =
+      args.shippingMethod ??
+      args.shipping_method ??
+      body?.shippingMethod ??
+      body?.shipping_method ??
+      undefined;
+    const paymentMethod =
+      args.paymentMethod ??
+      args.payment_method ??
+      body?.paymentMethod ??
+      body?.payment_method ??
+      undefined;
 
     const ip =
       req?.headers?.['x-forwarded-for']?.split(',')[0]?.trim() ||

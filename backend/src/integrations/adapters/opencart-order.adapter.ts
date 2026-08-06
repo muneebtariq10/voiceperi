@@ -197,7 +197,8 @@ export class OpenCartOrderAdapter implements IOrderProvider {
       comment:
         comment || 'Repeat order placed via VoicePeri AI voice concierge',
       ip: ip || '127.0.0.1',
-      user_agent: userAgent || 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
+      user_agent:
+        userAgent || 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
     };
 
     if (customerId && !isNaN(customerId)) {

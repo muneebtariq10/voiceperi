@@ -201,7 +201,9 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
             );
           }
         } catch (err) {
-          this.logger.warn(`Failed reading shipping-methods.md: ${err?.message}`);
+          this.logger.warn(
+            `Failed reading shipping-methods.md: ${err?.message}`,
+          );
         }
       }
       return Promise.resolve({

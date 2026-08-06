@@ -89,11 +89,7 @@ export class PersonalizationController {
       undefined;
 
     const rawQuantity =
-      args.quantity ??
-      args.qty ??
-      body?.quantity ??
-      body?.qty ??
-      undefined;
+      args.quantity ?? args.qty ?? body?.quantity ?? body?.qty ?? undefined;
     const quantity = rawQuantity
       ? parseInt(String(rawQuantity), 10)
       : undefined;

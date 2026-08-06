@@ -360,12 +360,16 @@ export class UsersService implements OnModuleInit {
           await manager.query(
             `DELETE FROM "${t.table}" WHERE "${t.col}" IN (${idList});`,
           );
-        } catch (e) {}
+        } catch (e) {
+          // Ignore errors if table or column does not exist
+        }
         try {
           await manager.query(
             `DELETE FROM "${t.table}" WHERE user_id IN (${idList});`,
           );
-        } catch (e) {}
+        } catch (e) {
+          // Ignore errors if table or column does not exist
+        }
       }
       const delRes = await manager.query(
         `DELETE FROM users WHERE id IN (${idList});`,

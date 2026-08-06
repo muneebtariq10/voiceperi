@@ -64,12 +64,19 @@ export class AgentsController {
       // Automatically re-sync all active agents with Retell AI so live calls reflect the saved prompt immediately
       try {
         await this.agentsService.syncAllAgentsWithRetell();
-        console.log('[PATCH] All active agents successfully auto-synced with Retell AI');
+        console.log(
+          '[PATCH] All active agents successfully auto-synced with Retell AI',
+        );
       } catch (syncErr) {
-        console.error('[PATCH] Warning during auto-sync to Retell:', syncErr.message);
+        console.error(
+          '[PATCH] Warning during auto-sync to Retell:',
+          syncErr.message,
+        );
       }
 
-      return { message: 'Prompt updated and synced with Retell AI successfully' };
+      return {
+        message: 'Prompt updated and synced with Retell AI successfully',
+      };
     } catch (err) {
       console.error('[PATCH] Error writing file:', err.message);
       throw new Error('Failed to update prompt file');
