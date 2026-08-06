@@ -41,11 +41,17 @@ $$\text{Shipping Fee} = \max(\text{Minimum Cost}, \text{Subtotal} \times \text{R
 
 ## 3. Store Sales Tax Policy & Percentage Calculation
 
-* **Applicability:** Store sales tax is **only applicable to orders shipped within select physical nexus states** (such as commercial operational facilities in New York, New Jersey, or designated local warehouse jurisdictions).
-* **Out-of-State Exemptions:** Orders shipping out-of-state across the vast majority of U.S. jurisdictions, or ordered by verified tax-exempt corporate entities, qualify for **0% ($0.00) sales tax**.
-* **Calculation Formula:** For applicable taxable destination states, sales tax is computed strictly on the item subtotal (and taxable shipping fees where required by state law):
-  $$\text{Estimated Tax} = \text{Taxable Amount} \times \text{Applicable State Sales Tax \%}$$
-* **AI Concierge Guidance:** If a customer asks about taxes, respond: *"Sales tax is only applicable to select state destinations where we maintain a physical presence. If your shipping address is in an exempt jurisdiction or if you hold a valid corporate tax exemption certificate, your sales tax will be $0.00 upon checkout!"*
+* **Verified Taxable Nexus State (New York):** For orders shipped to **New York (NY)**, store sales tax is officially calculated at **8.25% (0.0825)** of the item Subtotal.
+* **Out-of-State Exemptions:** Orders shipping out-of-state across non-nexus U.S. jurisdictions (such as Ohio, Texas, Florida), or ordered by verified tax-exempt corporate accounts, qualify for **0% ($0.00) sales tax**.
+* **Calculation Formula:**
+  $$\text{Sales Tax Fee} = \text{Item Subtotal} \times \text{State Tax Rate \%}$$
+* **Verified New York Calculation Proof (From OpenCart Admin):**
+  * For a **$38.99** order shipped to New York via Ground Shipping:
+    * **Sub-Total:** `$38.99`
+    * **Shipping:** `$11.99` (Minimum Ground cost applies since 17% is $6.63)
+    * **New York Sales Tax (8.25%):** $\$38.99 \times 0.0825 = \$3.2166 \rightarrow \mathbf{\$3.22}$
+    * **You Pay (Total):** $\$38.99 + \$11.99 + \$3.22 = \mathbf{\$54.20}$!
+* **AI Concierge Guidance:** If a customer asks about taxes, respond: *"Sales tax is charged on orders shipped to our physical nexus state of New York at 8.25%. If your shipping address is in an exempt out-of-state jurisdiction or if you hold a valid corporate tax exemption certificate, your sales tax will be $0.00 upon checkout!"*
 
 ---
 

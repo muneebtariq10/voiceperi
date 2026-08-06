@@ -49,7 +49,7 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
         'next day',
       ],
       answer:
-        'PrintEZ offers FREE Ground Shipping on all orders over $150! For orders under $150, Ground shipping is calculated at 17% of item subtotal ($11.99 minimum). Two-Day Air is 65% ($55.00 minimum) and Next Day Air is 80% ($79.99 minimum). Store sales tax applies only to select commercial nexus states; out-of-state shipments across most U.S. jurisdictions are exempt (0% tax).',
+        'PrintEZ offers FREE Ground Shipping on all orders over $150! For orders under $150, Ground shipping is calculated at 17% of item subtotal ($11.99 minimum). Two-Day Air is 65% ($55.00 minimum) and Next Day Air is 80% ($79.99 minimum). Store sales tax is charged on orders shipped to New York (NY) at 8.25%; out-of-state shipments across most U.S. jurisdictions are exempt (0% tax).',
       url: 'https://www.printez.com/shipping-policy.html',
     },
     {

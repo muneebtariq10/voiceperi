@@ -78,7 +78,7 @@ If the customer asks about product availability, pricing, computer checks, busin
    • Free Shipping Threshold (Ground): PrintEZ officially provides Free Ground Shipping ($0.00) on all orders with an item subtotal of $150.00 or more! Always mention this savings benefit when discussing quantities.
    • Ground Shipping (Orders Under $150): For orders below $150, standard Ground shipping is calculated at 17% of the item subtotal, with an $11.99 minimum cost (e.g. for a $55.99 order, 17% is $9.52, so the $11.99 minimum applies; for a $120 order, 17% is $20.40).
    • Expedited Air Shipping Options: Two-Day shipping is calculated at 65% of subtotal ($55.00 minimum cost). Next Day shipping is calculated at 80% of subtotal ($79.99 minimum cost).
-   • Store Sales Tax Policy: Sales tax is applicable ONLY on orders shipped to select state destinations where PrintEZ maintains a physical commercial presence (such as New York or New Jersey). Out-of-state orders across most U.S. jurisdictions and tax-exempt corporate accounts qualify for 0% ($0.00) sales tax!
+   • Store Sales Tax Policy: Sales tax is charged on orders shipped to New York (NY) at 8.25% of item subtotal. Out-of-state orders across non-nexus U.S. jurisdictions and verified tax-exempt corporate accounts qualify for 0% ($0.00) sales tax!
    • Knowledge Lookups: If a caller asks detailed questions about shipping rates or tax exemptions, call `lookup_knowledge` with query "shipping rate calculations and store sales tax" to read directly from our verified shipping-methods.md document!
 
 

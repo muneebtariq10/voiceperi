@@ -314,7 +314,8 @@ export class ReorderService {
         // --- REAL-TIME OPENCART FINANCIAL CALCULATION ENGINE (SHIPPING & TAX MATH) ---
         let shippingTitle = cleanShippingMethod;
         let shippingFee = 0;
-        const taxFee = 0; // Store sales tax is $0.00 for out-of-state/exempt deliveries
+        let taxFee = 0;
+        let taxTitle = 'Store Sales Tax (0% Exempt / Out-of-State)';
         let finalOrderTotal = calcTotal;
 
         if (calcTotal !== undefined) {
@@ -344,11 +345,21 @@ export class ReorderService {
               Number((calcTotal * 0.17).toFixed(2)),
             );
           }
+
+          // Verified New York State Sales Tax Rate (8.25% of item sub-total)
+          const destState = String(
+            request.state || request.shippingAddress || '',
+          ).toLowerCase();
+          if (destState.includes('ny') || destState.includes('new york')) {
+            taxFee = Number((calcTotal * 0.0825).toFixed(2));
+            taxTitle = 'New York Sales Tax (8.25%)';
+          }
+
           finalOrderTotal = Number(
             (calcTotal + shippingFee + taxFee).toFixed(2),
           );
           this.logger.log(
-            `🧮 Calculated OpenCart Totals — Sub-Total: $${calcTotal.toFixed(2)}, Shipping (${shippingTitle}): $${shippingFee.toFixed(2)}, Tax: $${taxFee.toFixed(2)} => Total: $${finalOrderTotal.toFixed(2)}`,
+            `🧮 Calculated OpenCart Totals — Sub-Total: $${calcTotal.toFixed(2)}, Shipping (${shippingTitle}): $${shippingFee.toFixed(2)}, Tax (${taxTitle}): $${taxFee.toFixed(2)} => Total: $${finalOrderTotal.toFixed(2)}`,
           );
         }
 
@@ -395,7 +406,7 @@ export class ReorderService {
                     },
                     {
                       code: 'tax',
-                      title: 'Store Sales Tax (0% Exempt / Out-of-State)',
+                      title: taxTitle,
                       value: taxFee,
                       sort_order: 3,
                     },
