@@ -319,15 +319,29 @@ export class ReorderService {
         let finalOrderTotal = calcTotal;
 
         if (calcTotal !== undefined) {
+          const destStateStr = String(
+            request.state || request.shippingAddress || request.city || '',
+          ).trim();
+          const isAlaskaHawaii = /\b(ak|alaska|hi|hawaii)\b/i.test(
+            destStateStr,
+          );
+
           const lowerMethod = cleanShippingMethod.toLowerCase();
           if (
-            lowerMethod.includes('free') ||
-            (lowerMethod.includes('ground') && calcTotal >= 150)
+            !isAlaskaHawaii &&
+            (lowerMethod.includes('free') ||
+              (lowerMethod.includes('ground') && calcTotal >= 150))
           ) {
             shippingTitle = 'Free Shipping';
             shippingFee = 0.0;
-          } else if (lowerMethod.includes('two') || lowerMethod.includes('2')) {
-            shippingTitle = 'Two-Day Air';
+          } else if (
+            isAlaskaHawaii ||
+            lowerMethod.includes('two') ||
+            lowerMethod.includes('2')
+          ) {
+            shippingTitle = isAlaskaHawaii
+              ? 'Two-Day Air (AK/HI Geo Zone)'
+              : 'Two-Day Air';
             shippingFee = Math.max(55.0, Number((calcTotal * 0.65).toFixed(2)));
           } else if (
             lowerMethod.includes('next') ||
@@ -338,7 +352,7 @@ export class ReorderService {
             shippingTitle = 'Next Day Air';
             shippingFee = Math.max(79.99, Number((calcTotal * 0.8).toFixed(2)));
           } else {
-            // Default Standard Ground Shipping (17% of subtotal, $11.99 minimum)
+            // Default Standard Ground Shipping (17% of subtotal, $11.99 minimum) for 48 contiguous states
             shippingTitle = 'Ground';
             shippingFee = Math.max(
               11.99,
@@ -346,11 +360,8 @@ export class ReorderService {
             );
           }
 
-          // Verified New York State Sales Tax Rate (8.25% of item sub-total)
-          const destState = String(
-            request.state || request.shippingAddress || '',
-          ).toLowerCase();
-          if (destState.includes('ny') || destState.includes('new york')) {
+          // Verified New York State Sales Tax Rate (8.25% of item sub-total) using exact word boundaries to prevent substring bugs (e.g. Sunnyvale)
+          if (/\b(ny|new\s*york)\b/i.test(destStateStr)) {
             taxFee = Number((calcTotal * 0.0825).toFixed(2));
             taxTitle = 'New York Sales Tax (8.25%)';
           }
