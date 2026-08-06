@@ -146,10 +146,16 @@ export class ReorderService {
             ? Number(request.quantity)
             : 1;
 
-        // Calculate checkout pricing estimations
+        // Calculate checkout pricing estimations (honoring package lot tiers vs individual items)
         let calcTotal: number | undefined = undefined;
         if (catalogUnitPrice && catalogUnitPrice > 0) {
-          calcTotal = Number((catalogUnitPrice * numericQuantity).toFixed(2));
+          // If numericQuantity >= 50 (e.g., 100, 250, 500, 1000 check bundle lots), the catalog price is ALREADY the lot package price!
+          // We only multiply if ordering individual retail units (< 50, e.g., 2 separate receipt books).
+          const effectiveMultiplier =
+            numericQuantity >= 50 ? 1 : numericQuantity;
+          calcTotal = Number(
+            (catalogUnitPrice * effectiveMultiplier).toFixed(2),
+          );
         }
 
         // PrintEZ requires firstname and lastname when creating a new customer account via email
