@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
+import * as fs from 'fs';
+import * as path from 'path';
 import { IKnowledgeProvider, KnowledgeQueryResult } from '../interfaces';
 
 interface KnowledgeEntry {
@@ -25,6 +27,14 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
       category: 'Shipping & Production Turnaround',
       keywords: [
         'shipping',
+        'free shipping',
+        'cost',
+        'rate',
+        'how much',
+        'carrier',
+        'ground',
+        'ups',
+        'fedex',
         'how long',
         'when will my order arrive',
         'turnaround',
@@ -35,7 +45,7 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
         'delivery',
       ],
       answer:
-        'Standard custom check and business form production takes 24 to 48 business hours once your order is confirmed. Standard ground shipping takes 3 to 5 business days. Expedited UPS 2nd-Day and Next-Day Air options are also available during online checkout for urgent corporate processing!',
+        'PrintEZ offers FREE standard Ground Shipping on all orders over $150! Standard check and form production takes 24 to 48 business hours once confirmed, followed by 3 to 5 business days transit time via reliable carriers (UPS, FedEx, USPS). For orders under $150, standard carrier rates apply at checkout without guessing numbers.',
       url: 'https://www.printez.com/shipping-policy.html',
     },
     {
@@ -176,10 +186,28 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
       this.logger.log(
         `✅ Verified knowledge policy matched: [${bestEntry.category}] (Score: ${maxScore})`,
       );
+      let answer = bestEntry.answer;
+      if (bestEntry.id === 'SHIPPING_TIME') {
+        try {
+          const mdPath = path.resolve(
+            process.cwd(),
+            'templates',
+            'shipping-methods.md',
+          );
+          if (fs.existsSync(mdPath)) {
+            answer = fs.readFileSync(mdPath, 'utf8');
+            this.logger.log(
+              `📄 Loaded live shipping-methods.md policy document for AI concierge response.`,
+            );
+          }
+        } catch (err) {
+          this.logger.warn(`Failed reading shipping-methods.md: ${err?.message}`);
+        }
+      }
       return Promise.resolve({
         found: true,
         topic: bestEntry.category,
-        answer: bestEntry.answer,
+        answer: answer,
         category: bestEntry.category,
         referenceUrl: bestEntry.url,
       });

@@ -21,7 +21,7 @@ export class OpenCartProductAdapter implements IProductProvider {
   async fetchAllProducts(): Promise<ProductRecord[]> {
     const allProducts: ProductRecord[] = [];
     let page = 1;
-    const limit = 500;
+    const limit = 100;
     let hasMore = true;
 
     this.logger.log(
