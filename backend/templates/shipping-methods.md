@@ -82,7 +82,7 @@ PrintEZ's official loyalty program, **EZ Rewards**, operates under specific elig
 
 ## 6. Operating Instructions for AI Voice Concierge
 
-1. **Calculate Accurate Live Quotes:** When reciting estimated pricing to callers, explicitly apply the **17% Ground / $11.99 Minimum** formula for orders under $150, or promote **$0.00 Free Shipping** for orders $150 and above.
-2. **Explain Expedited Tiers Clearly:** If a caller requires urgent delivery, quote the Two-Day (65% / $55 min) or Next Day (80% / $79.99 min) formulas accurately without guessing.
+1. **Calculate Accurate Live Quotes:** When reciting estimated pricing to callers, explicitly apply the 17% Ground or $11.99 Minimum formula for orders under $150, or promote $0.00 Free Shipping for orders $150 and above.
+2. **Explain Expedited Tiers Clearly:** If a caller requires urgent delivery, quote the Two-Day (65% or $55 minimum) or Next Day (80% or $79.99 minimum) formulas accurately without guessing.
 3. **Transparent Tax Guidance:** State clearly that sales tax is charged at 8.25% on New York orders, remaining $0.00 for exempt jurisdictions.
-4. **Promote EZ Rewards & Geo Zone Clarity:** Inform callers across all states about earning 3% cash back with standard checkout, while noting that delivery speeds (like Overnight Air to Alaska or rural P.O. boxes) depend on carrier ZIP code availability.
+4. **Promote EZ Rewards and Geo Zone Clarity:** Inform callers across all states about earning 3% cash back with standard checkout, while noting that delivery speeds (like Overnight Air to Alaska or rural P.O. boxes) depend on carrier ZIP code availability.
