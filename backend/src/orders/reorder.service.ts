@@ -278,6 +278,73 @@ export class ReorderService {
             type: 'text',
           });
         }
+        if (
+          numericQuantity > 1 &&
+          !productOptions.some(
+            (o) =>
+              String(o.name || '')
+                .toLowerCase()
+                .includes('quantity') ||
+              String(o.name || '')
+                .toLowerCase()
+                .includes('qty') ||
+              String(o.option_name || '')
+                .toLowerCase()
+                .includes('quantity') ||
+              String(o.option_name || '')
+                .toLowerCase()
+                .includes('qty'),
+          )
+        ) {
+          productOptions.push({
+            name: 'Quantity Tier',
+            value: String(numericQuantity),
+            option_name: 'Quantity Tier',
+            option_value: String(numericQuantity),
+            type: 'select',
+          });
+        }
+
+        // --- REAL-TIME OPENCART FINANCIAL CALCULATION ENGINE (SHIPPING & TAX MATH) ---
+        let shippingTitle = cleanShippingMethod;
+        let shippingFee = 0;
+        const taxFee = 0; // Store sales tax is $0.00 for out-of-state/exempt deliveries
+        let finalOrderTotal = calcTotal;
+
+        if (calcTotal !== undefined) {
+          const lowerMethod = cleanShippingMethod.toLowerCase();
+          if (
+            lowerMethod.includes('free') ||
+            (lowerMethod.includes('ground') && calcTotal >= 150)
+          ) {
+            shippingTitle = 'Free Shipping';
+            shippingFee = 0.0;
+          } else if (lowerMethod.includes('two') || lowerMethod.includes('2')) {
+            shippingTitle = 'Two-Day Air';
+            shippingFee = Math.max(55.0, Number((calcTotal * 0.65).toFixed(2)));
+          } else if (
+            lowerMethod.includes('next') ||
+            lowerMethod.includes('air') ||
+            lowerMethod.includes('overnight') ||
+            lowerMethod.includes('express')
+          ) {
+            shippingTitle = 'Next Day Air';
+            shippingFee = Math.max(79.99, Number((calcTotal * 0.8).toFixed(2)));
+          } else {
+            // Default Standard Ground Shipping (17% of subtotal, $11.99 minimum)
+            shippingTitle = 'Ground';
+            shippingFee = Math.max(
+              11.99,
+              Number((calcTotal * 0.17).toFixed(2)),
+            );
+          }
+          finalOrderTotal = Number(
+            (calcTotal + shippingFee + taxFee).toFixed(2),
+          );
+          this.logger.log(
+            `🧮 Calculated OpenCart Totals — Sub-Total: $${calcTotal.toFixed(2)}, Shipping (${shippingTitle}): $${shippingFee.toFixed(2)}, Tax: $${taxFee.toFixed(2)} => Total: $${finalOrderTotal.toFixed(2)}`,
+          );
+        }
 
         try {
           const createRes = await this.orderAdapter.createOrder({
@@ -290,7 +357,7 @@ export class ReorderService {
             products: [
               {
                 product_id: numericProductId,
-                quantity: numericQuantity,
+                quantity: 1, // Supervisor directive: Always pass 1 root lot package to prevent OpenCart 100x/250x overcharges
                 ...(catalogUnitPrice !== undefined
                   ? { price: catalogUnitPrice, total: calcTotal }
                   : {}),
@@ -306,7 +373,7 @@ export class ReorderService {
             ...(calcTotal !== undefined
               ? {
                   sub_total: calcTotal,
-                  total: calcTotal,
+                  total: finalOrderTotal,
                   totals: [
                     {
                       code: 'sub_total',
@@ -315,10 +382,22 @@ export class ReorderService {
                       sort_order: 1,
                     },
                     {
+                      code: 'shipping',
+                      title: shippingTitle,
+                      value: shippingFee,
+                      sort_order: 2,
+                    },
+                    {
+                      code: 'tax',
+                      title: 'Store Sales Tax (0% Exempt / Out-of-State)',
+                      value: taxFee,
+                      sort_order: 3,
+                    },
+                    {
                       code: 'total',
                       title: 'Total',
-                      value: calcTotal,
-                      sort_order: 2,
+                      value: finalOrderTotal!,
+                      sort_order: 4,
                     },
                   ],
                 }
