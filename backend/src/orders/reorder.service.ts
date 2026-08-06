@@ -315,7 +315,7 @@ export class ReorderService {
         let shippingTitle = cleanShippingMethod;
         let shippingFee = 0;
         let taxFee = 0;
-        let taxTitle = 'Store Sales Tax (0% Exempt / Out-of-State)';
+        let taxTitle = 'Tax';
         let finalOrderTotal = calcTotal;
 
         if (calcTotal !== undefined) {
@@ -339,9 +339,7 @@ export class ReorderService {
             lowerMethod.includes('two') ||
             lowerMethod.includes('2')
           ) {
-            shippingTitle = isAlaskaHawaii
-              ? 'Two-Day Air (AK/HI Geo Zone)'
-              : 'Two-Day Air';
+            shippingTitle = 'Two day';
             shippingFee = Math.max(55.0, Number((calcTotal * 0.65).toFixed(2)));
           } else if (
             lowerMethod.includes('next') ||
@@ -349,7 +347,7 @@ export class ReorderService {
             lowerMethod.includes('overnight') ||
             lowerMethod.includes('express')
           ) {
-            shippingTitle = 'Next Day Air';
+            shippingTitle = 'Next day';
             shippingFee = Math.max(79.99, Number((calcTotal * 0.8).toFixed(2)));
           } else {
             // Default Standard Ground Shipping (17% of subtotal, $11.99 minimum) for 48 contiguous states
@@ -363,7 +361,7 @@ export class ReorderService {
           // Verified New York State Sales Tax Rate (8.25% of item sub-total) using exact word boundaries to prevent substring bugs (e.g. Sunnyvale)
           if (/\b(ny|new\s*york)\b/i.test(destStateStr)) {
             taxFee = Number((calcTotal * 0.0825).toFixed(2));
-            taxTitle = 'New York Sales Tax (8.25%)';
+            taxTitle = 'NY Sales Tax (8.25%)';
           }
 
           finalOrderTotal = Number(

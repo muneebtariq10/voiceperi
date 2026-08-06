@@ -21,8 +21,8 @@ $$\text{Shipping Fee} = \max(\text{Minimum Cost}, \text{Subtotal} \times \text{R
 | :--- | :--- | :--- | :--- | :--- |
 | **Free Shipping** | **0%** | **$0.00** | 1 | Applicable automatically when Subtotal $\ge$ **$150.00** |
 | **Ground** | **17%** | **$11.99** | 2 | Fee is **17% of Subtotal** or **$11.99 minimum** (for orders under $150.00) |
-| **Two-Day** | **65%** | **$55.00** | 3 | Fee is **65% of Subtotal** or **$55.00 minimum** (whichever is greater) |
-| **Next Day** | **80%** | **$79.99** | 4 | Fee is **80% of Subtotal** or **$79.99 minimum** (whichever is greater) |
+| **Two day** | **65%** | **$55.00** | 3 | Fee is **65% of Subtotal** or **$55.00 minimum** (whichever is greater) |
+| **Next day** | **80%** | **$79.99** | 4 | Fee is **80% of Subtotal** or **$79.99 minimum** (whichever is greater) |
 
 ### Practical Calculation Examples for AI Agents & Backend Staging
 
@@ -33,9 +33,9 @@ $$\text{Shipping Fee} = \max(\text{Minimum Cost}, \text{Subtotal} \times \text{R
 * **Example 2 ($120.00 Order via Ground):**
   * $17\%$ of $\$120.00 = \$20.40$. Because $\$20.40$ exceeds the $\$11.99$ minimum, **Ground Shipping is $\$20.40$**.
   * Estimated Total = $\$120.00 + \$20.40 = \mathbf{\$140.40}$.
-* **Example 3 ($200.00 Order via Ground vs. Next Day):**
+* **Example 3 ($200.00 Order via Ground vs. Next day):**
   * **If Ground:** Subtotal is over $150, so Ground Shipping is **$0.00 (Free Shipping)**. Total = **$200.00**.
-  * **If Next Day Air:** Expedited shipping does not qualify for free promotion. $80\%$ of $\$200.00 = \$160.00$. Next Day Air is **$160.00**. Total = **$360.00**.
+  * **If Next day:** Expedited shipping does not qualify for free promotion. $80\%$ of $\$200.00 = \$160.00$. Next day is **$160.00**. Total = **$360.00**.
 
 ---
 
@@ -61,11 +61,11 @@ Because standard Ground trucking and expedited Overnight flights cannot physical
 
 * **Contiguous 48 Mainland U.S. States:**
   * **Standard Ground:** Supported across all 48 continental states for commercial and residential physical street addresses.
-  * **Two-Day & Next Day Air:** Supported across virtually all metropolitan cities and suburban distribution hubs within the mainland U.S.
+  * **Two day & Next day:** Supported across virtually all metropolitan cities and suburban distribution hubs within the mainland U.S.
 * **Non-Contiguous States & Remote Territories (Alaska, Hawaii, Puerto Rico):**
-  * **Ground Restrictions:** Standard UPS/FedEx Ground transit is generally disabled for **Alaska (AK)** and **Hawaii (HI)** due to geographic ocean barriers. Orders to AK/HI require expedited Air delivery or USPS Priority transit.
+  * **Ground Restrictions:** Standard UPS/FedEx Ground transit is generally disabled for **Alaska (AK)** and **Hawaii (HI)** due to geographic ocean barriers. Orders to AK/HI require expedited delivery (Two day or Next day) or USPS Priority transit.
   * **U.S. Territories & P.O. Boxes / APO / FPO:** Commercial couriers (UPS/FedEx) do not deliver Ground or Overnight packages to P.O. Boxes or Military APO/FPO addresses; these require USPS transit.
-* **Rural & Mountain City Restrictions:** In select remote, rural, or high-altitude ZIP codes (even within mainland states like Wyoming, Montana, or Maine), carriers may exclude Guaranteed Next-Day Overnight Air due to distance from regional flight hubs.
+* **Rural & Mountain City Restrictions:** In select remote, rural, or high-altitude ZIP codes (even within mainland states like Wyoming, Montana, or Maine), carriers may exclude Guaranteed Next day due to distance from regional flight hubs.
 * **Zero Hallucination Rule:** OpenCart dynamically matches customer State and ZIP codes against backend Geo Zones during checkout to present only available delivery options. Never guarantee overnight transit to rural P.O. boxes or overseas territories!
 
 ---
@@ -83,6 +83,6 @@ PrintEZ's official loyalty program, **EZ Rewards**, operates under specific elig
 ## 6. Operating Instructions for AI Voice Concierge
 
 1. **Calculate Accurate Live Quotes:** When reciting estimated pricing to callers, explicitly apply the 17% Ground or $11.99 Minimum formula for orders under $150, or promote $0.00 Free Shipping for orders $150 and above.
-2. **Explain Expedited Tiers Clearly:** If a caller requires urgent delivery, quote the Two-Day (65% or $55 minimum) or Next Day (80% or $79.99 minimum) formulas accurately without guessing.
+2. **Explain Expedited Tiers Clearly:** If a caller requires urgent delivery, quote the Two day (65% or $55 minimum) or Next day (80% or $79.99 minimum) formulas accurately without guessing.
 3. **Transparent Tax Guidance:** State clearly that sales tax is charged at 8.25% on New York orders, remaining $0.00 for exempt jurisdictions.
-4. **Promote EZ Rewards and Geo Zone Clarity:** Inform callers across all states about earning 3% cash back with standard checkout, while noting that delivery speeds (like Overnight Air to Alaska or rural P.O. boxes) depend on carrier ZIP code availability.
+4. **Promote EZ Rewards and Geo Zone Clarity:** Inform callers across all states about earning 3% cash back with standard checkout, while noting that delivery speeds (like Next day to Alaska or rural P.O. boxes) depend on carrier ZIP code availability.

@@ -52,7 +52,7 @@ export class PrintEZKnowledgeAdapter implements IKnowledgeProvider {
         'geo zone',
       ],
       answer:
-        'PrintEZ offers FREE Ground Shipping on all orders over $150! For orders under $150, Ground shipping is calculated at 17% of item subtotal ($11.99 minimum) across all 48 contiguous mainland states. For non-contiguous states like Alaska and Hawaii, Ground is unavailable; shipments transit via Expedited Two-Day Air ($55.00 minimum). Store sales tax is charged exclusively on orders shipped to New York (NY) at 8.25%; out-of-state shipments across all other U.S. jurisdictions are exempt (0% tax).',
+        'PrintEZ offers FREE Ground Shipping on all orders over $150! For orders under $150, Ground shipping is calculated at 17% of item subtotal ($11.99 minimum) across all 48 contiguous mainland states. For non-contiguous states like Alaska and Hawaii, Ground is unavailable; shipments transit via Two day ($55.00 minimum) or Next day ($79.99 minimum). Store sales tax is charged exclusively on orders shipped to New York (NY) at 8.25%; out-of-state shipments across all other U.S. jurisdictions are exempt (0% tax).',
       url: 'https://www.printez.com/shipping-policy.html',
     },
     {
