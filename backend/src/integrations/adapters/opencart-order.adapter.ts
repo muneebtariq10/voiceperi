@@ -121,6 +121,53 @@ export class OpenCartOrderAdapter implements IOrderProvider {
       `🛒 Creating brand new order via PrintEZ live Agent API (agentapi/order|insert)...`,
     );
 
+    if (process.env.PRINTEZ_API_MODE === 'test') {
+      this.logger.warn(
+        `[TEST MODE] Bypassing live OpenCart database insertion to protect production...`,
+      );
+      const mockOrderId = Math.floor(Math.random() * 100000) + 900000;
+
+      const mockApiOrder = {
+        order_id: mockOrderId,
+        type: 'Online',
+        order_status: 'Pending',
+        date_added: new Date().toISOString().replace('T', ' ').split('.')[0],
+        date_modified: new Date().toISOString().replace('T', ' ').split('.')[0],
+        currency_code: 'USD',
+        total: payload.totals?.find((t) => t.code === 'total')?.value || 0,
+        customer: {
+          firstname: payload.shipping_address?.firstname || 'Mock',
+          lastname: payload.shipping_address?.lastname || 'Customer',
+          email: 'mock@test.com',
+          telephone: '5550001234',
+        },
+        shipping: {
+          ...payload.shipping_address,
+          method: payload.shipping_method || 'Agent Order (Pending)',
+        },
+        payment: {
+          ...payload.payment_address,
+          method: payload.payment_method,
+        },
+        products:
+          payload.products?.map((p) => ({
+            product_id: p.product_id,
+            name: `Mock Product #${p.product_id}`,
+            quantity: p.quantity,
+            price: 50.0,
+            total: 50.0 * (p.quantity || 1),
+            options: p.options || [],
+          })) || [],
+        totals: payload.totals || [],
+      };
+
+      return {
+        success: true,
+        order: this.formatLiveOrder(mockApiOrder),
+        message: `[TEST MODE] Order successfully mocked with local reference ID #${mockOrderId}.`,
+      };
+    }
+
     try {
       const response = await fetch(`${this.baseUrl}|insert`, {
         method: 'POST',
@@ -203,6 +250,41 @@ export class OpenCartOrderAdapter implements IOrderProvider {
 
     if (customerId && !isNaN(customerId)) {
       requestBody.customer_id = customerId;
+    }
+
+    if (process.env.PRINTEZ_API_MODE === 'test') {
+      this.logger.warn(
+        `[TEST MODE] Bypassing live OpenCart database reorder to protect production...`,
+      );
+      const newOrderId = Math.floor(Math.random() * 100000) + 900000;
+
+      const mockApiOrder = {
+        order_id: newOrderId,
+        reorder_id: numericSourceId,
+        type: 'Reorder',
+        order_status: 'Pending',
+        date_added: new Date().toISOString().replace('T', ' ').split('.')[0],
+        date_modified: new Date().toISOString().replace('T', ' ').split('.')[0],
+        currency_code: 'USD',
+        total: 100.0,
+        customer: { firstname: 'Mock', lastname: 'Customer' },
+        shipping: { method: 'Agent Order (Pending)' },
+        payment: { method: 'Mock Payment' },
+        products: [],
+        totals: [],
+        skipped_products: [],
+      };
+
+      const mappedOrder = this.formatLiveOrder(mockApiOrder);
+      return {
+        success: true,
+        order: {
+          ...mappedOrder,
+          source_order_id: numericSourceId,
+          skipped_products: [],
+        },
+        message: `[TEST MODE] Repeat order successfully mocked under brand new Order #${newOrderId}!`,
+      };
     }
 
     try {
