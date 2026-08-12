@@ -524,6 +524,57 @@ export class ProductsService implements OnModuleInit {
     return res;
   }
 
+  /**
+   * Fetches product options with their numeric IDs from the live PrintEZ API.
+   * Returns the options array from agentapi/product|get, each with:
+   *   product_option_id, option_id, name, type, required, values[]
+   *     where each value has: product_option_value_id, option_value_id, name, price, quantity
+   */
+  async getProductOptions(
+    productId: number,
+  ): Promise<
+    Array<{
+      product_option_id: number;
+      option_id: number;
+      name: string;
+      type: string;
+      required: boolean;
+      values: Array<{
+        product_option_value_id: number;
+        option_value_id: number;
+        name: string;
+        price: number;
+        price_prefix: string;
+        quantity: number;
+        subtract: boolean;
+      }>;
+    }>
+  > {
+    try {
+      const token =
+        process.env.PRINTEZ_API_KEY ||
+        process.env.AGENT_API_TOKEN ||
+        '5c4faefcfc742ee848f1aa2f385f237aec5e70c6fcd7d5b3c8e082e426c51b54';
+      const res = await fetch(
+        `https://www.printez.com/index.php?route=agentapi/product|get&product_id=${productId}`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const options = data?.product?.options || data?.options || [];
+        this.logger.log(
+          `📋 Fetched ${options.length} option group(s) for Product #${productId} from PrintEZ API`,
+        );
+        return options;
+      }
+    } catch (err) {
+      this.logger.warn(
+        `Failed to fetch product options for #${productId}: ${err?.message}`,
+      );
+    }
+    return [];
+  }
+
   private getEditDistance(a: string, b: string): number {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;

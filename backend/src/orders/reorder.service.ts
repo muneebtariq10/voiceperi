@@ -339,59 +339,135 @@ export class ReorderService {
             : parseInt(String(request.previousOrderId).replace(/\D/g, ''), 10)
           : undefined;
 
-        // Build rich product options array with dual-key representation so OpenCart records options in oc_order_option
+        // Build product options with real OpenCart numeric IDs from the live PrintEZ API
+        // This ensures options are stored in oc_order_option (not silently dropped)
         const productOptions: Array<Record<string, any>> = [];
+        let apiOptions: any[] = [];
+        try {
+          apiOptions = await this.productsService.getProductOptions(numericProductId);
+        } catch (err) {
+          this.logger.warn(`Could not fetch product options for #${numericProductId}: ${err?.message}`);
+        }
+
+        /**
+         * matchOptionValue — Fuzzy-matches a customer's requested value (e.g. "3", "red", "blue")
+         * against the live API option groups. Returns the matched { product_option_id, product_option_value_id, name, value, type, price }.
+         */
+        const matchOptionValue = (
+          requestedName: string,
+          requestedValue: string,
+        ): Record<string, any> | null => {
+          const normalizedName = requestedName.toLowerCase().trim();
+          const normalizedValue = requestedValue.toLowerCase().trim();
+
+          for (const optGroup of apiOptions) {
+            const groupName = String(optGroup.name || '').toLowerCase();
+            // Match by option group name (e.g., "1 Part" contains "part", "Color" contains "color")
+            const nameMatches =
+              groupName.includes(normalizedName) ||
+              normalizedName.includes(groupName.replace(/^\d+\s*/, '')) ||
+              (normalizedName.includes('part') && groupName.includes('part')) ||
+              (normalizedName.includes('color') && groupName.includes('color')) ||
+              (normalizedName.includes('quantity') && groupName.includes('quantity')) ||
+              (normalizedName.includes('qty') && groupName.includes('qty'));
+
+            if (nameMatches && Array.isArray(optGroup.values)) {
+              for (const val of optGroup.values) {
+                const valName = String(val.name || '').toLowerCase().trim();
+                if (
+                  valName === normalizedValue ||
+                  valName.includes(normalizedValue) ||
+                  normalizedValue.includes(valName)
+                ) {
+                  this.logger.log(
+                    `🎯 Matched option "${requestedName}=${requestedValue}" → product_option_id=${optGroup.product_option_id}, product_option_value_id=${val.product_option_value_id} (price: $${val.price})`,
+                  );
+                  return {
+                    product_option_id: optGroup.product_option_id,
+                    product_option_value_id: val.product_option_value_id,
+                    name: optGroup.name,
+                    value: val.name,
+                    type: optGroup.type || 'select',
+                    price: val.price || 0,
+                  };
+                }
+              }
+              // If no exact value match but group matched, use first value as fallback
+              if (optGroup.values.length > 0) {
+                const firstVal = optGroup.values[0];
+                this.logger.warn(
+                  `⚠️ Option "${requestedName}=${requestedValue}" matched group "${optGroup.name}" but no exact value match. Using first value: "${firstVal.name}" (price: $${firstVal.price})`,
+                );
+                return {
+                  product_option_id: optGroup.product_option_id,
+                  product_option_value_id: firstVal.product_option_value_id,
+                  name: optGroup.name,
+                  value: firstVal.name,
+                  type: optGroup.type || 'select',
+                  price: firstVal.price || 0,
+                };
+              }
+            }
+          }
+          return null;
+        };
+
+        // Resolve "Parts" option (e.g., customer says "3 parts" → product_option_value_id for "3")
         if (request.parts) {
-          productOptions.push({
-            name: 'Parts',
-            value: String(request.parts),
-            option_name: 'Parts',
-            option_value: String(request.parts),
-            type: 'select',
-          });
+          const matched = matchOptionValue('Parts', String(request.parts));
+          if (matched) {
+            productOptions.push(matched);
+          } else {
+            // Fallback: send human-readable option (will be in comment, but may not save to oc_order_option)
+            productOptions.push({
+              name: 'Parts',
+              value: String(request.parts),
+              type: 'select',
+            });
+          }
         }
+
+        // Resolve "Color" option
         if (request.color) {
-          productOptions.push({
-            name: 'Color',
-            value: String(request.color),
-            option_name: 'Color',
-            option_value: String(request.color),
-            type: 'select',
-          });
+          const matched = matchOptionValue('Color', String(request.color));
+          if (matched) {
+            productOptions.push(matched);
+          } else {
+            productOptions.push({
+              name: 'Color',
+              value: String(request.color),
+              type: 'select',
+            });
+          }
         }
-        if (request.notes) {
-          productOptions.push({
-            name: 'Customization Notes',
-            value: String(request.notes),
-            option_name: 'Customization Notes',
-            option_value: String(request.notes),
-            type: 'text',
-          });
-        }
+
+        // Resolve "Quantity" / "Qty" option
         if (
           numericQuantity > 1 &&
           !productOptions.some(
             (o) =>
-              String(o.name || '')
-                .toLowerCase()
-                .includes('quantity') ||
-              String(o.name || '')
-                .toLowerCase()
-                .includes('qty') ||
-              String(o.option_name || '')
-                .toLowerCase()
-                .includes('quantity') ||
-              String(o.option_name || '')
-                .toLowerCase()
-                .includes('qty'),
+              String(o.name || '').toLowerCase().includes('quantity') ||
+              String(o.name || '').toLowerCase().includes('qty'),
           )
         ) {
+          const matched = matchOptionValue('Quantity', String(numericQuantity));
+          if (matched) {
+            productOptions.push(matched);
+          } else {
+            productOptions.push({
+              name: 'Quantity Tier',
+              value: String(numericQuantity),
+              type: 'select',
+            });
+          }
+        }
+
+        // Notes are always free-text (no API lookup needed)
+        if (request.notes) {
           productOptions.push({
-            name: 'Quantity Tier',
-            value: String(numericQuantity),
-            option_name: 'Quantity Tier',
-            option_value: String(numericQuantity),
-            type: 'select',
+            name: 'Customization Notes',
+            value: String(request.notes),
+            type: 'text',
           });
         }
 
