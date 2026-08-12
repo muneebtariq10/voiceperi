@@ -38,6 +38,81 @@ export interface ReorderResult {
   skippedProducts?: Array<{ product_id: number | string; quantity: number }>;
 }
 
+// OpenCart US State → Zone ID Mapping (oc_zone table, country_id=223)
+const US_STATE_ZONE_MAP: Record<string, number> = {
+  'alabama': 3613, 'al': 3613,
+  'alaska': 3614, 'ak': 3614,
+  'arizona': 3615, 'az': 3615,
+  'arkansas': 3616, 'ar': 3616,
+  'california': 3617, 'ca': 3617,
+  'colorado': 3618, 'co': 3618,
+  'connecticut': 3619, 'ct': 3619,
+  'delaware': 3620, 'de': 3620,
+  'district of columbia': 3621, 'dc': 3621,
+  'florida': 3622, 'fl': 3622,
+  'georgia': 3623, 'ga': 3623,
+  'hawaii': 3624, 'hi': 3624,
+  'idaho': 3625, 'id': 3625,
+  'illinois': 3626, 'il': 3626,
+  'indiana': 3627, 'in': 3627,
+  'iowa': 3628, 'ia': 3628,
+  'kansas': 3629, 'ks': 3629,
+  'kentucky': 3630, 'ky': 3630,
+  'louisiana': 3631, 'la': 3631,
+  'maine': 3632, 'me': 3632,
+  'maryland': 3633, 'md': 3633,
+  'massachusetts': 3634, 'ma': 3634,
+  'michigan': 3635, 'mi': 3635,
+  'minnesota': 3636, 'mn': 3636,
+  'mississippi': 3637, 'ms': 3637,
+  'missouri': 3638, 'mo': 3638,
+  'montana': 3639, 'mt': 3639,
+  'nebraska': 3640, 'ne': 3640,
+  'nevada': 3641, 'nv': 3641,
+  'new hampshire': 3642, 'nh': 3642,
+  'new jersey': 3643, 'nj': 3643,
+  'new mexico': 3644, 'nm': 3644,
+  'new york': 3645, 'ny': 3645,
+  'north carolina': 3646, 'nc': 3646,
+  'north dakota': 3647, 'nd': 3647,
+  'ohio': 3648, 'oh': 3648,
+  'oklahoma': 3649, 'ok': 3649,
+  'oregon': 3650, 'or': 3650,
+  'pennsylvania': 3651, 'pa': 3651,
+  'rhode island': 3652, 'ri': 3652,
+  'south carolina': 3653, 'sc': 3653,
+  'south dakota': 3654, 'sd': 3654,
+  'tennessee': 3655, 'tn': 3655,
+  'texas': 3656, 'tx': 3656,
+  'utah': 3657, 'ut': 3657,
+  'vermont': 3658, 'vt': 3658,
+  'virginia': 3659, 'va': 3659,
+  'washington': 3660, 'wa': 3660,
+  'west virginia': 3661, 'wv': 3661,
+  'wisconsin': 3662, 'wi': 3662,
+  'wyoming': 3663, 'wy': 3663,
+};
+
+// OpenCart Shipping Extension Code Mapping (oc_extension table)
+const SHIPPING_CODE_MAP: Record<string, { code: string; method_id: number }> = {
+  'free': { code: 'free.free', method_id: 1 },
+  'free shipping': { code: 'free.free', method_id: 1 },
+  'ground': { code: 'ground.ground', method_id: 2 },
+  'two day': { code: 'twoday.twoday', method_id: 3 },
+  'next day': { code: 'nextday.nextday', method_id: 4 },
+};
+
+function resolveZoneId(stateInput?: string): number {
+  if (!stateInput) return 0;
+  const key = stateInput.trim().toLowerCase();
+  return US_STATE_ZONE_MAP[key] || 0;
+}
+
+function resolveShippingCode(method: string): { code: string; method_id: number } {
+  const key = method.trim().toLowerCase();
+  return SHIPPING_CODE_MAP[key] || SHIPPING_CODE_MAP['ground'];
+}
+
 @Injectable()
 export class ReorderService {
   private readonly logger = new Logger(ReorderService.name);
@@ -216,6 +291,11 @@ export class ReorderService {
         const cleanPaymentMethod = request.paymentMethod || 'Credit Card';
 
         // Construct structured OpenCart shipping and payment addresses with embedded method names
+        // Resolve OpenCart zone IDs for shipping and payment states
+        const shippingZoneId = resolveZoneId(request.state);
+        const billingZoneId = resolveZoneId(request.billingState || request.state);
+
+
         const shippingPayload = fullShipAddress
           ? {
               firstname,
@@ -228,6 +308,8 @@ export class ReorderService {
               city: request.city || '',
               postcode: request.zipCode || '',
               zone: request.state || '',
+              zone_id: shippingZoneId,
+              country: 'United States',
               country_id: 223,
               shipping_method: cleanShippingMethod,
             }
@@ -245,6 +327,8 @@ export class ReorderService {
           city: request.billingCity || request.city || '',
           postcode: request.billingZipCode || request.zipCode || '',
           zone: request.billingState || request.state || '',
+          zone_id: billingZoneId,
+          country: 'United States',
           country_id: 223,
           payment_method: cleanPaymentMethod,
         };
@@ -372,6 +456,9 @@ export class ReorderService {
           );
         }
 
+        // Resolve OpenCart shipping extension code and method ID (after shippingTitle is finalized)
+        const shippingCodeInfo = resolveShippingCode(shippingTitle);
+
         try {
           const createRes = await this.orderAdapter.createOrder({
             customer: {
@@ -395,7 +482,10 @@ export class ReorderService {
             ...(shippingPayload ? { shipping_address: shippingPayload } : {}),
             payment_address: paymentPayload,
             shipping_method: cleanShippingMethod,
+            shipping_code: shippingCodeInfo.code,
+            shiping_method_id: shippingCodeInfo.method_id,
             payment_method: cleanPaymentMethod,
+            payment_code: 'cod',
             ...(calcTotal !== undefined
               ? {
                   sub_total: calcTotal,
@@ -428,7 +518,17 @@ export class ReorderService {
                   ],
                 }
               : {}),
+            // --- OpenCart metadata fields ---
+            type: numericPreviousId ? 'By Call' : 'By Call',
+            language_id: 1,
+            currency_id: 2,
+            currency_code: 'USD',
+            currency_value: 1.00000000,
+            store_id: 0,
+            store_name: 'PrintEZ.com',
+            store_url: 'https://www.printez.com/',
             ip: request.ip || '127.0.0.1',
+            forwarded_ip: request.ip || '127.0.0.1',
             user_agent:
               request.userAgent ||
               'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
