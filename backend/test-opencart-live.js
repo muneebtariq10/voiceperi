@@ -41,7 +41,7 @@ async function testOpenCartPayloads() {
       firstname: 'Saleh', lastname: 'Ahmed',
       company: 'NVT',
       address_1: '388 N Phase 6 DHA',
-      city: '54000', postcode: '54000', zone: 'Ohio',
+      city: '54000', postcode: '54000', zone: 'Ohio', zone_id: 3648,
       country_id: 223,
       shipping_method: 'Ground'
     },
@@ -49,20 +49,33 @@ async function testOpenCartPayloads() {
       firstname: 'Saleh', lastname: 'Ahmed',
       company: 'NVT',
       address_1: '139 Hunza',
-      city: '54000', postcode: '54000', zone: 'Ohio',
+      city: '54000', postcode: '54000', zone: 'Ohio', zone_id: 3648,
       country_id: 223,
       payment_method: 'Credit Card'
     },
     shipping_method: 'Ground',
+    shipping_code: 'ground.ground',
+    shiping_method_id: 2,
     payment_method: 'Credit Card',
+    payment_code: 'cod',
     ip: '198.51.100.42',
+    forwarded_ip: '198.51.100.42',
     user_agent: 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
+    type: 'By Call',
+    language_id: 1,
+    currency_id: 2,
+    currency_code: 'USD',
+    currency_value: 1,
+    store_id: 0,
+    store_name: 'PrintEZ.com',
+    store_url: 'https://www.printez.com/',
     comment: 'Estimated Total: $55.99 (1 package of 100-unit option @ $55.99) | Company: NVT | Parts: 2 Part | Shipping Method: Ground | Payment Method: Credit Card',
     sub_total: 55.99,
     total: 55.99,
     totals: [
-      { code: 'sub_total', title: 'Sub-Total', value: 55.99, sort_order: 1 },
-      { code: 'total', title: 'Total', value: 55.99, sort_order: 2 }
+      { code: 'sub_total', title: 'Sub-Total', value: 55.99, sort_order: 1, extension: 'opencart' },
+      { code: 'shipping', title: 'Ground', value: 11.99, sort_order: 2, extension: 'opencart' },
+      { code: 'total', title: 'Total', value: 67.98, sort_order: 3, extension: 'opencart' }
     ]
   };
 

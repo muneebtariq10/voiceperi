@@ -572,24 +572,28 @@ export class ReorderService {
                       title: 'Sub-Total',
                       value: calcTotal,
                       sort_order: 1,
+                      extension: 'opencart',
                     },
                     {
                       code: 'shipping',
                       title: shippingTitle,
                       value: shippingFee,
                       sort_order: 2,
+                      extension: 'opencart',
                     },
                     {
                       code: 'tax',
                       title: taxTitle,
                       value: taxFee,
                       sort_order: 3,
+                      extension: 'opencart',
                     },
                     {
                       code: 'total',
                       title: 'Total',
                       value: finalOrderTotal!,
                       sort_order: 4,
+                      extension: 'opencart',
                     },
                   ],
                 }
