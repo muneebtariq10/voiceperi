@@ -113,6 +113,7 @@ export interface CreateOrderPayload {
   source_order_id?: number | string;
   previous_order_id?: number | string;
   comment?: string;
+  businessId?: string;
   [key: string]: any;
 }
 

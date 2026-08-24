@@ -104,6 +104,18 @@ export class BusinessInformation {
   //     sunday: { from: string; to: string; enabled: boolean };
   // };
 
+  @Column({ type: 'varchar', nullable: true })
+  shopifyStoreUrl: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shopifyAccessToken: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shopifyClientId: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  shopifyClientSecret: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

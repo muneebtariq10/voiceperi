@@ -23,6 +23,9 @@ export class ReorderController {
     // Extract fields prioritizing body.args/body.arguments to prevent tool metadata (e.g. body.name = 'capture_reorder') from overriding arguments
     const args = body?.args || body?.arguments || body || {};
 
+    const agentId = body?.agent_id || args.agent_id;
+    const callId = body?.call_id || args.call_id;
+
     const productId =
       args.productId ??
       args.product_id ??
@@ -155,7 +158,7 @@ export class ReorderController {
       req?.socket?.remoteAddress ||
       '127.0.0.1';
 
-    const userAgent = 'VoicePeri AI Telephony Concierge / PrintEZ Assistant';
+    const userAgent = 'VoicePeri AI Telephony Concierge';
 
     // Validate required fields
     if (!customerEmail) {
@@ -175,10 +178,12 @@ export class ReorderController {
     }
 
     this.logger.log(
-      `Reorder request received: ${productName} (${productId || 'no ID'}) for ${customerName} (${customerEmail}) via IP ${ip}`,
+      `Reorder request received: ${productName} (${productId || 'no ID'}) for ${customerName} (${customerEmail}) via IP ${ip} (Agent: ${agentId || 'unknown'})`,
     );
 
     return this.reorderService.captureReorder({
+      agentId,
+      callId,
       productId,
       productName,
       quantity: quantity ? parseInt(String(quantity), 10) : 1,
