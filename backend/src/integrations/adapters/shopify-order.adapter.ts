@@ -279,7 +279,7 @@ export class ShopifyOrderAdapter implements IOrderProvider {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  async isAvailable(businessId: string): Promise<boolean> {
+  async isAvailable(): Promise<boolean> {
     return true;
   }
 }
