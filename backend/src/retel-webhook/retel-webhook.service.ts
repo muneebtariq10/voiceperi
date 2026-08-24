@@ -7,6 +7,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
 import { BusinessInformation } from 'src/entities/business_information';
 import * as twilio from 'twilio';
+import { BrandConfig } from '../config/brand.config';
+
 @Injectable()
 export class RetelWebhookService {
   private twilioClient: twilio.Twilio | null = null;
@@ -415,7 +417,7 @@ A new voice consultation has just been completed. Here is the executive summary 
 ${callerInfo.callSummary}
 ${textQuestionsSection}${callerInfo.recordingUrl ? `\n🎧 Audio Recording Link: ${callerInfo.recordingUrl}\n` : ''}
 Your AI Concierge,
-VoicePeri Platform`;
+${BrandConfig.name} Platform`;
 
     const htmlContent = `<!DOCTYPE html>
 <html>
@@ -525,7 +527,7 @@ VoicePeri Platform`;
     <!-- Ultra-Modern Dark Slate Footer -->
     <tr>
       <td style="background-color: #0b0f19; padding: 28px 40px; text-align: center;">
-        <p style="margin: 0; font-size: 14px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px;">VoicePeri AI Concierge Platform</p>
+        <p style="margin: 0; font-size: 14px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px;">${BrandConfig.conciergeName}</p>
         <p style="margin: 6px 0 0 0; font-size: 12px; color: #94a3b8;">Automated Post-Call Intelligence &amp; Telephony Analytics</p>
         <p style="margin: 16px 0 0 0; font-size: 11px; color: #475569; border-top: 1px solid #1e293b; padding-top: 16px;">This executive summary was generated instantly upon conversation completion for <strong style="color: #94a3b8;">${businessName}</strong>.</p>
       </td>

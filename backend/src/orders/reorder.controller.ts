@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ReorderService } from './reorder.service';
 import { Public } from '../auth/decorators/public.decorator';
+import { BrandConfig } from '../config/brand.config';
 
 @Controller('orders')
 export class ReorderController {
@@ -158,7 +159,7 @@ export class ReorderController {
       req?.socket?.remoteAddress ||
       '127.0.0.1';
 
-    const userAgent = 'VoicePeri AI Telephony Concierge';
+    const userAgent = `${BrandConfig.conciergeName} / PrintEZ Assistant`;
 
     // Validate required fields
     if (!customerEmail) {

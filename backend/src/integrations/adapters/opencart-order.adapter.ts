@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from '../../entities/order';
+import { BrandConfig } from '../../config/brand.config';
 import {
   IOrderProvider,
   OrderLookupResult,
@@ -242,10 +243,11 @@ export class OpenCartOrderAdapter implements IOrderProvider {
     const requestBody: Record<string, any> = {
       source_order_id: numericSourceId,
       comment:
-        comment || 'Repeat order placed via VoicePeri AI voice concierge',
+        comment ||
+        `Repeat order placed via ${BrandConfig.fullName} voice concierge`,
       ip: ip || '127.0.0.1',
       user_agent:
-        userAgent || 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
+        userAgent || `${BrandConfig.conciergeName} / PrintEZ Assistant`,
     };
 
     if (customerId && !isNaN(customerId)) {

@@ -1,11 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { OpenCartOrderAdapter, ShopifyOrderAdapter } from '../integrations/adapters';
+import {
+  OpenCartOrderAdapter,
+  ShopifyOrderAdapter,
+} from '../integrations/adapters';
 import { ProductsService } from '../products/products.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Agent } from '../entities/agent';
 import { BusinessInformation } from '../entities/business_information';
+import { BrandConfig } from '../config/brand.config';
 
 export interface ReorderRequest {
   agentId?: string;
@@ -46,64 +50,115 @@ export interface ReorderResult {
 
 // OpenCart US State → Zone ID Mapping (oc_zone table, country_id=223)
 const US_STATE_ZONE_MAP: Record<string, number> = {
-  'alabama': 3613, 'al': 3613,
-  'alaska': 3614, 'ak': 3614,
-  'arizona': 3615, 'az': 3615,
-  'arkansas': 3616, 'ar': 3616,
-  'california': 3617, 'ca': 3617,
-  'colorado': 3618, 'co': 3618,
-  'connecticut': 3619, 'ct': 3619,
-  'delaware': 3620, 'de': 3620,
-  'district of columbia': 3621, 'dc': 3621,
-  'florida': 3622, 'fl': 3622,
-  'georgia': 3623, 'ga': 3623,
-  'hawaii': 3624, 'hi': 3624,
-  'idaho': 3625, 'id': 3625,
-  'illinois': 3626, 'il': 3626,
-  'indiana': 3627, 'in': 3627,
-  'iowa': 3628, 'ia': 3628,
-  'kansas': 3629, 'ks': 3629,
-  'kentucky': 3630, 'ky': 3630,
-  'louisiana': 3631, 'la': 3631,
-  'maine': 3632, 'me': 3632,
-  'maryland': 3633, 'md': 3633,
-  'massachusetts': 3634, 'ma': 3634,
-  'michigan': 3635, 'mi': 3635,
-  'minnesota': 3636, 'mn': 3636,
-  'mississippi': 3637, 'ms': 3637,
-  'missouri': 3638, 'mo': 3638,
-  'montana': 3639, 'mt': 3639,
-  'nebraska': 3640, 'ne': 3640,
-  'nevada': 3641, 'nv': 3641,
-  'new hampshire': 3642, 'nh': 3642,
-  'new jersey': 3643, 'nj': 3643,
-  'new mexico': 3644, 'nm': 3644,
-  'new york': 3645, 'ny': 3645,
-  'north carolina': 3646, 'nc': 3646,
-  'north dakota': 3647, 'nd': 3647,
-  'ohio': 3648, 'oh': 3648,
-  'oklahoma': 3649, 'ok': 3649,
-  'oregon': 3650, 'or': 3650,
-  'pennsylvania': 3651, 'pa': 3651,
-  'rhode island': 3652, 'ri': 3652,
-  'south carolina': 3653, 'sc': 3653,
-  'south dakota': 3654, 'sd': 3654,
-  'tennessee': 3655, 'tn': 3655,
-  'texas': 3656, 'tx': 3656,
-  'utah': 3657, 'ut': 3657,
-  'vermont': 3658, 'vt': 3658,
-  'virginia': 3659, 'va': 3659,
-  'washington': 3660, 'wa': 3660,
-  'west virginia': 3661, 'wv': 3661,
-  'wisconsin': 3662, 'wi': 3662,
-  'wyoming': 3663, 'wy': 3663,
+  alabama: 3613,
+  al: 3613,
+  alaska: 3614,
+  ak: 3614,
+  arizona: 3615,
+  az: 3615,
+  arkansas: 3616,
+  ar: 3616,
+  california: 3617,
+  ca: 3617,
+  colorado: 3618,
+  co: 3618,
+  connecticut: 3619,
+  ct: 3619,
+  delaware: 3620,
+  de: 3620,
+  'district of columbia': 3621,
+  dc: 3621,
+  florida: 3622,
+  fl: 3622,
+  georgia: 3623,
+  ga: 3623,
+  hawaii: 3624,
+  hi: 3624,
+  idaho: 3625,
+  id: 3625,
+  illinois: 3626,
+  il: 3626,
+  indiana: 3627,
+  in: 3627,
+  iowa: 3628,
+  ia: 3628,
+  kansas: 3629,
+  ks: 3629,
+  kentucky: 3630,
+  ky: 3630,
+  louisiana: 3631,
+  la: 3631,
+  maine: 3632,
+  me: 3632,
+  maryland: 3633,
+  md: 3633,
+  massachusetts: 3634,
+  ma: 3634,
+  michigan: 3635,
+  mi: 3635,
+  minnesota: 3636,
+  mn: 3636,
+  mississippi: 3637,
+  ms: 3637,
+  missouri: 3638,
+  mo: 3638,
+  montana: 3639,
+  mt: 3639,
+  nebraska: 3640,
+  ne: 3640,
+  nevada: 3641,
+  nv: 3641,
+  'new hampshire': 3642,
+  nh: 3642,
+  'new jersey': 3643,
+  nj: 3643,
+  'new mexico': 3644,
+  nm: 3644,
+  'new york': 3645,
+  ny: 3645,
+  'north carolina': 3646,
+  nc: 3646,
+  'north dakota': 3647,
+  nd: 3647,
+  ohio: 3648,
+  oh: 3648,
+  oklahoma: 3649,
+  ok: 3649,
+  oregon: 3650,
+  or: 3650,
+  pennsylvania: 3651,
+  pa: 3651,
+  'rhode island': 3652,
+  ri: 3652,
+  'south carolina': 3653,
+  sc: 3653,
+  'south dakota': 3654,
+  sd: 3654,
+  tennessee: 3655,
+  tn: 3655,
+  texas: 3656,
+  tx: 3656,
+  utah: 3657,
+  ut: 3657,
+  vermont: 3658,
+  vt: 3658,
+  virginia: 3659,
+  va: 3659,
+  washington: 3660,
+  wa: 3660,
+  'west virginia': 3661,
+  wv: 3661,
+  wisconsin: 3662,
+  wi: 3662,
+  wyoming: 3663,
+  wy: 3663,
 };
 
 // OpenCart Shipping Extension Code Mapping (oc_extension table)
 const SHIPPING_CODE_MAP: Record<string, { code: string; method_id: number }> = {
-  'free': { code: 'free.free', method_id: 1 },
+  free: { code: 'free.free', method_id: 1 },
   'free shipping': { code: 'free.free', method_id: 1 },
-  'ground': { code: 'ground.ground', method_id: 2 },
+  ground: { code: 'ground.ground', method_id: 2 },
   'two day': { code: 'twoday.twoday', method_id: 3 },
   'next day': { code: 'nextday.nextday', method_id: 4 },
 };
@@ -114,7 +169,10 @@ function resolveZoneId(stateInput?: string): number {
   return US_STATE_ZONE_MAP[key] || 0;
 }
 
-function resolveShippingCode(method: string): { code: string; method_id: number } {
+function resolveShippingCode(method: string): {
+  code: string;
+  method_id: number;
+} {
   const key = method.trim().toLowerCase();
   return SHIPPING_CODE_MAP[key] || SHIPPING_CODE_MAP['ground'];
 }
@@ -164,15 +222,23 @@ export class ReorderService {
           });
           if (business) {
             businessId = String(business.id);
-            if (business.shopifyStoreUrl && (business.shopifyAccessToken || (business.shopifyClientId && business.shopifyClientSecret))) {
-              this.logger.log(`Shopify credentials detected for business ${business.name}. Routing to Shopify Order Adapter...`);
+            if (
+              business.shopifyStoreUrl &&
+              (business.shopifyAccessToken ||
+                (business.shopifyClientId && business.shopifyClientSecret))
+            ) {
+              this.logger.log(
+                `Shopify credentials detected for business ${business.name}. Routing to Shopify Order Adapter...`,
+              );
               activeAdapter = this.shopifyAdapter;
               isShopify = true;
             }
           }
         }
       } catch (err) {
-        this.logger.warn(`Failed to lookup business routing info for agent ${request.agentId}: ${err?.message}`);
+        this.logger.warn(
+          `Failed to lookup business routing info for agent ${request.agentId}: ${err?.message}`,
+        );
       }
     }
 
@@ -225,43 +291,64 @@ export class ReorderService {
 
     // ─── SHOPIFY ORDER PATH ─────────────────────────────────────────────
     if (!liveReorderSucceeded && isShopify) {
-      this.logger.log(`🟢 Shopify order path activated for ${request.productName}`);
+      this.logger.log(
+        `🟢 Shopify order path activated for ${request.productName}`,
+      );
 
-      const nameParts = (request.customerName || 'Valued Customer').trim().split(/\s+/);
+      const nameParts = (request.customerName || 'Valued Customer')
+        .trim()
+        .split(/\s+/);
       const firstname = nameParts[0] || 'Customer';
       const lastname = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
       // Build a human-readable note with all collected details
       const noteParts: string[] = [];
-      noteParts.push(request.notes || `Phone order placed by AI concierge for ${request.productName}`);
-      if (request.quantity && request.quantity > 1) noteParts.push(`Quantity: ${request.quantity}`);
+      noteParts.push(
+        request.notes ||
+          `Phone order placed by AI concierge for ${request.productName}`,
+      );
+      if (request.quantity && request.quantity > 1)
+        noteParts.push(`Quantity: ${request.quantity}`);
       if (request.company) noteParts.push(`Company: ${request.company}`);
       if (request.parts) noteParts.push(`Parts: ${request.parts}`);
       if (request.color) noteParts.push(`Color: ${request.color}`);
-      if (request.shippingMethod) noteParts.push(`Shipping Method: ${request.shippingMethod}`);
-      if (request.paymentMethod) noteParts.push(`Payment Method: ${request.paymentMethod}`);
-      if (request.previousOrderId) noteParts.push(`Reorder of previous order #${request.previousOrderId}`);
+      if (request.shippingMethod)
+        noteParts.push(`Shipping Method: ${request.shippingMethod}`);
+      if (request.paymentMethod)
+        noteParts.push(`Payment Method: ${request.paymentMethod}`);
+      if (request.previousOrderId)
+        noteParts.push(`Reorder of previous order #${request.previousOrderId}`);
       const orderNote = noteParts.join(' | ');
 
       // For Shopify, the product_id from Retell may be a Shopify variant GID or a numeric variant ID.
       // If it's a plain number, we pass it as-is and let the adapter prefix with gid://shopify/ProductVariant/
       const shopifyProductId = request.productId || '0';
 
-      const fullShipAddress = [
-        request.streetAddress || request.shippingAddress,
-        request.city,
-        request.state,
-        request.zipCode,
-      ].filter(Boolean).join(', ') || request.shippingAddress || '';
+      const fullShipAddress =
+        [
+          request.streetAddress || request.shippingAddress,
+          request.city,
+          request.state,
+          request.zipCode,
+        ]
+          .filter(Boolean)
+          .join(', ') ||
+        request.shippingAddress ||
+        '';
 
-      const shippingPayload = fullShipAddress ? {
-        firstname,
-        lastname,
-        company: request.company || '',
-        address_1: request.streetAddress || request.shippingAddress || fullShipAddress,
-        city: request.city || '',
-        postcode: request.zipCode || '',
-      } : undefined;
+      const shippingPayload = fullShipAddress
+        ? {
+            firstname,
+            lastname,
+            company: request.company || '',
+            address_1:
+              request.streetAddress ||
+              request.shippingAddress ||
+              fullShipAddress,
+            city: request.city || '',
+            postcode: request.zipCode || '',
+          }
+        : undefined;
 
       try {
         const createRes = await this.shopifyAdapter.createOrder({
@@ -271,10 +358,12 @@ export class ReorderService {
             email: request.customerEmail,
             telephone: request.customerPhone || '',
           },
-          products: [{
-            product_id: Number(shopifyProductId) || 0,
-            quantity: request.quantity || 1,
-          }],
+          products: [
+            {
+              product_id: Number(shopifyProductId) || 0,
+              quantity: request.quantity || 1,
+            },
+          ],
           ...(shippingPayload ? { shipping_address: shippingPayload } : {}),
           comment: orderNote,
           businessId,
@@ -283,14 +372,22 @@ export class ReorderService {
         if (createRes.success && createRes.order) {
           liveOrderId = createRes.order.orderId;
           referenceId = String(createRes.order.orderId);
-          const invoiceMsg = createRes.message?.includes('Invoice URL') ? ` ${createRes.message.split('Invoice URL: ')[1] || ''}` : '';
+          const invoiceMsg = createRes.message?.includes('Invoice URL')
+            ? ` ${createRes.message.split('Invoice URL: ')[1] || ''}`
+            : '';
           customMessage = `Great news! Your order for ${request.productName} has been created as a Draft Order in our store${request.previousOrderId ? ` (based on previous order #${request.previousOrderId})` : ''}. You will receive a secure payment invoice at ${request.customerEmail} shortly so you can complete checkout!`;
-          this.logger.log(`🎉 Shopify Draft Order created successfully! ID: ${liveOrderId}`);
+          this.logger.log(
+            `🎉 Shopify Draft Order created successfully! ID: ${liveOrderId}`,
+          );
         } else {
-          this.logger.warn(`Shopify Draft Order creation returned error: ${createRes.error?.message}`);
+          this.logger.warn(
+            `Shopify Draft Order creation returned error: ${createRes.error?.message}`,
+          );
         }
       } catch (err) {
-        this.logger.warn(`Error creating Shopify draft order: ${err?.message}. Falling back to manual capture.`);
+        this.logger.warn(
+          `Error creating Shopify draft order: ${err?.message}. Falling back to manual capture.`,
+        );
       }
     }
 
@@ -396,8 +493,9 @@ export class ReorderService {
         const cleanPaymentMethod = request.paymentMethod || 'Credit Card';
 
         const shippingZoneId = resolveZoneId(request.state);
-        const billingZoneId = resolveZoneId(request.billingState || request.state);
-
+        const billingZoneId = resolveZoneId(
+          request.billingState || request.state,
+        );
 
         const shippingPayload = fullShipAddress
           ? {
@@ -445,9 +543,12 @@ export class ReorderService {
         const productOptions: Array<Record<string, any>> = [];
         let apiOptions: any[] = [];
         try {
-          apiOptions = await this.productsService.getProductOptions(numericProductId);
+          apiOptions =
+            await this.productsService.getProductOptions(numericProductId);
         } catch (err) {
-          this.logger.warn(`Could not fetch product options for #${numericProductId}: ${err?.message}`);
+          this.logger.warn(
+            `Could not fetch product options for #${numericProductId}: ${err?.message}`,
+          );
         }
 
         const matchOptionValue = (
@@ -463,13 +564,17 @@ export class ReorderService {
               groupName.includes(normalizedName) ||
               normalizedName.includes(groupName.replace(/^\d+\s*/, '')) ||
               (normalizedName.includes('part') && groupName.includes('part')) ||
-              (normalizedName.includes('color') && groupName.includes('color')) ||
-              (normalizedName.includes('quantity') && groupName.includes('quantity')) ||
+              (normalizedName.includes('color') &&
+                groupName.includes('color')) ||
+              (normalizedName.includes('quantity') &&
+                groupName.includes('quantity')) ||
               (normalizedName.includes('qty') && groupName.includes('qty'));
 
             if (nameMatches && Array.isArray(optGroup.values)) {
               for (const val of optGroup.values) {
-                const valName = String(val.name || '').toLowerCase().trim();
+                const valName = String(val.name || '')
+                  .toLowerCase()
+                  .trim();
                 if (
                   valName === normalizedValue ||
                   valName.includes(normalizedValue) ||
@@ -537,8 +642,12 @@ export class ReorderService {
           numericQuantity > 1 &&
           !productOptions.some(
             (o) =>
-              String(o.name || '').toLowerCase().includes('quantity') ||
-              String(o.name || '').toLowerCase().includes('qty'),
+              String(o.name || '')
+                .toLowerCase()
+                .includes('quantity') ||
+              String(o.name || '')
+                .toLowerCase()
+                .includes('qty'),
           )
         ) {
           const matched = matchOptionValue('Quantity', String(numericQuantity));
@@ -690,7 +799,7 @@ export class ReorderService {
             language_id: 1,
             currency_id: 2,
             currency_code: 'USD',
-            currency_value: 1.00000000,
+            currency_value: 1.0,
             store_id: 0,
             store_name: 'PrintEZ.com',
             store_url: 'https://www.printez.com/',
@@ -698,7 +807,7 @@ export class ReorderService {
             forwarded_ip: request.ip || '127.0.0.1',
             user_agent:
               request.userAgent ||
-              'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
+              `${BrandConfig.conciergeName} / PrintEZ Assistant`,
             ...(numericPreviousId && !isNaN(numericPreviousId)
               ? {
                   reorder_id: numericPreviousId,
@@ -738,16 +847,31 @@ export class ReorderService {
 
     // ─── EMAIL NOTIFICATIONS ────────────────────────────────────────────
     if (isShopify) {
-      // Send VoicePeri branded emails for Shopify orders
+      // Send Sonervant branded emails for Shopify orders
       try {
-        await this.sendShopifyStoreOwnerNotification(request, referenceId, liveOrderId);
+        await this.sendShopifyStoreOwnerNotification(
+          request,
+          referenceId,
+          liveOrderId,
+        );
       } catch (error) {
-        this.logger.error(`Failed to send Shopify store owner notification for ${referenceId}`, error?.stack);
+        this.logger.error(
+          `Failed to send Shopify store owner notification for ${referenceId}`,
+          error?.stack,
+        );
       }
       try {
-        await this.sendShopifyCustomerConfirmation(request, referenceId, liveOrderId, customMessage);
+        await this.sendShopifyCustomerConfirmation(
+          request,
+          referenceId,
+          liveOrderId,
+          customMessage,
+        );
       } catch (error) {
-        this.logger.error(`Failed to send Shopify customer confirmation for ${referenceId}`, error?.stack);
+        this.logger.error(
+          `Failed to send Shopify customer confirmation for ${referenceId}`,
+          error?.stack,
+        );
       }
     } else {
       // Send PrintEZ-specific emails for OpenCart orders
@@ -829,7 +953,7 @@ export class ReorderService {
         ${skippedHtml}
         <tr><td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Notes</td><td style="padding: 8px; border: 1px solid #ddd;">${request.notes || 'None'}</td></tr>
       </table>
-      <p style="margin-top: 16px; color: #666;">This order was captured by the VoicePeri AI Voice Agent during a live customer call. Please ensure the customer completes payment via their secure checkout link.</p>
+      <p style="margin-top: 16px; color: #666;">This order was captured by the ${BrandConfig.fullName} Voice Agent during a live customer call. Please ensure the customer completes payment via their secure checkout link.</p>
     `;
 
     await this.mailerService.sendMail({
@@ -882,7 +1006,7 @@ export class ReorderService {
   }
 
   // ═══════════════════════════════════════════════════════════════════════
-  // SHOPIFY — VoicePeri Branded Email Templates
+  // SHOPIFY — Sonervant Branded Email Templates
   // ═══════════════════════════════════════════════════════════════════════
 
   private async sendShopifyStoreOwnerNotification(
@@ -899,10 +1023,14 @@ export class ReorderService {
           relations: ['user'],
         });
         ownerEmail = agent?.user?.email || '';
-      } catch (_) {}
+      } catch (_) {
+        // ignore error if agent user not found
+      }
     }
     if (!ownerEmail) {
-      this.logger.warn('No store owner email found for Shopify notification. Skipping.');
+      this.logger.warn(
+        'No store owner email found for Shopify notification. Skipping.',
+      );
       return;
     }
 
@@ -913,7 +1041,9 @@ export class ReorderService {
       request.city,
       request.state,
       request.zipCode,
-    ].filter(Boolean).join(', ');
+    ]
+      .filter(Boolean)
+      .join(', ');
 
     const html = `<!DOCTYPE html>
 <html>
@@ -923,17 +1053,21 @@ export class ReorderService {
     <tr>
       <td style="background: linear-gradient(135deg, #065f46 0%, #047857 55%, #059669 100%); padding: 32px 36px; color: #ffffff;">
         <span style="display: inline-block; background-color: rgba(167,243,208,0.2); border: 1px solid rgba(167,243,208,0.4); color: #d1fae5; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.8px; margin-bottom: 12px;">🤖 AI VOICE ORDER</span>
-        <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #ffffff;">New Order from VoicePeri AI</h1>
+        <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #ffffff;">New Order from ${BrandConfig.fullName}</h1>
         <p style="margin: 6px 0 0; font-size: 14px; color: #d1fae5;">A customer just placed an order during an AI voice call.</p>
       </td>
     </tr>
     <tr>
       <td style="padding: 32px 36px;">
-        ${liveOrderId ? `<div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px;">
+        ${
+          liveOrderId
+            ? `<div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px;">
           <span style="font-size: 14px; font-weight: 700; color: #065f46;">✅ Shopify Draft Order Created — ID: ${liveOrderId}</span>
-        </div>` : `<div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px;">
+        </div>`
+            : `<div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px;">
           <span style="font-size: 14px; font-weight: 700; color: #92400e;">⚠️ Draft Order could not be auto-created. Please process manually.</span>
-        </div>`}
+        </div>`
+        }
         <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden;">
           <tr style="background-color: #f1f5f9;">
             <td style="padding: 12px 18px; font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.5px;" colspan="2">Order Details</td>
@@ -951,7 +1085,7 @@ export class ReorderService {
     </tr>
     <tr>
       <td style="background-color: #0f172a; padding: 24px 36px; text-align: center;">
-        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #f8fafc;">VoicePeri AI Voice Concierge</p>
+        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #f8fafc;">${BrandConfig.conciergeName}</p>
         <p style="margin: 4px 0 0; font-size: 11px; color: #94a3b8;">Automated order capture powered by AI telephony</p>
       </td>
     </tr>
@@ -960,7 +1094,9 @@ export class ReorderService {
 </html>`;
 
     await this.mailerService.sendMail({ to: ownerEmail, subject, html });
-    this.logger.log(`✅ Shopify store owner notification sent to ${ownerEmail} for ${referenceId}`);
+    this.logger.log(
+      `✅ Shopify store owner notification sent to ${ownerEmail} for ${referenceId}`,
+    );
   }
 
   private async sendShopifyCustomerConfirmation(
@@ -1004,7 +1140,7 @@ export class ReorderService {
     </tr>
     <tr>
       <td style="background-color: #0f172a; padding: 24px 36px; text-align: center;">
-        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #f8fafc;">Powered by VoicePeri AI</p>
+        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #f8fafc;">Powered by ${BrandConfig.fullName}</p>
         <p style="margin: 4px 0 0; font-size: 11px; color: #94a3b8;">Intelligent Voice Commerce Platform</p>
       </td>
     </tr>

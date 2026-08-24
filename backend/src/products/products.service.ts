@@ -530,9 +530,7 @@ export class ProductsService implements OnModuleInit {
    *   product_option_id, option_id, name, type, required, values[]
    *     where each value has: product_option_value_id, option_value_id, name, price, quantity
    */
-  async getProductOptions(
-    productId: number,
-  ): Promise<
+  async getProductOptions(productId: number): Promise<
     Array<{
       product_option_id: number;
       option_id: number;

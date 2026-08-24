@@ -10,7 +10,10 @@ import { BusinessInformation } from 'src/entities/business_information';
 import { ShopifyOrderAdapter } from './adapters/shopify-order.adapter';
 
 @Module({
-  imports: [HttpModule, TypeOrmModule.forFeature([User, Agent, BusinessInformation])],
+  imports: [
+    HttpModule,
+    TypeOrmModule.forFeature([User, Agent, BusinessInformation]),
+  ],
   controllers: [IntegrationController],
   providers: [IntegrationService, ShopifyOrderAdapter],
 })

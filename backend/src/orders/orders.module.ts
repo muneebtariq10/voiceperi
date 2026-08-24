@@ -12,7 +12,10 @@ import { ReorderController } from './reorder.controller';
 import { OrderStatusMappingService } from './order-status-mapping.service';
 import { OrdersImportService } from './orders-import.service';
 import { ReorderService } from './reorder.service';
-import { OpenCartOrderAdapter, ShopifyOrderAdapter } from '../integrations/adapters';
+import {
+  OpenCartOrderAdapter,
+  ShopifyOrderAdapter,
+} from '../integrations/adapters';
 import { ProductsModule } from '../products/products.module';
 
 @Module({
