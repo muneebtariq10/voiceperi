@@ -320,10 +320,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   console.log("subscribedPlan", subscribedPlan);
   return (
     <Sidebar collapsible="offcanvas" className="bg-[#111827] text-slate-300 border-r-slate-800" {...props}>
-      <SidebarHeader className="pt-6 pb-4 px-6">
-        <NavLink to="/dashboard" className="flex items-center">
-          <Logo theme="dark" className="text-3xl" />
-        </NavLink>
+      <SidebarHeader className="pt-6 pb-4 pl-4">
+        <Link to="/dashboard" className="flex items-center bg-transparent !bg-transparent w-full">
+          <Logo theme="dark" className="text-3xl bg-transparent !bg-transparent" />
+        </Link>
       </SidebarHeader>
       <SidebarContent className="flex flex-col h-full">
         {/* Navigation Content */}
