@@ -2,7 +2,7 @@
  * IOrderProvider — Interface for order data retrieval.
  *
  * Any ecommerce platform adapter (OpenCart, Shopify, WooCommerce, etc.)
- * must implement this interface to provide order data to VoicePeri services.
+ * must implement this interface to provide order data to Sonervant services.
  */
 
 export interface OrderLookupResult {

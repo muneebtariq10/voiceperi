@@ -13,9 +13,9 @@ async function main() {
 
   try {
     let info = await transporter.sendMail({
-      from: '"Voice Peri" <no-reply@voiceperi.com>',
-      to: "amtul@vu.edu.pk",
-      subject: "Test Email from Voiceperi",
+      from: '"Sonervant" <no-reply@voiceperi.com>',
+      to: "ebbadurrehman538@gmail.com",
+      subject: "Test Email from Sonervant",
       text: "This is a test email.",
     });
     console.log("Message sent: %s", info.messageId);

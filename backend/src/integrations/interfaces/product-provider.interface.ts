@@ -2,7 +2,7 @@
  * IProductProvider — Interface for product catalog retrieval.
  *
  * Any ecommerce platform adapter (OpenCart, Shopify, WooCommerce, etc.)
- * must implement this interface to provide product data to VoicePeri services.
+ * must implement this interface to provide product data to Sonervant services.
  */
 
 export interface ProductRecord {

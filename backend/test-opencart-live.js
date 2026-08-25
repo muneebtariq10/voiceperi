@@ -60,7 +60,7 @@ async function testOpenCartPayloads() {
     payment_code: 'cod',
     ip: '198.51.100.42',
     forwarded_ip: '198.51.100.42',
-    user_agent: 'VoicePeri AI Telephony Concierge / PrintEZ Assistant',
+    user_agent: 'Sonervant AI Telephony Concierge / PrintEZ Assistant',
     type: 'By Call',
     language_id: 1,
     currency_id: 2,

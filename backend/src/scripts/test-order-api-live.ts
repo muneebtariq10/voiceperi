@@ -65,9 +65,9 @@ async function testLiveOrderApiAdvanced() {
   );
   const insertPayload = {
     customer: {
-      firstname: 'VoicePeri',
-      lastname: 'IntegrationTest',
-      email: 'ai-verification@voiceperi.com',
+      firstname: 'Sonervant',
+      lastname: 'E2E Testing',
+      email: 'ai-verification@sonervant.com',
       telephone: '555-0199',
     },
     products: [
@@ -77,7 +77,7 @@ async function testLiveOrderApiAdvanced() {
       },
     ],
     comment:
-      'AUTOMATED VOICEPERI SYSTEM INTEGRATION TEST - PLEASE IGNORE / CANCEL',
+      'AUTOMATED SONERVANT SYSTEM INTEGRATION TEST - PLEASE IGNORE / CANCEL',
   };
 
   let createdOrderId: number | null = null;
@@ -153,7 +153,7 @@ async function testLiveOrderApiAdvanced() {
     const reorderPayload = {
       source_order_id: createdOrderId,
       comment:
-        'AUTOMATED VOICEPERI REORDER INTEGRATION VERIFICATION - PLEASE IGNORE',
+        'AUTOMATED SONERVANT REORDER INTEGRATION VERIFICATION - PLEASE IGNORE',
     };
 
     try {

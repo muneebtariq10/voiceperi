@@ -1,5 +1,5 @@
 /**
- * VoicePeri Shopify Integration — End-to-End Test
+ * Sonervant Shopify Integration — End-to-End Test
  * 
  * This script performs a full E2E test:
  * 1. Authenticates using Client Credentials
@@ -14,7 +14,7 @@ async function runE2ETest() {
   const clientSecret = process.env.SHOPIFY_CLIENT_SECRET || '';
 
   console.log('═══════════════════════════════════════════════');
-  console.log('  VoicePeri Shopify Integration — E2E Test');
+  console.log('  Sonervant Shopify Integration — E2E Test');
   console.log('═══════════════════════════════════════════════');
   console.log(`Store: ${storeUrl}\n`);
 
@@ -136,7 +136,7 @@ async function runE2ETest() {
 
   const draftOrderVars = {
     input: {
-      note: 'VoicePeri E2E Test — AI voice order placed via phone call',
+      note: 'Sonervant E2E Test — AI voice order placed via phone call',
       email: 'test-customer@voiceperi.com',
       lineItems: [{
         variantId: firstVariant.id,
