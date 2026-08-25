@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from '../assets/logo-white.png'
+import logo from '../assets/sonervant_logo.jpg'
 
 export default function SavingsCalculator() {
   const [csrs, setCsrs] = useState(25);

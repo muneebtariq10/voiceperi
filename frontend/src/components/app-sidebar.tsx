@@ -25,7 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import logo from "../assets/logo1.png";
+import logo from "../assets/sonervant_logo.jpg";
 import { Link, NavLink } from "react-router-dom";
 import { PhoneCall } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import logo from '../assets/logo1.png'
+import logo from '../assets/sonervant_logo.jpg'
 import { Icons } from "@/components/svgIcons";
 const Footer = () => {
     return (

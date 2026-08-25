@@ -1,4 +1,4 @@
-import logo from '../assets/logo-login.png'
+import logo from '../assets/sonervant_logo.jpg'
 import login_bg from '../assets/bg-image.jpeg'
 
 export const AuthRightSec = () => {

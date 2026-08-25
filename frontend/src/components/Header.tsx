@@ -8,7 +8,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import logo from '../assets/ellipse119.png'
-import logo from "../assets/logo1.png";
+import logo from "../assets/sonervant_logo.jpg";
 import { Button } from "./ui/button";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
