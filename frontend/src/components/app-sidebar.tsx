@@ -21,9 +21,6 @@ import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Logo } from "./Logo";
 import { Link, NavLink } from "react-router-dom";
@@ -42,9 +39,9 @@ interface DecodedToken {
 }
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const API_URL = import.meta.env.VITE_API_BASE_URL;
-  const [currentPlan, setCurrentPlan] = useState<any>(null);
-  const [subscribedPlan, setSubscribedPlan] = useState<any>(null);
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [currentPlan, setCurrentPlan] = useState<Invoice | null>(null);
+  const [subscribedPlan, setSubscribedPlan] = useState<Invoice[] | null>(null);
+  const [userInfo, setUserInfo] = useState<DecodedToken | null>(null);
   const [usedMinutes, setUsedMinutes] = useState(0);
   const [totalMinutes, setTotalMinutes] = useState(0);
   const progressPercentage = (usedMinutes / totalMinutes) * 100;
@@ -246,7 +243,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }, 2000); // Delay of 2 seconds
 
     return () => clearTimeout(timer); // Cleanup
-  }, [userInfo?.sub]);
+  }, [userInfo?.sub, API_URL]);
   console.log("total minutes", totalMinutes);
 
   console.log("used minutes", usedMinutes);
@@ -318,7 +315,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     };
 
     fetchBilling();
-  }, [userInfo?.sub]);
+  }, [userInfo?.sub, API_URL]);
 
   console.log("subscribedPlan", subscribedPlan);
   return (
@@ -336,8 +333,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavSecondary items={data.navSecondary} />
         </div>
 
-        {/* Payment Card at Bottom */}
-        {false && user?.role == "user" && (
+        {/* Payment Card at Bottom 
+        {user?.role === "user" && (
           <div className="mt-[100px]">
             <Card className="w-full bg-gradient-to-r !from-[#F3F0FF] !to-[#FFFFFF] p-4 !rounded-1 shadow-md border flex flex-col gap-[8px]">
               <CardContent className="flex flex-col gap-y-2 items-start justify-start p-0">
@@ -366,6 +363,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Card>
           </div>
         )}
+        */}
       </SidebarContent>
 
       {/* <SidebarFooter>
