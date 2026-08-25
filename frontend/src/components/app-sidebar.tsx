@@ -323,17 +323,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   console.log("subscribedPlan", subscribedPlan);
   return (
     <Sidebar collapsible="offcanvas" className="bg-[#111827] text-slate-300 border-r-slate-800" {...props}>
-      <SidebarHeader className="pt-4 pb-2">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild className="hover:bg-transparent active:bg-transparent">
-              <NavLink to="/dashboard" className="flex pl-4 justify-start h-full ">
-                <Logo theme="dark" className="text-3xl" />
-                {/* <span className="text-base font-semibold">Sonervant</span> */}
-              </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className="pt-6 pb-4 px-6">
+        <NavLink to="/dashboard" className="flex items-center">
+          <Logo theme="dark" className="text-3xl" />
+        </NavLink>
       </SidebarHeader>
       <SidebarContent className="flex flex-col h-full">
         {/* Navigation Content */}
