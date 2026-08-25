@@ -25,7 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import logo from "../assets/sonervant_logo.jpg";
+import { Logo } from "./Logo";
 import { Link, NavLink } from "react-router-dom";
 import { PhoneCall } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
@@ -322,14 +322,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   console.log("subscribedPlan", subscribedPlan);
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
+    <Sidebar collapsible="offcanvas" className="bg-[#111827] text-slate-300 border-r-slate-800" {...props}>
+      <SidebarHeader className="pt-4 pb-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <NavLink to="/dashboard" className="flex pl-0 justify-start h-full ">
-                <img className="w-[90%]" src={logo} alt="" />
-                {/* <span className="text-base font-semibold">VoicePeri</span> */}
+            <SidebarMenuButton asChild className="hover:bg-transparent active:bg-transparent">
+              <NavLink to="/dashboard" className="flex pl-4 justify-start h-full ">
+                <Logo theme="dark" className="text-3xl" />
+                {/* <span className="text-base font-semibold">Sonervant</span> */}
               </NavLink>
             </SidebarMenuButton>
           </SidebarMenuItem>

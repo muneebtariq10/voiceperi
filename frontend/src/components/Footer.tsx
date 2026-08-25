@@ -57,7 +57,7 @@ const Footer = () => {
             <div className='flex flex-col gap-y-6'>
                 <hr className='text-default-gray' />
                 <div className='block md:flex justify-between items-center mt-4'>
-                    <p className='font-normal text-lg text-default-gray'>© 2025 Voiceperi. All rights reserved.</p>
+                    <p className='font-normal text-lg text-default-gray'>© 2025 Sonervant. All rights reserved.</p>
                     <div className='flex justify-between items-center md:gap-x-3.5 mt-3 md:mt-auto'>
                         <p className='font-normal text-lg text-default-gray'>Terms of Service</p>
                         <div className="border-l-3 h-5 text-default-gray"></div>

@@ -8,7 +8,7 @@ const GetStarted = () => {
     <div className="p-4 md:p-6 max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 min-h-[80vh] flex flex-col items-center justify-center -mt-8">
       <div className="space-y-3 text-center max-w-2xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-          Welcome to VoicePeri
+          Welcome to Sonervant
         </h1>
         <p className="text-base text-gray-500 font-medium">
           Follow these three simple steps to get your AI voice agent up and running in minutes.

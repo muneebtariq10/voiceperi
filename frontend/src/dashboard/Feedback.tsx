@@ -145,7 +145,7 @@ const Feedback = () => {
             </div>
             <div>
               <h1 className="text-2xl font-semibold text-primary">Send Feedback</h1>
-              <p className="text-sm font-medium text-default-gray">Help us improve VoicePeri for your business</p>
+              <p className="text-sm font-medium text-default-gray">Help us improve Sonervant for your business</p>
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ const Feedback = () => {
                     : selectedCategory === 'feature' 
                     ? "What feature would you like to see? How would it help your workflow?" 
                     : selectedCategory === 'praise' 
-                    ? "Tell us what you love about VoicePeri!" 
+                    ? "Tell us what you love about Sonervant!" 
                     : "Share your thoughts, suggestions, or anything on your mind..."
                 }
                 className="min-h-[160px] resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none text-sm"

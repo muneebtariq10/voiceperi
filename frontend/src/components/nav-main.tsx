@@ -41,10 +41,10 @@ export function NavMain({
                 <NavLink
                   key={item.url}
                   to={item.url}
-                  className={`flex items-center gap-2 text-white font-medium text-[16px] px-4 py-2 rounded-[10px] transition ${isActive ? "bg-[#5e6679] text-secondary" : "bg-transparent text-default-gray"
+                  className={`flex items-center gap-3 font-semibold text-[17px] px-4 py-3 rounded-[10px] transition-all duration-200 ${isActive ? "bg-blue-600 text-white shadow-md" : "bg-transparent text-slate-400 hover:text-white hover:bg-slate-800"
                     }`}
                 >
-                  {item.icon && <item.icon />}
+                  {item.icon && <item.icon className="w-6 h-6" />}
                   <span>{item.title}</span>
                 </NavLink>
               );

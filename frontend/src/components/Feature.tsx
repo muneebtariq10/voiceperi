@@ -116,7 +116,7 @@ const Feature = () => {
           </h3>
           <div>
             <p className="text-[20px] font-normal text-default-gray text-center">
-              VoicePeri's AI voice agents are designed to transform the way
+              Sonervant's AI voice agents are designed to transform the way
             </p>
             <p className="text-[20px] font-normal text-default-gray text-center">
               businesses handle phone calls. Here's how our AI solutions can

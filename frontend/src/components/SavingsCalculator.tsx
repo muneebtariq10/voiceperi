@@ -126,7 +126,7 @@ export default function SavingsCalculator() {
             <h1 className="text-[80px] md:text-[100px] h-auto leading-[100%] font-bold my-2 text-transparent bg-clip-text bg-gradient-to-b from-[#1c9c84] to-[#43e6c8] ">${annualSavings}</h1>
             
             <p className="mt-4 text-[16px] text-[#C3C3C3] w-95 mx-auto">
-            Discover the impact VoicePeri can have on your bottom line. Reduce overhead costs and maximize efficiency with our AI solutions.
+            Discover the impact Sonervant can have on your bottom line. Reduce overhead costs and maximize efficiency with our AI solutions.
             </p>
         </div>
         

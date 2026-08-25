@@ -290,7 +290,7 @@ const UseCase = () => {
                     <div className='flex flex-col items-center justify-start gap-y-3 px-2 md:px-0'>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-center'>Industries served</h3>
                         <div>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>VoicePeri’s AI Voice Agents are transforming operations across a </p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>Sonervant’s AI Voice Agents are transforming operations across a </p>
                             <p className='text-[20px] font-normal text-default-gray text-center'>variety of industries, including but not limited to: </p>
                         </div>
                     </div>
@@ -316,7 +316,7 @@ const UseCase = () => {
                     <div className='flex flex-col items-center justify-start gap-y-3 px-2 md:px-0'>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-center'>Industries served</h3>
                         <div>
-                            <p className='text-[20px] font-normal text-default-gray text-center'>VoicePeri’s AI Voice Agents are transforming operations across a </p>
+                            <p className='text-[20px] font-normal text-default-gray text-center'>Sonervant’s AI Voice Agents are transforming operations across a </p>
                             <p className='text-[20px] font-normal text-default-gray text-center'>variety of industries, including but not limited to: </p>
                         </div>
                     </div>

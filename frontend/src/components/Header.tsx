@@ -8,7 +8,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import logo from '../assets/ellipse119.png'
-import logo from "../assets/sonervant_logo.jpg";
+import { Logo } from "./Logo";
 import { Button } from "./ui/button";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
@@ -65,10 +65,10 @@ const Header = () => {
     >
       {/* <NavLink to="/" className="flex items-center justify-between gap-x-3">
                 <img className="w-[40px]" src={logo} alt="logo" />
-                <span className="text-xl font-semibold text-primary">VoicePeri</span>
+                <span className="text-xl font-semibold text-primary">Sonervant</span>
             </NavLink> */}
       <NavLink to="/" className="flex items-center gap-x-3 shrink-0">
-        <img className="h-10 md:h-12 w-auto max-w-[220px] object-contain transition-transform duration-200 hover:scale-[1.02]" src={logo} alt="VoicePeri Logo" />
+        <Logo theme="light" className="text-3xl md:text-4xl hover:scale-[1.02] transition-transform duration-200" />
       </NavLink>
       <div className="hidden md:flex items-center gap-x-8">
         <NavigationMenu>

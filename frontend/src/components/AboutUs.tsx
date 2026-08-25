@@ -9,7 +9,7 @@ const AboutUs = () => {
                 <div className="max-w-[850px] mx-auto text-center space-y-6">
                     <h2 className="text-[35px] md:text-[50px] font-bold text-primary">About Us</h2>
                     <p className="text-[18px] md:text-[22px] text-default-gray leading-relaxed font-medium">
-                        At VoicePeri, we are revolutionizing the way businesses and individuals interact with technology. 
+                        At Sonervant, we are revolutionizing the way businesses and individuals interact with technology. 
                         Our mission is to empower creators and enterprises with state-of-the-art AI-driven voice tools 
                         that are not only fast and easy to use, but highly accessible.
                     </p>

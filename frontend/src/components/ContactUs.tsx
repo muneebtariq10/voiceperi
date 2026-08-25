@@ -19,7 +19,7 @@ const ContactUs = () => {
                     <h3 className='text-[35px] md:text-[50px] font-bold text-center text-primary'>Location & Contact Information</h3>
                     <div className='text-[20px] font-normal text-center text-default-gray pt-3.5'>
                         <p>We'd love to hear from you. Get in touch with our team</p>
-                        <p>to learn more about how VoicePeri can transform your business.</p>
+                        <p>to learn more about how Sonervant can transform your business.</p>
                     </div>
                 </div>
                 <div className='px-0 md:px-[100px] pt-12 block md:flex justify-between items-start'>

@@ -14,12 +14,12 @@ const items = [
         content: "An AI Voice Assistant is an intelligent software program that uses artificial intelligence, natural language processing, and speech recognition to converse seamlessly with humans. It can act as a customer representative, recruiter, or internal assistant.",
     },
     {
-        title: "How easy is it to integrate VoicePeri into my workflow?",
-        content: "Very easy! VoicePeri offers seamless integration APIs and webhooks that connect directly to your CRM, support systems, and internal tools in just a few clicks. No complex coding is required.",
+        title: "How easy is it to integrate Sonervant into my workflow?",
+        content: "Very easy! Sonervant offers seamless integration APIs and webhooks that connect directly to your CRM, support systems, and internal tools in just a few clicks. No complex coding is required.",
     },
     {
         title: "Are the voices customizable?",
-        content: "Yes. VoicePeri offers a wide variety of ultra-realistic, human-like voices. You can select specific accents, tones, and genders to perfectly match your brand's unique identity.",
+        content: "Yes. Sonervant offers a wide variety of ultra-realistic, human-like voices. You can select specific accents, tones, and genders to perfectly match your brand's unique identity.",
     },
     {
         title: "Is my data secure?",
@@ -38,7 +38,7 @@ const FAQ = () => {
                 <div className='flex basis-2/5 flex-col gap-y-4 items-center'>
                     <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-left'>Frequently Asked Questions</h3>
                     <div className='flex flex-col gap-y-2 '>
-                        <p className='text-default-gray text-lg font-normal text-center'>Have questions about integrating VoicePeri into your business workflow? &nbsp;
+                        <p className='text-default-gray text-lg font-normal text-center'>Have questions about integrating Sonervant into your business workflow? &nbsp;
                             <span className='text-primary text-[20px] font-medium text-left'>Contact us below if you have any more questions.</span>
                         </p>
                         

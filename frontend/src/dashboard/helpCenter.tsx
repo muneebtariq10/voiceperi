@@ -37,8 +37,8 @@ const faqs: FAQItem[] = [
   },
   {
     category: 'Getting Started',
-    question: 'What languages does VoicePeri support?',
-    answer: 'VoicePeri currently supports English and Spanish with multiple voice options for each language. Each voice has a unique personality — from friendly and expressive to professional and clear.'
+    question: 'What languages does Sonervant support?',
+    answer: 'Sonervant currently supports English and Spanish with multiple voice options for each language. Each voice has a unique personality — from friendly and expressive to professional and clear.'
   },
   {
     category: 'Voice Agent',
@@ -58,7 +58,7 @@ const faqs: FAQItem[] = [
   {
     category: 'Phone & Calls',
     question: 'Do I need to buy a new phone number?',
-    answer: 'VoicePeri provisions an AI phone number for you. Your customers never see this number — they call your existing business line, and calls are forwarded to the AI behind the scenes. Think of it as the "brain" behind your phone.'
+    answer: 'Sonervant provisions an AI phone number for you. Your customers never see this number — they call your existing business line, and calls are forwarded to the AI behind the scenes. Think of it as the "brain" behind your phone.'
   },
   {
     category: 'Phone & Calls',
@@ -191,7 +191,7 @@ const HelpCenter = () => {
             </div>
             <div>
               <h1 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Help Center</h1>
-              <p className="text-xs md:text-sm text-slate-500 mt-0.5">Everything you need to get the most out of VoicePeri</p>
+              <p className="text-xs md:text-sm text-slate-500 mt-0.5">Everything you need to get the most out of Sonervant</p>
             </div>
           </div>
         </div>
