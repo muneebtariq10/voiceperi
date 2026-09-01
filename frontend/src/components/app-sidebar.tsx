@@ -287,7 +287,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           };
         });
 
-        const activePlans = formattedData.filter((plan: any) => {
+        const activePlans = formattedData.filter((plan: Invoice) => {
           const endDate = new Date(plan.current_period_end);
           return endDate.getTime() > Date.now();
         });
