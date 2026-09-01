@@ -287,7 +287,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           };
         });
 
-        const activePlans = formattedData.filter((plan: Invoice) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const activePlans = formattedData.filter((plan: any) => {
           const endDate = new Date(plan.current_period_end);
           return endDate.getTime() > Date.now();
         });

@@ -8,7 +8,6 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ 
-  theme = 'light', 
   layout = 'horizontal', 
   className = '',
   iconClassName = '' 
