@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Bot, Mic, Calendar, Phone, Activity, Smile, BarChart } from 'lucide-react';
 import person from '../assets/person.png';
-import heroimg from "../assets/hero-light.png";
 import heroBgDark from "../assets/hero_bg_dark.jpg";
 import heroBgLight from "../assets/hero_bg_light.jpg";
 import addidas from '../assets/addidas.png'
