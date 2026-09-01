@@ -122,6 +122,74 @@ export class ProductsService implements OnModuleInit {
     }
   }
 
+  async upsertProducts(records: ProductRecord[]) {
+    if (!records || records.length === 0) return;
+    try {
+      for (const record of records) {
+        const index = this.productsCache.findIndex(
+          (p) => p.productId === record.productId,
+        );
+        if (index >= 0) {
+          this.productsCache[index] = { ...this.productsCache[index], ...record };
+        } else {
+          this.productsCache.push(record);
+        }
+
+        let dbProduct = await this.productRepository.findOne({
+          where: { productId: record.productId },
+        });
+
+        if (dbProduct) {
+          dbProduct.name = record.name;
+          dbProduct.description = record.description || '';
+          dbProduct.price = String(record.price ?? '');
+          dbProduct.sku = record.sku || record.productId;
+          dbProduct.category = record.category || '';
+          dbProduct.url = record.url || '';
+          await this.productRepository.save(dbProduct);
+        } else {
+          dbProduct = this.productRepository.create({
+            productId: record.productId,
+            name: record.name,
+            description: record.description || '',
+            price: String(record.price ?? ''),
+            sku: record.sku || record.productId,
+            category: record.category || '',
+            url: record.url || '',
+            priceFrom: Boolean(record.priceFrom),
+            minimumQuantity: record.minimumQuantity || 1,
+            descriptionTruncated: Boolean(record.descriptionTruncated),
+          });
+          await this.productRepository.save(dbProduct);
+        }
+      }
+      this.logger.log(
+        `⚡ Real-time webhook synced ${records.length} product(s) in cache and database.`,
+      );
+    } catch (err: any) {
+      this.logger.error('Failed in real-time upsertProducts', err?.stack);
+    }
+  }
+
+  async removeProducts(productIds: string[]) {
+    if (!productIds || productIds.length === 0) return;
+    try {
+      const idSet = new Set(productIds);
+      this.productsCache = this.productsCache.filter(
+        (p) => !idSet.has(p.productId),
+      );
+
+      for (const pid of productIds) {
+        await this.productRepository.delete({ productId: pid });
+      }
+      this.logger.log(
+        `🗑️ Real-time webhook removed ${productIds.length} product(s) from cache and database.`,
+      );
+    } catch (err: any) {
+      this.logger.error('Failed in real-time removeProducts', err?.stack);
+    }
+  }
+
   private async syncProductsListToDatabase(records: ProductRecord[]) {
     if (!records || records.length === 0) return;
     try {

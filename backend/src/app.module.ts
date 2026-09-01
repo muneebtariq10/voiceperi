@@ -26,6 +26,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { PersonalizationModule } from './personalization/personalization.module';
 import { KnowledgeModule } from './knowledge/knowledge.module';
+import { ShopifyWebhookModule } from './shopify-webhook/shopify-webhook.module';
 
 @Module({
   imports: [
@@ -77,6 +78,7 @@ import { KnowledgeModule } from './knowledge/knowledge.module';
     ProductsModule,
     PersonalizationModule,
     KnowledgeModule,
+    ShopifyWebhookModule,
   ],
   controllers: [AppController],
   providers: [

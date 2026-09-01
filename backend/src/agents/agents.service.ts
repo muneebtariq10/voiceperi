@@ -498,8 +498,9 @@ export class AgentsService implements OnApplicationBootstrap {
           type: 'object',
           properties: {
             orderId: {
-              type: 'number',
-              description: 'The order ID provided by the customer',
+              type: 'string',
+              description:
+                'The order number or order ID provided by the customer (e.g. 1001, #1001, 12345)',
             },
           },
           required: ['orderId'],
@@ -1181,8 +1182,9 @@ export class AgentsService implements OnApplicationBootstrap {
           type: 'object',
           properties: {
             orderId: {
-              type: 'number',
-              description: 'The order ID provided by the customer',
+              type: 'string',
+              description:
+                'The order number or order ID provided by the customer (e.g. 1001, #1001, 12345)',
             },
           },
           required: ['orderId'],
