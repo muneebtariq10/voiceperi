@@ -82,7 +82,7 @@ export function GenericDataTable<TData>({
   };
 
   return (
-    <div className="flex flex-col px-[16px] md:px-7 bg-[#fafafb]">
+    <div className="flex flex-col px-[16px] md:px-7 bg-background">
       <div className="flex flex-col md:flex-row justify-between items-center py-6">
         <div className="w-full flex flex-row md:flex-col justify-between md:justify-center items-start mb-[10px] md:mb-0 gap-y-3">
           <h3 className="text-2xl font-semibold text-primary">{title}</h3>

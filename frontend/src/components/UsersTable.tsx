@@ -481,7 +481,7 @@ export function UsersTable({
   };
 
   return (
-    <div className="flex flex-col px-[16px] md:px-7 bg-[#fafafb] col-7">
+    <div className="flex flex-col px-[16px] md:px-7 bg-background col-7">
       <div className="flex flex-col md:flex-row justify-between items-center py-6 gap-x-2 md:row-gap-4">
         <div className="w-full flex flex-row md:flex-col justify-between md:justify-center items-start mb-[10px] md:mb-0 gap-y-2">
           <h3 className="text-2xl font-semibold text-primary">Users</h3>

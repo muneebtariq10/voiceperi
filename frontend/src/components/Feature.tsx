@@ -109,7 +109,7 @@ const Feature = () => {
                 </div>
             </div> */}
       {/* Why Choose Us */}
-      <div className="bg-gradient-to-t from-[#d9eeec] to-white flex flex-col items-center justify-start gap-y-15 py-20 rounded-b-[30px] px-3 md:px-0 relative">
+      <div className="bg-transparent flex flex-col items-center justify-start gap-y-15 py-20 rounded-b-[30px] px-3 md:px-0 relative">
         <div className="flex flex-col items-center justify-start gap-y-3 md:px-[100px]">
           <h3 className="text-[30px] md:text-[50px] font-bold text-primary text-center">
             Why Choose Us
@@ -130,7 +130,7 @@ const Feature = () => {
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 md:px-[100px] lg:px-[160px] gap-7">
           <div className="flex items-start justify-center bg-card gap-x-2 pt-9 pr-5 pl-7 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -147,7 +147,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -163,7 +163,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -180,7 +180,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -196,7 +196,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -212,7 +212,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -228,7 +228,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -244,7 +244,7 @@ const Feature = () => {
 
           <div className="flex items-start justify-center bg-card gap-x-2 p-8 rounded-[30px] w-auto md:w-[510px] md:h-[160px]">
             <div className="w-[30px]">
-              <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+              <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
             </div>
@@ -290,7 +290,7 @@ const Feature = () => {
                                 lg:before:h-[250%] md:before:top-[-40px] md:before:h-[120%] 
                                 xs:pl-0 xs:before:hidden xs:items-center xs:border-t xs:border-gray-400 xs:py-4 xs:pr-0 xs:odd:border-r"
               >
-                <div className="w-6.5 h-6.5 bg-[#b7f4c5] rounded-full flex items-center justify-center">
+                <div className="w-6.5 h-6.5 bg-[var(--bg-inset)] rounded-full flex items-center justify-center">
                 <Check className="text-primary w-5 h-5" />
               </div>
                 <div
@@ -571,7 +571,7 @@ const Feature = () => {
         </div>
         <div className="relative flex flex-col items-center py-8 bg-card min-h-[500px] md:gap-y-[190px]">
           {/* Parent Card */}
-          <div className="bg-gradient-to-t from-[#d9eeec] to-white text-primary px-[23px] py-[28px] rounded-[32px] flex items-center gap-4 z-10">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-default)] text-primary px-[23px] py-[28px] rounded-[32px] flex items-center gap-4 z-10">
             <img src={profile} alt="Avatar" />
             <div>
               <p className="text-[26px] font-semibold text-left">
@@ -745,7 +745,7 @@ const Feature = () => {
 
           {/* Child Cards */}
           <div className="block md:flex w-full md:w-auto justify-center gap-[100px] z-10">
-            <div className="md:w-[200px] h-[130px] flex flex-col mt-2 md:mt-auto items-center justify-center gap-y-1 bg-gradient-to-t from-[#d9eeec] to-white text-primary  rounded-[32px] text-center md:rotate-[-14.18deg]">
+            <div className="md:w-[200px] h-[130px] flex flex-col mt-2 md:mt-auto items-center justify-center gap-y-1 bg-[var(--bg-surface)] border border-[var(--border-default)] text-primary  rounded-[32px] text-center md:rotate-[-14.18deg]">
               <div
                 className="w-14 h-14 flex items-center justify-center bg-cover bg-center"
                 style={{
@@ -769,7 +769,7 @@ const Feature = () => {
                 Sends a Text
               </p>
             </div>
-            <div className="md:mt-[50px] md:w-[200px] h-[130px] mt-2 flex flex-col items-center justify-center gap-y-1 bg-gradient-to-t from-[#d9eeec] to-white text-primary rounded-[32px] text-center md:rotate-[8.73deg]">
+            <div className="md:mt-[50px] md:w-[200px] h-[130px] mt-2 flex flex-col items-center justify-center gap-y-1 bg-[var(--bg-surface)] border border-[var(--border-default)] text-primary rounded-[32px] text-center md:rotate-[8.73deg]">
               <div
                 className="w-14 h-14 flex items-center justify-center bg-cover bg-center"
                 style={{
@@ -798,7 +798,7 @@ const Feature = () => {
                 Sends an Email
               </p>
             </div>
-            <div className="md:w-[200px] h-[130px] flex flex-col mt-2 md:mt-auto items-center justify-center gap-y-1 bg-gradient-to-t from-[#d9eeec] to-white text-primary rounded-[32px] text-center md:rotate-[10.35deg]">
+            <div className="md:w-[200px] h-[130px] flex flex-col mt-2 md:mt-auto items-center justify-center gap-y-1 bg-[var(--bg-surface)] border border-[var(--border-default)] text-primary rounded-[32px] text-center md:rotate-[10.35deg]">
               <div
                 className="w-14 h-14 flex items-center justify-center bg-cover bg-center"
                 style={{

@@ -105,7 +105,7 @@ const Feedback = () => {
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col px-[16px] md:px-7 py-6 bg-[#fafafb] min-h-screen w-full">
+      <div className="flex flex-col px-[16px] md:px-7 py-6 bg-background min-h-screen w-full">
         <div 
           className="flex flex-col items-center justify-center py-16 px-8 rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 max-w-2xl"
           style={{ animation: 'fadeInUp 0.5s ease-out' }}
@@ -123,7 +123,7 @@ const Feedback = () => {
   }
 
   return (
-    <div className="flex flex-col px-[16px] md:px-7 py-6 bg-[#fafafb] min-h-screen w-full">
+    <div className="flex flex-col px-[16px] md:px-7 py-6 bg-background min-h-screen w-full">
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }

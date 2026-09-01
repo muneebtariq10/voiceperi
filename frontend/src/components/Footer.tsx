@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import logo from '../assets/sonervant_logo.jpg'
+import { Logo } from './Logo'
 import { Icons } from "@/components/svgIcons";
 
 const Footer = () => {
@@ -10,7 +10,7 @@ const Footer = () => {
                     <div className='basis-[35%]'>
                         <div className='flex flex-col gap-y-6 items-start justify-start'>
                             <NavLink to="/" className='flex items-start justify-between gap-x-3'>
-                                <img className="w-[200px]" src={logo} alt="logo" />
+                                <Logo className="text-3xl" />
                             </NavLink>
                             <p className='font-normal text-lg text-[var(--text-secondary)] text-left leading-relaxed'>
                                 Empowering creators with AI-driven tools to turn ideas into impactful videos. Fast, easy, and accessible.

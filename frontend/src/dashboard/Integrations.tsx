@@ -75,7 +75,7 @@ const Integrations = () => {
         onClose={() => setIsShopifyOpen(false)}
         userInfo={userInfo}
       />
-      <div className="flex flex-col justify-start items-start px-[16px] md:px-6 py-6 gap-y-5.5 bg-[#fafafb]">
+      <div className="flex flex-col justify-start items-start px-[16px] md:px-6 py-6 gap-y-5.5 bg-background">
         <div className="flex flex-col gap-y-1">
           <h3 className="text-2xl font-semibold text-left text-primary">
             Integrations

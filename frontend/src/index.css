@@ -144,6 +144,17 @@ html {
   --border: rgba(255, 255, 255, 0.12);
   --input: rgba(255, 255, 255, 0.12);
   --ring: #14b8a6;
+  /* ── Legacy Gray/Slate Mapping ── */
+  --color-slate-50: #0a0e1c;
+  --color-slate-100: #111524;
+  --color-slate-200: #1a1f35;
+  --color-slate-300: #334155;
+  --color-slate-400: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-600: #94a3b8;
+  --color-slate-700: #cbd5e1;
+  --color-slate-800: #e2e8f0;
+  --color-slate-900: #f1f5f9;
 
   /* ── Charts ── */
   --chart-1: #14b8a6;

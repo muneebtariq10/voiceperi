@@ -14,27 +14,34 @@ export const Logo: React.FC<LogoProps> = ({
   iconClassName = '' 
 }) => {
   const textColor = theme === 'dark' ? 'text-white' : 'text-foreground';
-  const blueColor = '#3b82f6'; // Tailwind blue-500
 
   return (
-    <div className={`flex ${layout === 'stacked' ? 'flex-col items-center justify-center gap-4' : 'items-center gap-2'} font-extrabold tracking-tighter ${textColor} ${className}`} style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+    <div className={`flex ${layout === 'stacked' ? 'flex-col items-center justify-center gap-4' : 'items-center gap-2.5'} font-extrabold tracking-tight ${textColor} ${className}`} style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
       
-      {/* Waveform Icon */}
+      {/* Modern Premium Waveform/Equalizer Icon */}
       <svg 
         viewBox="0 0 100 100" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg" 
-        className={layout === 'stacked' ? 'w-24 h-24 sm:w-32 sm:h-32 mb-2' : `w-[1.2em] h-[1.2em] ${iconClassName}`}
+        className={layout === 'stacked' ? 'w-24 h-24 sm:w-28 sm:h-28 mb-2 drop-shadow-xl' : `w-[1.4em] h-[1.4em] ${iconClassName}`}
       >
-        <path d="M 12 55 C 25 55, 30 20, 50 40 C 65 55, 60 85, 75 85" stroke="url(#teal-grad)" strokeWidth="12" strokeLinecap="round" />
-        <path d="M 25 15 C 40 15, 35 45, 50 60 C 70 80, 75 45, 88 45" stroke="url(#purple-grad)" strokeWidth="12" strokeLinecap="round" />
+        <rect x="20" y="35" width="14" height="30" rx="7" fill="url(#teal-grad)" />
+        <rect x="43" y="15" width="14" height="70" rx="7" fill="url(#mix-grad)" />
+        <rect x="66" y="45" width="14" height="40" rx="7" fill="url(#purple-grad)" />
+        
+        {/* Abstract connection dot */}
+        <circle cx="27" cy="20" r="5" fill="#14b8a6" />
         
         <defs>
-          <linearGradient id="teal-grad" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="teal-grad" x1="0" y1="0" x2="0" y2="1">
             <stop stopColor="#0ea5e9" />
             <stop offset="1" stopColor="#14b8a6" />
           </linearGradient>
-          <linearGradient id="purple-grad" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="mix-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop stopColor="#14b8a6" />
+            <stop offset="1" stopColor="#a855f7" />
+          </linearGradient>
+          <linearGradient id="purple-grad" x1="0" y1="0" x2="0" y2="1">
             <stop stopColor="#a855f7" />
             <stop offset="1" stopColor="#7e22ce" />
           </linearGradient>
@@ -43,12 +50,7 @@ export const Logo: React.FC<LogoProps> = ({
 
       <div className="flex items-center">
         <span>Soner</span>
-        <span className="relative inline-block">
-          <span className="opacity-0">v</span>
-          <span className="absolute left-0 top-0 w-full h-full text-current">v</span>
-          <span className="absolute left-0 top-0 w-[50%] h-full overflow-hidden" style={{ color: blueColor }}>v</span>
-        </span>
-        <span>ant</span>
+        <span className="text-[var(--primary)]">vant</span>
       </div>
     </div>
   );

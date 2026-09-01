@@ -160,7 +160,7 @@ const HelpCenter = () => {
   });
 
   return (
-    <div className="flex flex-col px-[16px] md:px-7 py-6 bg-[#fafafb] min-h-screen w-full">
+    <div className="flex flex-col px-[16px] md:px-7 py-6 bg-background min-h-screen w-full">
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(16px); }
