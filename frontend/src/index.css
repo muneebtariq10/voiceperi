@@ -80,13 +80,13 @@ html {
   --chart-5: #ec4899;
 
   /* ── Sidebar ── */
-  --sidebar: #ffffff;
+  --sidebar: #edf4fc;
   --sidebar-foreground: #0f172a;
   --sidebar-primary: #2563eb;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f5f9;
+  --sidebar-accent: #dbeafe;
   --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: #e2e8f0;
+  --sidebar-border: #d7e4f2;
   --sidebar-ring: #2563eb;
 }
 
