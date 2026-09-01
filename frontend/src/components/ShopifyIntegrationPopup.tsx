@@ -9,6 +9,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import ShopifyLogo from "../assets/shopify.svg";
 
 type PopupProps = {
   isOpen: boolean;
@@ -135,7 +136,10 @@ export const ShopifyIntegrationPopup: React.FC<PopupProps> = ({
       <DialogContent className="p-6 rounded-lg shadow-lg w-[700px] max-h-[90vh] overflow-y-auto bg-[var(--bg-surface)] border-[var(--border-default)]">
         <DialogHeader>
           <DialogTitle className="flex justify-between items-center text-[var(--text-primary)]">
-            <span>Shopify Integration</span>
+            <div className="flex items-center gap-2.5">
+              <img src={ShopifyLogo} alt="Shopify" className="w-6 h-6 object-contain" />
+              <span>Shopify Integration</span>
+            </div>
             <DialogClose className="cursor-pointer" />
           </DialogTitle>
         </DialogHeader>
