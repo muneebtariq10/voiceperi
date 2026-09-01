@@ -213,7 +213,10 @@ export class UsersService implements OnModuleInit {
         );
       }
     } catch (err) {
-      console.warn('[UsersService] Admin seed error (safe to ignore if DB not ready):', err?.message);
+      console.warn(
+        '[UsersService] Admin seed error (safe to ignore if DB not ready):',
+        err?.message,
+      );
     }
   }
 

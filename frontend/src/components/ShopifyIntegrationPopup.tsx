@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import ShopifyLogo from "../assets/shopify.png";
 
@@ -36,17 +36,12 @@ export const ShopifyIntegrationPopup: React.FC<PopupProps> = ({
 
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-  useEffect(() => {
-    if (isOpen && userInfo?.id) {
-      fetchBusinessInfo();
-    }
-  }, [isOpen, userInfo?.id]);
-
-  const fetchBusinessInfo = async () => {
+  const fetchBusinessInfo = useCallback(async () => {
+    if (!userInfo?.id) return;
     try {
       setIsFetching(true);
       const response = await fetch(
-        `${API_URL}api/businessinfos/${userInfo?.id}`,
+        `${API_URL}api/businessinfos/${userInfo.id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -70,7 +65,13 @@ export const ShopifyIntegrationPopup: React.FC<PopupProps> = ({
       console.error("Failed to fetch business info:", error);
       setIsFetching(false);
     }
-  };
+  }, [API_URL, token, userInfo?.id]);
+
+  useEffect(() => {
+    if (isOpen && userInfo?.id) {
+      fetchBusinessInfo();
+    }
+  }, [isOpen, userInfo?.id, fetchBusinessInfo]);
 
   async function handleSave() {
     try {

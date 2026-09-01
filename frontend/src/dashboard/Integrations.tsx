@@ -5,7 +5,7 @@ import n8nLogo from "../assets/n8n.png";
 import ShopifyLogo from "../assets/shopify.png";
 import { Popup } from "@/components/IntegrationPopup";
 import { ShopifyIntegrationPopup } from "@/components/ShopifyIntegrationPopup";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 
 interface UserInfo {
@@ -26,7 +26,7 @@ const Integrations = () => {
   const [hasShopify, setHasShopify] = useState(false);
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-  const fetchBusinessInfo = async (userId: string) => {
+  const fetchBusinessInfo = useCallback(async (userId: string) => {
     try {
       const res = await fetch(`${API_URL}api/businessinfos/${userId}`, {
         headers: {
@@ -45,7 +45,7 @@ const Integrations = () => {
     } catch (err) {
       console.error("Failed to fetch business info for integrations", err);
     }
-  };
+  }, [API_URL, token]);
 
   useEffect(() => {
     const fetchUser = async (userId: string) => {
@@ -82,7 +82,7 @@ const Integrations = () => {
         console.error("Failed to decode token:", error);
       }
     }
-  }, [API_URL, token]);
+  }, [API_URL, token, fetchBusinessInfo]);
 
   console.log("userInfo", userInfo);
 

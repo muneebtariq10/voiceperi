@@ -41,7 +41,9 @@ export class ShopifyProductAdapter implements IProductProvider {
       await this.businessInfoRepo.save(business);
       return data.access_token;
     }
-    throw new Error(`Failed to generate Shopify token: ${JSON.stringify(data)}`);
+    throw new Error(
+      `Failed to generate Shopify token: ${JSON.stringify(data)}`,
+    );
   }
 
   private async getCredentials(
@@ -185,9 +187,7 @@ export class ShopifyProductAdapter implements IProductProvider {
 
         const category =
           p.productType ||
-          (p.tags && p.tags.length > 0
-            ? p.tags.join(', ')
-            : 'Shopify Product');
+          (p.tags && p.tags.length > 0 ? p.tags.join(', ') : 'Shopify Product');
         const variants = p.variants?.edges || [];
 
         if (variants.length === 0) {

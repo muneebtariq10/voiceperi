@@ -59,7 +59,9 @@ export class ProductsService implements OnModuleInit {
 
   async syncAllShopifyProducts(): Promise<number> {
     try {
-      this.logger.log('🛒 Syncing products from all connected Shopify stores...');
+      this.logger.log(
+        '🛒 Syncing products from all connected Shopify stores...',
+      );
       const shopifyProducts =
         await this.shopifyProductAdapter.fetchAllProducts();
       if (shopifyProducts && shopifyProducts.length > 0) {
@@ -89,7 +91,9 @@ export class ProductsService implements OnModuleInit {
         where: { id: businessId },
       });
       if (!business || !business.shopifyStoreUrl) {
-        this.logger.warn(`No Shopify store found for business ID ${businessId}`);
+        this.logger.warn(
+          `No Shopify store found for business ID ${businessId}`,
+        );
         return 0;
       }
 
@@ -130,7 +134,10 @@ export class ProductsService implements OnModuleInit {
           (p) => p.productId === record.productId,
         );
         if (index >= 0) {
-          this.productsCache[index] = { ...this.productsCache[index], ...record };
+          this.productsCache[index] = {
+            ...this.productsCache[index],
+            ...record,
+          };
         } else {
           this.productsCache.push(record);
         }

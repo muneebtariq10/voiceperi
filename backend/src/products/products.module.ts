@@ -11,11 +11,7 @@ import {
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product, BusinessInformation])],
-  providers: [
-    ProductsService,
-    OpenCartProductAdapter,
-    ShopifyProductAdapter,
-  ],
+  providers: [ProductsService, OpenCartProductAdapter, ShopifyProductAdapter],
   controllers: [ProductsController],
   exports: [ProductsService],
 })

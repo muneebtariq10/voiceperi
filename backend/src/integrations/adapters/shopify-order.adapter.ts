@@ -368,7 +368,9 @@ export class ShopifyOrderAdapter implements IOrderProvider {
         order: orderData,
       };
     } catch (err: any) {
-      this.logger.error(`Failed to lookup Shopify order #${orderId}: ${err.message}`);
+      this.logger.error(
+        `Failed to lookup Shopify order #${orderId}: ${err.message}`,
+      );
       return {
         found: false,
         message: `Error querying Shopify store: ${err.message}`,
@@ -403,7 +405,8 @@ export class ShopifyOrderAdapter implements IOrderProvider {
       if (!queryStr) {
         return {
           found: false,
-          message: 'Please provide an email or phone number to look up your order history.',
+          message:
+            'Please provide an email or phone number to look up your order history.',
         };
       }
 
@@ -454,7 +457,10 @@ export class ShopifyOrderAdapter implements IOrderProvider {
       const orders = orderEdges.map((edge: any) => {
         const node = edge.node;
         const productSummary = (node.lineItems?.edges || [])
-          .map((itemEdge: any) => `${itemEdge.node.title} (x${itemEdge.node.quantity})`)
+          .map(
+            (itemEdge: any) =>
+              `${itemEdge.node.title} (x${itemEdge.node.quantity})`,
+          )
           .join(', ');
         const total = parseFloat(
           node.currentTotalPriceSet?.shopMoney?.amount || '0',
@@ -479,7 +485,9 @@ export class ShopifyOrderAdapter implements IOrderProvider {
         orders,
       };
     } catch (err: any) {
-      this.logger.error(`Failed to list Shopify orders by customer: ${err.message}`);
+      this.logger.error(
+        `Failed to list Shopify orders by customer: ${err.message}`,
+      );
       return {
         found: false,
         message: `Error querying Shopify store: ${err.message}`,
@@ -618,7 +626,9 @@ export class ShopifyOrderAdapter implements IOrderProvider {
         };
       }
 
-      const nameParts = (pastOrder.customerName || 'Valued Customer').split(' ');
+      const nameParts = (pastOrder.customerName || 'Valued Customer').split(
+        ' ',
+      );
       const createRes = await this.createOrder({
         customer: {
           firstname: nameParts[0] || 'Customer',

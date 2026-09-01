@@ -16,7 +16,11 @@ export class ShopifyWebhookService {
     private readonly productsService: ProductsService,
   ) {}
 
-  verifyHmac(rawBody: string | Buffer, hmacHeader: string, secret: string): boolean {
+  verifyHmac(
+    rawBody: string | Buffer,
+    hmacHeader: string,
+    secret: string,
+  ): boolean {
     if (!hmacHeader || !secret) return false;
     try {
       const generatedHmac = crypto
@@ -79,7 +83,9 @@ export class ShopifyWebhookService {
         return await this.handleOrderUpdate(topic, payload, shopDomain);
 
       default:
-        this.logger.log(`ℹ️ Webhook topic '${topic}' acknowledged (no handler required).`);
+        this.logger.log(
+          `ℹ️ Webhook topic '${topic}' acknowledged (no handler required).`,
+        );
         return { status: 'acknowledged', message: `Unhandled topic: ${topic}` };
     }
   }
@@ -154,7 +160,10 @@ export class ShopifyWebhookService {
   ): Promise<{ status: string; message: string }> {
     const productId = String(payload?.id || '');
     if (!productId) {
-      return { status: 'error', message: 'Missing product ID in delete payload' };
+      return {
+        status: 'error',
+        message: 'Missing product ID in delete payload',
+      };
     }
 
     await this.productsService.removeProducts([productId]);
