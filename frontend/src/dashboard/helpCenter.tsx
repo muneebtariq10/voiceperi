@@ -182,7 +182,7 @@ const HelpCenter = () => {
         .quick-link:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
       `}</style>
 
-      <div className="w-full bg-white p-6 md:p-8 border border-slate-200/80 rounded-2xl shadow-sm mb-6">
+      <div className="w-full bg-card p-6 md:p-8 border border-slate-200/80 rounded-2xl shadow-sm mb-6">
         {/* Header */}
         <div className="help-animate mb-8 pb-6 border-b border-slate-100">
           <div className="flex items-center gap-3.5">
@@ -202,7 +202,7 @@ const HelpCenter = () => {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
             placeholder="Search for help..."
-            className="pl-12 h-12 rounded-xl border-2 border-gray-100 focus-visible:border-[#1c9c84] focus-visible:ring-0 focus-visible:ring-offset-0 text-sm bg-white shadow-sm"
+            className="pl-12 h-12 rounded-xl border-2 border-gray-100 focus-visible:border-[#1c9c84] focus-visible:ring-0 focus-visible:ring-offset-0 text-sm bg-card shadow-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -224,7 +224,7 @@ const HelpCenter = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {quickLinks.map((item, idx) => (
               <Link key={idx} to={item.link} className="quick-link block">
-                <div className="bg-white border border-gray-100 rounded-xl p-4 h-full">
+                <div className="bg-card border border-gray-100 rounded-xl p-4 h-full">
                   <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center text-white mb-3`}>
                     {item.icon}
                   </div>
@@ -253,7 +253,7 @@ const HelpCenter = () => {
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                 !selectedCategory 
                   ? 'bg-[#1c9c84] text-white shadow-sm' 
-                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'bg-card border border-gray-200 text-gray-600 hover:bg-gray-50'
               }`}
             >
               All
@@ -265,7 +265,7 @@ const HelpCenter = () => {
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   selectedCategory === cat 
                     ? 'bg-[#1c9c84] text-white shadow-sm' 
-                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                    : 'bg-card border border-gray-200 text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 {categoryIcons[cat]}
@@ -291,7 +291,7 @@ const HelpCenter = () => {
                 <div
                   key={globalIdx}
                   className={`border rounded-xl overflow-hidden transition-colors ${
-                    isOpen ? 'border-teal-300 bg-teal-50/30 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'
+                    isOpen ? 'border-teal-300 bg-teal-50/30 shadow-sm' : 'border-gray-200 bg-card hover:border-gray-300'
                   }`}
                 >
                   <button

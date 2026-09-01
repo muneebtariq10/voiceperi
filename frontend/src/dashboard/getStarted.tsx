@@ -17,7 +17,7 @@ const GetStarted = () => {
       
       <div className="grid gap-6 md:grid-cols-3 w-full">
         {/* Step 1 */}
-        <div className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-white rounded-2xl flex flex-col justify-between p-6">
+        <div className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-card rounded-2xl flex flex-col justify-between p-6">
           <div className="flex-grow flex flex-col mb-6">
             <div className="flex justify-between items-start mb-5 w-full">
               <div className="p-3 bg-indigo-50 rounded-xl text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300">
@@ -40,7 +40,7 @@ const GetStarted = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-white rounded-2xl flex flex-col justify-between p-6">
+        <div className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-card rounded-2xl flex flex-col justify-between p-6">
           <div className="flex-grow flex flex-col mb-6">
             <div className="flex justify-between items-start mb-5 w-full">
               <div className="p-3 bg-emerald-50 rounded-xl text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
@@ -63,7 +63,7 @@ const GetStarted = () => {
         </div>
 
         {/* Step 3 */}
-        <div className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-white rounded-2xl flex flex-col justify-between p-6">
+        <div className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-card rounded-2xl flex flex-col justify-between p-6">
           <div className="flex-grow flex flex-col mb-6">
             <div className="flex justify-between items-start mb-5 w-full">
               <div className="p-3 bg-amber-50 rounded-xl text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">

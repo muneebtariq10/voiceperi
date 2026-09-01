@@ -75,7 +75,7 @@ export default function PaymentPlanCard3({
               </CardTitle>
               {/* {selectedPlan && (
                                 <div className={`w-7 h-7 rounded-full flex items-center justify-center 
-                                 ${isFeatured ? "bg-white text-default-purple" : "bg-default-purple text-white"}`}>
+                                 ${isFeatured ? "bg-card text-default-purple" : "bg-default-purple text-white"}`}>
                                 </div>
                             )} */}
             </div>
@@ -128,7 +128,7 @@ export default function PaymentPlanCard3({
             <li key={index} className="flex items-center gap-x-2">
               <div
                 className={`w-6 h-6 flex items-center justify-center rounded-full border-2 
-                        ${isFeatured ? "border-white bg-white" : " bg-"}`}
+                        ${isFeatured ? "border-white bg-card" : " bg-"}`}
               >
                 <Check
                   className={`w-4 h-4 ${isFeatured ? "text-primary" : ""}`}
@@ -184,3 +184,4 @@ export default function PaymentPlanCard3({
     </Card>
   );
 }
+

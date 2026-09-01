@@ -84,7 +84,7 @@ const Integrations = () => {
             Integrate voice agent with third party services
           </p>
         </div>
-        <div className="w-full h-[1163px] px-0 md:px-7 py-7 border rounded-[12px] shadow-md bg-white">
+        <div className="w-full h-[1163px] px-0 md:px-7 py-7 border rounded-[12px] shadow-md bg-card">
           <div className="grid grid-cols-2 justify-items-center gap-x-2 gap-y-[20px] md:grid-cols-4 p-5">
             <div
               onClick={() => {
@@ -160,3 +160,4 @@ const Integrations = () => {
 };
 
 export default Integrations;
+

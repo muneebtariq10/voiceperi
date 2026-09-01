@@ -702,7 +702,7 @@ export function UsersTable({
 
       {isAddUserOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 overflow-hidden transform transition-all border border-gray-100">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-md p-6 overflow-hidden transform transition-all border border-gray-100">
             <h3 className="text-xl font-bold text-gray-800 mb-2">Create New User</h3>
             <p className="text-sm text-gray-500 mb-6">Enter details to provision a new client account.</p>
             <form onSubmit={handleCreateUser} className="space-y-4">
@@ -769,4 +769,5 @@ export function UsersTable({
     </div>
   );
 }
+
 

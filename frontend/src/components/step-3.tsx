@@ -49,7 +49,7 @@ export const Step3 = ({
           onClick={handleGoogleLogin}
           variant="outline"
           type="button"
-          className="cursor-pointer bg-[#F4F7FE] border-none shadow-none py-[20px]"
+          className="cursor-pointer bg-secondary hover:bg-secondary/80 text-foreground border-none shadow-none py-[20px]"
         >
           <img src={icon_google} />
           <span className="text-[16px] font-semibold">Sign up with Google</span>

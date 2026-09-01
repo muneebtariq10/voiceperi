@@ -340,7 +340,7 @@ const Overview = () => {
                 </div>
                 <div
                   // onClick={handleRefreshData}
-                  className="px-[10px] md:px-[20px] gap-[6px] md:gap-[10px] flex items-center bg-white rounded-[4px] shadow-sm h-[35px] border-[1px] border-gray-200"
+                  className="px-[10px] md:px-[20px] gap-[6px] md:gap-[10px] flex items-center bg-card rounded-[4px] shadow-sm h-[35px] border-[1px] border-gray-200"
                 >
                   <p className=" text-[12px] md:text-[14px] font-[500]">
                     latest update :
@@ -400,3 +400,4 @@ const Overview = () => {
 };
 
 export default Overview;
+

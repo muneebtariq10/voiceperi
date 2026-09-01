@@ -179,7 +179,7 @@ const CreatePlan: React.FC = () => {
     <div className="w-full flex justify-center p-6">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl flex flex-col gap-8"
+        className="bg-card shadow-lg rounded-lg p-8 w-full max-w-4xl flex flex-col gap-8"
       >
         <h2 className="text-2xl font-bold text-primary">Create a New Plan</h2>
 
@@ -370,3 +370,4 @@ const CreatePlan: React.FC = () => {
 };
 
 export default CreatePlan;
+

@@ -586,7 +586,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
   return (
     <div className="flex flex-col w-full gap-8 mt-2">
       {/* Card 1: AI Persona & Voice Configuration */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+      <div className="bg-card rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
         <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
           <div className="p-3 bg-teal-50 rounded-xl text-[#1c9c84] border border-teal-100/60 shadow-sm">
             <Bot className="w-6 h-6" />
@@ -607,7 +607,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </label>
             <Input
               id="agentName"
-              className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+              className="h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
               placeholder="e.g. TestUser Agent"
               value={agentName}
               onChange={(e) => setAgentName(e.target.value)}
@@ -627,7 +627,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 setSelectedVoice("");
               }}
             >
-              <SelectTrigger className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl text-slate-800 font-medium">
+              <SelectTrigger className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl text-slate-800 font-medium">
                 <SelectValue placeholder="Select Language" />
               </SelectTrigger>
 
@@ -688,7 +688,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </div>
             <Textarea
               id="welcomeMsg"
-              className="resize-none w-full h-28 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
+              className="resize-none w-full h-28 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
               placeholder="Hi, thanks for calling PrintEZ! How can I assist with your order or questions today?"
               value={welcomeMessage !== "null" ? welcomeMessage : ""}
               onChange={(e) => setWelcomeMessage(e.target.value)}
@@ -707,7 +707,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 value={selectedVoice || ""}
                 onValueChange={(value) => setSelectedVoice(value)}
               >
-                <SelectTrigger className="w-full h-11 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl font-medium text-slate-800 shadow-sm">
+                <SelectTrigger className="w-full h-11 bg-card border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl font-medium text-slate-800 shadow-sm">
                   <SelectValue placeholder="Select Voice & Tone" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl border-slate-200 shadow-xl">
@@ -782,7 +782,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             </div>
 
             {/* Audio Preview Component */}
-            <div className="flex items-center min-w-[240px] bg-white p-2 rounded-xl border border-slate-200/60 shadow-sm">
+            <div className="flex items-center min-w-[240px] bg-card p-2 rounded-xl border border-slate-200/60 shadow-sm">
               <AudioPlayer1
                 src={
                   voices?.find((voice: any) => voice.voice_id === selectedVoice)
@@ -795,7 +795,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       </div>
 
       {/* Card 2: Telephony & Connection */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+      <div className="bg-card rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
         <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
           <div className="p-3 bg-blue-50 rounded-xl text-blue-600 border border-blue-100/60 shadow-sm">
             <Phone className="w-6 h-6" />
@@ -828,7 +828,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <Input
               type="tel"
               placeholder="+1 (xxx) xxx-xxxx (Manually enter or get via Retell)"
-              className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl text-slate-800 font-mono text-sm placeholder:text-slate-400 placeholder:font-sans"
+              className="w-full h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl text-slate-800 font-mono text-sm placeholder:text-slate-400 placeholder:font-sans"
               value={aiPhoneNumber}
               onChange={(e) => setAiPhoneNumber(e.target.value)}
             />
@@ -864,14 +864,14 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                   Set up <strong>call forwarding</strong> on your physical business phone so incoming calls are automatically routed to your AI agent without changing your publicized number:
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
+                  <div className="flex items-start gap-3 bg-card p-4 rounded-xl border border-slate-200/70 shadow-sm">
                     <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#1c9c84] text-white text-xs flex items-center justify-center font-bold shadow-sm">1</span>
                     <div>
                       <p className="text-sm font-bold text-slate-800">Open Phone Dialer</p>
                       <p className="text-xs text-slate-500 mt-1">On the office phone or mobile device that customers currently call.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
+                  <div className="flex items-start gap-3 bg-card p-4 rounded-xl border border-slate-200/70 shadow-sm">
                     <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#1c9c84] text-white text-xs flex items-center justify-center font-bold shadow-sm">2</span>
                     <div>
                       <p className="text-sm font-bold text-slate-800">Dial Forwarding Code</p>
@@ -880,7 +880,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200/70 shadow-sm">
+                  <div className="flex items-start gap-3 bg-card p-4 rounded-xl border border-slate-200/70 shadow-sm">
                     <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#1c9c84] text-white text-xs flex items-center justify-center font-bold shadow-sm">3</span>
                     <div>
                       <p className="text-sm font-bold text-slate-800">Wait for Tone</p>
@@ -901,7 +901,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       </div>
 
       {/* Card 3: Call Security & Spam Guardrails */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+      <div className="bg-card rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
         <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
           <div className="p-3 bg-rose-50 rounded-xl text-rose-600 border border-rose-100/60 shadow-sm">
             <ShieldCheck className="w-6 h-6" />
@@ -952,7 +952,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               </TooltipWrapper>
             </label>
             <div
-              className="border border-slate-200 bg-slate-50/50 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#1c9c84]/20 focus-within:border-[#1c9c84] transition-all duration-200 rounded-xl p-3 w-full min-h-[120px] flex flex-wrap items-start gap-2 shadow-inner"
+              className="border border-slate-200 bg-slate-50/50 focus-within:bg-card focus-within:ring-2 focus-within:ring-[#1c9c84]/20 focus-within:border-[#1c9c84] transition-all duration-200 rounded-xl p-3 w-full min-h-[120px] flex flex-wrap items-start gap-2 shadow-inner"
               id="blockedNumbersInput"
             >
               {blockedNumbers.map((number, index) => (
@@ -988,7 +988,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       </div>
 
       {/* Card 4: Post-Call Actions & Intelligence */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+      <div className="bg-card rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
         <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
           <div className="p-3 bg-emerald-50 rounded-xl text-emerald-600 border border-emerald-100/60 shadow-sm">
             <Bell className="w-6 h-6" />
@@ -1032,7 +1032,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <div className="w-full flex items-center gap-2 mt-auto">
               <Input
                 placeholder="Enter team email address..."
-                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
+                className="flex-1 h-10 bg-card border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
                 type="email"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
@@ -1100,7 +1100,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
               <Input
                 type="tel"
                 placeholder="+1234567890 (WhatsApp)..."
-                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs font-mono"
+                className="flex-1 h-10 bg-card border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs font-mono"
                 value={phoneInput}
                 onChange={(e) => setPhoneInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -1127,7 +1127,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
                 <Plus className="w-3.5 h-3.5" /> Add
               </Button>
             </div>
-            <div className="w-full text-slate-600 text-[11px] mt-3 bg-white p-3 rounded-xl border border-slate-200/80 shadow-xs">
+            <div className="w-full text-slate-600 text-[11px] mt-3 bg-card p-3 rounded-xl border border-slate-200/80 shadow-xs">
               <strong>Info:</strong> Requires an official <strong>WhatsApp Business API</strong> account (via <a href="https://www.twilio.com/whatsapp" target="_blank" rel="noopener noreferrer" className="text-[#1c9c84] hover:underline font-bold">Twilio</a>).
             </div>
           </div>
@@ -1164,7 +1164,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
             <div className="w-full flex items-center gap-2 mt-auto">
               <Input
                 placeholder="e.g. What is their project budget?"
-                className="flex-1 h-10 bg-white border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
+                className="flex-1 h-10 bg-card border-slate-200 focus:ring-2 focus:ring-[#1c9c84]/20 rounded-xl text-xs"
                 value={noteInput}
                 onChange={(e) => setNoteInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -1199,7 +1199,7 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
       </div>
 
       {/* Sticky Floating Save Bar */}
-      <div className="sticky bottom-6 z-30 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-slate-200/80 shadow-2xl flex items-center justify-between gap-4 mt-2">
+      <div className="sticky bottom-6 z-30 bg-card/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-slate-200/80 shadow-2xl flex items-center justify-between gap-4 mt-2">
         <span className="text-xs sm:text-sm font-medium text-slate-500 hidden md:inline-block">
           Test your agent to verify voice tone before saving updates to production.
         </span>
@@ -1277,3 +1277,4 @@ const VoiceAgentSettings: React.FC<VoiceAgentSettingsProps> = ({
 };
 
 export default VoiceAgentSettings;
+

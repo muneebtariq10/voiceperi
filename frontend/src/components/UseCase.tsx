@@ -120,7 +120,7 @@ const UseCase = () => {
                         </div>
 
                         {/* Right Box with 3 rows */}
-                        <div className="md:w-2/3 bg-white rounded-[30px] py-10 flex flex-col gap-10 shadow-md overflow-hidden">
+                        <div className="md:w-2/3 bg-card rounded-[30px] py-10 flex flex-col gap-10 shadow-md overflow-hidden">
 
                             {/* Row 1 - left */}
                             <div className="relative w-full overflow-hidden">
@@ -249,7 +249,7 @@ const UseCase = () => {
                                                         className="object-cover w-full rounded-[21.65px]"
                                                     />
                                                     <p className="text-[22px] font-bold text-center">{sample.role}</p>
-                                                    <div className="flex items-center gap-3 px-6 py-3.5 bg-white rounded-[20px] shadow-sm w-[240px]">
+                                                    <div className="flex items-center gap-3 px-6 py-3.5 bg-card rounded-[20px] shadow-sm w-[240px]">
                                                         <AudioProgressBar audioRef={{ current: audioRefs.current[index] }} />
                                                         <Button
                                                             onClick={() => togglePlay(index)}
@@ -466,5 +466,6 @@ const UseCase = () => {
 }
 
 export default UseCase
+
 
 

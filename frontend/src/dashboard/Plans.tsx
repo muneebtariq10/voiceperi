@@ -79,8 +79,8 @@ const Plans = () => {
   });
   return (
     <div className="bg-secondary w-full px-3 py-1.5">
-      <div className="w-full flex flex-col items-center justify-start bg-white shadow-md gap-[60px] rounded-[30px] px-4 py-6">
-        <Card className="w-full max-w-[400px] bg-white text-white shadow-2xl rounded-[20px] border border-gray-200">
+      <div className="w-full flex flex-col items-center justify-start bg-card shadow-md gap-[60px] rounded-[30px] px-4 py-6">
+        <Card className="w-full max-w-[400px] bg-card text-white shadow-2xl rounded-[20px] border border-gray-200">
           <CardContent className="p-8 flex flex-col items-center gap-6">
             <h1 className="text-[26px] font-extrabold text-primary text-center">
               Add New Plans
@@ -229,3 +229,4 @@ const Plans = () => {
 };
 
 export default Plans;
+

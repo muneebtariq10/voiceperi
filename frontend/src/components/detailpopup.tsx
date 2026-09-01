@@ -54,7 +54,7 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, selectedRow }) =>
             <a
               href="/sample-audio.mp3"
               download="sample-audio.mp3"
-              className="flex items-center bg-white text-[#64748B] px-2.5 py-2.5 cursor-pointer rounded-[6px] border border-[#CBD4E1]"
+              className="flex items-center bg-card text-[#64748B] px-2.5 py-2.5 cursor-pointer rounded-[6px] border border-[#CBD4E1]"
             >
               <CloudDownload size={20} />
             </a>
@@ -117,7 +117,7 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, selectedRow }) =>
                 setCopied(false);
               }, 2500);
             }}
-            className="cursor-pointer bg-white text-default-purple flex items-center gap-2"
+            className="cursor-pointer bg-card text-default-purple flex items-center gap-2"
           >
             <Copy size={20} />
             {copied && <span className="text-sm text-default-purple">Copied!</span>}
@@ -146,5 +146,6 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, selectedRow }) =>
 
   );
 };
+
 
 

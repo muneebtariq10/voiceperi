@@ -41,7 +41,7 @@ export function SectionCards({ callData }: { callData: CallData }) {
     <div className="grid grid-cols-1 gap-4 md:px-4 lg:pr-0 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 md:pl-0 pl-0">
       
       {/* Total Call Minutes Card */}
-      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-card shadow-sm hover:shadow-md transition-all duration-300">
         <CardHeader className="grid grid-rows-2 items-center gap-x-2 p-5">
           <div className="row-span-2 flex items-center justify-center bg-indigo-50 w-[56px] h-[56px] rounded-full">
             <IconClockHour4 className="w-7 h-7 text-indigo-500" stroke={1.5} />
@@ -70,7 +70,7 @@ export function SectionCards({ callData }: { callData: CallData }) {
       </Card>
 
       {/* Number of Calls Card */}
-      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-card shadow-sm hover:shadow-md transition-all duration-300">
         <CardHeader className="grid grid-rows-2 items-center gap-x-2 p-5">
           <div className="row-span-2 flex items-center justify-center bg-amber-50 w-[56px] h-[56px] rounded-full">
             <IconPhoneCall className="w-7 h-7 text-amber-500" stroke={1.5} />
@@ -99,7 +99,7 @@ export function SectionCards({ callData }: { callData: CallData }) {
       </Card>
 
       {/* Total Cost Card */}
-      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-card shadow-sm hover:shadow-md transition-all duration-300">
         <CardHeader className="grid grid-rows-2 items-center gap-x-2 p-5">
           <div className="row-span-2 flex items-center justify-center bg-emerald-50 w-[56px] h-[56px] rounded-full">
             <IconChartBar className="w-7 h-7 text-emerald-500" stroke={1.5} />
@@ -128,7 +128,7 @@ export function SectionCards({ callData }: { callData: CallData }) {
       </Card>
 
       {/* Average Cost Per Call Card */}
-      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+      <Card className="relative overflow-hidden rounded-xl border border-gray-100 bg-card shadow-sm hover:shadow-md transition-all duration-300">
         <CardHeader className="grid grid-rows-2 items-center gap-x-2 p-5">
           <div className="row-span-2 flex items-center justify-center bg-rose-50 w-[56px] h-[56px] rounded-full">
             <IconCoin className="w-7 h-7 text-rose-500" stroke={1.5} />
@@ -159,3 +159,4 @@ export function SectionCards({ callData }: { callData: CallData }) {
     </div>
   )
 }
+

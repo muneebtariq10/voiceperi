@@ -340,7 +340,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </CardContent>
               <CardFooter className="mt-4 p-0">
                 <Link to="/dashboard/settings#payment-plans">
-                  <Button className="w-full text-lg rounded-[5px] font-medium bg-white text-black border border-gray-300 hover:bg-gray-100">
+                  <Button className="w-full text-lg rounded-[5px] font-medium bg-card text-black border border-gray-300 hover:bg-gray-100">
                     Add Payment
                   </Button>
                 </Link>
@@ -357,3 +357,4 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     </Sidebar>
   );
 }
+

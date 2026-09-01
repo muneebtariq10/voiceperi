@@ -138,7 +138,7 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, userInfo }) => {
       <div
         className={`${
           isLoading ? "flex" : "hidden"
-        } absolute w-full h-full bg-white/50 z-10 justify-center items-center`}
+        } absolute w-full h-full bg-card/50 z-10 justify-center items-center`}
       >
         {/* <Loader className={`${isLoading ? 'flex' : 'hidden'} w-[300px] h-[300px] animate-spin  text-muted-foreground`} /> */}
       </div>
@@ -288,3 +288,4 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, userInfo }) => {
     </Dialog>
   );
 };
+

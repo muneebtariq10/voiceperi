@@ -58,8 +58,8 @@ const Header = () => {
 
   return (
     <nav
-      className={`flex items-center justify-between px-4 md:px-16 py-4 container mx-auto sticky bg-[var(--bg-surface)]/80 backdrop-blur-xl z-50 border-b border-[var(--border-subtle)] transition-all duration-300
-            ${scrolledDown ? "border-[var(--border-default)] shadow-[0_1px_3px_rgba(0,0,0,0.04)]" : ""}
+      className={`flex items-center justify-between px-4 md:px-16 py-4 container mx-auto sticky bg-[var(--bg-surface)]/80 backdrop-blur-xl z-50 border-b transition-all duration-300
+            ${scrolledDown ? "border-[var(--border-default)] dark:border-teal-900/50 shadow-[0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(20,184,166,0.15)]" : "border-[var(--border-subtle)]"}
             ${hideNavbar ? "top-0" : "top-0"}
           `}
     >

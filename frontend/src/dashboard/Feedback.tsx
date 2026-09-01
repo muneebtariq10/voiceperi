@@ -165,7 +165,7 @@ const Feedback = () => {
                     className={`category-card flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 cursor-pointer ${
                       isActive 
                         ? `${cat.bgColor} ${cat.borderColor} ${cat.color}` 
-                        : 'bg-white border-gray-100 text-gray-400 hover:border-gray-200'
+                        : 'bg-card border-gray-100 text-gray-400 hover:border-gray-200'
                     }`}
                   >
                     <span className={isActive ? cat.color : 'text-gray-400'}>{cat.icon}</span>
@@ -220,7 +220,7 @@ const Feedback = () => {
                 {charCount}/{maxChars}
               </span>
             </div>
-            <div className={`rounded-xl border-2 overflow-hidden bg-white shadow-sm transition-colors ${
+            <div className={`rounded-xl border-2 overflow-hidden bg-card shadow-sm transition-colors ${
               feedback.length > 0 ? `${activeCat.borderColor}` : 'border-gray-200 focus-within:border-[#1c9c84]'
             }`}>
               <Textarea 

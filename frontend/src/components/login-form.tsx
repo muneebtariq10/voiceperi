@@ -175,7 +175,7 @@ export function LoginForm() {
       <div
         className={`${
           isLoading ? "flex" : "hidden"
-        } absolute w-full h-full bg-white/50 z-10 justify-center items-center`}
+        } absolute w-full h-full bg-card/50 z-10 justify-center items-center`}
       >
         {/* <Loader className={`${isLoading ? 'flex' : 'hidden'} w-[300px] h-[300px] animate-spin  text-muted-foreground`} /> */}
         <div role="status">
@@ -215,7 +215,7 @@ export function LoginForm() {
                 onClick={handleGoogleLogin}
                 variant="outline"
                 type="button"
-                className="w-full cursor-pointer bg-[#F4F7FE] border-none shadow-none py-[20px]"
+                className="w-full cursor-pointer bg-secondary hover:bg-secondary/80 text-foreground border-none shadow-none py-[20px]"
               >
                 <img src={icon_google} />
                 <span className="text-[16px] font-semibold">
@@ -315,3 +315,4 @@ export function LoginForm() {
     </div>
   );
 }
+

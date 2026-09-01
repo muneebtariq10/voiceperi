@@ -56,9 +56,9 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
         onChange={handleSeek}
         className="w-full h-2 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer 
   [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
-  [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full 
+  [&::-webkit-slider-thumb]:bg-card [&::-webkit-slider-thumb]:rounded-full 
   [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#1c9c84] 
-  [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:bg-white 
+  [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:bg-card 
   [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white"
       />
 
@@ -67,3 +67,4 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
     </div>
   );
 }
+

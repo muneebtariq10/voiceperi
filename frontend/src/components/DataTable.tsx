@@ -480,7 +480,7 @@ export function DataTable({
           />
           <button
             onClick={exportToCSV}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-[8px] text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap"
+            className="px-4 py-2 bg-card border border-gray-300 rounded-[8px] text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors whitespace-nowrap"
           >
             Export CSV
           </button>
@@ -518,7 +518,7 @@ export function DataTable({
       </div>
 
       <div className="w-full overflow-x-hidden">
-        <div className="border border-gray-200 overflow-x-auto rounded-[12px] mb-[90px] shadow-sm bg-white">
+        <div className="border border-gray-200 overflow-x-auto rounded-[12px] mb-[90px] shadow-sm bg-card">
           <Table>
             <TableHeader className="bg-gray-50/80 border-b border-gray-200">
               <TableRow className="hover:bg-transparent">
@@ -621,3 +621,4 @@ export function DataTable({
     </div>
   );
 }
+

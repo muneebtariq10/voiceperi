@@ -13,7 +13,7 @@ export const Logo: React.FC<LogoProps> = ({
   className = '',
   iconClassName = '' 
 }) => {
-  const textColor = theme === 'light' ? 'text-[#1e293b]' : 'text-white';
+  const textColor = 'text-foreground';
   const blueColor = '#3b82f6'; // Tailwind blue-500
 
   return (

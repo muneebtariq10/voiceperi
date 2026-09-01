@@ -50,7 +50,7 @@ export function PiChart({ data }: { data: string[] }) {
   // console.log('data', data);
 
   return (
-    <Card className="flex flex-col h-full rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+    <Card className="flex flex-col h-full rounded-xl bg-card shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
       <CardHeader className="flex flex-col px-6 pt-6 pb-2">
         <CardTitle className="text-[20px] font-semibold text-gray-900 tracking-tight text-start">
           Reason call ended
@@ -136,3 +136,4 @@ export function PiChart({ data }: { data: string[] }) {
     </Card>
   )
 }
+

@@ -575,7 +575,7 @@ const VoiceAgent: React.FC = () => {
             className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer ${
               showForm1
                 ? "bg-[#1c9c84] text-white shadow-md shadow-teal-500/20 scale-[1.02]"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
+                : "text-slate-600 hover:text-slate-900 hover:bg-card/60"
             }`}
           >
             <Building2 className="w-4 h-4 md:w-5 md:h-5" />
@@ -590,7 +590,7 @@ const VoiceAgent: React.FC = () => {
             className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer ${
               !showForm1
                 ? "bg-[#1c9c84] text-white shadow-md shadow-teal-500/20 scale-[1.02]"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
+                : "text-slate-600 hover:text-slate-900 hover:bg-card/60"
             }`}
           >
             <Sliders className="w-4 h-4 md:w-5 md:h-5" />
@@ -600,7 +600,7 @@ const VoiceAgent: React.FC = () => {
 
         <form className={`mt-2 ${showForm1 ? "flex" : "hidden"} flex-col gap-8`}>
           {/* Company Details Card */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-card rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-100">
               <div className="p-3 bg-teal-50 rounded-xl text-[#1c9c84] border border-teal-100/60">
                 <Briefcase className="w-6 h-6" />
@@ -634,7 +634,7 @@ const VoiceAgent: React.FC = () => {
                       }
                     }}
                     id="profile"
-                    className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                    className="h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                     placeholder="Enter business name or website (e.g. printez.com)"
                   />
                   <Button
@@ -653,7 +653,7 @@ const VoiceAgent: React.FC = () => {
                 <div
                   className={`${
                     locationData?.length !== 0 ? "flex" : "hidden"
-                  } scrollbar-hide bg-white border border-slate-200 shadow-xl rounded-xl h-fit max-h-[160px] py-2 px-1.5 w-full mt-1.5 max-w-full flex-col overflow-x-hidden z-20`}
+                  } scrollbar-hide bg-card border border-slate-200 shadow-xl rounded-xl h-fit max-h-[160px] py-2 px-1.5 w-full mt-1.5 max-w-full flex-col overflow-x-hidden z-20`}
                   style={{
                     scrollbarWidth: "none",
                     msOverflowStyle: "none",
@@ -691,7 +691,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                   id="name"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                   placeholder="e.g. PrintEZ"
                 />
               </div>
@@ -707,7 +707,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                   id="address"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                   placeholder="3377 Wilshire Blvd #202, Los Angeles, CA 90010"
                 />
               </div>
@@ -723,7 +723,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setPhone(e.target.value)}
                   value={phone}
                   id="phone"
-                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
+                  className="h-11 bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] transition-all duration-200 rounded-xl text-slate-800 placeholder:text-slate-400"
                   placeholder="+1 800-555-0199"
                 />
               </div>
@@ -739,7 +739,7 @@ const VoiceAgent: React.FC = () => {
                   onChange={(e) => setOverview(e.target.value)}
                   value={overview}
                   id="overview"
-                  className="resize-none w-full h-[200px] bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
+                  className="resize-none w-full h-[200px] bg-slate-50/50 border-slate-200 focus:bg-card focus:ring-2 focus:ring-[#1c9c84]/20 focus:border-[#1c9c84] rounded-xl p-3.5 text-slate-800 transition-all duration-200 text-sm placeholder:text-slate-400 leading-relaxed"
                   placeholder="Describe your primary services, company mission, policies, and special instructions..."
                 />
               </div>
@@ -759,7 +759,7 @@ const VoiceAgent: React.FC = () => {
           </div>
 
           {/* Business Hours Card */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-card rounded-2xl border border-slate-200/80 p-6 md:p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-100">
               <div className="flex items-center gap-3.5">
                 <div className="p-3 bg-blue-50 rounded-xl text-blue-600 border border-blue-100/60">
@@ -903,7 +903,7 @@ const VoiceAgent: React.FC = () => {
           </div>
 
           {/* Sticky Floating Save Bar */}
-          <div className="sticky bottom-6 z-30 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-slate-200/80 shadow-2xl flex items-center justify-between gap-4 mt-4">
+          <div className="sticky bottom-6 z-30 bg-card/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-slate-200/80 shadow-2xl flex items-center justify-between gap-4 mt-4">
             <span className="text-xs sm:text-sm font-medium text-slate-500 hidden sm:inline-block">
               Remember to save your business details to apply changes across active agents.
             </span>
@@ -966,3 +966,4 @@ const VoiceAgent: React.FC = () => {
 };
 
 export default VoiceAgent;
+

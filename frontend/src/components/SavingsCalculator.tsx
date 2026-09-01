@@ -27,7 +27,7 @@ export default function SavingsCalculator() {
                     max="50"
                     value={csrs}
                     onChange={(e) => setCsrs(Number(e.target.value))}
-                    className="w-full appearance-none h-4 bg-white rounded-full"
+                    className="w-full appearance-none h-4 bg-card rounded-full"
                     style={{
                     WebkitAppearance: "none",
                     appearance: "none",
@@ -55,7 +55,7 @@ export default function SavingsCalculator() {
                     max="50"
                     value={salary}
                     onChange={(e) => setSalary(Number(e.target.value))}
-                    className="w-full appearance-none h-4 bg-white rounded-full"
+                    className="w-full appearance-none h-4 bg-card rounded-full"
                     style={{
                     WebkitAppearance: "none",
                     appearance: "none",
@@ -143,3 +143,4 @@ export default function SavingsCalculator() {
     </div>
   );
 }
+

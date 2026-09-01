@@ -69,7 +69,7 @@ export default function HashtagTextarea({
           {tags?.map((tag, index) => (
             <Badge
               key={index}
-              className="border-[1px] border-gray-400 bg-white text-gray-800 px-2 py-1 rounded-[4px] flex items-center gap-1"
+              className="border-[1px] border-gray-400 bg-card text-gray-800 px-2 py-1 rounded-[4px] flex items-center gap-1"
             >
               <div
                 onClick={() => removeTag(index)}
@@ -94,3 +94,4 @@ export default function HashtagTextarea({
     </div>
   );
 }
+

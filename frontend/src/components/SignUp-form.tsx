@@ -806,7 +806,7 @@ export const SignUpForm = () => {
       <div
         className={`${
           isLoading ? "flex" : "hidden"
-        } absolute w-full h-full bg-white/50 z-10 justify-center items-center`}
+        } absolute w-full h-full bg-card/50 z-10 justify-center items-center`}
       >
         <div role="status">
           <svg
@@ -967,3 +967,4 @@ export const SignUpForm = () => {
     </div>
   );
 };
+

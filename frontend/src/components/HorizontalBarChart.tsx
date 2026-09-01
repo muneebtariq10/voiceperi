@@ -49,7 +49,7 @@ export function HorizontalBarChart({data}: { data: ChartData }) {
     ]
     
     return (
-        <Card className="h-full rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col">
+        <Card className="h-full rounded-xl bg-card shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col">
             <CardHeader className="flex flex-col px-6 pt-6 pb-2">
                 <CardTitle className="text-[20px] font-semibold text-gray-900 tracking-tight text-start">Call Engagement Distribution</CardTitle>
                 <CardDescription className="text-[14px] text-gray-500 font-medium text-left">Distribution of calls by length</CardDescription>
@@ -94,3 +94,4 @@ export function HorizontalBarChart({data}: { data: ChartData }) {
         </Card>
     )
 }
+

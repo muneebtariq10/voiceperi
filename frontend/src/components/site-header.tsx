@@ -109,7 +109,7 @@ export function SiteHeader() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <header className="flex bg-white h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="flex bg-card h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center justify-between gap-1 px-4 lg:gap-2 lg:px-6 py-2 md:py-7">
         <SidebarTrigger className="-ml-1 min-w-10" />
         <h3 className="font-semibold hidden md:block md:text-2xl">
@@ -190,7 +190,7 @@ export function SiteHeader() {
             </div>
 
             {menuOpen && (
-              <div className="absolute  right-0 mt-2 w-fit text-nowrap bg-white border rounded shadow-md z-10">
+              <div className="absolute  right-0 mt-2 w-fit text-nowrap bg-card border rounded shadow-md z-10">
                 <p
                   className="px-4 py-4 text-[14px] font-[500] cursor-pointer hover:bg-gray-50"
                   onClick={handleLogout}
@@ -206,3 +206,4 @@ export function SiteHeader() {
   );
 }
 export default SiteHeader;
+
