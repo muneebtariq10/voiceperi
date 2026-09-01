@@ -68,7 +68,7 @@ const Header = () => {
                 <span className="text-xl font-semibold text-primary">Sonervant</span>
             </NavLink> */}
       <NavLink to="/" className="flex items-center gap-x-3 shrink-0">
-        <Logo theme="light" className="text-3xl md:text-4xl hover:scale-[1.02] transition-transform duration-200" />
+        <Logo theme="light" className="text-2xl md:text-3xl hover:scale-[1.02] transition-transform duration-200" />
       </NavLink>
       <div className="hidden md:flex items-center gap-x-8">
         <NavigationMenu>
