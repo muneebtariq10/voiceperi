@@ -268,7 +268,7 @@ const Feature = () => {
       </div>
 
       <div className="justify-items-center constainer py-[80px]">
-        <div className="container relative z-10 grid max-w-[1342px] grid-cols-[586px_1fr] overflow-hidden rounded-2xl bg-gray-900 px-12 pb-14 pr-8 pt-11 lg:max-w-[1024px] lg:grid-cols-[350px_1fr] lg:px-10 lg:py-9 md:max-w-[643px] md:grid-cols-1 md:px-8 md:py-7 xs:max-w-[calc(100%-40px)] xs:p-0">
+        <div className="container relative z-10 grid max-w-[1342px] grid-cols-[586px_1fr] overflow-hidden rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-default)] px-12 pb-14 pr-8 pt-11 lg:max-w-[1024px] lg:grid-cols-[350px_1fr] lg:px-10 lg:py-9 md:max-w-[643px] md:grid-cols-1 md:px-8 md:py-7 xs:max-w-[calc(100%-40px)] xs:p-0">
           {/* Left Text */}
           <div className="relative z-20 flex flex-col xs:p-5 justify-between items-start">
             <span className="text-2xl tracking-tighter text-gray-400 xs:text-lg">

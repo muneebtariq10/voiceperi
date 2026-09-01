@@ -16,7 +16,7 @@ export default function SavingsCalculator() {
   return (
     <div className="block lg:flex px-0 md:px-[40px] lg:mx-[100px] gap-4 mt-7">
       {/* Left Side */}
-      <div className="space-y-8 w-12/12 lg:w-7/12 p-10 bg-gradient-to-t from-[#d9eeec] via-[#d9eeec] to-white  rounded-[30px]">
+      <div className="space-y-8 w-12/12 lg:w-7/12 p-10 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[30px]">
         {/* CSR count slider */}
         <div className="mb-20">
           <h2 className="text-[25px] font-semibold mb-5">How many CSR’s do you have?</h2>
