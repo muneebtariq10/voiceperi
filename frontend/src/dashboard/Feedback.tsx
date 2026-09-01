@@ -24,36 +24,36 @@ const categories: { id: FeedbackCategory; label: string; icon: React.ReactNode; 
     id: 'general', 
     label: 'General', 
     icon: <MessageSquarePlus className="w-5 h-5" />, 
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-200',
+    color: 'text-blue-600 dark:text-blue-400',
+    bgColor: 'bg-blue-500/10',
+    borderColor: 'border-blue-500/30',
     description: 'Share your thoughts'
   },
   { 
     id: 'bug', 
     label: 'Bug Report', 
     icon: <Bug className="w-5 h-5" />, 
-    color: 'text-red-500',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-200',
+    color: 'text-red-500 dark:text-red-400',
+    bgColor: 'bg-red-500/10',
+    borderColor: 'border-red-500/30',
     description: 'Something broken?'
   },
   { 
     id: 'feature', 
     label: 'Feature Request', 
     icon: <Lightbulb className="w-5 h-5" />, 
-    color: 'text-amber-500',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200',
+    color: 'text-amber-500 dark:text-amber-400',
+    bgColor: 'bg-amber-500/10',
+    borderColor: 'border-amber-500/30',
     description: 'Suggest an idea'
   },
   { 
     id: 'praise', 
     label: 'Praise', 
     icon: <ThumbsUp className="w-5 h-5" />, 
-    color: 'text-green-500',
-    bgColor: 'bg-green-50',
-    borderColor: 'border-green-200',
+    color: 'text-green-500 dark:text-green-400',
+    bgColor: 'bg-green-500/10',
+    borderColor: 'border-green-500/30',
     description: 'Something you love'
   },
 ];
@@ -165,12 +165,12 @@ const Feedback = () => {
                     className={`category-card flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 cursor-pointer ${
                       isActive 
                         ? `${cat.bgColor} ${cat.borderColor} ${cat.color}` 
-                        : 'bg-card border-gray-100 text-gray-400 hover:border-gray-200'
+                        : 'bg-card border-[var(--border-default)] text-[var(--text-muted)] hover:border-[var(--text-secondary)]'
                     }`}
                   >
-                    <span className={isActive ? cat.color : 'text-gray-400'}>{cat.icon}</span>
-                    <span className={`text-xs font-semibold ${isActive ? 'text-gray-800' : 'text-gray-500'}`}>{cat.label}</span>
-                    <span className={`text-[10px] ${isActive ? 'text-gray-500' : 'text-gray-400'}`}>{cat.description}</span>
+                    <span className={isActive ? cat.color : 'text-[var(--text-muted)]'}>{cat.icon}</span>
+                    <span className={`text-xs font-semibold ${isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>{cat.label}</span>
+                    <span className={`text-[10px] ${isActive ? 'text-[var(--text-secondary)]' : 'text-[var(--text-muted)]'}`}>{cat.description}</span>
                   </button>
                 );
               })}
