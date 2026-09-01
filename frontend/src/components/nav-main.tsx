@@ -30,7 +30,7 @@ export function NavMain({
                 <NavLink
                   key={item.url}
                   to={item.url}
-                  className={`flex items-center gap-3 font-semibold text-[17px] px-4 py-3 rounded-[10px] transition-all duration-200 ${isActive ? "bg-blue-600 text-white shadow-md" : "bg-transparent text-slate-400 hover:text-white hover:bg-slate-800"
+                  className={`flex items-center gap-3 font-semibold text-[17px] px-4 py-3 rounded-[10px] transition-all duration-200 ${isActive ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-md" : "bg-transparent text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent"
                     }`}
                 >
                   {item.icon && <item.icon className="w-6 h-6" />}
