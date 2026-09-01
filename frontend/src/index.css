@@ -80,14 +80,14 @@ html {
   --chart-5: #ec4899;
 
   /* ── Sidebar ── */
-  --sidebar: #070912;
+  --sidebar: #0d9488;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #14b8a6;
-  --sidebar-primary-foreground: #070912;
-  --sidebar-accent: #1a1f35;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #0d9488;
+  --sidebar-accent: #0f766e;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.12);
-  --sidebar-ring: #14b8a6;
+  --sidebar-border: #0f766e;
+  --sidebar-ring: #ffffff;
 }
 
 /* ═══════════════════════════════════════════════
