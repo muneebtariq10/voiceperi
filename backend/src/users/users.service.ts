@@ -158,18 +158,62 @@ export class UsersService implements OnModuleInit {
       // Safe to ignore if postgres custom type does not exist or value already added
     }
     try {
-      const owner = await this.userRepo.findOne({
-        where: { email: 'admin@voiceperi.com' },
+      const newAdminEmail = 'admin@sonervant.com';
+      const defaultPassword = 'Admin@123';
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(defaultPassword, saltRounds);
+
+      // Check if admin@sonervant.com already exists
+      let admin = await this.userRepo.findOne({
+        where: { email: newAdminEmail },
       });
-      if (owner && owner.role === Role.ADMIN) {
-        owner.role = Role.SUPER_ADMIN;
-        await this.userRepo.save(owner);
+
+      if (!admin) {
+        // Also check if old admin accounts exist to migrate
+        const oldAdmin = await this.userRepo.findOne({
+          where: [{ email: 'admin@voiceperi.com' }, { role: Role.SUPER_ADMIN }],
+        });
+
+        if (oldAdmin) {
+          oldAdmin.email = newAdminEmail;
+          oldAdmin.password = hashedPassword;
+          oldAdmin.role = Role.SUPER_ADMIN;
+          oldAdmin.verified = 1;
+          oldAdmin.status = 1;
+          await this.userRepo.save(oldAdmin);
+          console.log(
+            `[UsersService] Migrated admin account to ${newAdminEmail} with updated credentials.`,
+          );
+        } else {
+          // Create admin@sonervant.com
+          admin = this.userRepo.create({
+            id: uuidv4(),
+            firstname: 'Admin',
+            lastname: 'Sonervant',
+            email: newAdminEmail,
+            password: hashedPassword,
+            role: Role.SUPER_ADMIN,
+            verified: 1,
+            status: 1,
+          });
+          await this.userRepo.save(admin);
+          console.log(
+            `[UsersService] Created default super_admin account: ${newAdminEmail}`,
+          );
+        }
+      } else {
+        // Update password and ensure role is super_admin
+        admin.password = hashedPassword;
+        admin.role = Role.SUPER_ADMIN;
+        admin.verified = 1;
+        admin.status = 1;
+        await this.userRepo.save(admin);
         console.log(
-          '[UsersService] Upgraded primary owner (admin@voiceperi.com) to SUPER_ADMIN role.',
+          `[UsersService] Verified super_admin account and updated password for ${newAdminEmail}`,
         );
       }
     } catch (err) {
-      // Table might not exist on clean initialization
+      console.warn('[UsersService] Admin seed error (safe to ignore if DB not ready):', err?.message);
     }
   }
 
@@ -341,7 +385,7 @@ export class UsersService implements OnModuleInit {
     const deleteUsersRes = await manager.query(`
       SELECT id, email, role FROM users 
       WHERE role NOT IN ('super_admin', 'admin') 
-      AND email != 'admin@voiceperi.com'
+      AND email != 'admin@sonervant.com'
     `);
     const deleteUsers = deleteUsersRes || [];
     let deletedUsersCount = 0;

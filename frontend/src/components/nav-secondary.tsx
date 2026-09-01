@@ -44,10 +44,10 @@ export function NavSecondary({
                 <NavLink
                   key={item.url}
                   to={item.url}
-                  className={`flex items-center gap-2 text-white font-medium text-[16px] px-4 py-2 rounded-[10px] transition ${isActive ? "bg-default-purple text-white" : "bg-transparent text-default-gray"
+                  className={`flex items-center gap-3 font-medium text-[15px] px-4 py-2.5 rounded-[10px] transition-all duration-200 ${isActive ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm" : "bg-transparent text-sidebar-foreground/75 hover:text-sidebar-foreground hover:bg-sidebar-accent"
                     }`}
                 >
-                  {item.icon && <item.icon />}
+                  {item.icon && <item.icon className="w-5 h-5 flex-shrink-0" />}
                   <span>{item.title}</span>
                 </NavLink>
               );

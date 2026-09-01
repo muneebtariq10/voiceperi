@@ -30,10 +30,10 @@ export function NavMain({
                 <NavLink
                   key={item.url}
                   to={item.url}
-                  className={`flex items-center gap-3 font-semibold text-[17px] px-4 py-3 rounded-[10px] transition-all duration-200 ${isActive ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-md" : "bg-transparent text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent"
+                  className={`flex items-center gap-3 font-semibold text-[16px] px-4 py-3 rounded-[10px] transition-all duration-200 ${isActive ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-md" : "bg-transparent text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-sidebar-accent"
                     }`}
                 >
-                  {item.icon && <item.icon className="w-6 h-6" />}
+                  {item.icon && <item.icon className="w-5 h-5 flex-shrink-0" />}
                   <span>{item.title}</span>
                 </NavLink>
               );
