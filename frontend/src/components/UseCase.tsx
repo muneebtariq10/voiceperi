@@ -106,7 +106,7 @@ const UseCase = () => {
                         </div>
                     </div>
                     
-                    <div className="w-full flex flex-col md:flex-row bg-[var(--bg-surface)] border border-[var(--border-default)] p-5 md:px-[65px] md:py-[51px] md:gap-9 rounded-[50px]">
+                    <div className="w-full flex flex-col md:flex-row bg-gradient-to-t from-[#d9eeec] via-[#d9eeec] to-white dark:bg-none dark:bg-[var(--bg-surface)] border border-transparent dark:border-[var(--border-default)] p-5 md:px-[65px] md:py-[51px] md:gap-9 rounded-[50px]">
                         {/* Left Heading */}
                         <div className="md:w-1/3 flex flex-col self-center items-start gap-5">
                             <h3 className="text-[28px] md:text-[40px] font-bold text-primary">
@@ -233,7 +233,7 @@ const UseCase = () => {
                         </div>
                     </div>
                     
-                    <div className="w-full flex flex-col bg-[var(--bg-surface)] border border-[var(--border-default)] md:px-[65px] pb-[80px] pt-[60px] gap-y-9 rounded-[50px]">
+                    <div className="w-full flex flex-col bg-gradient-to-t from-[#d9eeec] via-[#d9eeec] to-white dark:bg-none dark:bg-[var(--bg-surface)] border border-transparent dark:border-[var(--border-default)] md:px-[65px] pb-[80px] pt-[60px] gap-y-9 rounded-[50px]">
                         <h3 className='text-[28px] md:text-[40px] font-bold text-primary text-center'>Assistants in action</h3>
 
                         <Carousel opts={{ align: "start" }} className="w-full relative">
@@ -339,7 +339,7 @@ const UseCase = () => {
                 </div>
             </section>
 
-            <section id="keyStatistics" className="container mx-auto bg-transparent py-5">
+            <section id="keyStatistics" className="container mx-auto bg-gradient-to-t from-[#d9eeec] via-[#d9eeec] to-white dark:bg-none dark:bg-transparent py-5">
                 <div className='flex flex-col items-center justify-start gap-y-10 px-2 md:px-[40px]'>
                     <div className='flex flex-col items-center justify-start gap-y-3 '>
                         <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-center'>Key Statistics</h3>
