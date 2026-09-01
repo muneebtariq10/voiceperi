@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Logo } from "./Logo";
 import { Link } from "react-router-dom";
-import { PhoneCall } from "lucide-react";
+import { PhoneCall, Blocks } from "lucide-react";
 import axios from "axios";
 import { Invoice } from "./PlanAndBilling";
 
@@ -65,14 +65,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "/dashboard/callHistory",
         icon: PhoneCall,
       },
-      /* Temporarily hiding Integrations
       {
         title: "Integrations",
         url: "/dashboard/integrations",
-        icon: LayoutDashboard,
-        show: user?.role === "user",
+        icon: Blocks,
+        show: true,
       },
-      */
 
       ...(user?.role === "admin" || user?.role === "super_admin"
         ? [

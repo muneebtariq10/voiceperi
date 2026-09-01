@@ -22,7 +22,29 @@ const Integrations = () => {
   const token =
     sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [hasShopify, setHasShopify] = useState(false);
   const API_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const fetchBusinessInfo = async (userId: string) => {
+    try {
+      const res = await fetch(`${API_URL}api/businessinfos/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        const bData = await res.json();
+        if (bData?.shopifyStoreUrl) {
+          setHasShopify(true);
+        } else {
+          setHasShopify(false);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch business info for integrations", err);
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async (userId: string) => {
@@ -41,6 +63,7 @@ const Integrations = () => {
 
         const data = await response.json();
         setUserInfo(data);
+        fetchBusinessInfo(userId);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
       }
@@ -72,7 +95,10 @@ const Integrations = () => {
       />
       <ShopifyIntegrationPopup
         isOpen={isShopifyOpen}
-        onClose={() => setIsShopifyOpen(false)}
+        onClose={() => {
+          setIsShopifyOpen(false);
+          if (userInfo?.id) fetchBusinessInfo(userInfo.id);
+        }}
         userInfo={userInfo}
       />
       <div className="flex flex-col justify-start items-start px-[16px] md:px-6 py-6 gap-y-5.5 bg-background">
@@ -151,6 +177,13 @@ const Integrations = () => {
                 </svg>
               </div>
               <p className="text-[20px] font-medium text-[var(--text-primary)]">Shopify</p>
+              <p
+                className={`${
+                  hasShopify ? "flex" : "hidden"
+                } justify-center py-[5px] text-[14px] font-medium text-primary bg-[#90EE90] rounded-[5px]`}
+              >
+                Integrated
+              </p>
             </div>
           </div>
         </div>

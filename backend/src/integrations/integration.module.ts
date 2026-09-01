@@ -8,6 +8,7 @@ import { User } from 'src/entities/user';
 import { Agent } from 'src/entities/agent';
 import { BusinessInformation } from 'src/entities/business_information';
 import { ShopifyOrderAdapter } from './adapters/shopify-order.adapter';
+import { ShopifyProductAdapter } from './adapters/shopify-product.adapter';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ShopifyOrderAdapter } from './adapters/shopify-order.adapter';
     TypeOrmModule.forFeature([User, Agent, BusinessInformation]),
   ],
   controllers: [IntegrationController],
-  providers: [IntegrationService, ShopifyOrderAdapter],
+  providers: [IntegrationService, ShopifyOrderAdapter, ShopifyProductAdapter],
+  exports: [ShopifyOrderAdapter, ShopifyProductAdapter],
 })
 export class IntegrationModule {}

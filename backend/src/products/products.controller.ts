@@ -29,4 +29,25 @@ export class ProductsController {
 
     return this.productsService.lookupProduct(rawQuery);
   }
+
+  @Public()
+  @Post('sync-shopify')
+  async syncShopify(@Body() body?: { businessId?: string }) {
+    if (body?.businessId) {
+      const count = await this.productsService.syncShopifyProductsForBusiness(
+        body.businessId,
+      );
+      return {
+        success: true,
+        message: `Synced ${count} products for business ${body.businessId}`,
+        count,
+      };
+    }
+    const count = await this.productsService.syncAllShopifyProducts();
+    return {
+      success: true,
+      message: `Synced ${count} products across all Shopify stores`,
+      count,
+    };
+  }
 }

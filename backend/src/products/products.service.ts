@@ -2,7 +2,12 @@ import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from '../entities/product';
-import { OpenCartProductAdapter } from '../integrations/adapters';
+import { BusinessInformation } from '../entities/business_information';
+import {
+  OpenCartProductAdapter,
+  ShopifyProductAdapter,
+} from '../integrations/adapters';
+import { ProductRecord } from '../integrations/interfaces';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
@@ -12,7 +17,10 @@ export class ProductsService implements OnModuleInit {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    @InjectRepository(BusinessInformation)
+    private readonly businessInfoRepo: Repository<BusinessInformation>,
     private readonly productAdapter: OpenCartProductAdapter,
+    private readonly shopifyProductAdapter: ShopifyProductAdapter,
   ) {}
 
   onModuleInit() {
@@ -32,22 +40,90 @@ export class ProductsService implements OnModuleInit {
         );
       }
 
-      // Step 2: Fetch fresh product catalog via the Integration Layer adapter
+      // Step 2: Fetch fresh product catalog via OpenCart adapter
       const liveProducts = await this.productAdapter.fetchAllProducts();
       if (liveProducts && liveProducts.length > 0) {
         this.productsCache = liveProducts;
         this.logger.log(
           `🚀 Updated fast memory cache with ${liveProducts.length} live products from PrintEZ API!`,
         );
-        await this.syncProductsToDatabase();
+        await this.syncProductsListToDatabase(liveProducts);
       }
+
+      // Step 3: Fetch fresh products from all connected Shopify stores
+      await this.syncAllShopifyProducts();
     } catch (error) {
       this.logger.error('Failed to initialize products catalog', error?.stack);
     }
   }
 
-  private async syncProductsToDatabase() {
-    if (this.productsCache.length === 0) return;
+  async syncAllShopifyProducts(): Promise<number> {
+    try {
+      this.logger.log('🛒 Syncing products from all connected Shopify stores...');
+      const shopifyProducts =
+        await this.shopifyProductAdapter.fetchAllProducts();
+      if (shopifyProducts && shopifyProducts.length > 0) {
+        const existingIds = new Set(this.productsCache.map((p) => p.productId));
+        for (const sp of shopifyProducts) {
+          if (!existingIds.has(sp.productId)) {
+            this.productsCache.push(sp);
+            existingIds.add(sp.productId);
+          }
+        }
+        await this.syncProductsListToDatabase(shopifyProducts);
+        this.logger.log(
+          `✅ Synced ${shopifyProducts.length} total Shopify products across all stores.`,
+        );
+        return shopifyProducts.length;
+      }
+      return 0;
+    } catch (err: any) {
+      this.logger.error('Failed syncing Shopify products', err?.stack);
+      return 0;
+    }
+  }
+
+  async syncShopifyProductsForBusiness(businessId: string): Promise<number> {
+    try {
+      const business = await this.businessInfoRepo.findOne({
+        where: { id: businessId },
+      });
+      if (!business || !business.shopifyStoreUrl) {
+        this.logger.warn(`No Shopify store found for business ID ${businessId}`);
+        return 0;
+      }
+
+      this.logger.log(
+        `🛒 Syncing products for Shopify store: ${business.shopifyStoreUrl}...`,
+      );
+      const products =
+        await this.shopifyProductAdapter.fetchProductsForBusiness(business);
+      if (products && products.length > 0) {
+        const existingIds = new Set(this.productsCache.map((p) => p.productId));
+        for (const p of products) {
+          if (!existingIds.has(p.productId)) {
+            this.productsCache.push(p);
+            existingIds.add(p.productId);
+          }
+        }
+        await this.syncProductsListToDatabase(products);
+        this.logger.log(
+          `✅ Successfully synced ${products.length} products for ${business.name}`,
+        );
+        return products.length;
+      }
+      return 0;
+    } catch (err: any) {
+      this.logger.error(
+        `Failed to sync Shopify products for business ${businessId}`,
+        err?.stack,
+      );
+      return 0;
+    }
+  }
+
+  private async syncProductsListToDatabase(records: ProductRecord[]) {
+    if (!records || records.length === 0) return;
     try {
       const allExisting = await this.productRepository.find({
         select: ['productId'],
@@ -55,9 +131,9 @@ export class ProductsService implements OnModuleInit {
       const existingIds = new Set(allExisting.map((p) => p.productId));
 
       const newProducts: Product[] = [];
-      for (const record of this.productsCache) {
+      for (const record of records) {
         if (!existingIds.has(record.productId) && record.productId) {
-          existingIds.add(record.productId); // Prevent duplicates within the API response
+          existingIds.add(record.productId);
           const product = this.productRepository.create({
             productId: record.productId,
             name: record.name,
@@ -75,13 +151,12 @@ export class ProductsService implements OnModuleInit {
       }
 
       if (newProducts.length > 0) {
-        // Save in chunks of 500 for maximum performance
         for (let i = 0; i < newProducts.length; i += 500) {
           const batch = newProducts.slice(i, i + 500);
           await this.productRepository.save(batch);
         }
         this.logger.log(
-          `Synced ${newProducts.length} brand new products into database.`,
+          `Synced ${newProducts.length} new products into database.`,
         );
       }
     } catch (error) {
