@@ -23,11 +23,8 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Logo } from "./Logo";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PhoneCall } from "lucide-react";
-import { Card, CardContent, CardFooter } from "./ui/card";
-import { Progress } from "./ui/progress";
-import { Button } from "./ui/button";
 import axios from "axios";
 import { Invoice } from "./PlanAndBilling";
 
@@ -39,13 +36,10 @@ interface DecodedToken {
 }
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const API_URL = import.meta.env.VITE_API_BASE_URL;
-  const [currentPlan, setCurrentPlan] = useState<Invoice | null>(null);
   const [subscribedPlan, setSubscribedPlan] = useState<Invoice[] | null>(null);
   const [userInfo, setUserInfo] = useState<DecodedToken | null>(null);
   const [usedMinutes, setUsedMinutes] = useState(0);
   const [totalMinutes, setTotalMinutes] = useState(0);
-  const progressPercentage = (usedMinutes / totalMinutes) * 100;
-  const RemainingMinutes = totalMinutes - usedMinutes;
   const { user } = AppUser();
   console.log(user, "user inside side bar + user.admin", user?.role);
   const data = {
@@ -300,15 +294,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         setSubscribedPlan(activePlans);
 
-        const latestSelectedPlan = [...formattedData].sort(
-          (a, b) =>
-            new Date(b.current_period_start).getTime() -
-            new Date(a.current_period_start).getTime()
-        )[0];
-
-        if (latestSelectedPlan) {
-          setCurrentPlan(latestSelectedPlan);
-        }
       } catch (error) {
         console.error("Error fetching billing history:", error);
       }

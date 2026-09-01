@@ -14,10 +14,6 @@ interface PaymentPlanProps {
 }
 
 export default function PaymentPlanCard2({ title, Monthlyprice, Yearlyprice, features, isFeatured, selectedPlan }: PaymentPlanProps) {
-    // const [amount, duration] = price.includes("/")
-    //     ? price.split("/")
-    //     : [price, ""];
-
     const monthlyPrice = Number(Monthlyprice);
     const isValidPrice = !isNaN(monthlyPrice);
     const payablePrice = isValidPrice
@@ -28,72 +24,73 @@ export default function PaymentPlanCard2({ title, Monthlyprice, Yearlyprice, fea
 
     return (
         <Card
-            className={`flex md:w-[285px] h-auto flex-col gap-4 border-2 !gradient-to-t !from-[#1c9c84] !to-[#fff]  
-        ${isFeatured ? "bg-default-purple text-white" : ""} 
-        border-gray-200 shadow-md rounded-[12px] p-4`}
+            className={`flex md:w-[285px] h-auto flex-col gap-4 bg-[var(--bg-surface)] rounded-2xl p-6 transition-all duration-300
+        ${isFeatured ? "border-2 border-[var(--teal-500)] shadow-[0_8px_30px_rgb(0,0,0,0.12)] -translate-y-2 relative z-10" : "border border-[var(--border-default)] shadow-sm hover:shadow-md"}`}
         >
             <div className="flex flex-col gap-y-4">
                 <CardHeader className="p-0">
-                    <div className="flex justify-between items-center w-full">
+                    <div className="flex flex-col items-start gap-y-3 w-full">
                         <div className="flex items-center justify-between w-full">
-                            <CardTitle className={`text-2xl font-semibold ${isFeatured ? "text-white" : "text-primary"}`}>
+                            <CardTitle className="text-2xl font-semibold text-[var(--text-primary)]">
                                 {title}
                             </CardTitle>
+                            {isFeatured && (
+                                <Badge className="font-medium text-xs rounded-full bg-[var(--teal-100)] text-[var(--teal-700)] border-none px-3 py-1">
+                                    Most Popular
+                                </Badge>
+                            )}
                         </div>
-                        {isFeatured && (
-                            <Badge className="font-medium text-xs rounded-[8px] bg-[#ffffff] text-primary">
-                                Most Popular
-                            </Badge>
-                        )}
-                    </div>
-                    <hr />
-                    <p className="text-left">
-                        {payablePrice !== null && title !== "Enterprises" ? (
-                            <>
-                                <span className={`text-[26px] font-semibold ${isFeatured ? "text-white" : "text-primary"}`}>
-                                    ${payablePrice}
-                                </span>
-                                {selectedPlan && (
-                                    <span className={`text-xl font- ${isFeatured ? "text-white" : "text-default-gray"}`}>
-                                        /{selectedPlan}
+                        <p className="text-left flex items-baseline gap-x-1">
+                            {payablePrice !== null && title !== "Enterprises" ? (
+                                <>
+                                    <span className="text-4xl font-bold text-[var(--text-primary)] tracking-tight">
+                                        ${payablePrice}
                                     </span>
-                                )}
-                            </>
-                        ) : (
-                            <span className={`text-[26px] font-semibold ${isFeatured ? "text-white" : "text-primary"}`}>
-                                Custom Pricing
-                            </span>
-                        )}
-                    </p>
+                                    {selectedPlan && (
+                                        <span className="text-[15px] font-medium text-[var(--text-secondary)]">
+                                            /{selectedPlan}
+                                        </span>
+                                    )}
+                                </>
+                            ) : (
+                                <span className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">
+                                    Custom
+                                </span>
+                            )}
+                        </p>
+                    </div>
                 </CardHeader>
             </div>
+            
+            <div className="w-full h-px bg-[var(--border-default)] my-2" />
 
-            <CardContent className="p-0 mt-4">
-                <ul className="flex flex-col gap-y-4 text-nowrap">
+            <CardContent className="p-0 flex-grow">
+                <ul className="flex flex-col gap-y-3.5">
                     {features?.map((feature, index) => (
-                        <li key={index} className="flex items-center gap-x-2">
-                            <div className={`w-6 h-6 flex items-center justify-center rounded-full border-2 
-                        ${isFeatured ? "border-white bg-white " : " bg-[#b7f4c5] "}`}>
-                                <Check className={`w-4 h-4 ${isFeatured ? "text-default-purple" : "text-[#0e9e59]"}`} />
+                        <li key={index} className="flex items-start gap-x-3 text-[15px] text-[var(--text-primary)] leading-tight">
+                            <div className="mt-0.5 shrink-0 bg-[var(--teal-50)] rounded-full p-1">
+                                <Check className="w-3.5 h-3.5 text-[var(--teal-600)] stroke-[3]" />
                             </div>
-                            {feature}
+                            <span>{feature}</span>
                         </li>
                     ))}
                 </ul>
             </CardContent>
 
-            <CardFooter className="flex justify-center mt-auto">
-                <Link to='/signup'>
+            <CardFooter className="p-0 mt-6 pt-auto">
+                <Link to='/signup' className="w-full">
                     <Button
-                        variant="outline"
-                        className={`cursor-pointer rounded-[10px] w-[200px] bg-default-purple text-white ${isFeatured ? "bg-blue-600 text-white border-none hover:bg-blue-700" : ""}`}
+                        variant={isFeatured ? "default" : "outline"}
+                        className={`w-full rounded-xl py-6 font-semibold flex items-center justify-center gap-2 group transition-all
+                        ${isFeatured 
+                            ? "bg-[var(--teal-600)] hover:bg-[var(--teal-700)] text-white border-none shadow-md hover:shadow-lg" 
+                            : "bg-[var(--bg-surface)] hover:bg-[var(--bg-inset)] text-[var(--text-primary)] border-[var(--border-default)]"}`}
                     >
-                        Start Free Trial <ArrowUpRight className='w-6 h-6' />
+                        Start Free Trial 
+                        <ArrowUpRight className={`w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${!isFeatured && "text-[var(--text-secondary)]"}`} />
                     </Button>
                 </Link>
             </CardFooter>
         </Card>
-
-
     );
 }

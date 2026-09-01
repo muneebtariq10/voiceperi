@@ -33,4 +33,20 @@ export class UpdateBusinessinfoDto extends PartialType(CreateBusinessinfoDto) {
   @IsOptional()
   @IsArray()
   business_hours?: string[];
+
+  @IsOptional()
+  @IsString()
+  shopifyStoreUrl?: string;
+
+  @IsOptional()
+  @IsString()
+  shopifyAccessToken?: string;
+
+  @IsOptional()
+  @IsString()
+  shopifyClientId?: string;
+
+  @IsOptional()
+  @IsString()
+  shopifyClientSecret?: string;
 }

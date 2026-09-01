@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import logo from '../assets/ellipse119.png'
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
@@ -58,21 +58,17 @@ const Header = () => {
 
   return (
     <nav
-      className={`flex items-center justify-between px-4 md:px-[80px] py-5 container mx-auto sticky bg-white z-50 rounded-b-2xl transition-all duration-300 
-            ${scrolledDown ? "shadow-md" : ""}
+      className={`flex items-center justify-between px-4 md:px-16 py-4 container mx-auto sticky bg-[var(--bg-surface)]/80 backdrop-blur-xl z-50 border-b border-[var(--border-subtle)] transition-all duration-300
+            ${scrolledDown ? "border-[var(--border-default)] shadow-[0_1px_3px_rgba(0,0,0,0.04)]" : ""}
             ${hideNavbar ? "top-0" : "top-0"}
           `}
     >
-      {/* <NavLink to="/" className="flex items-center justify-between gap-x-3">
-                <img className="w-[40px]" src={logo} alt="logo" />
-                <span className="text-xl font-semibold text-primary">Sonervant</span>
-            </NavLink> */}
       <NavLink to="/" className="flex items-center gap-x-3 shrink-0">
-        <Logo theme="light" className="text-2xl md:text-3xl hover:scale-[1.02] transition-transform duration-200" />
+        <Logo className="text-xl md:text-2xl hover:opacity-90 transition-opacity duration-150" />
       </NavLink>
-      <div className="hidden md:flex items-center gap-x-8">
+      <div className="hidden md:flex items-center gap-x-6">
         <NavigationMenu>
-          <NavigationMenuList className=" flex items-center justify-between  gap-x-8">
+          <NavigationMenuList className="flex items-center gap-x-1">
             {navigationMenuItems.map((item) => (
               <NavigationMenuItem key={item.title}>
                 <NavigationMenuLink
@@ -80,7 +76,7 @@ const Header = () => {
                   asChild
                 >
                   <a
-                    className="text-[18px] font-normal text-default-gray"
+                    className="text-[15px] font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-150"
                     href={item.href}
                   >
                     {item.title}
@@ -90,47 +86,49 @@ const Header = () => {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center justify-between gap-x-3">
+        <div className="flex items-center gap-x-2">
+          <ThemeToggle />
           <Link to="/login">
-            <Button className="rounded-[20px] text-primary text-base font-semibold bg-secondary hover:bg-primary hover:text-secondary cursor-pointer">
+            <Button className="rounded-lg text-[var(--text-secondary)] text-sm font-medium bg-transparent border border-[var(--border-default)] hover:bg-[var(--bg-inset)] hover:text-[var(--text-primary)] cursor-pointer transition-colors duration-150 px-5 h-9">
               Login
             </Button>
           </Link>
           <Link to="/signup">
-            <Button className="rounded-[20px] text-secondary text-base font-semibold bg-default-purple cursor-pointer">
-              Get Started <ArrowUpRight className="w-6 h-6" />
+            <Button className="rounded-lg text-white text-sm font-medium bg-[#0d9488] hover:bg-[#0f766e] cursor-pointer transition-colors duration-150 px-5 h-9">
+              Get Started <ArrowUpRight className="w-4 h-4 ml-1" />
             </Button>
           </Link>
         </div>
       </div>
 
       {/* Mobile Hamburger */}
-      <div className="md:hidden">
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+      <div className="md:hidden flex items-center gap-x-2">
+        <ThemeToggle />
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-[var(--text-primary)]">
           {mobileMenuOpen ? (
-            <X className="w-8 h-8" />
+            <X className="w-7 h-7" />
           ) : (
-            <Menu className="w-8 h-8" />
+            <Menu className="w-7 h-7" />
           )}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-[80px] left-0 w-full bg-white rounded-b-2xl shadow-md flex flex-col items-center gap-y-6 py-6 z-50">
+        <div className="absolute top-[72px] left-0 w-full bg-[var(--bg-surface)] border-b border-[var(--border-default)] shadow-[0_4px_12px_rgba(0,0,0,0.06)] flex flex-col items-center gap-y-4 py-6 z-50">
           {navigationMenuItems.map((item) => (
             <a
               key={item.title}
               href={item.href}
-              className="text-[18px] font-semibold text-default-gray"
-              onClick={() => setMobileMenuOpen(false)} // close after click
+              className="text-[15px] font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
             >
               {item.title}
             </a>
           ))}
           <Link to="/login" className="w-[80%]">
             <Button
-              className="w-full rounded-[20px] text-primary text-base font-semibold bg-secondary hover:bg-primary hover:text-secondary"
+              className="w-full rounded-lg text-[var(--text-secondary)] text-sm font-medium bg-transparent border border-[var(--border-default)] hover:bg-[var(--bg-inset)]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Login
@@ -138,10 +136,10 @@ const Header = () => {
           </Link>
           <Link to="/signup" className="w-[80%]">
             <Button
-              className="w-full rounded-[20px] text-secondary text-base font-semibold bg-default-purple"
+              className="w-full rounded-lg text-white text-sm font-medium bg-[#0d9488] hover:bg-[#0f766e]"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Get Started <ArrowUpRight className="w-6 h-6" />
+              Get Started <ArrowUpRight className="w-4 h-4 ml-1" />
             </Button>
           </Link>
         </div>

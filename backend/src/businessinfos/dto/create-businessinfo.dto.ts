@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsUUID, IsOptional } from 'class-validator';
 
 export class CreateBusinessinfoDto {
   // @IsNotEmpty()
@@ -10,4 +10,16 @@ export class CreateBusinessinfoDto {
 
   @IsNotEmpty()
   timezone: string;
+
+  @IsOptional()
+  shopifyStoreUrl?: string;
+
+  @IsOptional()
+  shopifyAccessToken?: string;
+
+  @IsOptional()
+  shopifyClientId?: string;
+
+  @IsOptional()
+  shopifyClientSecret?: string;
 }

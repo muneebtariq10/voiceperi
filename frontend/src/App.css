@@ -1,62 +1,33 @@
-/* index.css or global.css */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+/* ═══════════════════════════════════════════════
+   Sonervant — Global Styles
+   ═══════════════════════════════════════════════ */
+
+/* Font: DM Sans (replaces Outfit) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
 .bg-custom-purple {
   background-color: var(--color-default-purple) !important;
 }
+
 #root {
   max-width: 1280px;
   text-align: center;
   padding: 0 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-
+/* Brand text gradient */
 .text-gradient-1 {
-  background: linear-gradient(55.15deg, #46a79d -7.09%, #72e6da 51.72%, #90D1FF 101.48%);
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0ea5e9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* Marquee animations (functional — preserved) */
 @keyframes marquee-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

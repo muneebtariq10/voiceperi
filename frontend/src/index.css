@@ -6,93 +6,197 @@ html {
   scroll-behavior: smooth;
 }
 
-
+/* ═══════════════════════════════════════════════
+   SONERVANT DESIGN SYSTEM v2.0 — Light Mode
+   ═══════════════════════════════════════════════ */
 :root {
-  --default-purple: #46a79d;
-  --default-gray: #475569;
-  --default-lightpurple: #d9eeec;
-  --default-lightblue: #46a79d;
-  --default-lightpurple-2: #e5e0fa;
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* ── Brand ── */
+  --teal-50: #f0fdfa;
+  --teal-100: #ccfbf1;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+  --teal-800: #115e59;
+
+  /* ── Surfaces ── */
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-raised: #ffffff;
+  --bg-inset: #f1f5f9;
+
+  /* ── Text ── */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  /* ── Borders ── */
+  --border-default: #e2e8f0;
+  --border-subtle: #f1f5f9;
+
+  /* ── Semantic ── */
+  --color-success: #059669;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-info: #0284c7;
+
+  /* ── Legacy brand aliases (used by existing components) ── */
+  --default-purple: #0d9488;
+  --default-gray: #334155;
+  --default-lightpurple: #f0fdfa;
+  --default-lightblue: #0d9488;
+  --default-lightpurple-2: #f0fdfa;
+
+  /* ── Radius ── */
+  --radius: 0.5rem;
+
+  /* ── Shadcn theme mapping (Light) ── */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0d9488;
+
+  /* ── Charts ── */
+  --chart-1: #0d9488;
+  --chart-2: #6366f1;
+  --chart-3: #f59e0b;
+  --chart-4: #64748b;
+  --chart-5: #ec4899;
+
+  /* ── Sidebar ── */
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #0d9488;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #0d9488;
 }
 
+/* ═══════════════════════════════════════════════
+   SONERVANT DESIGN SYSTEM v2.0 — Dark Mode
+   ═══════════════════════════════════════════════ */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* ── Surfaces ── */
+  --bg-canvas: #0c0f1a;
+  --bg-surface: #141827;
+  --bg-surface-raised: #1a1f35;
+  --bg-inset: #0f1220;
+
+  /* ── Text ── */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* ── Borders ── */
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+
+  /* ── Semantic (vivid for dark backgrounds) ── */
+  --color-success: #34d399;
+  --color-success-bg: rgba(52, 211, 153, 0.1);
+  --color-warning: #fbbf24;
+  --color-warning-bg: rgba(251, 191, 36, 0.1);
+  --color-error: #f87171;
+  --color-error-bg: rgba(248, 113, 113, 0.1);
+  --color-info: #38bdf8;
+
+  /* ── Legacy brand aliases ── */
+  --default-purple: #14b8a6;
+  --default-gray: #94a3b8;
+  --default-lightpurple: rgba(13, 148, 136, 0.1);
+  --default-lightblue: #14b8a6;
+  --default-lightpurple-2: rgba(13, 148, 136, 0.08);
+
+  /* ── Shadcn theme mapping (Dark) ── */
+  --background: #0c0f1a;
+  --foreground: #f1f5f9;
+  --card: #141827;
+  --card-foreground: #f1f5f9;
+  --popover: #141827;
+  --popover-foreground: #f1f5f9;
+  --primary: #14b8a6;
+  --primary-foreground: #0c0f1a;
+  --secondary: #1a1f35;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1a1f35;
+  --muted-foreground: #64748b;
+  --accent: #1a1f35;
+  --accent-foreground: #f1f5f9;
+  --destructive: #f87171;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #14b8a6;
+
+  /* ── Charts ── */
+  --chart-1: #14b8a6;
+  --chart-2: #818cf8;
+  --chart-3: #fbbf24;
+  --chart-4: #94a3b8;
+  --chart-5: #f472b6;
+
+  /* ── Sidebar ── */
+  --sidebar: #0c0f1a;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #14b8a6;
+  --sidebar-primary-foreground: #0c0f1a;
+  --sidebar-accent: #1a1f35;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #14b8a6;
 }
 
+/* ═══════════════════════════════════════════════
+   Tailwind Theme Tokens
+   ═══════════════════════════════════════════════ */
 @theme inline {
-  --color-default-purple:var(--default-purple);
-  --color-default-gray:var(--default-gray);
-  --color-default-lightpurple:var(--default-lightpurple);
-  --color-default-lightblue:var(--default-lightblue);
-  --color-default-lightpurple-2:var(--default-lightpurple-2);
+  /* Brand */
+  --color-teal-50: var(--teal-50);
+  --color-teal-100: var(--teal-100);
+  --color-teal-500: var(--teal-500);
+  --color-teal-600: var(--teal-600);
+  --color-teal-700: var(--teal-700);
+  --color-teal-800: var(--teal-800);
+
+  /* Surfaces */
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-raised: var(--bg-surface-raised);
+  --color-inset: var(--bg-inset);
+
+  /* Legacy aliases */
+  --color-default-purple: var(--default-purple);
+  --color-default-gray: var(--default-gray);
+  --color-default-lightpurple: var(--default-lightpurple);
+  --color-default-lightblue: var(--default-lightblue);
+  --color-default-lightpurple-2: var(--default-lightpurple-2);
+
+  /* Radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.625rem;
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
+
+  /* Shadcn token passthrough */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -132,5 +236,6 @@ html {
   }
   body {
     @apply bg-background text-foreground;
+    transition: background-color 200ms ease, color 150ms ease;
   }
 }

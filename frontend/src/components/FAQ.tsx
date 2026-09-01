@@ -7,7 +7,7 @@ import {
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { Plus } from "lucide-react";
 import backgroundimage from '../assets/bg2.png'
-// import videoicon from '../assets/video.png'
+
 const items = [
     {
         title: "What is an AI Voice Assistant?",
@@ -30,87 +30,75 @@ const items = [
         content: "Our AI assistants currently support over 30 languages, including English, Spanish, French, German, Mandarin, and many more, allowing you to connect with a global audience effortlessly.",
     },
 ];
+
 const FAQ = () => {
     return (
         <>
-        <section id="faq" className='flex flex-col py-[30px] md:py-[80px] px-4 md:px-[100px] container mx-auto max-w-[850px]'>
-            <div className='block justify-items-center items-start justify-between '>
-                <div className='flex basis-2/5 flex-col gap-y-4 items-center'>
-                    <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-left'>Frequently Asked Questions</h3>
-                    <div className='flex flex-col gap-y-2 '>
-                        <p className='text-default-gray text-lg font-normal text-center'>Have questions about integrating Sonervant into your business workflow? &nbsp;
-                            <span className='text-primary text-[20px] font-medium text-left'>Contact us below if you have any more questions.</span>
+        <section id="faq" className='flex flex-col py-[40px] md:py-[80px] px-4 md:px-[100px] container mx-auto max-w-[1000px]'>
+            <div className='flex flex-col md:flex-row items-start justify-between gap-12'>
+                <div className='flex md:basis-[45%] flex-col gap-y-6 items-start'>
+                    <h2 className='text-[35px] md:text-[45px] font-bold text-[var(--text-primary)] leading-tight'>Frequently Asked Questions</h2>
+                    <div className='flex flex-col gap-y-4'>
+                        <p className='text-[var(--text-secondary)] text-lg font-normal leading-relaxed'>
+                            Have questions about integrating Sonervant into your business workflow?
                         </p>
-                        
+                        <p className='text-[var(--text-primary)] text-lg font-medium'>
+                            Contact us below if you have any more questions.
+                        </p>
                     </div>
-                    <a href="#contactus" className='flex float-left mt-2'>
-                        <Button className='rounded-[20px] px-9 py-5 text-secondary text-lg font-bold bg-default-purple'>
+                    <a href="#contactus" className='mt-2'>
+                        <Button className='rounded-xl px-8 py-6 text-white text-[15px] font-semibold bg-[var(--teal-600)] hover:bg-[var(--teal-700)] shadow-sm hover:shadow transition-all'>
                             Contact Us
                         </Button>
                     </a>
                 </div>
-                <div className='w-full mt-3 md:mt-10'>
+                <div className='w-full md:basis-[55%] mt-6 md:mt-0'>
                     <Accordion
                         defaultValue="item-0"
                         type="single"
                         collapsible
-                        className="w-full"
+                        className="w-full flex flex-col gap-y-4"
                     >
                         {items.map(({ title, content }, index) => (
                             <AccordionItem
                                 key={index}
                                 value={`item-${index}`}
-                                className="data-[state=open]:bg-[linear-gradient(to_top,_#d9eeec_65%,_#FFFFFF_100%)] data-[state=open]:rounded-[30px] data-[state=open]:py-7.5 py-5 px-4 md:px-7.5"
+                                className="bg-[var(--bg-surface)] hover:bg-[var(--bg-inset)] data-[state=open]:bg-[var(--bg-inset)] border border-[var(--border-default)] rounded-[20px] transition-all px-6 py-4 shadow-sm"
                             >
                                 <AccordionPrimitive.Header className="flex">
-                                    <AccordionPrimitive.Trigger className="cursor-pointer group flex flex-1 text-[22px] font-semibold items-center justify-between transition-all hover:underline">
+                                    <AccordionPrimitive.Trigger className="cursor-pointer group flex flex-1 text-[18px] font-semibold text-[var(--text-primary)] items-center justify-between transition-all hover:no-underline text-left gap-4">
                                         {title}
-                                        <div className="w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out group-data-[state=open]:bg-default-purple">
-                                            <Plus className="h-5 w-5 shrink-0 text-default-purple transition-transform duration-300 ease-in-out group-data-[state=open]:rotate-45 group-data-[state=open]:text-white" />
+                                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[var(--teal-50)] transition-all duration-300 ease-in-out group-data-[state=open]:bg-[var(--teal-600)] shrink-0">
+                                            <Plus className="h-5 w-5 shrink-0 text-[var(--teal-600)] transition-transform duration-300 ease-in-out group-data-[state=open]:rotate-45 group-data-[state=open]:text-white" />
                                         </div>
                                     </AccordionPrimitive.Trigger>
                                 </AccordionPrimitive.Header>
-                                <AccordionContent className="pt-4 pb-0 text-lg font-normal text-default-gray">
+                                <AccordionContent className="pt-4 pb-2 text-[16px] font-normal text-[var(--text-secondary)] leading-relaxed">
                                     {content}
                                 </AccordionContent>
                             </AccordionItem>
                         ))}
-
-
                     </Accordion>
                 </div>
             </div>
-            
         </section>
 
         {/* Build Conversational Ai agent */}
-        <section id="Conversationalagent" className='flex flex-col pt-[40px] pb-[60px] px-4 md:px-[100px] container mx-auto'>
-            <div className='block md:flex items-center justify-between '>
-                <div className='basis-[45%]'>
-                    <h3 className='text-[30px] md:text-[50px] font-bold text-primary text-left'>Build Conversational AI agents in minutes</h3>
-                    <p className='text-default-gray text-lg font-normal text-left pt-1'>Design, test, and deploy customized AI voice assistants tailored to your brand's unique needs without writing a single line of code.</p>
+        <section id="Conversationalagent" className='flex flex-col py-[60px] px-4 md:px-[100px] container mx-auto'>
+            <div className='block md:flex items-center justify-between gap-12'>
+                <div className='basis-[45%] flex flex-col gap-y-4'>
+                    <h2 className='text-[35px] md:text-[45px] font-bold text-[var(--text-primary)] leading-tight'>Build Conversational AI agents in minutes</h2>
+                    <p className='text-[var(--text-secondary)] text-lg font-normal leading-relaxed'>
+                        Design, test, and deploy customized AI voice assistants tailored to your brand's unique needs without writing a single line of code.
+                    </p>
                 </div>
-                <div className="flex items-center justify-center basis-[50%] bg-cover bg-center h-[400px] cursor-pointer w-full mt-3 md:mt-auto" style={{ backgroundImage: `url(${backgroundimage})` }}>
-                    
-                    <svg width="207" height="208" viewBox="0 0 207 208" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle opacity="0.3" cx="103.591" cy="99.8511" r="75.5269" fill="url(#paint0_linear_395_3410)"/>
-                        <circle opacity="0.3" cx="103.591" cy="103.852" r="103.192" fill="url(#paint1_linear_395_3410)"/>
+                <div className="flex items-center justify-center basis-[50%] bg-cover bg-center h-[400px] rounded-3xl overflow-hidden cursor-pointer w-full mt-8 md:mt-0 relative group border border-[var(--border-default)] shadow-sm" style={{ backgroundImage: `url(${backgroundimage})` }}>
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />
+                    <svg width="207" height="208" viewBox="0 0 207 208" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 transition-transform duration-300 group-hover:scale-110">
+                        <circle opacity="0.3" cx="103.591" cy="99.8511" r="75.5269" fill="var(--teal-400)"/>
+                        <circle opacity="0.3" cx="103.591" cy="103.852" r="103.192" fill="var(--teal-300)"/>
                         <circle cx="103.591" cy="98.8135" r="33.6924" fill="white"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M103.591 150.665C131.654 150.665 154.404 127.915 154.404 99.852C154.404 71.7888 131.654 49.0391 103.591 49.0391C75.5281 49.0391 52.7783 71.7888 52.7783 99.852C52.7783 127.915 75.5281 150.665 103.591 150.665ZM96.9526 119.394L120.937 105.233C124.909 102.888 124.909 96.8165 120.937 94.471L96.9526 80.3103C93.0919 78.031 88.3474 80.9977 88.3474 85.6913V114.013C88.3474 118.706 93.0919 121.673 96.9526 119.394Z" fill="url(#paint2_linear_395_3410)"/>
-                        <defs>
-                        <linearGradient id="paint0_linear_395_3410" x1="103.591" y1="24.3242" x2="103.591" y2="175.378" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#46a79d"/>
-                        <stop offset="1" stop-color="#d9eeec"/>
-                        </linearGradient>
-                        <linearGradient id="paint1_linear_395_3410" x1="103.591" y1="0.660156" x2="103.591" y2="207.044" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#46a79d"/>
-                        <stop offset="1" stop-color="#d9eeec"/>
-                        </linearGradient>
-                        <linearGradient id="paint2_linear_395_3410" x1="103.591" y1="49.0391" x2="103.591" y2="150.665" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#46a79d"/>
-                        <stop offset="1" stop-color="#d9eeec"/>
-                        </linearGradient>
-                        </defs>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M103.591 150.665C131.654 150.665 154.404 127.915 154.404 99.852C154.404 71.7888 131.654 49.0391 103.591 49.0391C75.5281 49.0391 52.7783 71.7888 52.7783 99.852C52.7783 127.915 75.5281 150.665 103.591 150.665ZM96.9526 119.394L120.937 105.233C124.909 102.888 124.909 96.8165 120.937 94.471L96.9526 80.3103C93.0919 78.031 88.3474 80.9977 88.3474 85.6913V114.013C88.3474 118.706 93.0919 121.673 96.9526 119.394Z" fill="var(--teal-600)"/>
                     </svg>
                 </div>
             </div>

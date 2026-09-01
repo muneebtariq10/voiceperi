@@ -77,24 +77,26 @@ const Pricing = () => {
     }, [API_URL]);
     return (
         <section id="pricing" className='md:px-[100px] py-[40px] md:py-[80px] container mx-auto'>
-            <div className='flex flex-col gap-y-6 '>
-                <div className='w-full block md:flex items-center md:justify-between '>
-                    <div className='flex flex-col gap-y-1 items-center md:items-start'>
-                        <h3 className='text-[30px] md:text-[50px] font-bold text-left text-primary'>Our Pricing Plan</h3>
-                        <p className='text-lg font-normal text-left text-default-gray'>Choose a plan that scales with your business needs.</p>
+            <div className='flex flex-col gap-y-10'>
+                <div className='w-full flex flex-col md:flex-row items-center justify-between gap-y-6'>
+                    <div className='flex flex-col gap-y-3 items-center md:items-start text-center md:text-left'>
+                        <h2 className='text-3xl md:text-4xl font-bold text-[var(--text-primary)]'>Our Pricing Plan</h2>
+                        <p className='text-[15px] font-normal text-[var(--text-secondary)] max-w-lg'>Choose a plan that scales with your business needs. No hidden fees.</p>
                     </div>
                     <ToggleGroup
                         type="single"
                         value={selectedPlan}
                         onValueChange={(value) => value && setSelectedPlan(value)}
-                        className="flex items-center bg-gray-200 rounded-full w-fit mt-[10px] md:mt-0 "
+                        className="flex items-center bg-[var(--bg-inset)] p-1.5 rounded-full w-fit border border-[var(--border-default)]"
                     >
                         {/* Monthly Button */}
                         <ToggleGroupItem
                             value="month"
                             className={cn(
-                                "px-8 py-2.5 text-[16px] font-bold rounded-full transition-all duration-300",
-                                selectedPlan === "month" ? "bg-default-purple text-white" : "text-default-gray"
+                                "px-6 py-2 text-[15px] rounded-full transition-all duration-200",
+                                selectedPlan === "month" 
+                                    ? "bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-sm font-semibold" 
+                                    : "text-[var(--text-secondary)] font-medium hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)]/50"
                             )}
                         >
                             Monthly
@@ -104,11 +106,19 @@ const Pricing = () => {
                         <ToggleGroupItem
                             value="year"
                             className={cn(
-                                "px-8 py-2.5 text-[16px] font-normal rounded-full transition-all duration-300",
-                                selectedPlan === "year" ? "bg-[#46a79d] text-white" : ""
+                                "px-6 py-2 text-[15px] rounded-full transition-all duration-200 flex items-center gap-x-2",
+                                selectedPlan === "year" 
+                                    ? "bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-sm font-semibold" 
+                                    : "text-[var(--text-secondary)] font-medium hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)]/50"
                             )}
                         >
-                            Yearly <span className=" text-xs font-normal">-20% off</span>
+                            Yearly 
+                            <span className={cn(
+                                "text-xs font-semibold px-2 py-0.5 rounded-full transition-colors",
+                                selectedPlan === "year" ? "bg-[var(--teal-100)] text-[var(--teal-700)]" : "bg-[var(--teal-50)] text-[var(--teal-600)]"
+                            )}>
+                                Save 20%
+                            </span>
                         </ToggleGroupItem>
                     </ToggleGroup>
                 </div>
