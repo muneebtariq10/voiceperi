@@ -2,7 +2,7 @@ import CalLogo from "../assets/cal.png";
 import ZapierLogo from "../assets/zapier.png";
 import MakeLogo from "../assets/make.png";
 import n8nLogo from "../assets/n8n.png";
-import ShopifyLogo from "../assets/shopify.svg";
+import ShopifyLogo from "../assets/shopify.png";
 import { Popup } from "@/components/IntegrationPopup";
 import { ShopifyIntegrationPopup } from "@/components/ShopifyIntegrationPopup";
 import { useEffect, useState } from "react";
@@ -172,11 +172,11 @@ const Integrations = () => {
               }}
               className="flex flex-col gap-y-3.5 cursor-pointer"
             >
-              <div className="flex justify-center items-center border rounded-[8px] shadow-md h-[100px] md:h-[170px] w-[150px] md:w-[265px] bg-[#95BF47]/5">
+              <div className="flex justify-center items-center border rounded-[8px] shadow-md h-[100px] md:h-[170px] w-[150px] md:w-[265px]">
                 <img
                   src={ShopifyLogo}
                   alt="shopify-logo"
-                  className="w-[50px] md:w-[85px] h-auto object-contain"
+                  className="w-[60px] md:w-[95px] h-auto object-contain"
                 />
               </div>
               <p className="text-[20px] font-medium text-[var(--text-primary)]">Shopify</p>

@@ -9,7 +9,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import ShopifyLogo from "../assets/shopify.svg";
+import ShopifyLogo from "../assets/shopify.png";
 
 type PopupProps = {
   isOpen: boolean;
