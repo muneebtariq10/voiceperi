@@ -102,7 +102,15 @@ export const ShopifyIntegrationPopup: React.FC<PopupProps> = ({
       }
 
       setIsLoading(false);
-      toast.success("Shopify credentials saved!");
+      toast.success("Shopify credentials saved! Syncing products in background...");
+      
+      // Trigger background product sync
+      fetch(`${API_URL}products/sync-shopify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ businessId: businessInfoId }),
+      }).catch((err) => console.warn("Background product sync error:", err));
+
       onClose();
     } catch (error) {
       console.error("Failed to save Shopify credentials:", error);

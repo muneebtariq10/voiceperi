@@ -61,11 +61,19 @@ export class OrdersController {
       body?.customerEmail ??
       undefined;
 
+    const agentId =
+      args.agentId ??
+      args.agent_id ??
+      body?.agentId ??
+      body?.agent_id ??
+      undefined;
+
     const correlationId = Math.random().toString(36).substring(7);
     return await this.ordersService.lookupOrder(
       rawOrderId,
       correlationId,
       rawEmail,
+      agentId,
     );
   }
 
@@ -102,6 +110,13 @@ export class OrdersController {
       body?.company ??
       undefined;
 
+    const agentId =
+      args.agentId ??
+      args.agent_id ??
+      body?.agentId ??
+      body?.agent_id ??
+      undefined;
+
     if (!email && !phone && !name) {
       return {
         found: false,
@@ -116,6 +131,7 @@ export class OrdersController {
       correlationId,
       phone,
       name,
+      agentId,
     );
   }
 }
