@@ -7,11 +7,13 @@ import facebook from '../assets/facebook.png'
 import amazon from '../assets/amazon.png'
 import nike from '../assets/nike.png'
 import Feature1 from '@/components/Feature1'
+import { ParticlesBackground } from '@/components/ParticlesBackground'
 
 const HomeContent = () => {
     return (
         <>
         <section className="relative w-full overflow-hidden container mx-auto px-4 lg:px-8">
+            <ParticlesBackground />
             <div className="flex flex-wrap items-center py-16 md:py-24 md:px-[40px] lg:px-[100px]">
         
                 <div className="w-full lg:w-7/12 mb-12 lg:mb-0">

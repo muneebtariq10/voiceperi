@@ -346,7 +346,7 @@ export const Step1 = ({
           <div
             className={`${
               locationData?.length !== 0 ? "flex" : "hidden"
-            } scrollbar-hide bg-gray-100 rounded-[3px] h-fit max-h-[150px] py-[5px] px-1 max-w-full flex items-start flex-col overflow-x-hidden`}
+            } scrollbar-hide bg-popover text-popover-foreground shadow-md rounded-[3px] h-fit max-h-[150px] py-[5px] px-1 max-w-full flex items-start flex-col overflow-x-hidden`}
             style={{
               scrollbarWidth: "none" /* For Firefox */,
               msOverflowStyle: "none" /* For Internet Explorer 10+ */,
@@ -363,7 +363,7 @@ export const Step1 = ({
                   msOverflowStyle: "none" /* For Internet Explorer 10+ */,
                 }}
                 key={index}
-                className="w-full mt-[2px] rounded-[3px] cursor-pointer text-[12px] scroll-auto h-[20px] hover:bg-gray-200"
+                className="w-full mt-[2px] rounded-[3px] cursor-pointer text-[12px] scroll-auto h-[20px] hover:bg-accent hover:text-accent-foreground"
               >
                 <span
                   style={{

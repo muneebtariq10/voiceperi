@@ -161,8 +161,23 @@ html {
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.12);
   --sidebar-ring: #14b8a6;
-}
 
+  /* ── Invert Tailwind Gray Scale for Dark Mode Consistency ── */
+  --color-gray-50: #151a2d;
+  --color-gray-100: #1a1f35;
+  --color-gray-200: #232a47;
+  --color-gray-300: #343d63;
+  --color-gray-400: #4f5a80;
+  --color-gray-500: #94a3b8;
+  --color-gray-600: #cbd5e1;
+  --color-gray-700: #e2e8f0;
+  --color-gray-800: #f1f5f9;
+  --color-gray-900: #ffffff;
+
+  /* ── Brand Accents ── */
+  --brand-purple: #818cf8;
+  --brand-emerald: #34d399;
+}
 /* ═══════════════════════════════════════════════
    Tailwind Theme Tokens
    ═══════════════════════════════════════════════ */
@@ -187,6 +202,10 @@ html {
   --color-default-lightpurple: var(--default-lightpurple);
   --color-default-lightblue: var(--default-lightblue);
   --color-default-lightpurple-2: var(--default-lightpurple-2);
+
+  /* Brand Accents */
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-emerald: var(--brand-emerald);
 
   /* Radius */
   --radius-sm: 0.375rem;
